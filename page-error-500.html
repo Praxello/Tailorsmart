@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <title>Fastinvo</title>
+    <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
+
+    <link href="css/helper.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <script src="./select2/jquery-2.1.1.min.js" type="text/javascript"></script>
+      <link href="./select2/select2-bootstrap.min.css" rel="stylesheet" />
+     <link href="./select2/select4.css" rel="stylesheet" />
+     <script src="./select2/select4.js" type="text/javascript"></script>
+     <script type="text/javascript">
+           jQuery(document).ready(function($) {
+               $('select').select2({
+                   allowClear: true,
+                   placeholder: "Select here"
+               });
+             });
+     </script>
+</head>
+
+<body class="fix-header fix-sidebar">
+    <!-- Preloader - style you can find in spinners.css -->
+    <div class="preloader">
+        <svg class="circular" viewBox="25 25 50 50">
+			<circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
+    </div>
+    <!-- Main wrapper  -->
+    <div class="error-page" id="wrapper">
+      <div class="col-lg-12">
+          <div class="card card-outline-primary">
+              <div class="card-header">
+                  <h4 class="m-b-0 text-white">Invoice</h4>
+              </div>
+              <div class="card-body">
+                  <form action="#">
+                      <div class="form-body">
+                          <!-- <h3 class="card-title m-t-15">Person Info</h3> -->
+                          <!-- <hr> -->
+                          <div class="row p-t-20">
+                              <div class="col-md-4">
+                                  <div class="form-group">
+                                      <label class="control-label">Customer Name
+                                      <sup><font color="red" size="3">*</font></sup>:<span id="error_customer_msg"></span>
+                                      </label>
+                                      <!-- id="users" -->
+                                      <select name="customer_name" class="form-control select2-select"   onchange="getvalue();"  required>
+                                        <option value=""></option>
+                                        <option value="kk">k1</option>
+                                        <option value="kk">k2</option>
+                                      </select>
+                                    </div>
+                              </div>
+                              <div class="col-md-4">
+                                  <div class="form-group">
+                                    <div class="row">
+                                    <strong id="labelbill"></strong>
+                                  </div>
+                                    <div class="row">
+                                    <span id="baddress"></span>
+                                  </div>
+                                  <div class="row">
+                                    <span id="bcity"></span> &nbsp;
+                                    <span id="bstate"></span>
+                                  </div>
+                                  <div class="row">
+                                  <span id="bcountry"></span>&nbsp;
+                                  <span id="bpin"></span>
+                                </div>
+                                  </div>
+                            </div>
+                              <!--/span-->
+                              <div class="col-md-4">
+                                  <div class="form-group">
+                                      <label class="control-label">Payment Terms
+                                        <sup><font color="red" size="3">*</font></sup>:
+                                        <span id="error_payment_msg"></span>
+                                      </label>
+                                      <!-- id="payterms" -->
+                                    <select  name="payterms" class="form-control select2-select"  onchange="getpaymentterm(this.value);">
+                                      <option value=""></option>
+                                      <option value="kk">k1</option>
+                                      <option value="kk">k2</option>
+                                    </select>
+                                  </div>
+                              </div>
+                              <!--/span-->
+                          </div>
+                          <!--/row-->
+                          <div class="row">
+                              <div class="col-md-4">
+                                <div class="form-group">
+                                        <label class="control-label">PO No<span id="error_po_msg"></span></label>
+                                        <input type="text" class="form-control" name="pono" id="pono">
+
+                                        </div>
+                                </div>
+                                <div class="col-md-4">
+                                  <div class="form-group">
+                                          <label class="control-label">Invoice date</label>
+                                          <input type="date" class="form-control" placeholder="dd/mm/yyyy">
+
+                                          </div>
+                                  </div>
+                              <!--/span-->
+                              <div class="col-md-4">
+                                  <div class="form-group">
+                                      <label class="control-label">Date of Birth</label>
+                                      <input type="date" class="form-control" placeholder="dd/mm/yyyy">
+                                  </div>
+                              </div>
+                              <!--/span-->
+                          </div>
+                          <!--/row-->
+                          <div class="row">
+                              <div class="col-md-6">
+                                  <div class="form-group">
+                                      <label class="control-label">Category</label>
+                                      <select class="form-control custom-select" data-placeholder="Choose a Category" tabindex="1">
+                                          <option value="Category 1">Category 1</option>
+                                          <option value="Category 2">Category 2</option>
+                                          <option value="Category 3">Category 5</option>
+                                          <option value="Category 4">Category 4</option>
+                                      </select>
+                                  </div>
+                              </div>
+                              <!--/span-->
+                              <div class="col-md-6">
+                                  <div class="form-group">
+                                      <label class="control-label">Membership</label>
+                                      <div class="form-check">
+                                          <label class="custom-control custom-radio">
+                                              <input id="radio1" name="radio" type="radio" checked class="custom-control-input">
+                                              <span class="custom-control-indicator"></span>
+                                              <span class="custom-control-description">Free</span>
+                                          </label>
+                                          <label class="custom-control custom-radio">
+                                              <input id="radio2" name="radio" type="radio" class="custom-control-input">
+                                              <span class="custom-control-indicator"></span>
+                                              <span class="custom-control-description">Paid</span>
+                                          </label>
+                                      </div>
+                                  </div>
+                              </div>
+                              <!--/span-->
+                          </div>
+                          <!--/row-->
+                          <h3 class="box-title m-t-40">Address</h3>
+                          <hr>
+                          <div class="row">
+                              <div class="col-md-12 ">
+                                  <div class="form-group">
+                                      <label>Street</label>
+                                      <input type="text" class="form-control">
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-md-6">
+                                  <div class="form-group">
+                                      <label>City</label>
+                                      <input type="text" class="form-control">
+                                  </div>
+                              </div>
+                              <!--/span-->
+                              <div class="col-md-6">
+                                  <div class="form-group">
+                                      <label>State</label>
+                                      <input type="text" class="form-control">
+                                  </div>
+                              </div>
+                              <!--/span-->
+                          </div>
+                          <!--/row-->
+                          <div class="row">
+                              <div class="col-md-6">
+                                  <div class="form-group">
+                                      <label>Post Code</label>
+                                      <input type="text" class="form-control">
+                                  </div>
+                              </div>
+                              <!--/span-->
+                              <div class="col-md-6">
+                                  <div class="form-group">
+                                      <label>Country</label>
+                                      <select class="form-control custom-select">
+                                          <option>--Select your Country--</option>
+                                          <option>India</option>
+                                          <option>Sri Lanka</option>
+                                          <option>USA</option>
+                                      </select>
+                                  </div>
+                              </div>
+                              <!--/span-->
+                          </div>
+                      </div>
+                      <div class="form-actions">
+                          <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Save</button>
+                          <button type="button" class="btn btn-inverse">Cancel</button>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+    </div>
+    <!-- End Wrapper -->
+    <!-- All Jquery -->
+    <script src="js/lib/jquery/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="js/lib/bootstrap/js/popper.min.js"></script>
+    <script src="js/lib/bootstrap/js/bootstrap.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="js/jquery.slimscroll.js"></script>
+    <!--Menu sidebar -->
+    <script src="js/sidebarmenu.js"></script>
+    <!--stickey kit -->
+    <script src="js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
+    <!--Custom JavaScript -->
+    <script src="js/custom.min.js"></script>
+
+
+</body>
+</html>
