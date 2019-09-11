@@ -5,7 +5,7 @@ $('#login').on('submit',function(event){
     passwrd:$('#passwrd').val()
    };
    $.ajax({
-       url:'../Tailorsmart/tailorsmart/admin/login.php',
+       url:'../Tailorsmart/admin/login.php',
        type:'POST',
        data:loginData,
        dataType:'json',

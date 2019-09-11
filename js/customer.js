@@ -1,4 +1,4 @@
-var api_url = '../Tailorsmart/tailorsmart/admin/';
+var api_url = '../Tailorsmart/admin/';
 var customerOrders = [];//all the customers orders
 var customerOrderDetails = [];//for particular order id details
 var orderId = null;//order id for another page reference createNewOrderPage
