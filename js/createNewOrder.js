@@ -133,6 +133,7 @@ function loadMeasurment(productId, orderItemId, rowId) {//for mapping product id
 
 }
 function loadStyles(productId, orderItemId, rowId) {
+    console.log(productId);
     style_orderItemId = orderItemId;
     // console.log(customerOrderDetails);
     var count_1 = 0;
@@ -153,7 +154,13 @@ function loadStyles(productId, orderItemId, rowId) {
             var count = response.Data.length;
             for (var i = 0; i < count; i++) {
                 if (response.Data[i].StitchStyle.productId == productId) {
-                    var StitchSubstyleCount = response.Data[i].StitchSubstyle.length;
+                    console.log(response.Data[i].StitchStyle.productId);
+                    console.log(response.Data[i].StitchSubstyle);
+                    
+                   
+                    if(response.Data[i].StitchSubstyle !=null)
+                    {
+                        var StitchSubstyleCount = response.Data[i].StitchSubstyle.length;
                     if (response.Data[i].StitchStyle.stitchStyleType == 0) {
                         first = response.Data[i].StitchStyle.stitchStyleTitle;
                         valFirst = response.Data[i].StitchStyle.stitchStyleId;
@@ -228,6 +235,7 @@ function loadStyles(productId, orderItemId, rowId) {
 
                         }
                     }
+                }
 
                 }
             }
@@ -267,8 +275,9 @@ function loadFabrics(productId, orderItemId, rowId) {
             var count = response.Data.length;
             for (var i = 0; i < count; i++) {
                 if (response.Data[i].productId == productId) {
+                    console.log(response.Data[i].productId);
                     createDropdownOptions += "<td>" + response['Data'][i].fabricTitle + "</td>";
-                    createDropdownOptions += "<tr><td><img class='img-thumbnail' src='../Tailorsmart/tailorsmart/mobileimages/fabric/" + response['Data'][i].fabricId + ".jpg' width='20%' height='10%'></img></td>";
+                    createDropdownOptions += "<tr><td><img class='img-thumbnail' src='http://praxello.com/tailorsmart/mobileimages/fabric/" + response['Data'][i].skuNo + ".jpg' width='20%' height='10%' alt='No Image Available'></img></td>";
                     createDropdownOptions += "<td>" + response['Data'][i].fabricTitle + "</td>";
                     createDropdownOptions += "<td>" + response['Data'][i].skuNo + "</td>";
                     createDropdownOptions += "<td>" + response['Data'][i].fabricPrice + "</td>";
@@ -280,6 +289,7 @@ function loadFabrics(productId, orderItemId, rowId) {
                     createDropdownOptions += "</tr>";
                 }
             }
+            alert(createDropdownOptions);
             $("#fabricsTable").html(createDropdownOptions);
             $('#FabricsModal').modal();
         }

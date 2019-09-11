@@ -114,11 +114,11 @@ function editcustomerappointmentdata(id){
       var pcount = productarray.length;
       var fcount =fabricarray.length;
       for(var i=0;i<pcount;i++){
-        alert(productarray[i]);
+       
         var fabidarray = fabricarray[i].split(",");
         var fabidarraycount = fabidarray.length;
         for(var j=0;j<fabidarraycount;j++){
-          alert(fabidarray[j]);
+         
         }
       }
 }

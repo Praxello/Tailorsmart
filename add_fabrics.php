@@ -55,7 +55,7 @@
          postdata = JSON.stringify(postdata);
          //console.log(postdata);
          $.ajax({
-             url: '../Tailorsmart/tailorsmart/admin/createorderitemfabric.php',
+             url: api_url+'createorderitemfabric.php',
              type: 'POST',
              data: {
                  postdata: postdata

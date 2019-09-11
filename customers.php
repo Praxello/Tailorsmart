@@ -43,8 +43,8 @@ $employeeId = $_SESSION['employeeId'];?>
 
         <!-- End header header -->
         <!-- Left Sidebar  -->
-        <?php include "header.php"; ?>
-        <?php include "sidebar.php"; ?>
+        <?php include "mainheader.php"; ?>
+        <?php include "leftsidebar.php"; ?>
         <!-- End Left Sidebar  -->
         <!-- Page wrapper  -->
         <div class="page-wrapper">

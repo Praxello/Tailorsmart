@@ -43,7 +43,8 @@ if(!isset($_SESSION['employeeId'])){
                     <div class="col-lg-4">
                         <div class="login-content card">
                             <div class="login-form">
-                                <h4>Login</h4>
+                                <h4><img src="images/logo1.png" alt="homepage" class="dark-logo" style="width:50%;" /></h4>
+                                
                                 <form id="login" method="POST">
                                     <div class="form-group">
                                         <label>Username</label>
