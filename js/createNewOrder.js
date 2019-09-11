@@ -289,7 +289,7 @@ function loadFabrics(productId, orderItemId, rowId) {
                     createDropdownOptions += "</tr>";
                 }
             }
-            alert(createDropdownOptions);
+            // alert(createDropdownOptions);
             $("#fabricsTable").html(createDropdownOptions);
             $('#FabricsModal').modal();
         }
