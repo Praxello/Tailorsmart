@@ -2,9 +2,9 @@
     <nav class="navbar top-navbar navbar-expand-md navbar-light">
         <!-- Logo -->
         <div class="navbar-header">
-            <!-- <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="index.html">
                 <b><img src="images/favicon.png" alt="homepage" class="dark-logo" style="width:60px;"/></b>
-            </a> -->
+            </a>
         </div>
         <!-- End Logo -->
         <div class="navbar-collapse">
@@ -75,12 +75,12 @@
             <ul class="navbar-nav my-lg-0">
 
                 <!-- Search -->
-                <!-- <li class="nav-item hidden-sm-down search-box"> <a class="nav-link hidden-sm-down text-muted  " href="javascript:void(0)"><i class="ti-search"></i></a>
+                <li class="nav-item hidden-sm-down search-box"> <a class="nav-link hidden-sm-down text-muted  " href="javascript:void(0)"><i class="ti-search"></i></a>
                     <form class="app-search">
                         <input type="text" class="form-control" placeholder="Search here"> <a class="srh-btn"><i class="ti-close"></i></a> </form>
-                </li> -->
+                </li>
                 <!-- Comment -->
-                <!-- <li class="nav-item dropdown">
+                <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle text-muted text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-bell"></i>
         <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
       </a>
@@ -126,10 +126,10 @@
                             </li>
                         </ul>
                     </div>
-                </li> -->
+                </li>
                 <!-- End Comment -->
                 <!-- Messages -->
-                <!-- <li class="nav-item dropdown">
+                <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle text-muted  " href="#" id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-envelope"></i>
         <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
       </a>
@@ -175,7 +175,7 @@
                             </li>
                         </ul>
                     </div>
-                </li> -->
+                </li>
                 <!-- End Messages -->
                 <!-- Profile -->
                 <li class="nav-item dropdown">

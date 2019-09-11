@@ -19,12 +19,7 @@
     <!-- Custom CSS -->
     <link href="css/helper.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:** -->
-    <!--[if lt IE 9]>
-    <script src="https:**oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https:**oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
+
 </head>
 
 <body class="fix-header fix-sidebar">
@@ -103,15 +98,16 @@
                           <h6 class="card-subtitle"><span id="appointmentstatus"></span></h6>
                         </div>
                         <div class="col-sm-4">
-                          <h4 class="card-title">Appointment Id</h4>
+                          <h4 class="card-title">Address</h4>
                           <h6 class="card-subtitle"><span id="appointmentdetailid"></span></h6>
                         </div>
                         <div class="col-sm-4">
                           <h4 class="card-title">Slot Time</h4>
                           <h6 class="card-subtitle"><span id="slottime"></span></h6>
                         </div>
+
                           <div class="col-sm-4">
-                            <h4 class="card-title">Employee Name</h4>
+                            <h4 class="card-title">Email</h4>
                             <h6 class="card-subtitle"><span id="employeename"></span></h6>
                           </div>
                       </div>
@@ -148,7 +144,7 @@
                         <div class="col-sm-3">
                           <div class="form-group">
                               <label class="control-label">Appointment Status</label>
-                                  <select class="form-control" id="appointmentStatus">
+                                  <select class="form-control" id="appointmentStatus" style="width:100%;">
                                     <option value="0">Idle</option>
                                     <option value="1">Confirmed</option>
                                     <option value="2">Cancelled</option>
@@ -160,7 +156,7 @@
                           <div class="col-sm-3">
                                 <div class="form-group">
                             <label class="control-label">Employee </label>
-                                <select class="form-control" id="setemployeeId">
+                                <select class="form-control" id="setemployeeId" style="width:100%;">
 
                                 </select>
                               </div>
@@ -168,7 +164,7 @@
                           <div class="col-sm-3">
                                 <div class="form-group">
                             <label class="control-label">Slot Time</label>
-                                <select class="form-control"  id="settimeslot">
+                                <select class="form-control"  id="settimeslot" style="width:100%;">
 
                                 </select>
                               </div>
@@ -203,7 +199,9 @@
     <!-- End Wrapper -->
     <!-- All Jquery -->
     <script src="js/lib/jquery/jquery.min.js"></script>
-    <!-- Bootstrap tether Core JavaScript -->
+    <link href="select2/select4.css" rel="stylesheet" />
+    <script src="select2/select4.js" type="text/javascript"></script>
+
     <script src="js/lib/bootstrap/js/popper.min.js"></script>
     <script src="js/lib/bootstrap/js/bootstrap.min.js"></script>
     <!-- slimscrollbar scrollbar JavaScript -->
@@ -228,7 +226,4 @@
     <script src="javascript/customerappointment.js"></script>
 
 </body>
-
-
-<!-- Mirrored from colorlib.com/polygon/elaadmin/table-datatable.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 16 May 2018 06:46:38 GMT -->
 </html>

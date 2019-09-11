@@ -6,19 +6,30 @@
             <ul id="sidebarnav">
                 <li class="nav-devider"></li>
                 <li class="nav-label">Home</li>
-                <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-tachometer"></i><span class="hide-menu">Dashboard <span class="label label-rouded label-primary pull-right">2</span></span></a>
+                <li> <a class="has-arrow  " href="#" aria-expanded="false"><span class="hide-menu">Dashboard <span class="label label-rouded label-primary pull-right">2</span></span></a>
                     <ul aria-expanded="false" class="collapse">
                         <li><a href="index.html">Ecommerce </a></li>
                         <li><a href="index1.html">Analytics </a></li>
                     </ul>
                 </li>
-                <li class="nav-label">Customer Appointment</li>
+                <!-- <li class="nav-label">Customer Appointment</li>
                 <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-envelope"></i><span class="hide-menu">Appointment</span></a>
                     <ul aria-expanded="false" class="collapse">
                         <li><a href="customerappointment.php">Customer Appointment</a></li>
 
                     </ul>
-                </li>
+                </li> -->
+                <li><a href="customerappointment.php"><i class="fa fa-gift"></i>Customer Appointment</a></li>
+                <li ><a href="masterproducts.php"><i class="fa fa-gift"></i>Master Products</a></li>
+                <li ><a href="products.php"><i class="fa fa-gift"></i>Products</a></li>
+                <li ><a href="customerstyles.php"><i class="fa fa-gift"></i>Styles</a></li>
+                <li><a href="customersubstyles.php"><i class="fa fa-gift"></i>Substyles</a></li>
+                <li ><a href="managecategory.php"><i class="fa fa-gift"></i>Manage Category</a></li>
+                  <li ><a href="measurement.php"><i class="fa fa-gift"></i>Measurements</a></li>
+                <li><a href="fabric.php"><i class="fa fa-gift"></i>Fabric</a></li>
+                <li ><a href="stitchstyle.php"><i class="fa fa-gift"></i>Stitch-Style</a></li>
+                <li><a href="stitchstyledetail.php"><i class="fa fa-gift"></i>Stitch-Style-Detail-Item</a></li>
+
                 <li class="nav-label">Apps</li>
                 <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-envelope"></i><span class="hide-menu">Appointment</span></a>
                     <ul aria-expanded="false" class="collapse">

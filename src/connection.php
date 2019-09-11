@@ -3,5 +3,5 @@ $serverName = 'localhost';
 $username   = 'root';
 $password   = '';
 $databaseName = 'Tailorsmart';
-$con = new mysqli($serverName,$username,$password,$databaseName);
+$conn = new mysqli($serverName,$username,$password,$databaseName)or die(mysqli_connect_error());	
 ?>
