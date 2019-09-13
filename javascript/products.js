@@ -1,5 +1,4 @@
-var api_url = 'http://praxello.com/tailorsmart/admin/';
-var pic_url = 'http://praxello.com/tailorsmart/mobileimages/';
+
 getproductdata();
 getmiscellaneousdata();
 getmeasurementitems();
@@ -27,7 +26,7 @@ $('#pricevariable').select2({
   allowClear: true,
   placeholder: "Select Price Variable"
 });
-var styleData = []; // This variable globally declare save all Style Data in Array
+var productData = []; // This variable globally declare save all Style Data in Array
 var measurementData = [];
 var stitchstyleitemData = [];
 var allfabricData =[];
@@ -74,10 +73,8 @@ function getmeasurementitems(){
       type: "GET",
       url: api_url+"getmeasurementitems.php",
       success: function(response) {
-        var count= response['Data'].length;
-        for(var i=0;i<count;i++){
-            measurementData.push(response['Data'][i]);
-        }
+        measurementData = [...response['Data']];
+
       }
     });
 }
@@ -88,10 +85,8 @@ function getstitchstyleitem(){
       type: "GET",
       url: api_url+"getstitchstyleitem.php",
       success: function(response) {
-        var count= response['Data'].length;
-        for(var i=0;i<count;i++){
-            stitchstyleitemData.push(response['Data'][i]);
-        }
+        stitchstyleitemData = [...response['Data']];
+        console.log(stitchstyleitemData);
       }
     });
 }
@@ -102,10 +97,8 @@ function getallfabricdata(){
       type: "GET",
       url: api_url+"getfabrics.php",
       success: function(response) {
-        var count= response['Data'].length;
-        for(var i=0;i<count;i++){
-            allfabricData.push(response['Data'][i]);
-        }
+        allfabricData = [...response['Data']];
+          console.log(allfabricData);
       }
     });
 }
@@ -122,27 +115,28 @@ function getproductdata(){
            // alert(response);
            var count= response['Data'].length;
             var html ="<tr>";
+            productData=[...response['Data']];
             for (var i = 0; i < count; i++) {
-                styleData.push(response['Data'][i]);
-                html +="<td>"+(i+1)+"</td>";
-                html +="<td><form id='custstyleform"+response['Data'][i].productId+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+response['Data'][i].productId+"' name='file' accept='image/*' style='display:none;' /> <img  accept='image/*' class='img-thumbnail' src='"+pic_url+"product/"+response['Data'][i].productId+".jpg' width='20%' height='20%' style='cursor: pointer' onclick='imguplod("+response['Data'][i].productId+")'></img></form></td>";
+
+                // html +="<td>"+(i+1)+"</td>";
+                html +="<td style='width:15%'><form id='custstyleform"+response['Data'][i].productId+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+response['Data'][i].productId+"' name='file' accept='image/*' style='display:none;' /> <img  accept='image/*' class='img-thumbnail' src='"+pic_url+"product/"+response['Data'][i].productId+".jpg' width='20%' height='20%' style='cursor: pointer' onclick='imguplod("+response['Data'][i].productId+")'></img></form></td>";
                 // html +='<td><div class="content"><form action="./src/uploadeventgallary.php" class="dropzone" id="myAwesomeDropzone">';
                 // html +='<input type="hidden" id="eventgallery" name="eventgallery" />';
                 // html +='</form></div></td>';
                 html +="<td>"+response['Data'][i].productTitle+"</td>";
-                html +="<td>"+response['Data'][i].productSubTitle+"</td>";
-                html +="<td>"+response['Data'][i].parentId+"</td>";
-                html +="<td>"+response['Data'][i].skuNo+"</td>";
-                html +="<td>"+response['Data'][i].price+"</td>";
-                html +="<td>"+response['Data'][i].releaseDate+"</td>";
-                html +="<td>"+response['Data'][i].sequenceNo+"</td>";
+                html +="<td style='width:15%'>"+response['Data'][i].productSubTitle+"</td>";
+                html +="<td style='width:5%'>"+response['Data'][i].parentId+"</td>";
+                html +="<td style='width:5%'>"+response['Data'][i].skuNo+"</td>";
+                html +="<td style='width:5%'>"+response['Data'][i].price+"</td>";
+                html +="<td style='width:5%'>"+response['Data'][i].releaseDate+"</td>";
+                html +="<td style='width:5%'>"+response['Data'][i].sequenceNo+"</td>";
                 if(response['Data'][i].isActive==1){
-                  html +='<td><span class="badge badge-pill badge-primary">Active</span></td>';
+                  html +='<td style="width:5%"><span class="badge badge-pill badge-primary">Active</span></td>';
                 }
                 else {
-                  html +='<td><span class="badge badge-pill badge-warning">InActive</span></td>';
+                  html +='<td style="width:5%"><span class="badge badge-pill badge-warning">InActive</span></td>';
                 }
-                html +='<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+i+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeProduct('+response['Data'][i].productId+')"><i class="fa fa-remove"></i></button></div></td>';
+                html +='<td style="width:5%"><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+i+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeProduct('+response['Data'][i].productId+')"><i class="fa fa-remove"></i></button></div></td>';
                 html +="  </tr>";
             }
            $("#styletbldata").html(html);
@@ -151,7 +145,7 @@ function getproductdata(){
            retrieve: true,
            bPaginate: $('tbody tr').length>10,
            order: [],
-           columnDefs: [ { orderable: false, targets: [0,1,2,3,4,5,6,7,8] } ],
+           columnDefs: [ { orderable: false, targets: [0,1,2,3,4,5,6,7,8,9] } ],
            dom: 'Bfrtip',
            buttons: [],
            destroy: true
@@ -196,19 +190,19 @@ function addStyle(){
 // This function is created For Edit Button
 function editStyle(id){
 $("#hidenavtab").show();
-$("#productId").val(styleData[id].productId);
-$("#producttitle").val(styleData[id].productTitle);
-$("#productsubtitle").val(styleData[id].productSubTitle);
-$("#productdetials").val(styleData[id].productDetails);
-$("#owner").val(styleData[id].ownerId).trigger('change');
-$("#productsequenceno").val(styleData[id].sequenceNo);
-$("#parent").val(styleData[id].parentId).trigger('change');
-$("#skuno").val(styleData[id].skuNo);
-$("#releasedate").val(styleData[id].releaseDate);
-$("#category").val(styleData[id].categoryId).trigger('change');
-$("#price").val(styleData[id].price);
-$("#pricevariable").val(styleData[id].isPriceVariable).trigger('change');
-$("#stylestatus").val(styleData[id].isActive).trigger('change');
+$("#productId").val(productData[id].productId);
+$("#producttitle").val(productData[id].productTitle);
+$("#productsubtitle").val(productData[id].productSubTitle);
+$("#productdetials").val(productData[id].productDetails);
+$("#owner").val(productData[id].ownerId).trigger('change');
+$("#productsequenceno").val(productData[id].sequenceNo);
+$("#parent").val(productData[id].parentId).trigger('change');
+$("#skuno").val(productData[id].skuNo);
+$("#releasedate").val(productData[id].releaseDate);
+$("#category").val(productData[id].categoryId).trigger('change');
+$("#price").val(productData[id].price);
+$("#pricevariable").val(productData[id].isPriceVariable).trigger('change');
+$("#stylestatus").val(productData[id].isActive).trigger('change');
 $("#customerstyletable").hide();
 $("#customerstyletableform").show();
 $("#savebtnproducts").hide();
@@ -226,14 +220,17 @@ function removeProduct(id){
       dataType:'json',
       success:function(response){
           swal(response.Message);
-          window.location.reload();
+          getproductdata();
+          $("#customerstyletableform").hide();
+          $("#customerstyletable").show();
       }
   });
 }
 
 // This function is created For Refresh Action / Backbutton
 function reload(){
-  window.location.reload();
+  $("#customerstyletableform").hide();
+  $("#customerstyletable").show();
 }
 
 // This function is created For Save Style Data
@@ -271,7 +268,11 @@ $('#savebtnproducts').on('click',function(event){
         dataType:'json',
         success:function(response){
             swal(response.Message);
-            window.location.reload();
+            // window.location.reload();
+            getproductdata();
+            $("#customerstyletableform").hide();
+            $("#customerstyletable").show();
+
         }
     });
 
@@ -316,7 +317,9 @@ $('#updatebtnproducts').on('click',function(event){
       dataType:'json',
       success:function(response){
           swal(response.Message);
-          // window.location.reload();
+          getproductdata();
+          $("#customerstyletableform").hide();
+          $("#customerstyletable").show();
       }
   });
 });
@@ -344,7 +347,7 @@ function fabricmapping(){
               }
               }
             }
-
+            // alert(temparray);
 
             var allfabricDatacount =allfabricData.length;
             for(var j=0;j<allfabricDatacount;j++)
@@ -409,7 +412,7 @@ function measurementmapping(){
               }
             }
             var measurementDatacount =measurementData.length;
-            // console.log(measurementData);
+          
             for(var j=0;j<measurementDatacount;j++)
             {
                 if(tempmeasurementarray.includes(measurementData[j].measurementId)){
@@ -463,8 +466,10 @@ function stitchstylemapping(){
             {
               var count= response['Data'].length;
               for (var i = 0; i < count; i++) {
-              if(response['Data'][i].productId===productId){
-              tempstitcharray.push(response['Data'][i].stitchStyleId);
+              // console.log(response['Data'][i].StitchStyle.productId);
+              // console.log(productId);
+              if(response['Data'][i].StitchStyle.productId===productId){
+              tempstitcharray.push(response['Data'][i].StitchStyle.stitchStyleId);
               }
               }
             }

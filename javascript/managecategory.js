@@ -1,5 +1,4 @@
-var api_url = 'http://praxello.com/tailorsmart/admin/';
-var pic_url = 'http://praxello.com/tailorsmart/mobileimages/';
+
 getcustomersubstyles();
 var styleData = []; // This variable globally declare save all Style Data in Array
 $('#stylestatus').select2({
@@ -19,8 +18,9 @@ function getcustomersubstyles(){
          success: function(response) {
            var count= response['Data'].length;
             var html ="<tr>";
+              styleData=[...response['Data']];
             for (var i = 0; i < count; i++) {
-                styleData.push(response['Data'][i]);
+          
                 html +="<td>"+(i+1)+"</td>";
                 html +="<td> <img class='img-thumbnail' src='"+pic_url+"category/"+response['Data'][i].categoryId+".jpg' width='10%' height='10%'></img></td>";
                 html +="<td>"+response['Data'][i].categoryTitle+"</td>";
@@ -78,14 +78,18 @@ function removecategory(id){
       dataType:'json',
       success:function(response){
           swal(response.Message);
-          window.location.reload();
+          $("#customerstyletable").show();
+          $("#customerstyletableform").hide();
+          getcustomersubstyles();
       }
   });
 }
 
 // This function is created For Refresh Action / Backbutton
 function reload(){
-  window.location.reload();
+  $("#customerstyletable").show();
+  $("#customerstyletableform").hide();
+
 }
 
 // This function is created For Save Style Data
@@ -107,7 +111,9 @@ function savecustomerstyle()
         dataType:'json',
         success:function(response){
             swal(response.Message);
-            window.location.reload();
+            $("#customerstyletable").show();
+            $("#customerstyletableform").hide();
+            getcustomersubstyles();
         }
     });
   }
@@ -133,7 +139,9 @@ function updatecustomerstyle(){
       dataType:'json',
       success:function(response){
           swal(response.Message);
-          window.location.reload();
+          $("#customerstyletable").show();
+          $("#customerstyletableform").hide();
+          getcustomersubstyles();
       }
   });
   }

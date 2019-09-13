@@ -284,7 +284,12 @@ function loadFabrics(productId, orderItemId, rowId) {
             var count = response.Data.length;
             for (var i = 0; i < count; i++) {
                 if (response.Data[i].productId == productId) {
+<<<<<<< HEAD
                     //createDropdownOptions += "<td>" + response['Data'][i].fabricTitle + "</td>";
+=======
+                    console.log(response.Data[i].productId);
+//                     createDropdownOptions += "<tr><td>" + response['Data'][i].fabricTitle + "</td>";
+>>>>>>> bad7c91ff1f0bd34e614fbbc9146c76fb7e1077b
                     createDropdownOptions += "<tr><td><img class='img-thumbnail' src='http://praxello.com/tailorsmart/mobileimages/fabric/" + response['Data'][i].skuNo + ".jpg' width='20%' height='10%' alt='No Image Available'></img></td>";
                     createDropdownOptions += "<td>" + response['Data'][i].fabricTitle + "</td>";
                     createDropdownOptions += "<td>" + response['Data'][i].skuNo + "</td>";
@@ -313,6 +318,7 @@ function loadFabrics(productId, orderItemId, rowId) {
         }
     })
 }
+<<<<<<< HEAD
 function getPaymentList(){
 $.ajax({
     url: api_url + 'getorderpayments.php',
@@ -349,3 +355,5 @@ function removePayment(paymentid,orderid){
     })
 }
 
+=======
+>>>>>>> bad7c91ff1f0bd34e614fbbc9146c76fb7e1077b

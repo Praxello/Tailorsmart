@@ -1,5 +1,4 @@
-var api_url = 'http://praxello.com/tailorsmart/admin/';
-var pic_url = 'http://praxello.com/tailorsmart/mobileimages/';
+
 getcustomerstyles();
 $('#stylestatus').select2({
   allowClear: true,
@@ -20,21 +19,22 @@ function getcustomerstyles(){
          url: api_url+"getallstyle.php",
          success: function(response) {
            var count= response['Data'].length;
+             styleData=[...response['Data']];
             var html ="<tr>";
             for (var i = 0; i < count; i++) {
-                styleData.push(response['Data'][i]);
-                html +="<td>"+(i+1)+"</td>";
+
+                // html +="<td>"+(i+1)+"</td>";
                 // html ='<td><input  name="eventprofile'+response['Data'][i].styleId+'" accept="image/*"  ></td>';
                   // <form id="eventform"   method="post" enctype="multipart/form-data">
-                html +="<td><form id='custstyleform"+response['Data'][i].styleId+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+response['Data'][i].styleId+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' src='"+pic_url+"style/"+response['Data'][i].styleId+".jpg' width='10%' height='10%' style='cursor: pointer' onclick='imguplod("+response['Data'][i].styleId+")'></img></form></td>";
+                html +="<td style='width:20%'><form id='custstyleform"+response['Data'][i].styleId+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+response['Data'][i].styleId+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' src='"+pic_url+"style/"+response['Data'][i].styleId+".jpg' width='10%' height='10%' style='cursor: pointer' onclick='imguplod("+response['Data'][i].styleId+")'></img></form></td>";
                 html +="<td>"+response['Data'][i].styleTitle+"</td>";
                 if(response['Data'][i].isActive==1){
-                  html +='<td><span class="badge badge-pill badge-primary">Active</span></td>';
+                  html +='<td style="width:10%" ><span class="badge badge-pill badge-primary">Active</span></td>';
                 }
                 else {
-                  html +='<td><span class="badge badge-pill badge-warning">InActive</span></td>';
+                  html +='<td style="width:10%"><span class="badge badge-pill badge-warning">InActive</span></td>';
                 }
-                html +='<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+i+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeStyle('+response['Data'][i].styleId+')"><i class="fa fa-remove"></i></button></div></td>';
+                html +='<td style="width:10%"><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+i+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeStyle('+response['Data'][i].styleId+')"><i class="fa fa-remove"></i></button></div></td>';
                 html +="  </tr>";
             }
            $("#styletbldata").html(html);
@@ -120,7 +120,9 @@ function removeStyle(id){
 
 // This function is created For Refresh Action / Backbutton
 function reload(){
-  window.location.reload();
+  // window.location.reload();
+  $("#customerstyletable").show();
+  $("#customerstyletableform").hide();
 }
 
 // This function is created For Save Style Data
@@ -142,7 +144,10 @@ function savecustomerstyle()
         dataType:'json',
         success:function(response){
             swal(response.Message);
-            window.location.reload();
+            // window.location.reload();
+            $("#customerstyletable").show();
+            $("#customerstyletableform").hide();
+             getcustomerstyles();
         }
     });
   }
@@ -168,7 +173,9 @@ function updatecustomerstyle(){
       dataType:'json',
       success:function(response){
           swal(response.Message);
-          window.location.reload();
+          $("#customerstyletable").show();
+          $("#customerstyletableform").hide();
+           getcustomerstyles();
       }
   });
   }

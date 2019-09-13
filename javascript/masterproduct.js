@@ -1,5 +1,3 @@
-var api_url = 'http://praxello.com/tailorsmart/admin/';
-var pic_url = 'http://praxello.com/tailorsmart/mobileimages/';
 getmasterproduct();
 getmiscellaneousdata();
 $('#masterstyle').select2({
@@ -34,12 +32,10 @@ function getmasterproduct(){
          success: function(response) {
            var count= response['Data'].length;
             var html ="<tr>";
+            styleData.push(...response['Data']);
+
             for (var i = 0; i < count; i++) {
-                styleData.push(response['Data'][i]);
-                html +="<td>"+(i+1)+"</td>";
-                // html ='<td><input  name="eventprofile'+response['Data'][i].styleId+'" accept="image/*"  ></td>';
-                  // <form id="eventform"   method="post" enctype="multipart/form-data">
-                html +="<td><form id='custstyleform"+response['Data'][i].parentId+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+response['Data'][i].styleId+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' src='"+pic_url+"parent/"+response['Data'][i].parentId+".jpg' width='10%' height='10%' style='cursor: pointer' onclick='imguplod("+response['Data'][i].parentId+")'></img></form></td>";
+                html +="<td><form id='custstyleform"+response['Data'][i].parentId+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+response['Data'][i].styleId+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' src='"+pic_url+"parent/"+response['Data'][i].parentId+".jpg' width='20%' height='20%' style='cursor: pointer' onclick='imguplod("+response['Data'][i].parentId+")'></img></form></td>";
                 html +="<td>"+response['Data'][i].styleTitle+"</td>";
                 html +="<td>"+response['Data'][i].subStyleTitle+"</td>";
                 if(response['Data'][i].isGroup==1){
@@ -98,37 +94,7 @@ function getmiscellaneousdata(){
       }
     });
 }
-//This function is useful for upload the image files
-// function imguplod(imgid){
-//   // alert(imgid);
-//    var triggerid=$('#customerstylepic'+imgid).trigger('click');
-//    var fileupload = document.getElementById('customerstylepic'+imgid);
-//    fileupload.onchange = function () {
-//                 var customerstylepic = $('#customerstylepic'+imgid).val();
-//                 // alert(customerstylepic);
-//                 // alert(imgid);
-//                 var formdata = new FormData($("#custstyleform"+imgid));
-//                 // var formdata = new FormData(document.querySelector("custstyleform"+imgid));
-//                 // alert(formdata);
-//                 // var formdata= document.getElementById("custstyleform"+imgid).submit();
-//                  // alert(formdata);
-//                 $.ajax({
-//                      url:"src/addimg.php",
-//                      type:"POST",
-//                      contentType: false,
-//                      cache: false,
-//                      processData:false,
-//                      data: {
-//                        imgnameid:imgid,
-//                        imgpic :customerstylepic
-//                      },
-//                      success:function(response){
-//                        // alert(response);
-//
-//                      }
-//               });
-//    };
-// }
+
 // This function is created For Add Button New Style
 function addStyle(){
   $("#customerstyletable").hide();
@@ -164,14 +130,17 @@ function removemaster(id){
       dataType:'json',
       success:function(response){
           swal(response.Message);
-          window.location.reload();
+          $("#customerstyletable").show();
+          $("#customerstyletableform").hide();
+          getmasterproduct();
       }
   });
 }
 
 // This function is created For Refresh Action / Backbutton
 function reload(){
-  window.location.reload();
+  $("#customerstyletable").show();
+  $("#customerstyletableform").hide();
 }
 
 // This function is created for saved Product Measurement Mapping Function
@@ -194,7 +163,9 @@ $('#savebtncustomerstyle').on('click',function(event){
       dataType:'json',
       success:function(response){
           swal(response.Message);
-            window.location.reload();
+          $("#customerstyletable").show();
+          $("#customerstyletableform").hide();
+          getmasterproduct();
       }
   });
 });
@@ -220,7 +191,9 @@ $('#updatebtncustomerstyle').on('click',function(event){
       dataType:'json',
       success:function(response){
           swal(response.Message);
-             window.location.reload();
+          $("#customerstyletable").show();
+          $("#customerstyletableform").hide();
+          getmasterproduct();
       }
   });
 });

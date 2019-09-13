@@ -13,6 +13,7 @@
     <title>Smart - Tailor</title>
     <!-- Bootstrap Core CSS -->
     <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="css/lib/sweetalert/sweetalert.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="css/helper.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
@@ -61,11 +62,15 @@
                                     <table id="appointmenttbl" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                                         <thead>
                                             <tr>
-                                                <th>Id</th>
+
                                                 <th>Customer Name</th>
                                                 <th>Appointment Date</th>
                                                 <th>Slot Time</th>
+                                                <th>Address</th>
+                                                <th>City</th>
+                                                <th>Contact No</th>
                                                 <th>Employee Name</th>
+                                                <th>Status</th>
                                                 <th>Action </th>
                                             </tr>
                                         </thead>
@@ -81,7 +86,7 @@
                   <div class="col-sm-12">
                     <div class="card">
                       <div class="row">
-                      <!-- <input type="hidden" id="appointmentdetailid" /> -->
+                      <input type="hidden" id="appointmentdetailid" />
                       <div class="col-sm-4">
                         <h4 class="card-title">Customer Name</h4>
                         <h6 class="card-subtitle"><span id="customername"></span></h6>
@@ -96,7 +101,7 @@
                         </div>
                         <div class="col-sm-4">
                           <h4 class="card-title">Address</h4>
-                          <h6 class="card-subtitle"><span id="appointmentdetailid"></span></h6>
+                          <h6 class="card-subtitle"><span id="appointmentdetailaddr"></span></h6>
                         </div>
                         <div class="col-sm-4">
                           <h4 class="card-title">Slot Time</h4>
@@ -120,7 +125,7 @@
                                     <table id="appointdetailtbl" class="display nowrap table">
                                         <thead>
                                             <tr>
-                                                <th>Id</th>
+                                                <!-- <th>Id</th> -->
                                                 <th>Product Title</th>
                                                 <th>Fabrics Title</th>
 
@@ -177,6 +182,7 @@
                           <div class="col-sm-4">
                             <div class="form-group">
                               <button class="btn btn-success" onclick="updateAppointmentDetails()" >Update</button>
+                              <button class="btn btn-primary" onclick="funreload()" >Reload</button>
                             </div>
                           </div>
                         </div>
@@ -195,7 +201,9 @@
     </div>
     <!-- End Wrapper -->
     <!-- All Jquery -->
+
     <script src="js/lib/jquery/jquery.min.js"></script>
+    <script src="javascript/apifile.js"></script>
     <link href="select2/select4.css" rel="stylesheet" />
     <script src="select2/select4.js" type="text/javascript"></script>
 
@@ -221,6 +229,6 @@
     <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
     <script src="js/lib/datatables/datatables-init.js"></script>
     <script src="javascript/customerappointment.js"></script>
-
+    <script src="js/lib/sweetalert/sweetalert.min.js"></script>
 </body>
 </html>
