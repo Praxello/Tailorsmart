@@ -150,17 +150,17 @@ body {
                                     <table id="styletbl" class="display nowrap table table-hover  table-bordered">
                                         <thead>
                                             <tr>
-                                                <th>Id</th>
-                                                <th>Image Icon</th>
+                                                <!-- <th>Id</th> -->
+                                                <th style="width:15%">Image Icon</th>
                                                 <th>Title</th>
-                                                <th>Sub Title</th>
-                                                <th>Parent</th>
-                                                <th>Skuno</th>
-                                                <th>Price</th>
-                                                <th>Release Date</th>
-                                                <th>Sequence</th>
-                                                <th>Status</th>
-                                                <th>Action </th>
+                                                <th  style="width:15%">Sub Title</th>
+                                                <th  style="width:5%">Parent</th>
+                                                <th  style="width:5%">Skuno</th>
+                                                <th  style="width:5%">Price</th>
+                                                <th  style="width:5%">Release Date</th>
+                                                <th  style="width:5%">Sequence</th>
+                                                <th  style="width:5%">Status</th>
+                                                <th  style="width:5%">Action </th>
                                             </tr>
                                         </thead>
                                         <tbody id="styletbldata">
@@ -396,6 +396,7 @@ body {
     <!-- End Wrapper -->
     <!-- All Jquery -->
     <script src="js/lib/jquery/jquery.min.js"></script>
+    <script src="javascript/apifile.js"></script>
     <link href="select2/select4.css" rel="stylesheet" />
     <script src="select2/select4.js" type="text/javascript"></script>
     <!-- Bootstrap tether Core JavaScript -->

@@ -1,5 +1,4 @@
-var api_url = 'http://praxello.com/tailorsmart/admin/';
-var pic_url = 'http://praxello.com/tailorsmart/mobileimages/';
+
 getmeasurementitems();
 $('#stylestatus').select2({
   allowClear: true,
@@ -21,8 +20,9 @@ function getmeasurementitems(){
          success: function(response) {
            var count= response['Data'].length;
             var html ="<tr>";
+              styleData=[...response['Data']];
             for (var i = 0; i < count; i++) {
-                styleData.push(response['Data'][i]);
+                // styleData.push(response['Data'][i]);
                 html +="<td>"+(i+1)+"</td>";
                 // html ='<td><input  name="eventprofile'+response['Data'][i].styleId+'" accept="image/*"  ></td>';
                   // <form id="eventform"   method="post" enctype="multipart/form-data">
@@ -113,14 +113,18 @@ function removeMeasurements(id){
       dataType:'json',
       success:function(response){
           swal(response.Message);
-          window.location.reload();
+          $("#customerstyletable").show();
+          $("#customerstyletableform").hide();
+          getmeasurementitems();
+          // window.location.reload();
       }
   });
 }
 
 // This function is created For Refresh Action / Backbutton
 function reload(){
-  window.location.reload();
+  $("#customerstyletable").show();
+  $("#customerstyletableform").hide();
 }
 
 // This function is created For Save Style Data
@@ -142,7 +146,9 @@ function savecustomerstyle()
         dataType:'json',
         success:function(response){
             swal(response.Message);
-            window.location.reload();
+            $("#customerstyletable").show();
+            $("#customerstyletableform").hide();
+            getmeasurementitems();
         }
     });
   }
@@ -168,7 +174,9 @@ function updatecustomerstyle(){
       dataType:'json',
       success:function(response){
           swal(response.Message);
-          window.location.reload();
+          $("#customerstyletable").show();
+          $("#customerstyletableform").hide();
+          getmeasurementitems();
       }
   });
   }

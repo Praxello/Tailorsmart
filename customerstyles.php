@@ -65,11 +65,11 @@
                                     <table id="styletbl" class="display nowrap table table-hover  table-bordered">
                                         <thead>
                                             <tr>
-                                                <th>Id</th>
-                                                <th>Image Icon</th>
+                                                <!-- <th style="width:10%">Id</th> -->
+                                                <th style="width:20%">Image Icon</th>
                                                 <th>Title</th>
-                                                <th>Status</th>
-                                                <th>Action </th>
+                                                <th style="width:10%">Status</th>
+                                                <th style="width:10%">Action </th>
                                             </tr>
                                         </thead>
                                         <tbody id="styletbldata">
@@ -126,6 +126,7 @@
     <!-- End Wrapper -->
     <!-- All Jquery -->
     <script src="js/lib/jquery/jquery.min.js"></script>
+    <script src="javascript/apifile.js"></script>
     <link href="select2/select4.css" rel="stylesheet" />
     <script src="select2/select4.js" type="text/javascript"></script>
     <!-- Bootstrap tether Core JavaScript -->
