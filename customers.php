@@ -102,7 +102,7 @@ $employeeId = $_SESSION['employeeId'];?>
                                             <tr>
                                                 <th>Order Id</th>
                                                 <th>amount</th>
-                                                <th>advance</th>
+                                                <th>Confirmed</th>
                                                 <th>purchaseDateTime</th>
                                                 <th>orderStatus</th>
                                                 <th>paymentValue </th>

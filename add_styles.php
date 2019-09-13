@@ -13,8 +13,8 @@
                      <div class="card-body">
                          <h5 class="card-title" id="first"></h5>
                          <input type="hidden" id="valFirst">
-                         <div class="row">
-                             <div class="table-responsive ">
+                         <div class="row" >
+                             <div class="table-responsive " style="overflow: auto;max-height: -webkit-fill-available;">
                                  <table class="table table-bordered" id="firstStyle">
                                      <thead>
                                          <tr>
@@ -36,7 +36,7 @@
                          <h5 class="card-title" id="second"></h5>
                          <input type="hidden" id="valSecond">
                          <div class="row">
-                             <div class="table-responsive ">
+                             <div class="table-responsive " style="overflow: auto;max-height: -webkit-fill-available;">
                                  <table class="table table-bordered" id="secondStyle">
                                      <thead>
                                          <tr>
@@ -57,7 +57,7 @@
                          <h5 class="card-title" id="third"></h5>
                          <input type="hidden" id="valThird">
                          <div class="row">
-                             <div class="table-responsive ">
+                             <div class="table-responsive " style="overflow: auto;max-height: -webkit-fill-available;">
                                  <table class="table table-bordered" id="thirdStyle">
                                      <thead>
                                          <tr>

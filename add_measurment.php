@@ -52,7 +52,7 @@
                  "measurements": TableData
              };
              postdata = JSON.stringify(postdata);
-            //  console.log(postdata);
+             console.log(postdata);
              $.ajax({
                  url: api_url+'createorderitemmeasurement.php',
                  type: 'POST',
@@ -61,8 +61,6 @@
                  },
                  success: function(response) {
                      alert(response.Message);
-                     //var customerId = 21;
-                    //  console.log(customerId_g);
                      getOrdersOfCustomer(customerId_g);
                      customerOrderDetails = customerOrders[indexRow];
                      $('#customerOrdersBlock').hide();
@@ -79,9 +77,13 @@
          var TableData = new Array();
 
          $('#sampleTbl tr').each(function(row, tr) {
+            var measurmentValue = $(tr).find('td:eq(2) input').val();
+             if(measurmentValue == ''){
+                measurmentValue = 'none';
+             }
              TableData[row] = {
                  "measurementid": $(tr).find('td:eq(0)').text(),
-                 "value": $(tr).find('td:eq(2) input').val()
+                 "value": measurmentValue
              }
          });
          TableData.shift(); // first row will be empty - so remove
