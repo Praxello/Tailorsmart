@@ -38,6 +38,7 @@ function getcustomerstyles(){
                 html +="  </tr>";
             }
            $("#styletbldata").html(html);
+           alert("ok");
            $('#styletbl').DataTable({
            searching: true,
            retrieve: true,
