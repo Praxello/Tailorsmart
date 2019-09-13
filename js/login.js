@@ -1,3 +1,4 @@
+var api_url = "praxello.com/tailorsmart/admin/login.php";
 $('#login').on('submit',function(event){
     event.preventDefault();
    var loginData = {
@@ -5,7 +6,7 @@ $('#login').on('submit',function(event){
     passwrd:$('#passwrd').val()
    };
    $.ajax({
-       url:'../Tailorsmart/admin/login.php',
+       url:api_url,
        type:'POST',
        data:loginData,
        dataType:'json',
