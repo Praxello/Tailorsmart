@@ -72,7 +72,7 @@
              orderid: orderId,
              mode: mode,
              type: paymenttype,
-             employeeid: 2,
+             employeeid: $('#empId').val(),
              amount: amount
          };
          console.log(paymentData);

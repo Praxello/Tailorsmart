@@ -15,7 +15,7 @@
         <div class="col-sm-12">
           <div class="card">
             <div class="row">
-
+           
               <div class="col-sm-4">
                 <h4 class="card-title">Customer Name</h4>
                 <h6 class="card-subtitle"><span id="custName"></span></h6>
