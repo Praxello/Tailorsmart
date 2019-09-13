@@ -55,7 +55,7 @@ function getOrdersOfCustomer(customerId) {
                     responseData += "<tr>";
                     responseData += "<td>" + response.Data[i].OrderDetails.orderId + "</td>";
                     responseData += "<td>" + response.Data[i].OrderDetails.amount + "</td>";
-                    responseData += "<td>" + response.Data[i].OrderDetails.advance + "</td>";
+                    responseData += "<td>" + response.Data[i].OrderDetails.isConfirmed + "</td>";
                     responseData += "<td>" + response.Data[i].OrderDetails.purchaseDateTime + "</td>";
                     responseData += "<td>" + response.Data[i].OrderDetails.orderStatus + "</td>";
                     responseData += "<td>" + response.Data[i].OrderDetails.paymentValue + "</td>";
@@ -138,7 +138,7 @@ $('#createOrder').on('click', function (event) {
                 $('#customerSelectionBlock').hide();
                 $('#customerOrdersBlock').hide();
                 $('#loadNewPage').load('createNewOrder.php');
-                // console.log(orderId);
+                //console.log(orderId);
             }
         })
     }

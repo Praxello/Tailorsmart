@@ -13,11 +13,11 @@
                  <div class="card">
                      <div class="row">
 
-                         <div class="table-responsive">
+                         <div class="table-responsive" style="overflow: auto;max-height: -webkit-fill-available;">
                              <table class="table table-bordered" id="fabricssampleTbl">
                                  <thead>
                                      <tr>
-                                         <th>Image</th>
+                                         <th style="width: 30%;">Image</th>
                                          <th>Title</th>
                                          <th>Sku</th>
                                          <th>Price</th>
@@ -53,7 +53,7 @@
              "fabrics": fabrics_TableData
          };
          postdata = JSON.stringify(postdata);
-         //console.log(postdata);
+         console.log(postdata);
          $.ajax({
              url: api_url+'createorderitemfabric.php',
              type: 'POST',
