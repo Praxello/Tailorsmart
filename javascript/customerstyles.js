@@ -10,6 +10,20 @@ var styleData = []; // This variable globally declare save all Style Data in Arr
 $(document).ready(function() {
 
 });
+function doesFileExist(urlToFile)
+{
+    var xhr = new XMLHttpRequest();
+    xhr.open('HEAD', urlToFile, false);
+    // xhr.send();
+
+    if (xhr.status == "404") {
+        // console.log("File doesn't exist");
+        return false;
+    } else {
+        // console.log("File exists");
+        return true;
+    }
+}
 // This function is created for Get All Style Data.
 function getcustomerstyles(){
   $('#styletbl').dataTable().fnDestroy();
@@ -22,11 +36,12 @@ function getcustomerstyles(){
              styleData=[...response['Data']];
             var html ="<tr>";
             for (var i = 0; i < count; i++) {
-
-                // html +="<td>"+(i+1)+"</td>";
-                // html ='<td><input  name="eventprofile'+response['Data'][i].styleId+'" accept="image/*"  ></td>';
-                  // <form id="eventform"   method="post" enctype="multipart/form-data">
-                html +="<td style='width:20%'><form id='custstyleform"+response['Data'][i].styleId+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+response['Data'][i].styleId+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' src='"+pic_url+"style/"+response['Data'][i].styleId+".jpg' width='10%' height='10%' style='cursor: pointer' onclick='imguplod("+response['Data'][i].styleId+")'></img></form></td>";
+              var imageUrl = pic_url+'style/300x300/'+response['Data'][i].styleId+'.jpg';
+              var file = doesFileExist(imageUrl);
+              if(!file){
+               imageUrl = pic_url+'style/1.jpg';
+              };
+                html +="<td><form id='custstyleform"+response['Data'][i].styleId+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+response['Data'][i].styleId+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' src='"+imageUrl+"'  style='cursor: pointer' onclick='imguplod("+response['Data'][i].styleId+")'></img></form></td>";
                 html +="<td>"+response['Data'][i].styleTitle+"</td>";
                 if(response['Data'][i].isActive==1){
                   html +='<td style="width:10%" ><span class="badge badge-pill badge-primary">Active</span></td>';
@@ -34,17 +49,17 @@ function getcustomerstyles(){
                 else {
                   html +='<td style="width:10%"><span class="badge badge-pill badge-warning">InActive</span></td>';
                 }
-                html +='<td style="width:10%"><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+i+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeStyle('+response['Data'][i].styleId+')"><i class="fa fa-remove"></i></button></div></td>';
+                html +='<td style="width:10%"><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod('+response['Data'][i].styleId+')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+i+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeStyle('+response['Data'][i].styleId+')"><i class="fa fa-remove"></i></button></div></td>';
                 html +="  </tr>";
             }
+
            $("#styletbldata").html(html);
-           alert("ok");
            $('#styletbl').DataTable({
            searching: true,
            retrieve: true,
            bPaginate: $('tbody tr').length>10,
            order: [],
-           columnDefs: [ { orderable: false, targets: [0,1,2,3,4] } ],
+           columnDefs: [ { orderable: false, targets: [0,1,2,3] } ],
            dom: 'Bfrtip',
            buttons: [],
            destroy: true
@@ -55,31 +70,26 @@ function getcustomerstyles(){
 
 //This function is useful for upload the image files
 function imguplod(imgid){
-  // alert(imgid);
    var triggerid=$('#customerstylepic'+imgid).trigger('click');
    var fileupload = document.getElementById('customerstylepic'+imgid);
    fileupload.onchange = function () {
                 var customerstylepic = $('#customerstylepic'+imgid).val();
-                // alert(customerstylepic);
-                // alert(imgid);
-                var formdata = new FormData($("#custstyleform"+imgid));
-                // var formdata = new FormData(document.querySelector("custstyleform"+imgid));
-                // alert(formdata);
-                // var formdata= document.getElementById("custstyleform"+imgid).submit();
-                 // alert(formdata);
+                var fd = new FormData();
+                var files = $('#customerstylepic'+imgid)[0].files[0];
+                fd.append('file',files);
+                fd.append('imgname',imgid);
+                fd.append('foldername',"style");
                 $.ajax({
                      url:"src/addimg.php",
                      type:"POST",
                      contentType: false,
                      cache: false,
                      processData:false,
-                     data: {
-                       imgnameid:imgid,
-                       imgpic :customerstylepic
-                     },
+                     data: fd,
+                     dataType:'json',
                      success:function(response){
-                       // alert(response);
-
+                       swal(response['Message']);
+                       getcustomerstyles();
                      }
               });
    };
@@ -89,7 +99,9 @@ function addStyle(){
   $("#customerstyletable").hide();
   $("#customerstyletableform").show();
   $("#styletitle").val("");
-  $("#stylestatus").val("");
+  $("#stylestatus").val("").trigger('change');
+  $("#savebtncustomerstyle").show();
+  $("#updatebtncustomerstyle").hide();
 }
 
 // This function is created For Edit Button
@@ -114,17 +126,22 @@ function removeStyle(id){
       dataType:'json',
       success:function(response){
           swal(response.Message);
-          window.location.reload();
+          $("#customerstyletable").show();
+          $("#customerstyletableform").hide();
+          getcustomerstyles();
       }
   });
 }
 
 // This function is created For Refresh Action / Backbutton
-function reload(){
+$('#reloadbtn').on('click',function(event){
+  event.preventDefault();
   // window.location.reload();
   $("#customerstyletable").show();
   $("#customerstyletableform").hide();
-}
+  $("#savebtncustomerstyle").show();
+  $("#updatebtncustomerstyle").hide();
+});
 
 // This function is created For Save Style Data
 function savecustomerstyle()
@@ -148,7 +165,7 @@ function savecustomerstyle()
             // window.location.reload();
             $("#customerstyletable").show();
             $("#customerstyletableform").hide();
-             getcustomerstyles();
+            getcustomerstyles();
         }
     });
   }

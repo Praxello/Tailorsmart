@@ -99,9 +99,12 @@ function getmiscellaneousdata(){
 function addStyle(){
   $("#customerstyletable").hide();
   $("#customerstyletableform").show();
-  $("#styletitle").val("");
-  $("#stylestatus").val("");
-
+  $("#masterstyle").val("").trigger('change');
+  $("#mastersubstyle").val("").trigger('change');
+  $("#masterisgroup").val("").trigger('change');
+  $("#stylestatus").val("").trigger('change');
+  $("#savebtncustomerstyle").show();
+  $("#updatebtncustomerstyle").hide();
 }
 
 // This function is created For Edit Button
@@ -138,10 +141,13 @@ function removemaster(id){
 }
 
 // This function is created For Refresh Action / Backbutton
-function reload(){
+$('#reloadbtn').on('click',function(event){
+  event.preventDefault();
   $("#customerstyletable").show();
   $("#customerstyletableform").hide();
-}
+  $("#savebtncustomerstyle").show();
+  $("#updatebtncustomerstyle").hide();
+});
 
 // This function is created for saved Product Measurement Mapping Function
 $('#savebtncustomerstyle').on('click',function(event){

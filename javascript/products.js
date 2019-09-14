@@ -86,7 +86,7 @@ function getstitchstyleitem(){
       url: api_url+"getstitchstyleitem.php",
       success: function(response) {
         stitchstyleitemData = [...response['Data']];
-        console.log(stitchstyleitemData);
+        // console.log(stitchstyleitemData);
       }
     });
 }
@@ -98,13 +98,39 @@ function getallfabricdata(){
       url: api_url+"getfabrics.php",
       success: function(response) {
         allfabricData = [...response['Data']];
-          console.log(allfabricData);
+          // console.log(allfabricData);
       }
     });
 }
 
-
+// function imageExists(url, callback) {
+//   var img = new Image();
+//   img.onload = function() { callback(true); };
+//   img.onerror = function() { callback(false); };
+//   img.src = url;
+// }
 // This function is created for Get All Style Data.
+// function checkImage (src, good, bad) {
+//     var img = new Image();
+//     img.onload = good;
+//     img.onerror = bad;
+//     img. src = src;
+//     return img.src;
+// }
+function doesFileExist(urlToFile)
+{
+    var xhr = new XMLHttpRequest();
+    xhr.open('HEAD', urlToFile, false);
+    // xhr.send();
+
+    if (xhr.status == "404") {
+        // console.log("File doesn't exist");
+        return false;
+    } else {
+        // console.log("File exists");
+        return true;
+    }
+}
 function getproductdata(){
   $('#styletbl').dataTable().fnDestroy();
   $("#styletbldata").empty();
@@ -119,7 +145,12 @@ function getproductdata(){
             for (var i = 0; i < count; i++) {
 
                 // html +="<td>"+(i+1)+"</td>";
-                html +="<td style='width:15%'><form id='custstyleform"+response['Data'][i].productId+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+response['Data'][i].productId+"' name='file' accept='image/*' style='display:none;' /> <img  accept='image/*' class='img-thumbnail' src='"+pic_url+"product/"+response['Data'][i].productId+".jpg' width='20%' height='20%' style='cursor: pointer' onclick='imguplod("+response['Data'][i].productId+")'></img></form></td>";
+                var imageUrl = pic_url+'product/300x300/'+response['Data'][i].productId+'.jpg';
+                var file = doesFileExist(imageUrl);
+                if(!file){
+                 imageUrl = pic_url+'product/300x300/0.jpg';
+                };
+                html +="<td style='width:15%'><form id='custstyleform"+response['Data'][i].productId+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+response['Data'][i].productId+"' name='file' accept='image/*' style='display:none;' /> <img  accept='image/*' class='img-thumbnail' src='"+imageUrl+"' style='cursor: pointer' onclick='imguplod("+response['Data'][i].productId+")'></img></form></td>";
                 // html +='<td><div class="content"><form action="./src/uploadeventgallary.php" class="dropzone" id="myAwesomeDropzone">';
                 // html +='<input type="hidden" id="eventgallery" name="eventgallery" />';
                 // html +='</form></div></td>';
@@ -136,7 +167,7 @@ function getproductdata(){
                 else {
                   html +='<td style="width:5%"><span class="badge badge-pill badge-warning">InActive</span></td>';
                 }
-                html +='<td style="width:5%"><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+i+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeProduct('+response['Data'][i].productId+')"><i class="fa fa-remove"></i></button></div></td>';
+                html +='<td style="width:5%"><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod('+response['Data'][i].productId+')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+i+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeProduct('+response['Data'][i].productId+')"><i class="fa fa-remove"></i></button></div></td>';
                 html +="  </tr>";
             }
            $("#styletbldata").html(html);
@@ -172,9 +203,10 @@ function imguplod(imgid){
                      cache: false,
                      processData:false,
                      data: fd,
+                     dataType:'json',
                      success:function(response){
-                       // alert(response);
-                       window.location.reload();
+                       swal(response['Message']);
+                        getproductdata();
                      }
               });
    };
@@ -184,7 +216,14 @@ function addStyle(){
   $("#customerstyletable").hide();
   $("#customerstyletableform").show();
   $("#productform").trigger("reset");
+  $("#owner").val("").trigger('change');
+  $("#parent").val("").trigger('change');
+  $("#category").val("").trigger('change');
+  $("#pricevariable").val("").trigger('change');
+  $("#stylestatus").val("").trigger('change');
   $("#hidenavtab").hide();
+  $("#savebtnproducts").show();
+  $("#updatebtnproducts").hide();
 }
 
 // This function is created For Edit Button
@@ -228,10 +267,13 @@ function removeProduct(id){
 }
 
 // This function is created For Refresh Action / Backbutton
-function reload(){
+$('#reloadbtn').on('click',function(event){
+  event.preventDefault();
   $("#customerstyletableform").hide();
   $("#customerstyletable").show();
-}
+  $("#savebtnproducts").show();
+  $("#updatebtnproducts").hide();
+});
 
 // This function is created For Save Style Data
 $('#savebtnproducts').on('click',function(event){
@@ -412,7 +454,7 @@ function measurementmapping(){
               }
             }
             var measurementDatacount =measurementData.length;
-          
+
             for(var j=0;j<measurementDatacount;j++)
             {
                 if(tempmeasurementarray.includes(measurementData[j].measurementId)){

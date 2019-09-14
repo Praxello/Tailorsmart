@@ -218,8 +218,9 @@ body {
                                           </div>
                                           <div class="col-sm-4">
                                             <div class="form-group">
+                                              <!-- onkeypress="return isNumberKey(event)" -->
                                               <label class="control-label">Sequence No</label>
-                                              <input type="number" class="form-control" id="productsequenceno"  title="Enter Sequence No"/>
+                                              <input type="number" class="form-control" id="productsequenceno"  title="Enter Sequence No" onkeypress="return isNumberKey(event)"  />
                                             </div>
                                           </div>
                                           <div class="col-sm-4">
@@ -233,8 +234,9 @@ body {
 
                                           <div class="col-sm-4">
                                             <div class="form-group">
+                                              <!--  onkeypress="return isNumberKey(event)"-->
                                               <label class="control-label">Sku Number</label>
-                                              <input type="number" class="form-control" id="skuno"  title="Enter SKU No"/>
+                                              <input type="text" class="form-control" id="skuno"  title="Enter SKU No"  />
                                             </div>
                                           </div>
                                           <div class="col-sm-4">
@@ -285,7 +287,7 @@ body {
                                                   <div style="padding-top:32px"></div>
                                                 <button class="btn btn-success" id="savebtnproducts">Save</button>
                                                 <button class="btn btn-success" id="updatebtnproducts" style="display:none;">Update</button>
-                                                <button class="btn btn-secondary" onclick="reload()" >Back</button>
+                                                <button class="btn btn-secondary" id="reloadbtn" >Back</button>
                                               </div>
                                             </div>
 
@@ -397,6 +399,7 @@ body {
     <!-- All Jquery -->
     <script src="js/lib/jquery/jquery.min.js"></script>
     <script src="javascript/apifile.js"></script>
+    <script src="javascript/validation.js"></script>
     <link href="select2/select4.css" rel="stylesheet" />
     <script src="select2/select4.js" type="text/javascript"></script>
     <!-- Bootstrap tether Core JavaScript -->
@@ -413,14 +416,14 @@ body {
 
 
     <script src="js/lib/datatables/datatables.min.js"></script>
-    <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+    <!-- <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
     <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
     <script src="js/lib/datatables/cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
     <script src="js/lib/datatables/cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
     <script src="js/lib/datatables/cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
     <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
     <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
-    <script src="js/lib/datatables/datatables-init.js"></script>
+    <script src="js/lib/datatables/datatables-init.js"></script> -->
     <!-- <script src="dropzone/dropzone.js" type="text/javascript"></script> -->
     <script src="javascript/products.js"></script>
     <script src="js/lib/sweetalert/sweetalert.min.js"></script>

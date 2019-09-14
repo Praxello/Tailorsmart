@@ -65,7 +65,7 @@
                                     <table id="styletbl" class="display nowrap table table-hover  table-bordered">
                                         <thead>
                                             <tr>
-                                                <th>Id</th>
+                                                <!-- <th>Id</th> -->
                                                 <th>Image Icon</th>
                                                 <th>Fabric Title</th>
                                                 <th>Fabric Brand</th>
@@ -130,7 +130,7 @@
                       <div class="col-sm-4">
                         <div class="form-group">
                           <label class="control-label">Hexcolor</label>
-                          <input type="text" class="form-control" id="hexcolor"  title="Enter Hexcolor"/>
+                          <input type="color" class="form-control" id="hexcolor"  title="Enter Hexcolor"/>
                         </div>
                       </div>
                       <div class="col-sm-4">
@@ -146,7 +146,7 @@
                       <div class="col-sm-4">
                         <div class="form-group">
                           <label class="control-label">Color Name</label>
-                          <input type="text" class="form-control" id="fabriccolorname"  title="Enter Color Name"/>
+                          <input type="color" class="form-control" id="fabriccolorname"  title="Enter Color Name"/>
                         </div>
                       </div>
                       <div class="col-sm-4">
@@ -182,7 +182,7 @@
                               <div style="padding-top:32px"></div>
                             <button class="btn btn-success" id="savebtncustomerstyle"  >Save</button>
                             <button class="btn btn-success" id="updatebtncustomerstyle"  style="display:none;">Update</button>
-                            <button class="btn btn-secondary" onclick="reload()" >Back</button>
+                            <button class="btn btn-secondary" id="reloadbtn"  >Back</button>
                           </div>
                         </div>
 
@@ -205,7 +205,7 @@
     <link href="select2/select4.css" rel="stylesheet" />
     <script src="select2/select4.js" type="text/javascript"></script>
     <!-- Bootstrap tether Core JavaScript -->
-    <script src="js/lib/bootstrap/js/popper.min.js"></script>
+    <!-- <script src="js/lib/bootstrap/js/popper.min.js"></script> -->
     <script src="js/lib/bootstrap/js/bootstrap.min.js"></script>
     <!-- slimscrollbar scrollbar JavaScript -->
     <script src="js/jquery.slimscroll.js"></script>
@@ -218,14 +218,14 @@
 
 
     <script src="js/lib/datatables/datatables.min.js"></script>
-    <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+    <!-- <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
     <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
     <script src="js/lib/datatables/cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
     <script src="js/lib/datatables/cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
     <script src="js/lib/datatables/cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
     <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
     <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
-    <script src="js/lib/datatables/datatables-init.js"></script>
+    <script src="js/lib/datatables/datatables-init.js"></script> -->
     <script src="javascript/fabric.js"></script>
     <script src="js/lib/sweetalert/sweetalert.min.js"></script>
     <!-- <script src="js/lib/sweetalert/sweetalert.init.js"></script> -->
