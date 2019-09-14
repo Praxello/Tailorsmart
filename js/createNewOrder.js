@@ -170,7 +170,7 @@ function loadStyles(productId, orderItemId, rowId) {
                             for (var j = 0; j < StitchSubstyleCount; j++) {
                                 flag_0 = 0;
 
-                                firstList += "<tr><td>" + response.Data[i].StitchSubstyle[j].stitchStyleId + "</td><td>" + response.Data[i].StitchSubstyle[j].stitchSubStyleTitle + "</td>";
+                                firstList += "<tr><td style='display:none;'>"+response.Data[i].StitchStyle.stitchStyleId+"</td><td>" + response.Data[i].StitchSubstyle[j].stitchSubStyleTitle + "</td>";
                                 if (count_1 > 0) {
 
                                     for (var a = 0; a < count_1; a++) {
@@ -201,13 +201,13 @@ function loadStyles(productId, orderItemId, rowId) {
                             valSecond = response.Data[i].StitchStyle.stitchStyleId;
                             secondList += "<tr><td colspan='3' style='text-align:center;'><strong>" + response.Data[i].StitchStyle.stitchStyleTitle + "</strong></td></tr>";
                             for (var k = 0; k < StitchSubstyleCount; k++) {
-                                secondList += "<tr><td>" + response.Data[i].StitchSubstyle[k].stitchSubStyleId + "</td><td>" + response.Data[i].StitchSubstyle[k].stitchSubStyleTitle + "</td>";
+                                secondList += "<tr><td style='display:none;'>"+response.Data[i].StitchStyle.stitchStyleId+"</td><td>" + response.Data[i].StitchSubstyle[k].stitchSubStyleTitle + "</td>";
                                 flag_1 = 0;
                                 if (count_1 > 0) {
-                                    // console.log('k count '+k);
+                                   
                                     for (var a = 0; a < count_1; a++) {
                                         if (response.Data[i].StitchSubstyle[k].stitchSubStyleId == check_styles_exists[a].stitchSubStyleId) {
-                                            // console.log('m in 1 '+m);
+                                           
                                             secondList += "<td><input type='radio' name='singleSelection'   value=" + response.Data[i].StitchSubstyle[k].stitchSubStyleId + " checked></td>";
                                             m++;
                                             flag_1 = 1;
@@ -218,11 +218,12 @@ function loadStyles(productId, orderItemId, rowId) {
                                     }
 
                                 } else {
-                                    secondList += "<td><input type='radio' name='singleSelection'   value=" + response.Data[i].StitchSubstyle[k].stitchSubStyleId + "></td>";
+                                    secondList += "<td><input type='radio' name='"+nameKey+"singleSelection'   value=" + response.Data[i].StitchSubstyle[k].stitchSubStyleId + "></td>";
                                 }
                                 secondList += "</tr>";
 
                             }
+                            nameKey++;
                            
                         }
                         else if (response.Data[i].StitchStyle.stitchStyleType == 2) {
@@ -232,7 +233,7 @@ function loadStyles(productId, orderItemId, rowId) {
                             for (var l = 0; l < StitchSubstyleCount; l++) {
                                 //console.log('k count '+k);
                                 flag_2 = 0;
-                                thirdList += "<tr><td>" + response.Data[i].StitchSubstyle[l].stitchSubStyleId + "</td>";
+                                thirdList += "<tr><td style='display:none;'>"+response.Data[i].StitchStyle.stitchStyleId+"</td><td style='display:none;'>" + response.Data[i].StitchSubstyle[l].stitchSubStyleId + "</td>";
                                 thirdList += "<td>" + response.Data[i].StitchSubstyle[l].stitchSubStyleTitle + "</td>";
                                 if (count_1 > 0) {
                                     for (var a = 0; a < count_1; a++) {
@@ -266,8 +267,6 @@ function loadStyles(productId, orderItemId, rowId) {
             $("#FirststyleTable").html(firstList);
             $("#SecondstyleTable").html(secondList);
             $("#ThirdstyleTable").html(thirdList);
-            // $('#second').html(second);
-            // $('#third').html(third);
             $('#valFirst').val(valFirst);
             $('#valSecond').val(valSecond);
             $('#valThird').val(valThird);
