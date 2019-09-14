@@ -13,7 +13,8 @@ $('#login').on('submit',function(event){
        success:function(response){
            if(response.Data != null){
             var employeeId = response.Data.employeeId;
-            window.location.href = 'createSession.php?employeeId='+employeeId;
+            var employeeName = response.Data.firstName+' '+response.Data.lastName;
+            window.location.href = 'createSession.php?employeeId='+employeeId+'&employeeName=' + employeeName;
            }else{
             alert('Enter Correct Username and password');
            }

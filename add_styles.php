@@ -8,19 +8,18 @@
                  <h4 class="modal-title">Add Styles</h4>
              </div>
              <!-- Modal body -->
-             <div class="modal-body">
+             <div class="modal-body" style="overflow: auto;max-height: -webkit-fill-available;">
                  <div class="card">
                      <div class="card-body">
-                         <h5 class="card-title" id="first"></h5>
                          <input type="hidden" id="valFirst">
                          <div class="row" >
-                             <div class="table-responsive " style="overflow: auto;max-height: -webkit-fill-available;">
+                             <div class="table-responsive ">
                                  <table class="table table-bordered" id="firstStyle">
                                      <thead>
                                          <tr>
-                                             <th>Id</th>
-                                             <th>Style</th>
-                                             <th>select multiple</th>
+                                            <th style='display:none;'>Main Id</th>
+                                             <th style='text-align:center;'>Style</th>
+                                             <th style='text-align:center;'>Select multiple</th>
                                          </tr>
                                      </thead>
                                      <tbody id="FirststyleTable">
@@ -36,12 +35,13 @@
                          <h5 class="card-title" id="second"></h5>
                          <input type="hidden" id="valSecond">
                          <div class="row">
-                             <div class="table-responsive " style="overflow: auto;max-height: -webkit-fill-available;">
+                             <div class="table-responsive ">
                                  <table class="table table-bordered" id="secondStyle">
                                      <thead>
                                          <tr>
-                                             <th>Style</th>
-                                             <th>select single</th>
+                                         <th style='display:none;'>Main Id</th>
+                                             <th style='text-align:center;'>Style</th>
+                                             <th style='text-align:center;'>Select single</th>
                                          </tr>
                                      </thead>
                                      <tbody id="SecondstyleTable">
@@ -57,13 +57,14 @@
                          <h5 class="card-title" id="third"></h5>
                          <input type="hidden" id="valThird">
                          <div class="row">
-                             <div class="table-responsive " style="overflow: auto;max-height: -webkit-fill-available;">
+                             <div class="table-responsive ">
                                  <table class="table table-bordered" id="thirdStyle">
                                      <thead>
                                          <tr>
-                                             <th>Id</th>
-                                             <th>Style</th>
-                                             <th>select single</th>
+                                             <th style='display:none;'>Main Id</th>
+                                             <th style='display:none;'>Sub Id</th>
+                                             <th style='text-align:center;'>Style</th>
+                                             <th style='text-align:center;'>Enter Value</th>
                                          </tr>
                                      </thead>
                                      <tbody id="ThirdstyleTable">
@@ -90,15 +91,17 @@
      $('#saveStyleData').on('click', function(event) {
          event.preventDefault();
          first_TableData = store_firstTblValues();
+        
          third_TableData = store_thirdTblValues();
          second_TableData = store_secondTblValues();
+         //console.log(second_TableData);
          var allTableData = first_TableData.concat(second_TableData, third_TableData);
          var postdata = {
              "orderitemid": style_orderItemId,
              "styles": allTableData
          };
          postdata = JSON.stringify(postdata);
-        //  console.log(postdata);
+        console.log(postdata);
          $.ajax({
              url: api_url + 'createorderitemstyle.php',
              type: 'POST',
@@ -107,10 +110,8 @@
              },
              success: function(response) {
                  alert(response.Message);
-                //  console.log(customerId_g);
                  getOrdersOfCustomer(customerId_g);
                  customerOrderDetails = customerOrders[indexRow];
-                //  console.log(customerOrderDetails);
                  $('#customerOrdersBlock').hide();
                  $('#styleModal').modal('toggle');
              }
@@ -120,9 +121,17 @@
      function store_firstTblValues() {
          var TableData = new Array();
          var stitchstyleid = $('#valFirst').val();
-         $('#firstStyle').find('input[name="multipleSelection"]:checked').each(function(row) {
-             TableData[row] = {
-                 "stitchstyleid": stitchstyleid,
+        //  $('#firstStyle').find('input[name="multipleSelection"]:checked').each(function(row) {
+        //      TableData[row] = {
+        //          "stitchstyleid": stitchstyleid,
+        //          "stitchsubstyleid": $(this).val(),
+        //          "value": 'yes'
+        //      }
+        //  });
+        var tableControl = document.getElementById('firstStyle');
+        $('input:checkbox:checked', tableControl).each(function(row) {
+        TableData[row] = {
+                 "stitchstyleid": $(this).parent().prev().prev().text(),
                  "stitchsubstyleid": $(this).val(),
                  "value": 'yes'
              }
@@ -132,28 +141,34 @@
 
      function store_secondTblValues() {
          var TableData = new Array();
-         var stitchstyleid = $('#valSecond').val();
-         $('#secondStyle').find('input[name="singleSelection"]:checked').each(function(row) {
-             TableData[row] = {
-                 "stitchstyleid": stitchstyleid,
+        var tableControl = document.getElementById('secondStyle');
+        $('input:radio:checked', tableControl).each(function(row) {
+        TableData[row] = {
+                 "stitchstyleid": $(this).parent().prev().prev().text(),
                  "stitchsubstyleid": $(this).val(),
                  "value": 'yes'
              }
          });
+         //TableData.shift(); // first row will be empty - so remove
          return TableData;
      }
 
      function store_thirdTblValues() {
          var TableData = new Array();
          var stitchstyleid = $('#valThird').val();
+         var j=0;
          $('#thirdStyle tr').each(function(row, tr) {
-             TableData[row] = {
-                 "stitchstyleid": stitchstyleid,
-                 "stitchsubstyleid": $(tr).find('td:eq(0)').text(),
-                 "value": $(tr).find('td:eq(2) input').val()
+             if($(tr).find('td:eq(1)').text() != ''){
+                // console.log($(tr).find('td:eq(1)').text());
+             TableData[j] = {
+                 "stitchstyleid": $(tr).find('td:eq(0)').text(),
+                 "stitchsubstyleid": $(tr).find('td:eq(1)').text(),
+                 "value": $(tr).find('td:eq(3) input').val()
              }
+             j++;
+            }
          });
-         TableData.shift(); // first row will be empty - so remove
+         //TableData.shift(); // first row will be empty - so remove
          return TableData;
      }
  </script>

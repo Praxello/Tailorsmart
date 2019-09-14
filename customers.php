@@ -1,6 +1,7 @@
 <?php
 session_start();
-$employeeId = $_SESSION['employeeId'];?>
+$employeeId = $_SESSION['employeeId'];
+$employeeName = $_SESSION['employeeName'];?>
 <!DOCTYPE html>
 <html lang="en">
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
@@ -13,7 +14,7 @@ $employeeId = $_SESSION['employeeId'];?>
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <!-- <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png"> -->
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <title>Smart - Tailor</title>
     <!-- Bootstrap Core CSS -->
     <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
@@ -65,6 +66,7 @@ $employeeId = $_SESSION['employeeId'];?>
             <div class="container-fluid">
                 <!-- Start Page Content -->
                 <input type="hidden" id="empId" value="<?php echo $employeeId;?>" />
+                <input type="hidden" id="empName" value="<?php echo $employeeName;?>" />
                <div id="loadNewPage"></div>
                 <div class="row"  id="customerSelectionBlock" >
                     <div class="col-sm-12">
