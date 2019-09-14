@@ -53,7 +53,7 @@
              "fabrics": fabrics_TableData
          };
          postdata = JSON.stringify(postdata);
-         console.log(postdata);
+         //console.log(postdata);
          $.ajax({
              url: api_url+'createorderitemfabric.php',
              type: 'POST',
@@ -61,7 +61,7 @@
                  postdata: postdata
              },
              success: function(response) {
-                 alert(response.Message);
+                 swal(response.Message);
                 //  console.log(customerId_g);
                  getOrdersOfCustomer(customerId_g);
                  customerOrderDetails = customerOrders[indexRow];

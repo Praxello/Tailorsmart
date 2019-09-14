@@ -52,7 +52,7 @@
                  "measurements": TableData
              };
              postdata = JSON.stringify(postdata);
-             console.log(postdata);
+             //console.log(postdata);
              $.ajax({
                  url: api_url+'createorderitemmeasurement.php',
                  type: 'POST',

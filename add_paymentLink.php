@@ -75,7 +75,7 @@
              employeeid: $('#empId').val(),
              amount: amount
          };
-         console.log(paymentData);
+         //console.log(paymentData);
          $.ajax({
              url: api_url + 'createpaymentfororder.php',
              type: 'POST',

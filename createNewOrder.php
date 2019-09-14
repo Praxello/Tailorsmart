@@ -15,7 +15,7 @@
         <div class="col-sm-12">
           <div class="card">
             <div class="row">
-           
+
               <div class="col-sm-4">
                 <h4 class="card-title">Customer Name</h4>
                 <h6 class="card-subtitle"><span id="custName"></span></h6>
@@ -49,20 +49,35 @@
               <div class="col-sm-3">
                 <div class="form-group">
                   <label class="control-label">Select Product </label>
-                  <select class="form-control form-control-sm" id="products">
+                </div>
+              </div>
+              <div class="col-sm-9">
+                <div class="form-group">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3">
+                <div class="form-group">
+
+                  <select class="form-control form-control-sm" id="products" style="width:100%">
                   </select>
                 </div>
               </div>
               <div class="col-sm-3">
                 <div class="form-group">
-                  <button type="button" class="add-row btn btn-success" style="margin-top: 30px;padding-left:5px;padding-right:20px;padding-top:5px;padding-bottom:5px;">add product</button>
+                  <button type="button" class="add-row btn btn-success">add product</button>
                 </div>
               </div>
               <div class="col-sm-3">
-              <button type="button" class="btn btn-primary" style="margin-top: 30px;padding-left:5px;padding-right:20px;padding-top:5px;padding-bottom:5px;" onclick="window.location.reload();">Close Order</button>
+                <div class="form-group">
+                  <button type="button" class="btn btn-primary" onclick="window.location.reload();">Close Order</button>
+                </div>
               </div>
               <div class="col-sm-3">
-              <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#paymentLinkModal" style="margin-top: 30px;padding-left:5px;padding-right:20px;padding-top:5px;padding-bottom:5px;">Create Payment Link</button>
+                <div class="form-group">
+                  <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#paymentLinkModal">Create Payment Link</button>
+                </div>
               </div>
             </div>
           </div>
@@ -86,19 +101,21 @@
         </div>
       </div>
     </div>
-  <div id="paymentlink" class="container tab-pane"><br>
-    <div class="card">
+    <div id="paymentlink" class="container tab-pane"><br>
+      <div class="card">
         <div class="table-responsive m-t-40">
           <table class="table table-bordered">
             <thead>
               <tr>
-                <th>Payment Id</th>
+                <th>Sr no</th>
                 <th>Payment Mode</th>
                 <th>Payment Type</th>
                 <th>Amount</th>
-               <th>Employee Name</th>
-               <th>Payment Time</th>
-               <th>Action</th>
+                <th>Created By</th>
+                <th>Payment Time</th>
+                <th>Status</th>
+                <th>Deleted By</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody id="paymentData">
@@ -106,14 +123,14 @@
             </tbody>
           </table>
         </div>
+      </div>
     </div>
-</div>
-</div>
-    <?php include 'add_measurment.php'; ?>
-    <?php include 'add_styles.php'; ?>
-    <?php include 'add_fabrics.php'; ?>
-    <?php include 'add_paymentLink.php';?>
-    <!-- <button type="button" class="delete-row">Delete Row</button> -->
+  </div>
+  <?php include 'add_measurment.php'; ?>
+  <?php include 'add_styles.php'; ?>
+  <?php include 'add_fabrics.php'; ?>
+  <?php include 'add_paymentLink.php'; ?>
+  <!-- <button type="button" class="delete-row">Delete Row</button> -->
 </body>
 
 </html>
