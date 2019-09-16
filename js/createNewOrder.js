@@ -306,7 +306,7 @@ function loadFabrics(productId, orderItemId, rowId) {
             for (var i = 0; i < count; i++) {
                 if (response.Data[i].productId == productId) {
                     //createDropdownOptions += "<td>" + response['Data'][i].fabricTitle + "</td>";
-                    createDropdownOptions += "<tr><td><img class='img-thumbnail' src='http://praxello.com/tailorsmart/mobileimages/fabric/" + response['Data'][i].skuNo + ".jpg' width='20%' height='10%' alt='No Image Available'></img></td>";
+                    createDropdownOptions += "<tr><td><img class='img-thumbnail' src='http://praxello.com/tailorsmart/mobileimages/fabric/300x300/" + response['Data'][i].skuNo + ".jpg' width='20%' height='10%' alt='No Image Available'></img></td>";
                     createDropdownOptions += "<td>" + response['Data'][i].fabricTitle + "</td>";
                     createDropdownOptions += "<td>" + response['Data'][i].skuNo + "</td>";
                     createDropdownOptions += "<td>" + response['Data'][i].fabricPrice + "</td>";
