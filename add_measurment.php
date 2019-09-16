@@ -8,7 +8,7 @@
                  <h4 class="modal-title">Add Measurments</h4>
              </div>
              <!-- Modal body -->
-             <div class="modal-body">
+             <div class="modal-body" style="overflow-x: hidden;max-height: 500px;">
 
                  <div class="card">
                      <div class="row">
@@ -52,7 +52,7 @@
                  "measurements": TableData
              };
              postdata = JSON.stringify(postdata);
-             //console.log(postdata);
+             console.log(postdata);
              $.ajax({
                  url: api_url+'createorderitemmeasurement.php',
                  type: 'POST',

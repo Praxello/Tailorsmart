@@ -83,7 +83,7 @@
          var paymenttype = $('#paymenttype').val();
          var amount = $('#amount').val();
          var currencyCode = $('#currency').val();
-         console.log(currencyCode);
+         //console.log(currencyCode);
          if(amount == ''){
              amount = 0;
          }

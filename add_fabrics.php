@@ -8,13 +8,13 @@
                  <h4 class="modal-title">Add Fabrics</h4>
              </div>
              <!-- Modal body -->
-             <div class="modal-body" >
+             <div class="modal-body"  style="overflow-x: hidden;max-height: 500px;">
              <input id="myInput" type="text" placeholder="Search.." class="form-control form-control-sm">
                  <div class="card">
                      <div class="row">
                     
                          <div class="table-responsive" >
-                             <table class="table table-bordered" id="fabricssampleTbl" style="overflow: auto;max-height: -webkit-fill-available;">
+                             <table class="table table-bordered" id="fabricssampleTbl">
                                  <thead>
                                      <tr>
                                          <th style="width: 30%;">Image</th>
