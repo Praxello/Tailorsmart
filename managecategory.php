@@ -69,7 +69,7 @@
                                     <table id="styletbl" class="display nowrap table table-hover  table-bordered">
                                         <thead>
                                             <tr>
-                                                <th>Id</th>
+                                                <!-- <th>Id</th> -->
                                                 <th>Image Icon</th>
                                                 <th>Category Name </th>
                                                 <th>Status</th>

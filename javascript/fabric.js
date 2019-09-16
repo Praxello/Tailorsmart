@@ -33,20 +33,7 @@ function getallcategory(){
       }
     });
 }
-function doesFileExist(urlToFile)
-{
-    var xhr = new XMLHttpRequest();
-    xhr.open('HEAD', urlToFile, false);
-    // xhr.send();
 
-    if (xhr.status == "404") {
-        // console.log("File doesn't exist");
-        return false;
-    } else {
-        // console.log("File exists");
-        return true;
-    }
-}
 // This function is created for Get All Style Data.
 function getfabrics(){
   $('#styletbl').dataTable().fnDestroy();
@@ -58,13 +45,11 @@ function getfabrics(){
            var count= response['Data'].length;
             var html ="<tr>";
             styleData=[...response['Data']];
+            var imageUrl ='';
             for (var i = 0; i < count; i++) {
-              var imageUrl = pic_url+'fabric/300x300/'+response['Data'][i].skuNo+'.jpg';
-              var file = doesFileExist(imageUrl);
-              if(!file){
-               imageUrl = pic_url+'fabric/300x300/0.jpg';
-              };
-                html +="<td><form id='custstyleform"+response['Data'][i].skuNo+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+response['Data'][i].skuNo+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' src='"+imageUrl+"'  style='cursor: pointer' onclick='imguplod("+response['Data'][i].skuNo+")'></img></form></td>";
+               imageUrl = pic_url+'fabric/300x300/'+response['Data'][i].skuNo+'.jpg';
+
+                html +="<td><form id='custstyleform"+response['Data'][i].skuNo+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+response['Data'][i].skuNo+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' alt='No Image' src='"+imageUrl+"'  style='cursor: pointer' onclick='imguplod(\"" + response['Data'][i].skuNo + "\")'></img></form></td>";
                 // html +="<td> <img class='img-thumbnail' src='"+pic_url+"fabric/"+response['Data'][i].skuNo+".jpg' width='20%' height='20%'></img></td>";
                 html +="<td>"+response['Data'][i].fabricTitle+"</td>";
                 html +="<td>"+response['Data'][i].fabricBrand+"</td>";
@@ -78,7 +63,7 @@ function getfabrics(){
                 else {
                   html +='<td><span class="badge badge-pill badge-warning">InActive</span></td>';
                 }
-                html +='<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod('+response['Data'][i].skuNo+')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+i+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeFabric('+response['Data'][i].fabricId+')"><i class="fa fa-remove"></i></button></div></td>';
+                html +='<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod(\'' + response['Data'][i].skuNo + '\')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+i+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeFabric('+response['Data'][i].fabricId+')"><i class="fa fa-remove"></i></button></div></td>';
                 html +="  </tr>";
             }
            $("#styletbldata").html(html);
@@ -106,7 +91,8 @@ function imguplod(imgid){
                 fd.append('imgname',imgid);
                 fd.append('foldername',"fabric");
                 $.ajax({
-                     url:"src/addimg.php",
+                     // url:"src/addimg.php",
+                     url:"http://praxello.com/tailorsmart/uploadimage.php",
                      type:"POST",
                      contentType: false,
                      cache: false,

@@ -1,14 +1,10 @@
-
-// setEmployeeData();
 var styleData = [];
-// var getallfabmap =[];
-var getallemployee  = [];
+var EmployeeData  = [];
 var getslotdata =[];
 var selectitemsdata =[];
 
+getMicellaneousData();
 
-setEmployeeData();
-// getallfabricmapping();
 
 setTimeout(function(){
 getcustomerappointmentdata();
@@ -31,15 +27,15 @@ $('#appointmentStatus').select2({
   allowClear: true,
   placeholder: "Select Appoointment Status"
 });
-function setEmployeeData(){
+
+function getMicellaneousData(){
   var selectemp='';
   $.ajax({
       type: "GET",
       url: api_url+"getmiscellaneousdata.php",
       success: function(response) {
         var countowner= response['Employee'].length;
-        getallemployee = [...response['Employee']];
-        // console.log("Emp"+getallemployee);
+        EmployeeData = [...response['Employee']];
         selectemp +='<option value="">Select Employee</option>';
         for (var i = 0; i < countowner; i++) {
         selectemp +="<option value='"+response['Employee'][i].employeeId+"'>"+response['Employee'][i].firstName+" "+response['Employee'][i].lastName+"</option>";
@@ -48,29 +44,51 @@ function setEmployeeData(){
       }
     });
 }
-// function getallfabricmapping(){
-//   $.ajax({
-//       type: "GET",
-//       url: api_url+"getproductfabricmapping.php",
-//       success: function(response) {
-//         getallfabmap.push(response['Data']);
-//       }
-//     });
-// }
+function getEmployeeName(empId,count) {
+    var empName = '';
+    for(var i=0;i<count;i++){
+        if(empId == EmployeeData[i].employeeId){
+            empName = EmployeeData[i].firstName + ' '+EmployeeData[i].lastName;
+        }
+    }
+    return empName;
+}
+function getAppointmentStatus(appointmentId) {
+  var status ='';
+  switch(appointmentId) {
+        case "0":
+           status +='<span class="badge badge-pill badge-primary">Idle</span>';
+        break;
+        case "1":
+          status +='<span class="badge badge-pill badge-success">Confirmed</span>';
+        break;
+        case "2":
+          status +='<span class="badge badge-pill badge-danger">Cancelled</span>';
+        break;
+        case "3":
+            status +='<span class="badge badge-pill badge-warning"> Withdrawn by customer</span>';
+        break;
+        case "5":
+            status += '<span class="badge badge-pill badge-dark">None</span>';
+        break;
+        // code block
+  }
+  return status;
+}
+
 
 function getcustomerappointmentdata(){
   $('#appointmenttbl').dataTable().fnDestroy();
   $("#appointmenttbldata").empty();
      $.ajax({
          type: "GET",
-         // url: api_url+"getappointments.php",
          url:api_url+"getappointments.php",
          dataType:"json",
          success: function(response) {
            // alert(response[0].customerName);
             getslotdata=[...response["Slots"]];
 
-            var html='';
+            var html='',EmpName='-',orderStatus='-';
             var slotcount =getslotdata.length; // For Count length of slot
             for(var i=0;i<slotcount;i++){
               html +="<option value="+getslotdata[i].slotId+">"+getslotdata[i].slotTime+"</option>";
@@ -78,49 +96,19 @@ function getcustomerappointmentdata(){
             $("#settimeslot").html(html);
             var count= response["Data"].length;  // For Count length of Get All Appointment
             var html ="<tr>";
-           // alert(getallemployee);
-
-            var emplength = getallemployee.length;
+            var EmpCount = EmployeeData.length;
             styleData = [...response["Data"]];
             for (var i = 0; i < count; i++) {
-
-
-                // styleData.push(response["Data"][i].AppointmentDetails);
-                // html +="<td>"+(i+1)+"</td>";
+                EmpName = getEmployeeName(response["Data"][i].AppointmentDetails.servingEmployeeId,EmpCount);
+                orderStatus = getAppointmentStatus(response["Data"][i].AppointmentDetails.appointmentStatus);
                 html +="<td>"+response["Data"][i].AppointmentDetails.firstName+" "+response["Data"][i].AppointmentDetails.lastname+"</td>";
                 html +="<td>"+response["Data"][i].AppointmentDetails.appointmentDate+"</td>";
                 html +="<td>"+response["Data"][i].AppointmentDetails.slotTime+"</td>";
                 html +="<td>"+response["Data"][i].AppointmentDetails.address+"</td>";
                 html +="<td>"+response["Data"][i].AppointmentDetails.city+"</td>";
                 html +="<td>"+response["Data"][i].AppointmentDetails.mobile+"</td>";
-                // console.log(getallemployee);
-                for(var j=0;j<emplength;j++){
-                if(getallemployee[j].employeeId===response["Data"][i].AppointmentDetails.servingEmployeeId){
-                  html +="<td>"+getallemployee[j].firstName+" "+getallemployee[j].lastName+"</td>";
-                }
-                }
-                if(response["Data"][i].AppointmentDetails.servingEmployeeId==0){
-                  html +="<td></td>";
-                }
-                switch(response["Data"][i].AppointmentDetails.appointmentStatus) {
-                      case "0":
-                         html +="<td> Idle </td>";
-                      break;
-                      case "1":
-                        html +="<td> Confirmed </td>";
-                      break;
-                      case "2":
-                        html +="<td> Cancelled </td>";
-                      break;
-                      case "3":
-                          html +="<td> Withdrawn by customer </td>";
-                      break;
-                      case "5":
-                          html +="<td> None </td>";
-                      break;
-                      // code block
-                }
-
+                html +="<td>"+EmpName+"</td>";
+                html +="<td>"+orderStatus+"</td>";
                 html +='<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editcustomerappointmentdata('+i+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeSponsers('+i+')"><i class="fa fa-remove"></i></button></div></td>';
                 html +="</tr>";
                 }
@@ -163,16 +151,13 @@ function editcustomerappointmentdata(id){
       var selectitemlen = styleData[id].SelectedItems.length;
       var html ='';
       for(var i=0;i<selectitemlen;i++){
-
         var selectfabriclen = styleData[id].SelectedItems[i].Fabrics.length;
         html +='<tr>';
-        // html +='<td>'+(j+1)+'</td>';
         html +='<td style="color: orange;font-weight: bolder;">'+styleData[id].SelectedItems[i].Product.productTitle+'</td>';
         html +='<td>'+styleData[id].SelectedItems[i].Fabrics[0].fabricTitle+'</td>';
         html +='</tr>';
         for(var j=1;j<selectfabriclen;j++){
            html +='<tr>';
-           // html +='<td>'+(j+1)+'</td>';
            html +='<td> </td>';
            html +='<td>'+styleData[id].SelectedItems[i].Fabrics[j].fabricTitle+'</td>';
            html +='</tr>';
@@ -202,6 +187,7 @@ function updateAppointmentDetails(){
         }
     });
 }
+
 $('#reloadbtn').on('click',function(event){
   event.preventDefault();
   $("#customerappointdetailtbl").hide();

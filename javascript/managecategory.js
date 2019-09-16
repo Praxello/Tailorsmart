@@ -8,20 +8,7 @@ $('#stylestatus').select2({
 $(document).ready(function() {
 
 });
-function doesFileExist(urlToFile)
-{
-    var xhr = new XMLHttpRequest();
-    xhr.open('HEAD', urlToFile, false);
-    // xhr.send();
 
-    if (xhr.status == "404") {
-        // console.log("File doesn't exist");
-        return false;
-    } else {
-        // console.log("File exists");
-        return true;
-    }
-}
 // This function is created for Get All Style Data.
 function getcustomersubstyles(){
   $('#styletbl').dataTable().fnDestroy();
@@ -33,14 +20,15 @@ function getcustomersubstyles(){
            var count= response['Data'].length;
             var html ="<tr>";
               styleData=[...response['Data']];
+              var imageUrl ='';
             for (var i = 0; i < count; i++) {
-              var imageUrl = pic_url+'category/300x300/'+response['Data'][i].categoryId+'.jpg';
-              var file = doesFileExist(imageUrl);
-              if(!file){
-               imageUrl = pic_url+'category/300x300/0.jpg';
-              };
-                html +="<td>"+(i+1)+"</td>";
-                html +="<td><form id='custstyleform"+response['Data'][i].categoryId+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+response['Data'][i].categoryId+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' src='"+imageUrl+"'  style='cursor: pointer' onclick='imguplod("+response['Data'][i].categoryId+")'></img></form></td>";
+              imageUrl = pic_url+'category/300x300/'+response['Data'][i].categoryId+'.jpg';
+              // var file = doesFileExist(imageUrl);
+              // if(!file){
+              //  imageUrl = pic_url+'category/300x300/0.jpg';
+              // };
+                // html +="<td>"+(i+1)+"</td>";
+                html +="<td><form id='custstyleform"+response['Data'][i].categoryId+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+response['Data'][i].categoryId+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' src='"+imageUrl+"'  style='cursor: pointer' onclick='imguplod("+response['Data'][i].categoryId+")' alt='No Image'></img></form></td>";
                 // html +="<td> <img class='img-thumbnail' src='"+pic_url+"category/"+response['Data'][i].categoryId+".jpg' width='10%' height='10%'></img></td>";
                 html +="<td>"+response['Data'][i].categoryTitle+"</td>";
                 if(response['Data'][i].isActive==1){
@@ -58,7 +46,7 @@ function getcustomersubstyles(){
            retrieve: true,
            bPaginate: $('tbody tr').length>10,
            order: [],
-           columnDefs: [ { orderable: false, targets: [0,1,2,3,4] } ],
+           columnDefs: [ { orderable: false, targets: [0,1,2,3] } ],
            dom: 'Bfrtip',
            buttons: [],
            destroy: true
@@ -78,7 +66,8 @@ function imguplod(imgid){
                 fd.append('imgname',imgid);
                 fd.append('foldername',"category");
                 $.ajax({
-                     url:"src/addimg.php",
+                     // url:"src/addimg.php",
+                     url:"http://praxello.com/tailorsmart/uploadimage.php",
                      type:"POST",
                      contentType: false,
                      cache: false,
@@ -87,7 +76,7 @@ function imguplod(imgid){
                      dataType:'json',
                      success:function(response){
                        swal(response['Message']);
-                       // getcustomerstyles();
+                        getcustomersubstyles();
                      }
               });
    };

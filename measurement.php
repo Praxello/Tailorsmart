@@ -65,7 +65,7 @@
                                     <table id="styletbl" class="display nowrap table table-hover  table-bordered">
                                         <thead>
                                             <tr>
-                                                <th>Id</th>
+                                                <!-- <th>Id</th> -->
                                                 <th>Measurement Title</th>
                                                 <th>Status</th>
                                                 <th>Action </th>

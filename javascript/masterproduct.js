@@ -14,7 +14,7 @@ $('#masterisgroup').select2({
 });
 $('#stylestatus').select2({
   allowClear: true,
-  placeholder: "Select Style Status"
+  placeholder: "Select Master Product Status"
 });
 
 var styleData = []; // This variable globally declare save all Style Data in Array
@@ -22,6 +22,9 @@ var styleData = []; // This variable globally declare save all Style Data in Arr
 $(document).ready(function() {
 
 });
+
+
+
 // This function is created for Get All Style Data.
 function getmasterproduct(){
   $('#styletbl').dataTable().fnDestroy();
@@ -33,9 +36,11 @@ function getmasterproduct(){
            var count= response['Data'].length;
             var html ="<tr>";
             styleData.push(...response['Data']);
-
+                var imageUrl ='';
             for (var i = 0; i < count; i++) {
-                html +="<td><form id='custstyleform"+response['Data'][i].parentId+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+response['Data'][i].styleId+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' src='"+pic_url+"parent/"+response['Data'][i].parentId+".jpg' width='20%' height='20%' style='cursor: pointer' onclick='imguplod("+response['Data'][i].parentId+")'></img></form></td>";
+                imageUrl = pic_url+'parent/300x300/'+response['Data'][i].parentId+'.jpg';
+
+                html +="<td><form id='custstyleform"+response['Data'][i].parentId+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+response['Data'][i].parentId+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' src='"+imageUrl+"' style='cursor: pointer' onclick='imguplod("+response['Data'][i].parentId+")' alt='No Image'></img></form></td>";
                 html +="<td>"+response['Data'][i].styleTitle+"</td>";
                 html +="<td>"+response['Data'][i].subStyleTitle+"</td>";
                 if(response['Data'][i].isGroup==1){
@@ -50,7 +55,7 @@ function getmasterproduct(){
                 else {
                   html +='<td><span class="badge badge-pill badge-warning">InActive</span></td>';
                 }
-                html +='<td ><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+i+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removemaster('+response['Data'][i].parentId+')"><i class="fa fa-remove"></i></button></div></td>';
+                html +='<td ><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod('+response['Data'][i].parentId+')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+i+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removemaster('+response['Data'][i].parentId+')"><i class="fa fa-remove"></i></button></div></td>';
                 html +="  </tr>";
             }
            $("#styletbldata").html(html);
@@ -59,13 +64,43 @@ function getmasterproduct(){
            retrieve: true,
            bPaginate: $('tbody tr').length>10,
            order: [],
-           columnDefs: [ { orderable: false, targets: [0,1,2,3,4] } ],
+           columnDefs: [ { orderable: false, targets: [0,1,2,3,4,5] } ],
            dom: 'Bfrtip',
            buttons: [],
            destroy: true
            });
          }
      });
+}
+
+//This function is useful for upload the image files
+function imguplod(imgid){
+   var triggerid=$('#customerstylepic'+imgid).trigger('click');
+   var fileupload = document.getElementById('customerstylepic'+imgid);
+   fileupload.onchange = function () {
+                var customerstylepic = $('#customerstylepic'+imgid).val();
+                var fd = new FormData();
+                var files = $('#customerstylepic'+imgid)[0].files[0];
+                // var base64ImageContent = files.replace(/^data:image\/(png|jpg);base64,/, "");
+                // var path = "mobileimages/stitchstyle/"+imgid+".jpg";
+                fd.append('file',files);
+                fd.append('imgname',imgid);
+                fd.append('foldername',"parent");
+                // fd.append('foldername',"stitchstyle");
+                $.ajax({
+                    url:"http://praxello.com/tailorsmart/uploadimage.php",
+                     type:"POST",
+                     contentType: false,
+                     cache: false,
+                     processData:false,
+                     data: fd,
+                     dataType:'json',
+                     success:function(response){
+                       swal(response['Message']);
+                      getmasterproduct();
+                     }
+              });
+   };
 }
 
 function getmiscellaneousdata(){

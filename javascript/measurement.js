@@ -23,7 +23,7 @@ function getmeasurementitems(){
               styleData=[...response['Data']];
             for (var i = 0; i < count; i++) {
                 // styleData.push(response['Data'][i]);
-                html +="<td>"+(i+1)+"</td>";
+                // html +="<td>"+(i+1)+"</td>";
                 // html ='<td><input  name="eventprofile'+response['Data'][i].styleId+'" accept="image/*"  ></td>';
                   // <form id="eventform"   method="post" enctype="multipart/form-data">
                 // html +="<td><form id='custstyleform"+response['Data'][i].styleId+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+response['Data'][i].styleId+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' src='"+pic_url+"style/"+response['Data'][i].styleId+".jpg' width='10%' height='10%' style='cursor: pointer' onclick='imguplod("+response['Data'][i].styleId+")'></img></form></td>";
@@ -43,7 +43,7 @@ function getmeasurementitems(){
            retrieve: true,
            bPaginate: $('tbody tr').length>10,
            order: [],
-           columnDefs: [ { orderable: false, targets: [] } ],
+           columnDefs: [ { orderable: false, targets: [0,1,2] } ],
            dom: 'Bfrtip',
            buttons: [],
            destroy: true

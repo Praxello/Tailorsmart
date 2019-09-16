@@ -25,18 +25,12 @@ function getstitchstyles(){
          success: function(response) {
            var count= response['Data'].length;
             var html ="<tr>";
+                    var imageUrl ='';
             styleData=[...response['Data']];
             for (var i = 0; i < count; i++) {
-                // styleData.push(response['Data'][i]);
-                html +="<td>"+(i+1)+"</td>";
-                var imageUrl ='';
-                // var imageUrl = pic_url+'stitchstyle/300x300/'+response['Data'][i].stitchStyleId+'.jpg';
-                // var file = doesFileExist(imageUrl);
-                // if(!file){
-                //  imageUrl = pic_url+'stitchstyle/300x300/0.jpg';
-                // };
+                // html +="<td>"+(i+1)+"</td>";
                 imageUrl = pic_url+'stitchstyle/300x300/'+response['Data'][i].stitchStyleId+'.jpg';
-                html +="<td><form id='custstyleform"+response['Data'][i].stitchStyleId+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+response['Data'][i].stitchStyleId+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' src='"+imageUrl+"'  style='cursor: pointer' onclick='imguplod("+response['Data'][i].stitchStyleId+")'></img></form></td>";
+                html +="<td><form id='custstyleform"+response['Data'][i].stitchStyleId+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+response['Data'][i].stitchStyleId+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' src='"+imageUrl+"'  style='cursor: pointer' onclick='imguplod("+response['Data'][i].stitchStyleId+")' alt='No Image'></img></form></td>";
                 // html +="<td> <img class='img-thumbnail' src='"+pic_url+"stitchstyle/"+response['Data'][i].stitchStyleId+".jpg' width='10%' height='10%'></img></td>";
                 html +="<td>"+response['Data'][i].stitchStyleTitle+"</td>";
                 html +="<td>"+response['Data'][i].stitchStyleDetails+"</td>";
@@ -75,24 +69,6 @@ function getstitchstyles(){
      });
 }
 
-function doesFileExist(urlToFile)
-{
-    var xhr = new XMLHttpRequest();
-    // xhr.open('HEAD', urlToFile, false);
-
-    xhr.open('GET', urlToFile, true);
-    // xhr.setRequestHeader( 'Access-Control-Allow-Origin', '*');
-    // xhr.setRequestHeader( 'Content-Type', 'application/json' );
-    xhr.send();
-
-    if (xhr.status == "404") {
-      console.log("File doesn't exist");
-        return false;
-    } else {
-        console.log("File exists");
-        return true;
-    }
-}
 //This function is useful for upload the image files
 function imguplod(imgid){
    var triggerid=$('#customerstylepic'+imgid).trigger('click');
@@ -118,7 +94,7 @@ function imguplod(imgid){
                      dataType:'json',
                      success:function(response){
                        swal(response['Message']);
-                       // getcustomerstyles();
+                        getstitchstyles();
                      }
               });
    };
