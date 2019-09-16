@@ -90,8 +90,13 @@ function getActiveProductsList() {
         success: function (response) {
             var createDropdownOptions = '';
             var count = response.Data.length;
+            var parentCount = ParentProducts.length;
             for (var i = 0; i < count; i++) {
-                createDropdownOptions += "<option value=" + response.Data[i].productId + ">" + response.Data[i].productTitle + "</option>";
+                for (var j = 0; j < parentCount; j++) {
+                    if (response.Data[i].parentId == ParentProducts[j].parentId) {
+                        createDropdownOptions += "<option value=" + response.Data[i].productId + ">" + response.Data[i].productTitle + '-' + ParentProducts[j].styleTitle + "</option>";
+                    }
+                }
             }
             $("#products").html(createDropdownOptions);
         }
@@ -114,22 +119,22 @@ function loadMeasurment(productId, orderItemId, rowId) {//for mapping product id
         success: function (response) {
             var createDropdownOptions = '';
             var count = response.Data.length;
-            var  flag = null;
+            var flag = null;
             for (var i = 0; i < count; i++) {
                 if (response.Data[i].productId == productId) {
                     createDropdownOptions += "<tr><td>" + response.Data[i].measurementId + "</td><td>" + response.Data[i].itemTitle + "</td>";
                     if (count_1 > 0) {
                         flag = 0;
-                        for(var a=0;a<count_1;a++){
+                        for (var a = 0; a < count_1; a++) {
                             if (response['Data'][i].measurementId == check_mesurment_exists[a].measurementId) {
-                            createDropdownOptions += "<td><input type='text' name='measurmentValues[]'  value=" + check_mesurment_exists[a].value + " class='form-control form-control-sm'></td>";
-                            flag = 1;
+                                createDropdownOptions += "<td><input type='text' name='measurmentValues[]'  value=" + check_mesurment_exists[a].value + " class='form-control form-control-sm'></td>";
+                                flag = 1;
+                            }
                         }
-                        }
-                        if(flag == 0){
+                        if (flag == 0) {
                             createDropdownOptions += "<td><input type='text' name='measurmentValues[]'  class='form-control form-control-sm'></td>";
                         }
-                       
+
                     } else {
                         createDropdownOptions += "<td><input type='text' name='measurmentValues[]'   class='form-control form-control-sm'></td>";
                     }
@@ -160,6 +165,7 @@ function loadStyles(productId, orderItemId, rowId) {
             var valFirst = '', valSecond = '', valThird = '';
             var m = 0, flag_0 = null, flag_1 = null;
             var count = response.Data.length;
+
             for (var i = 0; i < count; i++) {
                 if (response.Data[i].StitchStyle.productId == productId) {
                     if (response.Data[i].StitchSubstyle != null) {
@@ -170,7 +176,7 @@ function loadStyles(productId, orderItemId, rowId) {
                             for (var j = 0; j < StitchSubstyleCount; j++) {
                                 flag_0 = 0;
 
-                                firstList += "<tr><td style='display:none;'>"+response.Data[i].StitchStyle.stitchStyleId+"</td><td>" + response.Data[i].StitchSubstyle[j].stitchSubStyleTitle + "</td>";
+                                firstList += "<tr><td style='display:none;'>" + response.Data[i].StitchStyle.stitchStyleId + "</td><td>" + response.Data[i].StitchSubstyle[j].stitchSubStyleTitle + "</td>";
                                 if (count_1 > 0) {
 
                                     for (var a = 0; a < count_1; a++) {
@@ -199,32 +205,37 @@ function loadStyles(productId, orderItemId, rowId) {
                         else if (response.Data[i].StitchStyle.stitchStyleType == 1) {
                             second = response.Data[i].StitchStyle.stitchStyleTitle;
                             valSecond = response.Data[i].StitchStyle.stitchStyleId;
+
                             secondList += "<tr><td colspan='3' style='text-align:center;'><strong>" + response.Data[i].StitchStyle.stitchStyleTitle + "</strong></td></tr>";
                             for (var k = 0; k < StitchSubstyleCount; k++) {
-                                secondList += "<tr><td style='display:none;'>"+response.Data[i].StitchStyle.stitchStyleId+"</td><td>" + response.Data[i].StitchSubstyle[k].stitchSubStyleTitle + "</td>";
+                                secondList += "<tr><td style='display:none;'>" + response.Data[i].StitchStyle.stitchStyleId + "</td><td>" + response.Data[i].StitchSubstyle[k].stitchSubStyleTitle + "</td>";
                                 flag_1 = 0;
                                 if (count_1 > 0) {
-                                   
+
                                     for (var a = 0; a < count_1; a++) {
+
                                         if (response.Data[i].StitchSubstyle[k].stitchSubStyleId == check_styles_exists[a].stitchSubStyleId) {
-                                           
-                                            secondList += "<td><input type='radio' name='singleSelection'   value=" + response.Data[i].StitchSubstyle[k].stitchSubStyleId + " checked></td>";
+
+                                            secondList += "<td><input type='radio' name='" + response.Data[i].StitchStyle.stitchStyleId + "chek'   value=" + response.Data[i].StitchSubstyle[k].stitchSubStyleId + " checked></td>";
                                             m++;
                                             flag_1 = 1;
                                         }
                                     }
                                     if (flag_1 == 0) {
-                                        secondList += "<td><input type='radio' name='singleSelection'   value=" + response.Data[i].StitchSubstyle[k].stitchSubStyleId + "></td>";
+
+
+                                        secondList += "<td><input type='radio' name='" + response.Data[i].StitchStyle.stitchStyleId + "chek'   value=" + response.Data[i].StitchSubstyle[k].stitchSubStyleId + "></td>";
+
                                     }
 
                                 } else {
-                                    secondList += "<td><input type='radio' name='"+nameKey+"singleSelection'   value=" + response.Data[i].StitchSubstyle[k].stitchSubStyleId + "></td>";
+                                    secondList += "<td><input type='radio' name='" + nameKey + "singleSelection'   value=" + response.Data[i].StitchSubstyle[k].stitchSubStyleId + "></td>";
                                 }
                                 secondList += "</tr>";
 
                             }
                             nameKey++;
-                           
+
                         }
                         else if (response.Data[i].StitchStyle.stitchStyleType == 2) {
                             third = response.Data[i].StitchStyle.stitchStyleTitle;
@@ -233,7 +244,7 @@ function loadStyles(productId, orderItemId, rowId) {
                             for (var l = 0; l < StitchSubstyleCount; l++) {
                                 //console.log('k count '+k);
                                 flag_2 = 0;
-                                thirdList += "<tr><td style='display:none;'>"+response.Data[i].StitchStyle.stitchStyleId+"</td><td style='display:none;'>" + response.Data[i].StitchSubstyle[l].stitchSubStyleId + "</td>";
+                                thirdList += "<tr><td style='display:none;'>" + response.Data[i].StitchStyle.stitchStyleId + "</td><td style='display:none;'>" + response.Data[i].StitchSubstyle[l].stitchSubStyleId + "</td>";
                                 thirdList += "<td>" + response.Data[i].StitchSubstyle[l].stitchSubStyleTitle + "</td>";
                                 if (count_1 > 0) {
                                     for (var a = 0; a < count_1; a++) {
@@ -280,7 +291,7 @@ function loadFabrics(productId, orderItemId, rowId) {
     var count_1 = 0;
     var check_fabrics_exists = customerOrderDetails.orderItems[rowId].Fabrics;
     if (check_fabrics_exists != null) {
-        var count_1 = customerOrderDetails.orderItems[rowId].Fabrics.length;
+         count_1 = customerOrderDetails.orderItems[rowId].Fabrics.length;
     }
     var flag = null;
     //end for load data
@@ -330,26 +341,28 @@ function getPaymentList() {
         type: 'POST',
         data: { orderid: orderId },
         success: function (response) {
+            var paymentDateTime = null;
             if (response.Data.Payments != null) {
                 var count = response.Data.Payments.length;
                 var markup = '';
                 for (var i = 0; i < count; i++) {
-                    var isSuceed= '',isDeleted = '',deleteEntry='';
-                    if(response.Data.Payments[i].isSuceed == 1){
+                    var isSuceed = '', isDeleted = '', deleteEntry = '';
+                    if (response.Data.Payments[i].isSuceed == 1) {
                         isSuceed = "<td><span class='badge badge-pill badge-success'>completed</span></td>";
-                    }else{
+                    } else {
                         isSuceed = "<td><span class='badge badge-pill badge-danger'>pending</span></td>";
                     }
-                    if(response.Data.Payments[i].isDeleted==1){
-                        isDeleted = "<td><code>"+empName+"</code></td>";
+                    if (response.Data.Payments[i].isDeleted == 1) {
+                        isDeleted = "<td><code>" + empName + "</code></td>";
                         deleteEntry = "<a class='btn btn-primary btn-sm' title='Revert Payment' data-toggle='tooltip' href='#' onclick='updatePaymentFlag(\"" + response.Data.Payments[i].paymentId + "\",\"" + response.Data.OrderDetails.orderId + "\")'><i class='fa fa-info'></i></a>";
-                    }else{
+                    } else {
                         isDeleted = "<td><code></code></td>";
                         deleteEntry = "<a class='btn btn-danger btn-sm' title='Remove Payment' data-toggle='tooltip' href='#' onclick='removePayment(\"" + response.Data.Payments[i].paymentId + "\",\"" + response.Data.OrderDetails.orderId + "\")'><i class='fa fa-trash'></i></a>";
                     }
-                    markup += "<tr><td>" + (i+1) + "</td><td>" + response.Data.Payments[i].paymentMode + "</td>";
+                    paymentDateTime = getDate(response.Data.Payments[i].paymentDateTime);
+                    markup += "<tr><td>" + (i + 1) + "</td><td>" + response.Data.Payments[i].paymentMode + "</td>";
                     markup += "<td>" + response.Data.Payments[i].paymentType + "</td><td>" + response.Data.Payments[i].amount + "</td>";
-                    markup += " <td>" + empName + "</td><td>" + response.Data.Payments[i].paymentDateTime + "</td>";
+                    markup += "<td>" + response.Data.Payments[i].currency + "</td><td>" + empName + "</td><td>" + paymentDateTime + "</td>";
                     markup += isSuceed;
                     markup += isDeleted;
                     markup += "<td><div class='btn-group' role='group' aria-label='Basic example'>";
@@ -370,13 +383,12 @@ function removePayment(paymentid, orderid) {
         paymentid: paymentid,
         employeeid: $('#empId').val()
     };
-    console.log(removeData);
     $.ajax({
         url: api_url + 'deletepayment.php',
         type: 'POST',
         data: removeData,
         success: function (response) {
-            console.log(response.Message);
+            alert(response.Message);
             getPaymentList();
         }
     })
@@ -386,15 +398,21 @@ function updatePaymentFlag(paymentid) {
         paymentid: paymentid,
         employeeid: $('#empId').val()
     };
-    console.log(updateData);
+    // console.log(updateData);
     $.ajax({
         url: api_url + 'revertpayment.php',
         type: 'POST',
         data: updateData,
         success: function (response) {
-            console.log(response.Message);
+            alert(response.Message);
             getPaymentList();
         }
     })
 }
+$(document).on('click','#loadfirstpage',function(e){
+e.preventDefault();
+$('#loadNewPage').empty();
+$('#customerSelectionBlock').show();
+$('#customerOrdersBlock').show();
+});
 

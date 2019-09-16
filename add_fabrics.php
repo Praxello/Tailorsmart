@@ -1,5 +1,5 @@
  <!-- The Modal -->
- <div class="modal" id="FabricsModal">
+ <div class="modal" id="FabricsModal" >
      <div class="modal-dialog modal-lg">
          <div class="modal-content">
 
@@ -8,13 +8,13 @@
                  <h4 class="modal-title">Add Fabrics</h4>
              </div>
              <!-- Modal body -->
-             <div class="modal-body">
-
+             <div class="modal-body" >
+             <input id="myInput" type="text" placeholder="Search.." class="form-control form-control-sm">
                  <div class="card">
                      <div class="row">
-
-                         <div class="table-responsive" style="overflow: auto;max-height: -webkit-fill-available;">
-                             <table class="table table-bordered" id="fabricssampleTbl">
+                    
+                         <div class="table-responsive" >
+                             <table class="table table-bordered" id="fabricssampleTbl" style="overflow: auto;max-height: -webkit-fill-available;">
                                  <thead>
                                      <tr>
                                          <th style="width: 30%;">Image</th>
@@ -43,6 +43,12 @@
      </div>
  </div>
  <script>
+     $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#fabricssampleTbl tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
      var fabrics_TableData;
      $('#saveFabricsData').on('click', function(event) {
          event.preventDefault();
@@ -61,7 +67,7 @@
                  postdata: postdata
              },
              success: function(response) {
-                 swal(response.Message);
+                 alert(response.Message);
                 //  console.log(customerId_g);
                  getOrdersOfCustomer(customerId_g);
                  customerOrderDetails = customerOrders[indexRow];

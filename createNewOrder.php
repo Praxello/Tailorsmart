@@ -71,7 +71,7 @@
               </div>
               <div class="col-sm-3">
                 <div class="form-group">
-                  <button type="button" class="btn btn-primary" onclick="window.location.reload();">Close Order</button>
+                  <button type="button" class="btn btn-primary" id="loadfirstpage">Close Order</button>
                 </div>
               </div>
               <div class="col-sm-3">
@@ -111,6 +111,7 @@
                 <th>Payment Mode</th>
                 <th>Payment Type</th>
                 <th>Amount</th>
+                <th>Currency</th>
                 <th>Created By</th>
                 <th>Payment Time</th>
                 <th>Status</th>

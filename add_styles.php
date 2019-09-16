@@ -80,7 +80,7 @@
              <!-- Modal footer -->
              <div class="modal-footer">
                  <button type="button" class="btn btn-success btn-sm" id="saveStyleData">Save</button>
-                 <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+                 <button type="button" class="btn btn-danger btn-sm" id="cl" data-dismiss="modal">Close</button>
              </div>
 
          </div>
@@ -101,7 +101,7 @@
              "styles": allTableData
          };
          postdata = JSON.stringify(postdata);
-        console.log(postdata);
+         console.log(postdata);
          $.ajax({
              url: api_url + 'createorderitemstyle.php',
              type: 'POST',
@@ -113,7 +113,7 @@
                  getOrdersOfCustomer(customerId_g);
                  customerOrderDetails = customerOrders[indexRow];
                  $('#customerOrdersBlock').hide();
-                 $('#styleModal').modal('toggle');
+                 $('#cl').click();
              }
          })
      });
