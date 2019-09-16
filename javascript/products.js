@@ -37,7 +37,6 @@ $(document).ready(function() {
 
 function getmiscellaneousdata(){
   var selectowner ='',selectparent='',selectcategory='';
-  // console.log(api_url);
   $.ajax({
       type: "GET",
       url: api_url+'getmiscellaneousdata.php',
@@ -103,34 +102,7 @@ function getallfabricdata(){
     });
 }
 
-// function imageExists(url, callback) {
-//   var img = new Image();
-//   img.onload = function() { callback(true); };
-//   img.onerror = function() { callback(false); };
-//   img.src = url;
-// }
-// This function is created for Get All Style Data.
-// function checkImage (src, good, bad) {
-//     var img = new Image();
-//     img.onload = good;
-//     img.onerror = bad;
-//     img. src = src;
-//     return img.src;
-// }
-function doesFileExist(urlToFile)
-{
-    var xhr = new XMLHttpRequest();
-    xhr.open('HEAD', urlToFile, false);
-    // xhr.send();
 
-    if (xhr.status == "404") {
-        // console.log("File doesn't exist");
-        return false;
-    } else {
-        // console.log("File exists");
-        return true;
-    }
-}
 function getproductdata(){
   $('#styletbl').dataTable().fnDestroy();
   $("#styletbldata").empty();
@@ -141,19 +113,12 @@ function getproductdata(){
            // alert(response);
            var count= response['Data'].length;
             var html ="<tr>";
+              var imageUrl ='';
             productData=[...response['Data']];
             for (var i = 0; i < count; i++) {
+                imageUrl = pic_url+'product/300x300/'+response['Data'][i].productId+'.jpg';
 
-                // html +="<td>"+(i+1)+"</td>";
-                var imageUrl = pic_url+'product/300x300/'+response['Data'][i].productId+'.jpg';
-                var file = doesFileExist(imageUrl);
-                if(!file){
-                 imageUrl = pic_url+'product/300x300/0.jpg';
-                };
-                html +="<td style='width:15%'><form id='custstyleform"+response['Data'][i].productId+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+response['Data'][i].productId+"' name='file' accept='image/*' style='display:none;' /> <img  accept='image/*' class='img-thumbnail' src='"+imageUrl+"' style='cursor: pointer' onclick='imguplod("+response['Data'][i].productId+")'></img></form></td>";
-                // html +='<td><div class="content"><form action="./src/uploadeventgallary.php" class="dropzone" id="myAwesomeDropzone">';
-                // html +='<input type="hidden" id="eventgallery" name="eventgallery" />';
-                // html +='</form></div></td>';
+                html +="<td style='width:15%'><form id='custstyleform"+response['Data'][i].productId+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+response['Data'][i].productId+"' name='file' accept='image/*' style='display:none;' /> <img  accept='image/*' class='img-thumbnail' src='"+imageUrl+"' style='cursor: pointer' alt='No Image' onclick='imguplod("+response['Data'][i].productId+")'></img></form></td>";
                 html +="<td>"+response['Data'][i].productTitle+"</td>";
                 html +="<td style='width:15%'>"+response['Data'][i].productSubTitle+"</td>";
                 html +="<td style='width:5%'>"+response['Data'][i].parentId+"</td>";
@@ -197,7 +162,7 @@ function imguplod(imgid){
                 fd.append('imgname',imgid);
                 fd.append('foldername',"product");
                 $.ajax({
-                     url:"src/addimg.php",
+                     url:"http://praxello.com/tailorsmart/uploadimage.php",
                      type:"POST",
                      contentType: false,
                      cache: false,
@@ -365,7 +330,7 @@ $('#updatebtnproducts').on('click',function(event){
       }
   });
 });
-
+var table;
 // This function Display Product Fabric Mapping Table Data
 function fabricmapping(){
   $('#fabricmaptbl').dataTable().fnDestroy();
@@ -398,7 +363,7 @@ function fabricmapping(){
                     selfabricmap +='<tr><td><label class="checkbox" >';
                     selfabricmap +='<input id="check'+allfabricData[j].fabricId+'" type="checkbox" name="fabricmapcheck"  value="'+allfabricData[j].fabricId+'" checked>';
                     selfabricmap +='</label></td>';
-                    selfabricmap +="<td> <img class='img-thumbnail' src='"+pic_url+"fabric/"+allfabricData[j].fabricId+".jpg' width='10%' height='10%' checked></img></td>";
+                    selfabricmap +="<td> <img class='img-thumbnail' src='"+pic_url+"fabric/300x300/"+allfabricData[j].skuNo+".jpg' checked></img></td>";
                     selfabricmap +="<td>"+allfabricData[j].fabricTitle+"</td>";
                     selfabricmap +="<td>"+allfabricData[j].skuNo+"</td></tr>";
 
@@ -407,7 +372,7 @@ function fabricmapping(){
                     unselfabricmap +='<tr><td><label class="checkbox" >';
                     unselfabricmap +='<input id="check'+allfabricData[j].fabricId+'" type="checkbox" name="fabricmapcheck" value="'+allfabricData[j].fabricId+'" >';
                     unselfabricmap +='</label></td>';
-                    unselfabricmap +="<td> <img class='img-thumbnail' src='"+pic_url+"fabric/"+allfabricData[j].fabricId+".jpg' width='10%' height='10%'></img></td>";
+                    unselfabricmap +="<td> <img class='img-thumbnail' src='"+pic_url+"fabric/300x300/"+allfabricData[j].skuNo+".jpg' ></img></td>";
                     unselfabricmap +="<td>"+allfabricData[j].fabricTitle+"</td>";
                     unselfabricmap +="<td>"+allfabricData[j].skuNo+"</td></tr>";
                 }
@@ -416,16 +381,33 @@ function fabricmapping(){
             fabricmap +=unselfabricmap;
 
             $("#fabricmaptbldata").html(fabricmap);
-            $('#fabricmaptbl').DataTable({
-            searching: true,
-            retrieve: true,
-            bPaginate: $('tbody tr').length>10,
-            order: [],
-            columnDefs: [ { orderable: false, targets: [0,1,2,3] } ],
-            dom: 'Bfrtip',
-            buttons: [],
-            destroy: true
+            // $('#fabricmaptbl').DataTable({
+            //
+            // searching: true,
+            // retrieve: true,
+            // bPaginate: $('tbody tr').length>10,
+            // order: [],
+            // columnDefs: [ { orderable: false,
+            // targets: [0,1,2,3] } ],
+            // dom: 'Bfrtip',
+            // buttons: [],
+            // destroy: true
+            // });
+             table = $('#fabricmaptbl').DataTable({
+              'columnDefs': [
+                 {
+                    'targets': 0,
+                    'checkboxes': {
+                       'selectRow': true
+                    }
+                 }
+              ],
+            'select': {
+               'style': 'multi'
+            }
+
             });
+            console.log(table);
           }
         });
 }
@@ -475,16 +457,16 @@ function measurementmapping(){
             measurementhtml += unselmeasurement;
             $("#measurementmaptbldata").html(measurementhtml);
             // $("#measurementmaptbldata").append(unselmeasurement);
-            $('#measurementmaptbl').DataTable({
-            searching: true,
-            retrieve: true,
-            bPaginate: $('tbody tr').length>10,
-            order: [],
-            columnDefs: [ { orderable: false, targets: [] } ],
-            dom: 'Bfrtip',
-            buttons: [],
-            destroy: true
-            });
+            // $('#measurementmaptbl').DataTable({
+            // searching: true,
+            // retrieve: true,
+            // bPaginate: $('tbody tr').length>10,
+            // order: [],
+            // columnDefs: [ { orderable: false, targets: [] } ],
+            // dom: 'Bfrtip',
+            // buttons: [],
+            // destroy: true
+            // });
           }
         });
 }
@@ -536,16 +518,16 @@ function stitchstylemapping(){
             stitchhtml += selstitchhtml;
             stitchhtml += unstitchhtml;
             $("#stitchstylemaptbldata").html(stitchhtml);
-            $('#stitchstylemaptbl').DataTable({
-            searching: true,
-            retrieve: true,
-            bPaginate: $('tbody tr').length>10,
-            order: [],
-            columnDefs: [ { orderable: false, targets: [] } ],
-            dom: 'Bfrtip',
-            buttons: [],
-            destroy: true
-            });
+            // $('#stitchstylemaptbl').DataTable({
+            // searching: true,
+            // retrieve: true,
+            // bPaginate: $('tbody tr').length>10,
+            // order: [],
+            // columnDefs: [ { orderable: false, targets: [] } ],
+            // dom: 'Bfrtip',
+            // buttons: [],
+            // destroy: true
+            // });
           }
         });
 }
@@ -553,24 +535,43 @@ function stitchstylemapping(){
 $('#savefabric').on('click',function(event){
   event.preventDefault();
   var TableData = new Array();
-   $('#fabricmaptbl').find('input[name="fabricmapcheck"]:checked').each(function(row) {
-     TableData.push($(this).val());
-   });
-  var productId= $("#productId").val();
-  var fabricidarray = TableData.toString();
-  $.ajax({
-      url:api_url+'createproductfabricmapping.php',
-      type:'POST',
-      data:{
-        productid : productId,
-        fabricid:fabricidarray,
-      },
-      dataType:'json',
-      success:function(response){
-          swal(response.Message);
-          fabricmapping();
-      }
-  });
+   // $('#fabricmaptbl').find('input[name="fabricmapcheck"]:checked').each(function(row) {
+   //   TableData.push($(this).val());
+   // });
+   // var tablename = document.getElementById("fabricmaptbl");
+   console.log(table);
+   console.log(table.column(0));
+   var rows_selected = table.column(0).checkboxes.selected();
+
+    // Iterate over all selected checkboxes
+    $.each(rows_selected, function(index, rowId){
+      console.log(rowId);
+      // TableData.push($(this).val());
+       // Create a hidden element
+       // $(form).append(
+       //     $('<input>')
+       //        .attr('type', 'hidden')
+       //        .attr('name', 'id[]')
+       //        .val(rowId)
+       // );
+    });
+    console.log("table"+table);
+    // alert(TableData);
+  // var productId= $("#productId").val();
+  // var fabricidarray = TableData.toString();
+  // $.ajax({
+  //     url:api_url+'createproductfabricmapping.php',
+  //     type:'POST',
+  //     data:{
+  //       productid : productId,
+  //       fabricid:fabricidarray,
+  //     },
+  //     dataType:'json',
+  //     success:function(response){
+  //         swal(response.Message);
+  //         fabricmapping();
+  //     }
+  // });
 });
 
 // This function is created for saved Product Measurement Mapping Function

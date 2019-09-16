@@ -68,7 +68,7 @@
                                     <table id="styletbl" class="display nowrap table table-hover  table-bordered">
                                         <thead>
                                             <tr>
-                                                <th>Id</th>
+                                                <!-- <th>Id</th> -->
                                                 <th>Stitch Styles Image</th>
                                                 <th>Title</th>
                                                 <th>Details</th>

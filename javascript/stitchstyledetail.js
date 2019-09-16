@@ -35,15 +35,13 @@ function getstitchstyledetailsitem(){
            var count= response['Data'].length;
             var html ="<tr>";
             styleData=[...response['Data']];
+            var imageUrl ='';
             for (var i = 0; i < count; i++) {
                 // styleData.push(response['Data'][i]);
                 // html +="<td>"+(i+1)+"</td>";
-                var imageUrl = pic_url+'stitchsubstyle/300x300/'+response['Data'][i].stitchSubStyleId+'.jpg';
-                var file = doesFileExist(imageUrl);
-                if(!file){
-                 imageUrl = pic_url+'stitchsubstyle/300x300/0.jpg';
-                };
-                html +="<td><form id='custstyleform"+response['Data'][i].stitchSubStyleId+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+response['Data'][i].stitchSubStyleId+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' src='"+imageUrl+"'  style='cursor: pointer' onclick='imguplod("+response['Data'][i].stitchSubStyleId+")'></img></form></td>";
+                imageUrl = pic_url+'stitchsubstyle/300x300/'+response['Data'][i].stitchSubStyleId+'.jpg';
+
+                html +="<td><form id='custstyleform"+response['Data'][i].stitchSubStyleId+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+response['Data'][i].stitchSubStyleId+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' src='"+imageUrl+"'  style='cursor: pointer' onclick='imguplod("+response['Data'][i].stitchSubStyleId+")' alt='No Image'></img></form></td>";
                 // html +="<td> <img class='img-thumbnail' src='"+pic_url+"stitchsubstyle/"+response['Data'][i].stitchSubStyleId+".jpg' width='10%' height='10%'></img></td>";
                 html +="<td>"+response['Data'][i].stitchStyleDetails+"</td>";
                 html +="<td>"+response['Data'][i].stitchStyleTitle+"</td>";
@@ -75,7 +73,7 @@ function getstitchstyledetailsitem(){
            retrieve: true,
            bPaginate: $('tbody tr').length>10,
            order: [],
-           columnDefs: [ { orderable: false, targets: [0,1,2,3,4] } ],
+           columnDefs: [ { orderable: false, targets: [0,1,2,3,4,5,6] } ],
            dom: 'Bfrtip',
            buttons: [],
            destroy: true
@@ -84,20 +82,7 @@ function getstitchstyledetailsitem(){
      });
 }
 
-function doesFileExist(urlToFile)
-{
-    var xhr = new XMLHttpRequest();
-    xhr.open('HEAD', urlToFile, false);
-    // xhr.send();
 
-    if (xhr.status == "404") {
-        // console.log("File doesn't exist");
-        return false;
-    } else {
-        // console.log("File exists");
-        return true;
-    }
-}
 //This function is useful for upload the image files
 function imguplod(imgid){
    var triggerid=$('#customerstylepic'+imgid).trigger('click');
@@ -110,7 +95,8 @@ function imguplod(imgid){
                 fd.append('imgname',imgid);
                 fd.append('foldername',"stitchsubstyle");
                 $.ajax({
-                     url:"src/addimg.php",
+                     // url:"src/addimg.php",
+                     url:"http://praxello.com/tailorsmart/uploadimage.php",
                      type:"POST",
                      contentType: false,
                      cache: false,
@@ -119,7 +105,7 @@ function imguplod(imgid){
                      dataType:'json',
                      success:function(response){
                        swal(response['Message']);
-                       // getcustomerstyles();
+                       getstitchstyledetailsitem();
                      }
               });
    };

@@ -8,20 +8,7 @@ $('#stylestatus').select2({
 $(document).ready(function() {
 
 });
-function doesFileExist(urlToFile)
-{
-    var xhr = new XMLHttpRequest();
-    xhr.open('HEAD', urlToFile, false);
-    // xhr.send();
 
-    if (xhr.status == "404") {
-        // console.log("File doesn't exist");
-        return false;
-    } else {
-        // console.log("File exists");
-        return true;
-    }
-}
 // This function is created for Get All Style Data.
 function getcustomersubstyles(){
   $('#styletbl').dataTable().fnDestroy();
@@ -33,15 +20,13 @@ function getcustomersubstyles(){
            var count= response['Data'].length;
             var html ="<tr>";
             styleData=[...response['Data']];
+              var imageUrl  ='';
             for (var i = 0; i < count; i++) {
-              var imageUrl = pic_url+'substyle/300x300/'+response['Data'][i].subStyleId+'.jpg';
-              var file = doesFileExist(imageUrl);
-              if(!file){
-               imageUrl = pic_url+'substyle/300x300/0.jpg';
-              };
-                html +="<td>"+(i+1)+"</td>";
+
+                imageUrl = pic_url+'substyle/300x300/'+response['Data'][i].subStyleId+'.jpg';
+                // html +="<td>"+(i+1)+"</td>";
                 // html +="<td> <form id='custstyleform"+response['Data'][i].subStyleId+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+response['Data'][i].styleId+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' src='"+imageUrl+"'  style='cursor: pointer' onclick='imguplod("+response['Data'][i].subStyleId+")'></img></form></td>";
-                html +="<td><form id='custstyleform"+response['Data'][i].subStyleId+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+response['Data'][i].subStyleId+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' src='"+imageUrl+"'  style='cursor: pointer' onclick='imguplod("+response['Data'][i].subStyleId+")'></img></form></td>";
+                html +="<td><form id='custstyleform"+response['Data'][i].subStyleId+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+response['Data'][i].subStyleId+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' src='"+imageUrl+"'  style='cursor: pointer' onclick='imguplod("+response['Data'][i].subStyleId+")' alt='No Image'></img></form></td>";
                 html +="<td>"+response['Data'][i].subStyleTitle+"</td>";
                 if(response['Data'][i].isActive==1){
                   html +='<td><span class="badge badge-pill badge-primary">Active</span></td>';
@@ -58,7 +43,7 @@ function getcustomersubstyles(){
            retrieve: true,
            bPaginate: $('tbody tr').length>10,
            order: [],
-           columnDefs: [ { orderable: false, targets: [0,1,2,3,4] } ],
+           columnDefs: [ { orderable: false, targets: [0,1,2,3] } ],
            dom: 'Bfrtip',
            buttons: [],
            destroy: true
@@ -78,7 +63,8 @@ function imguplod(imgid){
                 fd.append('imgname',imgid);
                 fd.append('foldername',"substyle");
                 $.ajax({
-                     url:"src/addimg.php",
+                     // url:"src/addimg.php",
+                       url:"http://praxello.com/tailorsmart/uploadimage.php",
                      type:"POST",
                      contentType: false,
                      cache: false,
@@ -87,6 +73,7 @@ function imguplod(imgid){
                      dataType:'json',
                      success:function(response){
                        swal(response['Message']);
+                       getcustomersubstyles();
                        // getcustomerstyles();
                      }
               });

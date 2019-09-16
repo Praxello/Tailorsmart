@@ -20,83 +20,7 @@
     <link href="css/helper.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
       <!-- <link href="dropzone/dropzone.css" rel="stylesheet" type="text/css"> -->
-   <style>
-   * { box-sizing: border-box; }
-body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; }
 
-body {
-  background: #eee;
-  font: 1em sans-serif;
-}
-
-%controller {
-  position: relative;
-  cursor: pointer;
-  padding: 1em;
-
-  &::selection {
-    background: transparent;
-  }
-
-  input + span {
-    background: white;
-    content: "";
-    display: inline-block;
-    margin: 0 .5em 0 0;
-    padding: 0;
-    vertical-align: middle;
-    width: 2em;
-    height: 2em;
-    transform: translate3d(0, 0, 0);
-    -webkit-backface-visibility: hidden;
-
-    &::after {
-      content: "";
-      display: block;
-      transform: scale(0);
-      transition: transform .2s;
-    }
-  }
-
-  @media screen and (min-width: 768px) {
-    &:hover input + span {
-      box-shadow: 0 2px 4px rgba(#000, .15);
-    }
-  }
-
-  input:active + span {
-    box-shadow: 0 4px 8px rgba(#000, .15);
-  }
-
-  input:focus + span {
-    box-shadow: 0 0 0 3px lightblue;
-  }
-
-  input:checked + span::after {
-    transform: scale(1);
-  }
-
-  input {
-    position: absolute;
-    cursor: pointer;
-    opacity: 0;
-  }
-}
-
-.checkbox {
-  @extend %controller;
-
-  input + span {
-    border-radius: 2px;
-  }
-}
-
-
-  input:checked + span::after {
-    background: black;
-  }
-}
-   </style>
 </head>
 
 <body class="fix-header fix-sidebar">
@@ -137,11 +61,7 @@ body {
                             <div class="col-md-12">
                               <button type="button" id="button1" class="btn btn-success" onclick="addStyle()" style="float:right"> New Products</button>
                               <div id="data"></div>
-                              <!-- <div class='content'>
-                              <form action="uploadeventgallary.php" class="dropzone" id="myAwesomeDropzone">
-                              <input type="hidden" id="eventgallery" name="eventgallery" />
-                              </form>
-                              </div> -->
+
                           </div>
                           </div>
                             <div class="card-body">
@@ -311,6 +231,7 @@ body {
                                                                 <thead>
                                                                     <tr>
                                                                         <th>Select</th>
+                                                                        <!-- <th><input name="fabricmapcheck" value="1" type="checkbox"></th> -->
                                                                         <th>Image Icon</th>
                                                                         <th>Fabric</th>
                                                                         <th>Sku No</th>
@@ -415,7 +336,10 @@ body {
     <script src="js/custom.min.js"></script>
 
 
-    <script src="js/lib/datatables/datatables.min.js"></script>
+    <!-- <script src="js/lib/datatables/datatables.min.js"></script> -->
+    <script src="https://cdn.datatables.net/v/dt/dt-1.10.16/sl-1.2.5/datatables.min.js">
+
+    </script>
     <!-- <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
     <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
     <script src="js/lib/datatables/cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
@@ -427,7 +351,9 @@ body {
     <!-- <script src="dropzone/dropzone.js" type="text/javascript"></script> -->
     <script src="javascript/products.js"></script>
     <script src="js/lib/sweetalert/sweetalert.min.js"></script>
+    <script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.10/js/dataTables.checkboxes.min.js">
 
+    </script>
     <!-- <script src="js/lib/sweetalert/sweetalert.init.js"></script> -->
     <!-- <script type='text/javascript'>
     Dropzone.autoDiscover = false;
