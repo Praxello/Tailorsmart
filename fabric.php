@@ -146,7 +146,7 @@
                       <div class="col-sm-4">
                         <div class="form-group">
                           <label class="control-label">Color Name</label>
-                          <input type="color" class="form-control" id="fabriccolorname"  title="Enter Color Name"/>
+                          <input type="text" class="form-control" id="fabriccolorname"  title="Enter Color Name"/>
                         </div>
                       </div>
                       <div class="col-sm-4">
