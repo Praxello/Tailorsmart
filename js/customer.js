@@ -39,6 +39,10 @@ function getAllCustomers() {
         url: api_url + 'allcustomers.php',
         type: 'GET',
         dataType: 'json',
+        beforeSend:function(){
+            console.log('in before');
+            $(".preloader").fadeIn();
+        },
         success: function (response) {
             var createDropdownOptions = '';
             var count = response.Data.length;
@@ -49,6 +53,10 @@ function getAllCustomers() {
                 createDropdownOptions += "<option value=" + response.Data[i].customerId + ">" + response.Data[i].firstName + " " + response.Data[i].lastName + "-" + response.Data[i].mobile + "</option>";
             }
             $("#customerId").html(createDropdownOptions);
+        },
+        complete:function(){
+            console.log('in complete');
+            $(".preloader").fadeOut();
         }
     })
 }
@@ -67,6 +75,9 @@ function getOrdersOfCustomer(customerId) {
         async: false,
         data: { customerid: customerId },
         dataType: 'json',
+        beforeSend:function(){
+            $(".preloader").fadeIn();
+        },
         success: function (response) {
             var EmpCount = EmployeeData.length;
             if (response.Data != null) {
@@ -112,6 +123,10 @@ function getOrdersOfCustomer(customerId) {
                 });
             }
 
+        },
+        complete:function(){
+         
+            $(".preloader").fadeOut();
         }
     })
 }
