@@ -336,10 +336,10 @@
     <script src="js/custom.min.js"></script>
 
 
-    <!-- <script src="js/lib/datatables/datatables.min.js"></script> -->
-    <script src="https://cdn.datatables.net/v/dt/dt-1.10.16/sl-1.2.5/datatables.min.js">
+    <script src="js/lib/datatables/datatables.min.js"></script>
+    <!-- <script src="https://cdn.datatables.net/v/dt/dt-1.10.16/sl-1.2.5/datatables.min.js">
 
-    </script>
+    </script> -->
     <!-- <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
     <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
     <script src="js/lib/datatables/cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
@@ -351,9 +351,9 @@
     <!-- <script src="dropzone/dropzone.js" type="text/javascript"></script> -->
     <script src="javascript/products.js"></script>
     <script src="js/lib/sweetalert/sweetalert.min.js"></script>
-    <script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.10/js/dataTables.checkboxes.min.js">
+    <!-- <script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.10/js/dataTables.checkboxes.min.js">
 
-    </script>
+    </script> -->
     <!-- <script src="js/lib/sweetalert/sweetalert.init.js"></script> -->
     <!-- <script type='text/javascript'>
     Dropzone.autoDiscover = false;

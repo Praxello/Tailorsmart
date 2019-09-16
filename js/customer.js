@@ -25,9 +25,13 @@ function getMicellaneousData(){
             }
             if(response.Currency !=null){
                 currencyData = [...response.Currency];
+<<<<<<< HEAD
+
+=======
             }
             if(response.ParentProducts !=null){
                 ParentProducts = [...response.ParentProducts];
+>>>>>>> 4e279b401d1f27df97d73e6ced647bca11d0ed22
             }
 
         }
@@ -47,7 +51,7 @@ function getAllCustomers() {
             var createDropdownOptions = '';
             var count = response.Data.length;
             customerData = [...response.Data];
-           
+
             createDropdownOptions += "<option value=''>Select Customer Name</option>";
             for (var i = 0; i < count; i++) {
                 createDropdownOptions += "<option value=" + response.Data[i].customerId + ">" + response.Data[i].firstName + " " + response.Data[i].lastName + "-" + response.Data[i].mobile + "</option>";
@@ -128,7 +132,7 @@ function getOrdersOfCustomer(customerId) {
          
             $(".preloader").fadeOut();
         }
-    })
+    });
 }
 function getStatus(orderStatus) {
     var status;

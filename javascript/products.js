@@ -354,24 +354,23 @@ function fabricmapping(){
               }
               }
             }
-            // alert(temparray);
 
             var allfabricDatacount =allfabricData.length;
             for(var j=0;j<allfabricDatacount;j++)
             {
                 if(temparray.includes(allfabricData[j].fabricId)){
-                    selfabricmap +='<tr><td><label class="checkbox" >';
-                    selfabricmap +='<input id="check'+allfabricData[j].fabricId+'" type="checkbox" name="fabricmapcheck"  value="'+allfabricData[j].fabricId+'" checked>';
-                    selfabricmap +='</label></td>';
-                    selfabricmap +="<td> <img class='img-thumbnail' src='"+pic_url+"fabric/300x300/"+allfabricData[j].skuNo+".jpg' checked></img></td>";
+                    selfabricmap +='<tr><td>';
+                    selfabricmap +='<lable><input id="check'+allfabricData[j].fabricId+'"  type="checkbox" name="fabricmapcheck"  value="'+allfabricData[j].fabricId+'" checked >';
+                    selfabricmap +='</lable></td>';
+                    selfabricmap +="<td> <img class='img-thumbnail' src='"+pic_url+"fabric/300x300/"+allfabricData[j].skuNo+".jpg' alt='No Image'></img></td>";
                     selfabricmap +="<td>"+allfabricData[j].fabricTitle+"</td>";
                     selfabricmap +="<td>"+allfabricData[j].skuNo+"</td></tr>";
 
                 }
                 else {
-                    unselfabricmap +='<tr><td><label class="checkbox" >';
-                    unselfabricmap +='<input id="check'+allfabricData[j].fabricId+'" type="checkbox" name="fabricmapcheck" value="'+allfabricData[j].fabricId+'" >';
-                    unselfabricmap +='</label></td>';
+                    unselfabricmap +='<tr><td>';
+                    unselfabricmap +='<input id="check'+allfabricData[j].fabricId+'"  type="checkbox" name="fabricmapcheck" value="'+allfabricData[j].fabricId+'" alt="No Iamge" >';
+                    unselfabricmap +='</td>';
                     unselfabricmap +="<td> <img class='img-thumbnail' src='"+pic_url+"fabric/300x300/"+allfabricData[j].skuNo+".jpg' ></img></td>";
                     unselfabricmap +="<td>"+allfabricData[j].fabricTitle+"</td>";
                     unselfabricmap +="<td>"+allfabricData[j].skuNo+"</td></tr>";
@@ -381,33 +380,45 @@ function fabricmapping(){
             fabricmap +=unselfabricmap;
 
             $("#fabricmaptbldata").html(fabricmap);
-            // $('#fabricmaptbl').DataTable({
-            //
-            // searching: true,
-            // retrieve: true,
-            // bPaginate: $('tbody tr').length>10,
-            // order: [],
-            // columnDefs: [ { orderable: false,
-            // targets: [0,1,2,3] } ],
-            // dom: 'Bfrtip',
-            // buttons: [],
-            // destroy: true
-            // });
-             table = $('#fabricmaptbl').DataTable({
-              'columnDefs': [
-                 {
-                    'targets': 0,
-                    'checkboxes': {
-                       'selectRow': true
-                    }
-                 }
-              ],
-            'select': {
-               'style': 'multi'
-            }
+            // var counttemparray = temparray.length;
+            // alert(counttemparray);
+            // for(var j=0;j<counttemparray;j++){
+            //   $("#check" + temparray[j]).prop('checked', true);
+            // }
+           // table =$('#fabricmaptbl').DataTable({
+           //
+           //  searching: true,
+           //  retrieve: true,
+           //  bPaginate: $('tbody tr').length>10,
+           //  order: [],
+           //  columnDefs: [ { orderable: false,
+           //  targets: [0,1,2,3] } ],
+           //  dom: 'Bfrtip',
+           //  select: {
+           //      style: 'multi',
+           //      items: 'cell'
+           //  },
+           //  buttons: [],
+           //  destroy: true
+           //  });
+        //      table = $('#fabricmaptbl').DataTable({
+        //        deferRender: true,
+        //       'columnDefs': [
+        //          {
+        //             'targets': 0,
+        //             'checkboxes': {
+        //                'selectRow': true
+        //             }
+        //          }
+        //       ],
+        //       select: {
+        //     style: 'multi',
+        //     items: 'cell'
+        // },
+        //
+        //
+        //     });
 
-            });
-            console.log(table);
           }
         });
 }
@@ -533,45 +544,34 @@ function stitchstylemapping(){
 }
 // This function is created for saved Product Fabric Mapping Function
 $('#savefabric').on('click',function(event){
+   var form = this;
   event.preventDefault();
   var TableData = new Array();
-   // $('#fabricmaptbl').find('input[name="fabricmapcheck"]:checked').each(function(row) {
-   //   TableData.push($(this).val());
-   // });
-   // var tablename = document.getElementById("fabricmaptbl");
-   console.log(table);
-   console.log(table.column(0));
    var rows_selected = table.column(0).checkboxes.selected();
-
-    // Iterate over all selected checkboxes
     $.each(rows_selected, function(index, rowId){
-      console.log(rowId);
-      // TableData.push($(this).val());
-       // Create a hidden element
-       // $(form).append(
-       //     $('<input>')
-       //        .attr('type', 'hidden')
-       //        .attr('name', 'id[]')
-       //        .val(rowId)
-       // );
+      var  arr = rowId.split("=\"");
+      var  arr1 = arr[4].split("\"");
+      TableData.push(parseInt(arr1[0]));
+
     });
-    console.log("table"+table);
-    // alert(TableData);
-  // var productId= $("#productId").val();
-  // var fabricidarray = TableData.toString();
-  // $.ajax({
-  //     url:api_url+'createproductfabricmapping.php',
-  //     type:'POST',
-  //     data:{
-  //       productid : productId,
-  //       fabricid:fabricidarray,
-  //     },
-  //     dataType:'json',
-  //     success:function(response){
-  //         swal(response.Message);
-  //         fabricmapping();
-  //     }
-  // });
+  //  alert(TableData);
+  var productId= $("#productId").val();
+  var fabricidarray = TableData.toString();
+  $.ajax({
+      url:api_url+'createproductfabricmapping.php',
+      type:'POST',
+      async:true,
+      cache:false,
+      data:{
+        productid : productId,
+        fabricid:fabricidarray,
+      },
+      dataType:'json',
+      success:function(response){
+          swal(response.Message);
+          fabricmapping();
+      }
+  });
 });
 
 // This function is created for saved Product Measurement Mapping Function
