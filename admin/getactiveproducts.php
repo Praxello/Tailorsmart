@@ -7,7 +7,7 @@ header('Content-Type: application/json');
 	
 	 extract($_POST);
 	  $records= null;
-		 			$academicQuery = mysqli_query($conn,"select productId,categoryId,productTitle,price,skuNo,isPriceVariable from product_master where isactive =1");
+		 			$academicQuery = mysqli_query($conn,"select productId,categoryId,productTitle,price,skuNo,isPriceVariable,parentId from product_master where isactive =1");
 						if($academicQuery!=null)
 						{
 							$academicAffected=mysqli_num_rows($academicQuery);

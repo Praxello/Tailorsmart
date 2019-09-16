@@ -46,7 +46,7 @@ $(document).on('click', '.add-row', function (e) {
                     //console.log(customerOrders);
 
                     // markup += "<div class='table-data-feature'><button class='btn btn-success' data-toggle='tooltip' data-placement='top' title='Edit'><i class='fa fa-edit'></i></button><button class='btn btn-danger' data-toggle='tooltip' data-placement='top' title='Delete'><i class='fa fa-remove'></i></button></div>"
-                    markup += "<tr id=" + response.Data[i].orderItemId + "><td>" + response.Data[i].productTitle + "</td><td>" + response.Data[i].productSubTitle + "</td><td>" + response.Data[i].price + "</td>";
+                    markup += "<tr id=" + response.Data[i].orderItemId + "><td>" + response.Data[i].productTitle + "</td><td>" + response.Data[i].productSubTitle + "</td><td>" + response.Data[i].orderItemPrice + "</td>";
                     markup += "<td><div class='btn-group' role='group' aria-label='Basic example'>";
                     markup += "<a class='btn btn-success btn-sm' title='Add Measurment' data-toggle='tooltip' onclick='loadMeasurment(\"" + response.Data[i].productId + "\",\"" + response.Data[i].orderItemId + "\",\"" + (i) + "\")' href='#'><i class='fa fa-edit'></i></a>";
                     markup += "<a class='btn btn-primary btn-sm' title='add Style' data-toggle='tooltip' href='#' onclick='loadStyles(\"" + response.Data[i].productId + "\",\"" + response.Data[i].orderItemId + "\",\"" + (i) + "\")'><i class='fa fa-user'></i></a>";

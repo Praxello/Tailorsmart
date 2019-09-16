@@ -102,12 +102,13 @@ $employeeName = $_SESSION['employeeName'];?>
                                     <table id="customerOrdersDataTable" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                                         <thead>
                                             <tr>
-                                                <th>Order Id</th>
-                                                <th>amount</th>
-                                                <th>Confirmed</th>
-                                                <th>purchaseDateTime</th>
-                                                <th>orderStatus</th>
-                                                <th>paymentValue </th>
+                                                <th>Order Amount</th>
+                                                <th>Promo code</th>
+                                                <th>Order Status</th>
+                                                <th>Confirmation</th>
+                                                <th>Expected Delivery</th>
+                                                <th>Final Delivery Date</th>
+                                                <th>Created By</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>

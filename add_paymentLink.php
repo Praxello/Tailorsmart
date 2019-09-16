@@ -12,7 +12,7 @@
                  <div class="col-sm-12">
                      <!-- <div class="card"> -->
                      <div class="row">
-                         <div class="col-sm-4">
+                         <div class="col-sm-3">
                              <div class="form-check-inline">
                                  <label for="radio">Select Payment Mode</label>
                              </div>
@@ -27,7 +27,15 @@
                                  </label>
                              </div>
                          </div>
-                         <div class="col-sm-4">
+                         <div class="col-sm-3">
+                             <div class="form-group">
+                                 <label for="currency">Currency</label>
+                                 <select class="form-control form-control-sm" id="currency" name="currency">
+                                     
+                                 </select>
+                             </div>
+                         </div>
+                         <div class="col-sm-3">
                              <div class="form-group">
                                  <label for="paymenttype">Payment Type</label>
                                  <select class="form-control form-control-sm" id="paymenttype" name="paymenttype">
@@ -37,7 +45,7 @@
                                  </select>
                              </div>
                          </div>
-                         <div class="col-sm-4">
+                         <div class="col-sm-3">
                              <div class="form-group">
                                  <label for="amount">Amount</label>
                                  <input type="text" class="form-control form-control-sm" id="amount" name="amount">
@@ -58,6 +66,15 @@
      </div>
  </div>
  <script>
+     currencyCode();
+     function currencyCode(){
+       var count = currencyData.length;
+       var currencyCode = '';
+       for(var i=0;i<count;i++){
+        currencyCode += "<option value=" + currencyData[i].currencyCode + ">" + currencyData[i].currencyCode +"</option>";
+       }
+       $('#currency').html(currencyCode);
+     }
      $('#savePaymentLinkData').on('click', function(event) {
          event.preventDefault();
          if (document.querySelector('input[name="modeofpayment"]:checked')) {
@@ -65,6 +82,8 @@
          }
          var paymenttype = $('#paymenttype').val();
          var amount = $('#amount').val();
+         var currencyCode = $('#currency').val();
+         console.log(currencyCode);
          if(amount == ''){
              amount = 0;
          }

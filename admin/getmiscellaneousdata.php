@@ -81,9 +81,23 @@ header('Content-Type: application/json');
 						}
 						}
 						}
+						$currencyRecords=null;
+						$academicQuery = mysqli_query($conn,"SELECT * FROM supported_cities_master");
+						if($academicQuery!=null)
+						{
+							$academicAffected=mysqli_num_rows($academicQuery);
+							if($academicAffected>0)
+							{
+								while($academicResults = mysqli_fetch_assoc($academicQuery))
+									{
+										$currencyRecords[]=$academicResults;
+									}
+							}
+
+						}
 
 
-						    $response = array('Message' => "Data fetched successfully","Employee"=>$employeeRecords, "Categories" => $categoryRecords,"Style"=>$styleRecord,"Substyle"=>$substyleRecords, "ParentProducts"=>$parentProducts , 'Responsecode' => 200);
+						    $response = array('Message' => "Data fetched successfully","Employee"=>$employeeRecords,"Currency"=>$currencyRecords, "Categories" => $categoryRecords,"Style"=>$styleRecord,"Substyle"=>$substyleRecords, "ParentProducts"=>$parentProducts , 'Responsecode' => 200);
 
 
 
