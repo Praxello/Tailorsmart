@@ -92,7 +92,8 @@
              mode: mode,
              type: paymenttype,
              employeeid: $('#empId').val(),
-             amount: amount
+             amount: amount,
+             currencyCode:currencyCode
          };
          //console.log(paymentData);
          $.ajax({

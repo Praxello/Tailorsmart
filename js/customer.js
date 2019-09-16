@@ -11,6 +11,8 @@ var customerId_g = null;
 var indexRow = null;//pass a parameter to get particular order id objects
 var EmployeeData = [];//from getmiscellaneousdata.php
 var currencyData = [];//from getmiscellaneousdata.php
+var ParentProducts = [];//from getmiscellaneousdata.php for show active products styleTitle
+
 getMicellaneousData();
 function getMicellaneousData(){
     $.ajax({
@@ -20,8 +22,16 @@ function getMicellaneousData(){
         success: function (response) {
             if (response.Employee != null) {
                 EmployeeData = [...response.Employee];
+            }
+            if(response.Currency !=null){
                 currencyData = [...response.Currency];
+<<<<<<< HEAD
 
+=======
+            }
+            if(response.ParentProducts !=null){
+                ParentProducts = [...response.ParentProducts];
+>>>>>>> 4e279b401d1f27df97d73e6ced647bca11d0ed22
             }
 
         }
@@ -33,6 +43,10 @@ function getAllCustomers() {
         url: api_url + 'allcustomers.php',
         type: 'GET',
         dataType: 'json',
+        beforeSend:function(){
+            console.log('in before');
+            $(".preloader").fadeIn();
+        },
         success: function (response) {
             var createDropdownOptions = '';
             var count = response.Data.length;
@@ -43,6 +57,10 @@ function getAllCustomers() {
                 createDropdownOptions += "<option value=" + response.Data[i].customerId + ">" + response.Data[i].firstName + " " + response.Data[i].lastName + "-" + response.Data[i].mobile + "</option>";
             }
             $("#customerId").html(createDropdownOptions);
+        },
+        complete:function(){
+            console.log('in complete');
+            $(".preloader").fadeOut();
         }
     })
 }
@@ -61,6 +79,9 @@ function getOrdersOfCustomer(customerId) {
         async: false,
         data: { customerid: customerId },
         dataType: 'json',
+        beforeSend:function(){
+            $(".preloader").fadeIn();
+        },
         success: function (response) {
             var EmpCount = EmployeeData.length;
             if (response.Data != null) {
@@ -106,6 +127,10 @@ function getOrdersOfCustomer(customerId) {
                 });
             }
 
+        },
+        complete:function(){
+         
+            $(".preloader").fadeOut();
         }
     });
 }
@@ -150,9 +175,9 @@ function getDate(date) {
         return output;
     } else {
         var d = new Date(date);
-        output = d.toDateString(); // outputs to "Thu May 28 2015"
+        //output = d.toDateString(); // outputs to "Thu May 28 2015"
+        output = d.toGMTString(); //outputs to "Thu, 28 May 2015 22:10:21 GMT"
     }
-    //   var j = d.toGMTString(); //outputs to "Thu, 28 May 2015 22:10:21 GMT"
     return output;
 }
 function getEmployeeName(empId,count) {
