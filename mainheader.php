@@ -3,7 +3,7 @@
             <nav class="navbar top-navbar navbar-expand-md navbar-light">
                 <!-- Logo -->
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="#">
                         <b><img src="images/logo1.png" alt="homepage" class="dark-logo" style="width:60px;" /></b>
                     </a>
                 </div>
