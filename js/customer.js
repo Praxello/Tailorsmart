@@ -21,7 +21,7 @@ function getMicellaneousData(){
             if (response.Employee != null) {
                 EmployeeData = [...response.Employee];
                 currencyData = [...response.Currency];
-               
+
             }
 
         }
@@ -37,7 +37,7 @@ function getAllCustomers() {
             var createDropdownOptions = '';
             var count = response.Data.length;
             customerData = [...response.Data];
-           
+
             createDropdownOptions += "<option value=''>Select Customer Name</option>";
             for (var i = 0; i < count; i++) {
                 createDropdownOptions += "<option value=" + response.Data[i].customerId + ">" + response.Data[i].firstName + " " + response.Data[i].lastName + "-" + response.Data[i].mobile + "</option>";
@@ -107,7 +107,7 @@ function getOrdersOfCustomer(customerId) {
             }
 
         }
-    })
+    });
 }
 function getStatus(orderStatus) {
     var status;
