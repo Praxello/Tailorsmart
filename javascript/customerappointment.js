@@ -1,15 +1,23 @@
 
 // setEmployeeData();
 var styleData = [];
-var getallfabmap =[];
+// var getallfabmap =[];
 var getallemployee  = [];
 var getslotdata =[];
 var selectitemsdata =[];
 
 
 setEmployeeData();
-getallfabricmapping();
+// getallfabricmapping();
+
+setTimeout(function(){
 getcustomerappointmentdata();
+}, 5000);
+
+
+$(document).ready(function() {
+
+});
 
 $('#setemployeeId').select2({
   allowClear: true,
@@ -31,7 +39,7 @@ function setEmployeeData(){
       success: function(response) {
         var countowner= response['Employee'].length;
         getallemployee = [...response['Employee']];
-
+        // console.log("Emp"+getallemployee);
         selectemp +='<option value="">Select Employee</option>';
         for (var i = 0; i < countowner; i++) {
         selectemp +="<option value='"+response['Employee'][i].employeeId+"'>"+response['Employee'][i].firstName+" "+response['Employee'][i].lastName+"</option>";
@@ -40,15 +48,15 @@ function setEmployeeData(){
       }
     });
 }
-function getallfabricmapping(){
-  $.ajax({
-      type: "GET",
-      url: api_url+"getproductfabricmapping.php",
-      success: function(response) {
-        getallfabmap.push(response['Data']);
-      }
-    });
-}
+// function getallfabricmapping(){
+//   $.ajax({
+//       type: "GET",
+//       url: api_url+"getproductfabricmapping.php",
+//       success: function(response) {
+//         getallfabmap.push(response['Data']);
+//       }
+//     });
+// }
 
 function getcustomerappointmentdata(){
   $('#appointmenttbl').dataTable().fnDestroy();
@@ -71,6 +79,7 @@ function getcustomerappointmentdata(){
             var count= response["Data"].length;  // For Count length of Get All Appointment
             var html ="<tr>";
            // alert(getallemployee);
+
             var emplength = getallemployee.length;
             styleData = [...response["Data"]];
             for (var i = 0; i < count; i++) {
@@ -122,7 +131,7 @@ function getcustomerappointmentdata(){
            retrieve: true,
            bPaginate: $('tbody tr').length>10,
            order: [],
-           columnDefs: [ { orderable: false, targets: [0,1,2,3,4,5,6,7,8] } ],
+           columnDefs: [ { orderable: false, targets: [0,1,2,3,4,5,6,7] } ],
            dom: 'Bfrtip',
            buttons: ['copy','csv', 'excel', 'pdf'],
            destroy: true
@@ -193,8 +202,8 @@ function updateAppointmentDetails(){
         }
     });
 }
-function funreload(){
+$('#reloadbtn').on('click',function(event){
+  event.preventDefault();
   $("#customerappointdetailtbl").hide();
   $("#customerappointtbl").show();
-
-}
+});

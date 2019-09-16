@@ -109,8 +109,8 @@
                           <label class="control-label">Is Group</label>
                           <select  class="form-control" id="masterisgroup" style="width:100%;">
                             <option value="">Select IsGroup</option>
-                            <option value="0">InActive</option>
-                            <option value="1">Active</option>
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
                           </select>
                         </div>
                       </div>
@@ -131,7 +131,7 @@
                               <div style="padding-top:32px"></div>
                             <button class="btn btn-success" id="savebtncustomerstyle"  >Save</button>
                             <button class="btn btn-success" id="updatebtncustomerstyle" style="display:none;">Update</button>
-                            <button class="btn btn-secondary" onclick="reload()" >Back</button>
+                            <button class="btn btn-secondary" id="reloadbtn" >Back</button>
                           </div>
                         </div>
 
@@ -150,6 +150,7 @@
     <!-- All Jquery -->
     <script src="js/lib/jquery/jquery.min.js"></script>
     <script src="javascript/apifile.js"></script>
+    <script src="javascript/validation.js"></script>
     <link href="select2/select4.css" rel="stylesheet" />
     <script src="select2/select4.js" type="text/javascript"></script>
     <!-- Bootstrap tether Core JavaScript -->
@@ -166,14 +167,14 @@
 
 
     <script src="js/lib/datatables/datatables.min.js"></script>
-    <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+    <!-- <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
     <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
     <script src="js/lib/datatables/cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
     <script src="js/lib/datatables/cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
     <script src="js/lib/datatables/cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
     <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
     <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
-    <script src="js/lib/datatables/datatables-init.js"></script>
+    <script src="js/lib/datatables/datatables-init.js"></script> -->
     <script src="javascript/masterproduct.js"></script>
 
     <script src="js/lib/sweetalert/sweetalert.min.js"></script>

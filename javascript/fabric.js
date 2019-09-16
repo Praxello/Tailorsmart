@@ -33,6 +33,20 @@ function getallcategory(){
       }
     });
 }
+function doesFileExist(urlToFile)
+{
+    var xhr = new XMLHttpRequest();
+    xhr.open('HEAD', urlToFile, false);
+    // xhr.send();
+
+    if (xhr.status == "404") {
+        // console.log("File doesn't exist");
+        return false;
+    } else {
+        // console.log("File exists");
+        return true;
+    }
+}
 // This function is created for Get All Style Data.
 function getfabrics(){
   $('#styletbl').dataTable().fnDestroy();
@@ -45,9 +59,13 @@ function getfabrics(){
             var html ="<tr>";
             styleData=[...response['Data']];
             for (var i = 0; i < count; i++) {
-
-                html +="<td>"+(i+1)+"</td>";
-                html +="<td> <img class='img-thumbnail' src='"+pic_url+"fabric/"+response['Data'][i].skuNo+".jpg' width='20%' height='20%'></img></td>";
+              var imageUrl = pic_url+'fabric/300x300/'+response['Data'][i].skuNo+'.jpg';
+              var file = doesFileExist(imageUrl);
+              if(!file){
+               imageUrl = pic_url+'fabric/300x300/0.jpg';
+              };
+                html +="<td><form id='custstyleform"+response['Data'][i].skuNo+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+response['Data'][i].skuNo+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' src='"+imageUrl+"'  style='cursor: pointer' onclick='imguplod("+response['Data'][i].skuNo+")'></img></form></td>";
+                // html +="<td> <img class='img-thumbnail' src='"+pic_url+"fabric/"+response['Data'][i].skuNo+".jpg' width='20%' height='20%'></img></td>";
                 html +="<td>"+response['Data'][i].fabricTitle+"</td>";
                 html +="<td>"+response['Data'][i].fabricBrand+"</td>";
                 html +="<td>"+response['Data'][i].skuNo+"</td>";
@@ -60,7 +78,7 @@ function getfabrics(){
                 else {
                   html +='<td><span class="badge badge-pill badge-warning">InActive</span></td>';
                 }
-                html +='<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+i+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeFabric('+response['Data'][i].fabricId+')"><i class="fa fa-remove"></i></button></div></td>';
+                html +='<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod('+response['Data'][i].skuNo+')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+i+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeFabric('+response['Data'][i].fabricId+')"><i class="fa fa-remove"></i></button></div></td>';
                 html +="  </tr>";
             }
            $("#styletbldata").html(html);
@@ -69,7 +87,7 @@ function getfabrics(){
            retrieve: true,
            bPaginate: $('tbody tr').length>10,
            order: [],
-           columnDefs: [ { orderable: false, targets: [0,1,2,3,4] } ],
+           columnDefs: [ { orderable: false, targets: [0,1,2,3,4,5,6,7,8] } ],
            dom: 'Bfrtip',
            buttons: [],
            destroy: true
@@ -77,12 +95,41 @@ function getfabrics(){
          }
      });
 }
-
+function imguplod(imgid){
+   var triggerid=$('#customerstylepic'+imgid).trigger('click');
+   var fileupload = document.getElementById('customerstylepic'+imgid);
+   fileupload.onchange = function () {
+                var customerstylepic = $('#customerstylepic'+imgid).val();
+                var fd = new FormData();
+                var files = $('#customerstylepic'+imgid)[0].files[0];
+                fd.append('file',files);
+                fd.append('imgname',imgid);
+                fd.append('foldername',"fabric");
+                $.ajax({
+                     url:"src/addimg.php",
+                     type:"POST",
+                     contentType: false,
+                     cache: false,
+                     processData:false,
+                     data: fd,
+                     dataType:'json',
+                     success:function(response){
+                       swal(response['Message']);
+                       getcustomerstyles();
+                     }
+              });
+   };
+}
 // This function is created For Add Button New Style
 function addStyle(){
   $("#customerstyletable").hide();
   $("#customerstyletableform").show();
    $("#fabricform").trigger("reset");
+   $("#savebtncustomerstyle").show();
+   $("#updatebtncustomerstyle").hide();
+   $("#fabriccategory").val("").trigger('change');
+    $("#fabricPricevariable").val("").trigger('change');
+     $("#fabricactivestatus").val("").trigger('change');
 }
 
 // This function is created For Edit Button
@@ -126,10 +173,13 @@ function removeFabric(id){
 }
 
 // This function is created For Refresh Action / Backbutton
-function reload(){
+$('#reloadbtn').on('click',function(event){
+  event.preventDefault();
   $("#customerstyletable").show();
   $("#customerstyletableform").hide();
-}
+  $("#savebtncustomerstyle").show();
+  $("#updatebtncustomerstyle").hide();
+});
 
 // This function is created For Save Style Data
 $('#savebtncustomerstyle').on('click',function(event){
@@ -147,11 +197,6 @@ $('#savebtncustomerstyle').on('click',function(event){
   var fabricPricevariable = $("#fabricPricevariable").val();
   var fabricactivestatus= $("#fabricactivestatus").val();
   // ||skuno==""||releasedate==""||hexcolor==""||fabriccategory==""||fabriccolorname==""||fabrictype==""||fabricPricevariable==""||fabricactivestatus==""
-  if(fabrictitle==""||fabricbrand==""||fabricdetail==""||fabricprice=="")
-  {
-
-  }
-  else{
     $.ajax({
         url:api_url+'createfabric.php',
         type:'POST',
@@ -177,7 +222,6 @@ $('#savebtncustomerstyle').on('click',function(event){
             $("#customerstyletableform").hide();
         }
     });
-  }
 
 });
 
@@ -191,6 +235,7 @@ $('#updatebtncustomerstyle').on('click',function(event){
   var fabricprice = $("#fabricprice").val();
   var skuno = $("#skuno").val();
   var releasedate= $("#releasedate").val();
+  // alert(releasedate);
   var hexcolor = $("#hexcolor").val();
   var fabriccategory = $("#fabriccategory").val();
   var fabriccolorname= $("#fabriccolorname").val();

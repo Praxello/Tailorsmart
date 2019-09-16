@@ -38,7 +38,13 @@ function getstitchstyledetailsitem(){
             for (var i = 0; i < count; i++) {
                 // styleData.push(response['Data'][i]);
                 // html +="<td>"+(i+1)+"</td>";
-                html +="<td> <img class='img-thumbnail' src='"+pic_url+"stitchsubstyle/"+response['Data'][i].stitchSubStyleId+".jpg' width='10%' height='10%'></img></td>";
+                var imageUrl = pic_url+'stitchsubstyle/300x300/'+response['Data'][i].stitchSubStyleId+'.jpg';
+                var file = doesFileExist(imageUrl);
+                if(!file){
+                 imageUrl = pic_url+'stitchsubstyle/300x300/0.jpg';
+                };
+                html +="<td><form id='custstyleform"+response['Data'][i].stitchSubStyleId+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+response['Data'][i].stitchSubStyleId+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' src='"+imageUrl+"'  style='cursor: pointer' onclick='imguplod("+response['Data'][i].stitchSubStyleId+")'></img></form></td>";
+                // html +="<td> <img class='img-thumbnail' src='"+pic_url+"stitchsubstyle/"+response['Data'][i].stitchSubStyleId+".jpg' width='10%' height='10%'></img></td>";
                 html +="<td>"+response['Data'][i].stitchStyleDetails+"</td>";
                 html +="<td>"+response['Data'][i].stitchStyleTitle+"</td>";
                 switch(response['Data'][i].stitchStyleType) {
@@ -60,7 +66,7 @@ function getstitchstyledetailsitem(){
                   html +='<td><span class="badge badge-pill badge-warning">InActive</span></td>';
                 }
                 // <button class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+i+')"><i class="fa fa-edit"></i></button>
-                html +='<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removestitchStyleDetail('+response['Data'][i].stitchSubStyleId+')"><i class="fa fa-remove"></i></button></div></td>';
+                html +='<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod('+response['Data'][i].stitchSubStyleId+')"><i class="fa fa-upload"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removestitchStyleDetail('+response['Data'][i].stitchSubStyleId+')"><i class="fa fa-remove"></i></button></div></td>';
                 html +="  </tr>";
             }
            $("#styletbldata").html(html);
@@ -78,11 +84,53 @@ function getstitchstyledetailsitem(){
      });
 }
 
+function doesFileExist(urlToFile)
+{
+    var xhr = new XMLHttpRequest();
+    xhr.open('HEAD', urlToFile, false);
+    // xhr.send();
+
+    if (xhr.status == "404") {
+        // console.log("File doesn't exist");
+        return false;
+    } else {
+        // console.log("File exists");
+        return true;
+    }
+}
+//This function is useful for upload the image files
+function imguplod(imgid){
+   var triggerid=$('#customerstylepic'+imgid).trigger('click');
+   var fileupload = document.getElementById('customerstylepic'+imgid);
+   fileupload.onchange = function () {
+                var customerstylepic = $('#customerstylepic'+imgid).val();
+                var fd = new FormData();
+                var files = $('#customerstylepic'+imgid)[0].files[0];
+                fd.append('file',files);
+                fd.append('imgname',imgid);
+                fd.append('foldername',"stitchsubstyle");
+                $.ajax({
+                     url:"src/addimg.php",
+                     type:"POST",
+                     contentType: false,
+                     cache: false,
+                     processData:false,
+                     data: fd,
+                     dataType:'json',
+                     success:function(response){
+                       swal(response['Message']);
+                       // getcustomerstyles();
+                     }
+              });
+   };
+}
 // This function is created For Add Button New Style
 function addStyle(){
   $("#customerstyletable").hide();
   $("#customerstyletableform").show();
    $("#fabricform").trigger("reset");
+   $("#savebtncustomerstyle").show();
+   $("#updatebtncustomerstyle").hide();
 }
 
 // This function is created For Edit Button
@@ -116,11 +164,14 @@ function removestitchStyleDetail(id){
 }
 
 // This function is created For Refresh Action / Backbutton
-function reload(){
-  window.location.reload();
+$('#reloadbtn').on('click',function(event){
+  event.preventDefault();
+  // window.location.reload();
   $("#customerstyletable").show();
   $("#customerstyletableform").hide();
-}
+  $("#savebtncustomerstyle").show();
+  $("#updatebtncustomerstyle").hide();
+});
 
 // This function is created For Save Style Data
 $('#savebtncustomerstyle').on('click',function(event){
