@@ -25,13 +25,9 @@ function getMicellaneousData(){
             }
             if(response.Currency !=null){
                 currencyData = [...response.Currency];
-<<<<<<< HEAD
-
-=======
             }
             if(response.ParentProducts !=null){
                 ParentProducts = [...response.ParentProducts];
->>>>>>> 4e279b401d1f27df97d73e6ced647bca11d0ed22
             }
 
         }
