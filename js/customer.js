@@ -9,9 +9,26 @@ var fabric_orderItemId = null;//for send orderItemid to save the orderId and fab
 var style_orderItemId = null;//for send orderItemid to save the orderId and styles corresponding
 var customerId_g = null;
 var indexRow = null;//pass a parameter to get particular order id objects
-var EmployeeData = [];//from getmiscellaneousdata.php
-var currencyData = [];//from getmiscellaneousdata.php
-var ParentProducts = [];//from getmiscellaneousdata.php for show active products styleTitle
+var EmployeeData = new Map();//from getmiscellaneousdata.php names only
+var currencyData = [];//from getmiscellaneousdata.php using in payment link dropdown
+let statusMap = new Map();//for static status
+let ParentProducts = new Map();//from getmiscellaneousdata.php for show active products styleTitle
+let confirmationStatus = new Map();
+getStatusMap();
+getConfirmation();
+function getStatusMap(){  
+    statusMap.set('0','<span class="badge badge-pill badge-danger">Not completed</span>');
+    statusMap.set('1','<span class="badge badge-pill badge-success">Confirmed/span>');
+    statusMap.set('2','<span class="badge badge-pill badge-primary">Processing</span>');
+    statusMap.set('3','<span class="badge badge-pill badge-secondary">Sent for Trial</span>');
+    statusMap.set('4','<span class="badge badge-pill badge-warning">Completed</span>');
+    statusMap.set('5','<span class="badge badge-pill badge-info">Cancelled</span>');
+    statusMap.set('6','<span class="badge badge-pill badge-dark">For Alteration</span>');
+}
+function getConfirmation(){
+    confirmationStatus.set('0','<span class="badge badge-pill badge-success">Confirmed</span>');
+    confirmationStatus.set('1','<span class="badge badge-pill badge-warning">Not confirmed</span>');
+}
 
 getMicellaneousData();
 function getMicellaneousData(){
@@ -21,13 +38,19 @@ function getMicellaneousData(){
         dataType: 'json',
         success: function (response) {
             if (response.Employee != null) {
-                EmployeeData = [...response.Employee];
+                var count_EmployeeData = response.Employee.length;
+                for(var i=0;i<count_EmployeeData;i++){
+                    EmployeeData.set(response.Employee[i].employeeId,response.Employee[i].firstName+' '+response.Employee[i].lastName);
+                }
             }
             if(response.Currency !=null){
                 currencyData = [...response.Currency];
             }
             if(response.ParentProducts !=null){
-                ParentProducts = [...response.ParentProducts];
+                var count_ParentProducts = response.ParentProducts.length;
+            for(var i=0;i<count_ParentProducts;i++){
+                ParentProducts.set(response.ParentProducts[i].parentId,response.ParentProducts[i].styleTitle);
+            }
             }
 
         }
@@ -79,7 +102,6 @@ function getOrdersOfCustomer(customerId) {
             $(".preloader").fadeIn();
         },
         success: function (response) {
-            var EmpCount = EmployeeData.length;
             if (response.Data != null) {
                 var count = response.Data.length;
                 const orders = response.Data;
@@ -89,12 +111,12 @@ function getOrdersOfCustomer(customerId) {
                 $('#customerOrdersBlock').show();
                 var responseData = "";
                 for (var i = 0; i < count; i++) {
-                    orderStatus = getStatus(response.Data[i].OrderDetails.orderStatus);
-                    isConfirmed = getConfirmation(response.Data[i].OrderDetails.isConfirmed);
+                    orderStatus = statusMap.get(response.Data[i].OrderDetails.orderStatus);
+                    isConfirmed = confirmationStatus.get(response.Data[i].OrderDetails.isConfirmed);
                     if (response.Data[i].OrderDetails.promoCode == null) {
                         response.Data[i].OrderDetails.promoCode = '-';
                     }
-                    EmpName = getEmployeeName(response.Data[i].OrderDetails.employeeId,EmpCount);
+                    EmpName = EmployeeData.get(response.Data[i].OrderDetails.employeeId);
                     customerExpectedDate = getDate(response.Data[i].OrderDetails.customerExpectedDate);
                     FinalDeliveryDate = getDate(response.Data[i].OrderDetails.FinalDeliveryDate);
                     responseData += "<tr>";
@@ -130,41 +152,6 @@ function getOrdersOfCustomer(customerId) {
         }
     });
 }
-function getStatus(orderStatus) {
-    var status;
-    switch (orderStatus) {
-        case '0':
-            status = '<span class="badge badge-pill badge-danger">Not completed</span>';
-            break;
-        case '1':
-            status = '<span class="badge badge-pill badge-success">Confirmed/span>';
-            break;
-        case '2':
-            status = '<span class="badge badge-pill badge-primary">Processing</span>';
-            break;
-        case '3':
-            status = '<span class="badge badge-pill badge-secondary">Sent for Trial</span>';
-            break;
-        case '4':
-            status = '<span class="badge badge-pill badge-warning">Completed</span>';
-            break;
-        case '5':
-            status = '<span class="badge badge-pill badge-info">Cancelled</span>';
-            break;
-        case '6':
-            status = '<span class="badge badge-pill badge-dark">For Alteration</span>';
-    }
-    return status;
-}
-function getConfirmation(isConfirmed) {
-    var confirmation;
-    if (isConfirmed == 0) {
-        confirmation = '<span class="badge badge-pill badge-success">Confirmed</span>';
-    } else {
-        confirmation = '<span class="badge badge-pill badge-warning">Not confirmed</span>';
-    }
-    return confirmation;
-}
 function getDate(date) {
     var output = '-';
     if (date == null) {
@@ -175,15 +162,6 @@ function getDate(date) {
         output = d.toGMTString(); //outputs to "Thu, 28 May 2015 22:10:21 GMT"
     }
     return output;
-}
-function getEmployeeName(empId,count) {
-    var empName = '';
-    for(var i=0;i<count;i++){
-        if(empId == EmployeeData[i].employeeId){
-            empName = EmployeeData[i].firstName + ' '+EmployeeData[i].lastName;
-        }
-    }
-    return empName;
 }
 //load an particular order of a customer for edit/update purpose
 function showData(orderid, rowId) {

@@ -31,7 +31,6 @@ $employeeName = $_SESSION['employeeName'];?>
     <script src="https:**oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-
 <body class="fix-header fix-sidebar">
     <!-- Preloader - style you can find in spinners.css -->
     <div class="preloader">
@@ -71,20 +70,34 @@ $employeeName = $_SESSION['employeeName'];?>
                 <div class="row"  id="customerSelectionBlock" >
                     <div class="col-sm-12">
                         <div class="card">
-                            <div class="row">
+                        <div class="row">
                                 <div class="col-sm-4">
                                     
                                 </div>
                                 <div class="col-sm-4">
                                 <div class="form-group">
                                         <label class="control-label">Select Customer </label>
-                                        <select class="form-control form-control-sm" id="customerId" onchange="getOrdersOfCustomer(this.value)">
+                                      
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                <div class="form-group">
+                                </div>        
+                            </div>
+                        </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    
+                                </div>
+                                <div class="col-sm-4">
+                                <div class="form-group">
+                                        <select class="form-control form-control-sm" id="customerId" onchange="getOrdersOfCustomer(this.value)" style="width:100%;">
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                 <div class="form-group">
-                                        <button type="button" id="createOrder" class="btn btn-success  btn-addon btn-md" style="margin-top: 30px;padding-left:5px;padding-right:20px;padding-top:5px;padding-bottom:5px;">Create New Order</button>
+                                        <button type="button" id="createOrder" class="btn btn-success"><i class="fa  fa-plus"></i>Create New Order</button>
                                     </div>        
                             </div>
                             </div>

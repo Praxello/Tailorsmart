@@ -90,13 +90,10 @@ function getActiveProductsList() {
         success: function (response) {
             var createDropdownOptions = '';
             var count = response.Data.length;
-            var parentCount = ParentProducts.length;
+            let styleTitle = '';
             for (var i = 0; i < count; i++) {
-                for (var j = 0; j < parentCount; j++) {
-                    if (response.Data[i].parentId == ParentProducts[j].parentId) {
-                        createDropdownOptions += "<option value=" + response.Data[i].productId + ">" + response.Data[i].productTitle + '-' + ParentProducts[j].styleTitle + "</option>";
-                    }
-                }
+                styleTitle = ParentProducts.get(response.Data[i].parentId);
+                createDropdownOptions += "<option value=" + response.Data[i].productId + ">" + response.Data[i].productTitle + '-' +styleTitle + "</option>";
             }
             $("#products").html(createDropdownOptions);
         }
@@ -334,6 +331,7 @@ function loadFabrics(productId, orderItemId, rowId) {
         }
     })
 }
+getPaymentList();
 function getPaymentList() {
     var empName = $('#empName').val();
     $.ajax({

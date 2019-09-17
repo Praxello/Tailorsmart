@@ -79,7 +79,7 @@
          $('#sampleTbl tr').each(function(row, tr) {
             var measurmentValue = $(tr).find('td:eq(2) input').val();
              if(measurmentValue == ''){
-                measurmentValue = 'none';
+                measurmentValue = '-';
              }
              TableData[row] = {
                  "measurementid": $(tr).find('td:eq(0)').text(),

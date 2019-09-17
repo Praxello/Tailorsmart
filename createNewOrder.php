@@ -3,10 +3,10 @@
 <body>
   <ul class="nav nav-tabs" role="tablist">
     <li class="nav-item">
-      <a class="nav-link active" data-toggle="tab" href="#productHome">Products</a>
+      <a class="nav-link active" data-toggle="tab" href="#productHome"><i class="fa fa-home"></i> Products</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" data-toggle="tab" href="#paymentlink" onclick="getPaymentList()">Payment Links</a>
+      <a class="nav-link" data-toggle="tab" href="#paymentlink"><i class="fa fa fa-rupee"></i>Payment Links</a>
     </li>
   </ul>
   <div class="tab-content">
@@ -66,18 +66,16 @@
               </div>
               <div class="col-sm-3">
                 <div class="form-group">
-                  <button type="button" class="add-row btn btn-success">add product</button>
+                  <button type="button" class="add-row btn btn-success"><i class="fa  fa-plus"></i>add product</button>
                 </div>
               </div>
               <div class="col-sm-3">
                 <div class="form-group">
-                  <button type="button" class="btn btn-primary" id="loadfirstpage">Close Order</button>
+                  <button type="button" class="btn btn-primary" id="loadfirstpage"><i class="fa  fa-close"></i>Close Order</button>
                 </div>
               </div>
               <div class="col-sm-3">
-                <div class="form-group">
-                  <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#paymentLinkModal">Create Payment Link</button>
-                </div>
+               
               </div>
             </div>
           </div>
@@ -103,6 +101,9 @@
     </div>
     <div id="paymentlink" class="container tab-pane"><br>
       <div class="card">
+      <div class="form-group ">
+                  <button type="button" class="btn btn-secondary float-right" data-toggle="modal" data-target="#paymentLinkModal">Create Payment Link</button>
+          </div>
         <div class="table-responsive m-t-40">
           <table class="table table-bordered">
             <thead>
