@@ -1,4 +1,3 @@
-
 getcustomerstyles();
 $('#stylestatus').select2({
   allowClear: true,
@@ -7,9 +6,7 @@ $('#stylestatus').select2({
 
 var styleData = []; // This variable globally declare save all Style Data in Array
 
-$(document).ready(function() {
 
-});
 
 // This function is created for Get All Style Data.
 function getcustomerstyles(){
@@ -135,12 +132,12 @@ $('#reloadbtn').on('click',function(event){
 });
 
 // This function is created For Save Style Data
-function savecustomerstyle()
-{
+$('#savebtncustomerstyle').on('click',function(event){
+  event.preventDefault();
   var styletitle = $("#styletitle").val();
   var stylestatus = $("#stylestatus").val();
   if(styletitle==""||stylestatus==""){
-    swal("Please Enter Title / Select Status");
+      swal("Missing Parameter");
   }
   else{
     $.ajax({
@@ -162,20 +159,20 @@ function savecustomerstyle()
             else{
               swal(response.Message);
             }
-            // window.location.reload();
-
         }
     });
   }
-}
+
+});
 
 // This function is created For Update Style Data
-function updatecustomerstyle(){
+$('#updatebtncustomerstyle').on('click',function(event){
+  event.preventDefault();
   var styleid = $("#styleid").val();
   var styletitle = $("#styletitle").val();
   var stylestatus = $("#stylestatus").val();
-  if(styletitle==""||stylestatus==""){
-    swal("Please Enter Title / Select Status");
+  if(styletitle==""||stylestatus==""||styleid==""){
+      swal("Missing Parameter");
   }
   else{
   $.ajax({
@@ -200,5 +197,5 @@ function updatecustomerstyle(){
            }
       }
   });
-  }
 }
+});

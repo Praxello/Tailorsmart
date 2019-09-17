@@ -168,7 +168,7 @@ function removemaster(id){
       dataType:'json',
       success:function(response){
         if(response.Responsecode===200){
-            swal(response.Message);
+          swal(response.Message);
           $("#customerstyletable").show();
           $("#customerstyletableform").hide();
           getmasterproduct();
@@ -210,13 +210,13 @@ $('#savebtncustomerstyle').on('click',function(event){
       success:function(response){
 
           if(response.Responsecode===200){
-              swal(response.Message);
+            swal(response.Message);
             $("#customerstyletable").show();
             $("#customerstyletableform").hide();
             getmasterproduct();
           }
           else {
-              swal(response.Message);
+            swal(response.Message);
           }
 
       }

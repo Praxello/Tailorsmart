@@ -26,12 +26,10 @@
                 <li><a class="has-arrow  " href="customersubstyles.php" aria-expanded="false"><i class="fa fa-gift"></i><span class="hide-menu">Substyles</span></a></li>
                 <li ><a class="has-arrow  " href="managecategory.php" aria-expanded="false"><i class="fa fa-gift"></i><span class="hide-menu">Manage Category</span></a></li>
                   <li ><a class="has-arrow  " href="measurement.php" aria-expanded="false"><i class="fa fa-gift"></i><span class="hide-menu">Measurements</span></a></li>
-                <li><a class="has-arrow  " href="fabric.php" aria-expanded="false"><i class="fa fa-gift"></i><span class="hide-menu">Fabric</span></a></li>
+                <li><a class="has-arrow  " href="fabric.php" aria-expanded="false"><i class="fa fa-plus"></i><span class="hide-menu">Fabric</span></a></li>
                 <li ><a class="has-arrow  " href="stitchstyle.php" aria-expanded="false"><i class="fa fa-gift"></i><span class="hide-menu">Stitch-Style</span></a></li>
                 <li><a class="has-arrow  " href="stitchstyledetail.php" aria-expanded="false"><i class="fa fa-gift"></i><span class="hide-menu">Stitch-Style-Detail-Item</span></a></li>
-                <li> <a class="has-arrow  " href="customers.php" aria-expanded="false"><i class="fa fa-tachometer"></i><span class="hide-menu">Create Order</span></a>
-
-                        </li>
+                <li> <a class="has-arrow  " href="customers.php" aria-expanded="false"><i class="fa fa-tachometer"></i><span class="hide-menu">Create Order</span></a></li>
                 <!-- <li class="nav-label">Apps</li>
                 <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-envelope"></i><span class="hide-menu">Appointment</span></a>
                     <ul aria-expanded="false" class="collapse">

@@ -101,9 +101,9 @@
                                       <h4 class="card-title">All Products</h4>
                                       <ul class="nav nav-pills m-t-30 m-b-30" id="hidenavtab">
                                           <li class=" nav-item"> <a href="#navpills-1" class="nav-link active" data-toggle="tab" aria-expanded="false"><i class="fa fa-gift"></i>Product</a> </li>
-                                          <li class="nav-item"> <a href="#navpills-2" class="nav-link" data-toggle="tab" aria-expanded="false" onclick="fabricmapping();"><i class="fa fa-image"></i>Fabric Mapping</a> </li>
-                                          <li class="nav-item"> <a href="#navpills-3" class="nav-link" data-toggle="tab" aria-expanded="true" onclick="measurementmapping();"><i class="fa fa-image"></i>Measurement Mapping</a> </li>
-                                          <li class="nav-item"> <a href="#navpills-4" class="nav-link" data-toggle="tab" aria-expanded="true" onclick="stitchstylemapping();"><i class="fa fa-image"></i>Sticthing Style Mapping</a> </li>
+                                          <li class="nav-item"> <a href="#navpills-2" class="nav-link" data-toggle="tab" aria-expanded="false" ><i class="fa fa-image"></i>Fabric Mapping</a> </li>
+                                          <li class="nav-item"> <a href="#navpills-3" class="nav-link" data-toggle="tab" aria-expanded="true" ><i class="fa fa-image"></i>Measurement Mapping</a> </li>
+                                          <li class="nav-item"> <a href="#navpills-4" class="nav-link" data-toggle="tab" aria-expanded="true"><i class="fa fa-image"></i>Sticthing Style Mapping</a> </li>
                                       </ul>
                                       <div class="tab-content br-n pn">
                                           <div id="navpills-1" class="tab-pane active">
@@ -222,12 +222,21 @@
                                             </div>
                                             </div>
                                             <div class="row">
+                                                  <div class="col-sm-4">
+                                                  <div class="form-group">
+                                                      <label>Search</label>
+                                                      <input id="fabricmaptblInput" type="text" placeholder="Search.." class="form-control form-control-sm">
+                                                  </div>
+                                                  </div>
+                                            </div>
+                                            <div class="row">
 
 
                                                     <div class="card-body">
 
-                                                        <div class="table-responsive m-t-40">
-                                                            <table id="fabricmaptbl" class="display nowrap table table-hover  table-bordered">
+                                                        <div class="table-responsive m-t-40" style="overflow-y: scroll;max-height: 521px;">
+
+                                                            <table id="fabricmaptbl" class="display nowrap table table-hover  table-bordered" >
                                                                 <thead>
                                                                     <tr>
                                                                         <th>Select</th>
@@ -253,11 +262,19 @@
 
                                             </div>
                                             </div>
+                                            <div class="row">
+                                                  <div class="col-sm-4">
+                                                  <div class="form-group">
+                                                      <label>Search</label>
+                                                      <input id="measurementmaptblInput" type="text" placeholder="Search.." class="form-control form-control-sm">
+                                                  </div>
+                                                  </div>
+                                            </div>
                                               <div class="row">
                                                 <div class="card-body">
 
-                                                    <div class="table-responsive m-t-40">
-                                                        <table id="measurementmaptbl" class="display nowrap table table-hover  table-bordered">
+                                                    <div class="table-responsive m-t-40" style="overflow-y: scroll;max-height: 521px;">
+                                                        <table id="measurementmaptbl" class="display nowrap table table-hover  table-bordered" >
                                                             <thead>
                                                                 <tr>
                                                                     <th>Select</th>
@@ -280,11 +297,19 @@
 
                                             </div>
                                             </div>
+                                            <div class="row">
+                                                  <div class="col-sm-4">
+                                                  <div class="form-group">
+                                                      <label>Search</label>
+                                                      <input id="stitchstylemaptblInput" type="text" placeholder="Search.." class="form-control form-control-sm">
+                                                  </div>
+                                                  </div>
+                                            </div>
                                               <div class="row">
                                                 <div class="card-body">
 
-                                                    <div class="table-responsive m-t-40">
-                                                        <table id="stitchstylemaptbl" class="display nowrap table table-hover  table-bordered">
+                                                    <div class="table-responsive m-t-40" style="overflow-y: scroll;max-height: 521px;">
+                                                        <table id="stitchstylemaptbl" class="display nowrap table table-hover  table-bordered" >
                                                             <thead>
                                                                 <tr>
                                                                     <th>Select</th>

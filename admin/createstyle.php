@@ -10,17 +10,15 @@ extract($_POST);
 date_default_timezone_set("Asia/Kolkata");
 if (isset($_POST['styletitle']) && isset($_POST['active'])) {
 
-	$tempTitle = mysqli_real_escape_string($conn,$styletitle);
-
-	
-				$query = mysqli_query($conn,"insert into product_style_master(styletitle, isActive) values( '$tempTitle',$active)");
+	       $tempTitle = mysqli_real_escape_string($conn,$styletitle);
+				 $query = mysqli_query($conn,"insert into product_style_master(styletitle, isActive) values('$tempTitle',$active)");
 					if($query==1)
 					{
 					  			$response = array('Message'=>"New style created successfully",'Responsecode'=>200);
 					}
 					else
-					{	
-						$response=array("Message"=> mysqli_error($conn)." failed","Responsecode"=>500);					
+					{
+						$response=array("Message"=> mysqli_error($conn)." failed","Responsecode"=>500);
 					}
 }
 else

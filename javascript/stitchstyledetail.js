@@ -37,17 +37,10 @@ function getstitchstyledetailsitem(){
             styleData=[...response['Data']];
             var imageUrl ='';
             for (var i = 0; i < count; i++) {
-                // styleData.push(response['Data'][i]);
-                // html +="<td>"+(i+1)+"</td>";
                 imageUrl = pic_url+'stitchsubstyle/300x300/'+response['Data'][i].stitchSubStyleId+'.jpg';
-
-
                 html +="<td><form id='custstyleform"+response['Data'][i].stitchSubStyleId+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+response['Data'][i].stitchSubStyleId+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' src='"+imageUrl+"'  style='cursor: pointer' onclick='imguplod("+response['Data'][i].stitchSubStyleId+")' alt='No Image'></img></form></td>";
-                // html +="<td> <img class='img-thumbnail' src='"+pic_url+"stitchsubstyle/"+response['Data'][i].stitchSubStyleId+".jpg' width='10%' height='10%'></img></td>";
                 html +="<td>"+response['Data'][i].stitchSubStyleTitle+"</td>";
-                 html +="<td>"+response['Data'][i].stitchStyleTitle+"</td>";
-
-
+                html +="<td>"+response['Data'][i].stitchStyleTitle+"</td>";
                 switch(response['Data'][i].stitchStyleType) {
                                 case "0":
                                 html +="<td> Multiple selection </td>";
@@ -144,10 +137,15 @@ function removestitchStyleDetail(id){
       },
       dataType:'json',
       success:function(response){
+        if(response.Responsecode===200){
           swal(response.Message);
           $("#customerstyletable").show();
           $("#customerstyletableform").hide();
           getstitchstyledetailsitem();
+        }
+        else {
+          swal(response.Message);
+        }
       }
   });
 }
@@ -167,13 +165,6 @@ $('#savebtncustomerstyle').on('click',function(event){
   event.preventDefault();
   var stitchtitle = $("#stitchtitle").val();
   var stitchstyleid = $("#newstitchstyleId").val();
-
-  // ||skuno==""||releasedate==""||hexcolor==""||fabriccategory==""||fabriccolorname==""||fabrictype==""||fabricPricevariable==""||fabricactivestatus==""
-  if(stitchtitle==""||stitchstyleid=="")
-  {
-     swal("Parameter Missing");
-  }
-  else{
     $.ajax({
         url:api_url+'createstitchstyledetailitem.php',
         type:'POST',
@@ -183,14 +174,17 @@ $('#savebtncustomerstyle').on('click',function(event){
         },
         dataType:'json',
         success:function(response){
+          if(response.Responsecode===200){
             swal(response.Message);
             $("#customerstyletable").show();
             $("#customerstyletableform").hide();
             getstitchstyledetailsitem();
+          }
+          else {
+            swal(response.Message);
+          }
         }
     });
-  }
-
 });
 
 // This function is created For Update Style Data
@@ -199,30 +193,4 @@ $('#updatebtncustomerstyle').on('click',function(event){
   var stitchstyleid= $("#stitchstyleid").val();
   var stitchtitle = $("#stitchtitle").val();
   var newstitchstyleid = $("#newstitchstyleId").val();
-
-
-  // $.ajax({
-  //     url:'http://praxello.com/tailorsmart/admin/editfabric.php',
-  //     type:'POST',
-  //     data:{
-  //       fabricid:fabricid,
-  //       categoryid:fabriccategory,
-  //       fabrictitle:fabrictitle,
-  //       fabricbrand:fabricbrand,
-  //       fabricdetails:fabricdetail,
-  //       skuno:skuno,
-  //       fabricprice:fabricprice,
-  //       releasedate:releasedate,
-  //       ispricevariable:fabricPricevariable,
-  //       hexcolor:hexcolor,
-  //       colorname:fabriccolorname,
-  //       fabrictype:fabrictype,
-  //       active:fabricactivestatus
-  //     },
-  //     dataType:'json',
-  //     success:function(response){
-  //         swal(response.Message);
-  //         // window.location.reload();
-  //     }
-  // });
 });
