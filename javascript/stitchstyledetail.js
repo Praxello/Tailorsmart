@@ -41,10 +41,13 @@ function getstitchstyledetailsitem(){
                 // html +="<td>"+(i+1)+"</td>";
                 imageUrl = pic_url+'stitchsubstyle/300x300/'+response['Data'][i].stitchSubStyleId+'.jpg';
 
+
                 html +="<td><form id='custstyleform"+response['Data'][i].stitchSubStyleId+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+response['Data'][i].stitchSubStyleId+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' src='"+imageUrl+"'  style='cursor: pointer' onclick='imguplod("+response['Data'][i].stitchSubStyleId+")' alt='No Image'></img></form></td>";
                 // html +="<td> <img class='img-thumbnail' src='"+pic_url+"stitchsubstyle/"+response['Data'][i].stitchSubStyleId+".jpg' width='10%' height='10%'></img></td>";
-                html +="<td>"+response['Data'][i].stitchStyleDetails+"</td>";
-                html +="<td>"+response['Data'][i].stitchStyleTitle+"</td>";
+                html +="<td>"+response['Data'][i].stitchSubStyleTitle+"</td>";
+                 html +="<td>"+response['Data'][i].stitchStyleTitle+"</td>";
+
+
                 switch(response['Data'][i].stitchStyleType) {
                                 case "0":
                                 html +="<td> Multiple selection </td>";
@@ -56,7 +59,7 @@ function getstitchstyledetailsitem(){
                                   html +="<td>Input Field</td>";
                                     break;
                               }
-                html +="<td>"+response['Data'][i].stitchSubStyleTitle+"</td>";
+                html +="<td>"+response['Data'][i].stitchStyleDetails+"</td>";
                 if(response['Data'][i].isActive==1){
                   html +='<td><span class="badge badge-pill badge-primary">Active</span></td>';
                 }

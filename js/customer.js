@@ -147,7 +147,7 @@ function getOrdersOfCustomer(customerId) {
 
         },
         complete:function(){
-         
+
             $(".preloader").fadeOut();
         }
     });

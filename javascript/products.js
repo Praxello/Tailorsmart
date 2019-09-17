@@ -547,13 +547,16 @@ $('#savefabric').on('click',function(event){
    var form = this;
   event.preventDefault();
   var TableData = new Array();
-   var rows_selected = table.column(0).checkboxes.selected();
-    $.each(rows_selected, function(index, rowId){
-      var  arr = rowId.split("=\"");
-      var  arr1 = arr[4].split("\"");
-      TableData.push(parseInt(arr1[0]));
-
-    });
+  $('#fabricmaptbl').find('input[name="fabricmapcheck"]:checked').each(function(row) {
+    TableData.push($(this).val());
+  });
+   // var rows_selected = table.column(0).checkboxes.selected();
+   //  $.each(rows_selected, function(index, rowId){
+   //    var  arr = rowId.split("=\"");
+   //    var  arr1 = arr[4].split("\"");
+   //    TableData.push(parseInt(arr1[0]));
+   //
+   //  });
   //  alert(TableData);
   var productId= $("#productId").val();
   var fabricidarray = TableData.toString();

@@ -67,10 +67,10 @@
                                             <tr>
 
                                                 <th>Image Icon</th>
-                                                <th>Details</th>
+                                                <th>Stitch SubStyle Title</th>
                                                 <th>Stitch Title</th>
                                                 <th>Stitch Style Type</th>
-                                                <th>Stitch SubStyle Title</th>
+                                                <th>Details</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
                                             </tr>

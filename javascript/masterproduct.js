@@ -97,7 +97,7 @@ function imguplod(imgid){
                      dataType:'json',
                      success:function(response){
                        swal(response['Message']);
-                      getmasterproduct();
+                       getmasterproduct();
                      }
               });
    };
@@ -167,10 +167,15 @@ function removemaster(id){
       },
       dataType:'json',
       success:function(response){
-          swal(response.Message);
+        if(response.Responsecode===200){
+            swal(response.Message);
           $("#customerstyletable").show();
           $("#customerstyletableform").hide();
           getmasterproduct();
+        }
+        else {
+            swal(response.Message);
+        }
       }
   });
 }
@@ -203,10 +208,17 @@ $('#savebtncustomerstyle').on('click',function(event){
       },
       dataType:'json',
       success:function(response){
-          swal(response.Message);
-          $("#customerstyletable").show();
-          $("#customerstyletableform").hide();
-          getmasterproduct();
+
+          if(response.Responsecode===200){
+              swal(response.Message);
+            $("#customerstyletable").show();
+            $("#customerstyletableform").hide();
+            getmasterproduct();
+          }
+          else {
+              swal(response.Message);
+          }
+
       }
   });
 });
@@ -231,10 +243,15 @@ $('#updatebtncustomerstyle').on('click',function(event){
       },
       dataType:'json',
       success:function(response){
-          swal(response.Message);
+        if(response.Responsecode===200){
+            swal(response.Message);
           $("#customerstyletable").show();
           $("#customerstyletableform").hide();
           getmasterproduct();
+        }
+        else {
+            swal(response.Message);
+        }
       }
   });
 });

@@ -111,10 +111,15 @@ function removeStyle(id){
       },
       dataType:'json',
       success:function(response){
-          swal(response.Message);
+        if(response.Responsecode==200){
           $("#customerstyletable").show();
           $("#customerstyletableform").hide();
           getcustomerstyles();
+          swal(response.Message);
+        }
+        else{
+          swal(response.Message);
+        }
       }
   });
 }
@@ -147,11 +152,18 @@ function savecustomerstyle()
         },
         dataType:'json',
         success:function(response){
-            swal(response.Message);
+
+            if(response.Responsecode==200){
+              $("#customerstyletable").show();
+              $("#customerstyletableform").hide();
+              getcustomerstyles();
+              swal(response.Message);
+            }
+            else{
+              swal(response.Message);
+            }
             // window.location.reload();
-            $("#customerstyletable").show();
-            $("#customerstyletableform").hide();
-            getcustomerstyles();
+
         }
     });
   }
@@ -176,10 +188,16 @@ function updatecustomerstyle(){
       },
       dataType:'json',
       success:function(response){
-          swal(response.Message);
+
+            if(response.Responsecode==200){
           $("#customerstyletable").show();
           $("#customerstyletableform").hide();
            getcustomerstyles();
+             swal(response.Message);
+           }
+           else{
+             swal(response.Message);
+           }
       }
   });
   }
