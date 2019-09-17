@@ -1,9 +1,10 @@
 var api_url = 'http://praxello.com/tailorsmart/admin/';
+// var api_url = './admin/';
 var customerOrders = [];//all the customers orders
 var customerOrderDetails = [];//for particular order id details
 var orderId = null;//order id for another page reference createNewOrderPage
 var mar = '';//for load all data in view mode of a particular order
-var customerData = [];//data of customers like name,address
+let customerData = new Map();//data of customers like name,address
 var customer_orderItemId = null;//for send orderItemid to save the orderId and measurments corresponding
 var fabric_orderItemId = null;//for send orderItemid to save the orderId and fabrics corresponding
 var style_orderItemId = null;//for send orderItemid to save the orderId and styles corresponding
@@ -68,14 +69,17 @@ function getAllCustomers() {
         },
         success: function (response) {
             var createDropdownOptions = '';
+            if(response.Data != null){
             var count = response.Data.length;
-            customerData = [...response.Data];
-
             createDropdownOptions += "<option value=''>Select Customer Name</option>";
             for (var i = 0; i < count; i++) {
                 createDropdownOptions += "<option value=" + response.Data[i].customerId + ">" + response.Data[i].firstName + " " + response.Data[i].lastName + "-" + response.Data[i].mobile + "</option>";
+                customerData.set(response.Data[i].customerId,response.Data[i]);
             }
-            $("#customerId").html(createDropdownOptions);
+        }else{
+            createDropdownOptions += "<option value=''>No customers available</option>";
+        }
+        $("#customerId").html(createDropdownOptions);
         },
         complete:function(){
             console.log('in complete');
@@ -87,6 +91,10 @@ $('#customerId').select2({
     allowClear: true,
     placeholder: "Select Customer Name"
 });
+// function showing(customerId){
+//     getOrdersOfCustomer(customerId);
+//     showOrdersData(customerOrders);
+// }
 //first select customer then customerOrders[] intialize to all order details of that customer
 function getOrdersOfCustomer(customerId) {
     customerId_g = customerId;
@@ -98,9 +106,6 @@ function getOrdersOfCustomer(customerId) {
         async: false,
         data: { customerid: customerId },
         dataType: 'json',
-        beforeSend:function(){
-            $(".preloader").fadeIn();
-        },
         success: function (response) {
             if (response.Data != null) {
                 var count = response.Data.length;
@@ -145,13 +150,50 @@ function getOrdersOfCustomer(customerId) {
                 });
             }
 
-        },
-        complete:function(){
-
-            $(".preloader").fadeOut();
         }
     });
 }
+// function showOrdersData(customerOrders){
+//     var count = customerOrders.length;
+//     $('#customerOrdersDataTable').dataTable().fnDestroy();
+//     $("#customerOrdersData").empty();
+//     var orderStatus = null, isConfirmed = null, customerExpectedDate = null, FinalDeliveryDate = null,EmpName='-';
+//                 $('#customerOrdersBlock').show();
+//                 var responseData = "";
+//                 for (var i = 0; i < count; i++) {
+//                     orderStatus = statusMap.get(customerOrders[i].OrderDetails.orderStatus);
+//                     isConfirmed = confirmationStatus.get(customerOrders[i].OrderDetails.isConfirmed);
+//                     if (customerOrders[i].OrderDetails.promoCode == null) {
+//                         customerOrders[i].OrderDetails.promoCode = '-';
+//                     }
+//                     EmpName = EmployeeData.get(customerOrders[i].OrderDetails.employeeId);
+//                     customerExpectedDate = getDate(customerOrders[i].OrderDetails.customerExpectedDate);
+//                     FinalDeliveryDate = getDate(customerOrders[i].OrderDetails.FinalDeliveryDate);
+//                     responseData += "<tr>";
+//                     responseData += "<td>" + customerOrders[i].OrderDetails.amount + "</td>";
+//                     responseData += "<td>" + customerOrders[i].OrderDetails.promoCode + "</td>";
+//                     responseData += "<td>" + orderStatus + "</td>";
+//                     responseData += "<td>" + isConfirmed + "</td>";
+//                     responseData += "<td>" + customerExpectedDate + "</td>";
+//                     responseData += "<td>" + FinalDeliveryDate + "</td>";
+//                     responseData += "<td>" + EmpName + "</td>";
+//                     responseData += "<td><div class='btn-group' role='group' aria-label='Basic example'>";
+//                     responseData += '<button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="showData(' + customerOrders[i].OrderDetails.orderId + ',' + (i) + ')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>';
+//                     responseData += "</div></td></tr>";
+//                 }
+//                 $("#customerOrdersData").html(responseData);
+
+//                 $('#customerOrdersDataTable').DataTable({
+//                     searching: true,
+//                     retrieve: true,
+//                     bPaginate: $('tbody tr').length > 10,
+//                     order: [],
+//                     columnDefs: [{ orderable: false, targets: [0, 1, 2, 3, 4, 5,6,7] }],
+//                     dom: 'Bfrtip',
+//                     buttons: ['copy', 'csv', 'excel', 'pdf'],
+//                     destroy: true
+//                 });
+// }
 function getDate(date) {
     var output = '-';
     if (date == null) {
@@ -165,10 +207,9 @@ function getDate(date) {
 }
 //load an particular order of a customer for edit/update purpose
 function showData(orderid, rowId) {
+    $('#loadNewPage').empty();
     orderId = orderid;
     customerOrderDetails = customerOrders[rowId];
-    // console.log(customerOrderDetails);
-    // console.log("rowId " + rowId);
     indexRow = rowId;
     if (customerOrderDetails.orderItems != null) {
         var count = customerOrderDetails.orderItems.length;
@@ -186,9 +227,9 @@ function showData(orderid, rowId) {
     }
     $('#customerSelectionBlock').hide();
     $('#customerOrdersBlock').hide();
-    $('#loadNewPage').empty();
+  
     $('#loadNewPage').load('createNewOrder.php');
-    $("#productData").empty();
+     $("#productData").empty();
 
 }
 //create new order data using customerid

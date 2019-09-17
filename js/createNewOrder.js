@@ -4,16 +4,12 @@ $('#products').select2({
 });
 display_customerInfo();
 function display_customerInfo() {
-    var count = customerData.length;
-    for (var i = 0; i < count; i++) {
-        if (customerData[i].customerId == customerId_g) {
-            $('#custName').html(customerData[i].firstName + ' ' + customerData[i].lastName);
-            $('#custEmail').html(customerData[i].email);
-            $('#custAddress').html(customerData[i].address);
-            $('#custCity').html(customerData[i].city);
-            $('#custMobile').html(customerData[i].mobile);
-        }
-    }
+    let cData = customerData.get(customerId_g);
+            $('#custName').html(cData.firstName+' '+cData.lastName);
+            $('#custEmail').html(cData.email);
+            $('#custAddress').html(cData.address);
+            $('#custCity').html(cData.city);
+            $('#custMobile').html(cData.mobile);
 }
 
 $(document).on('click', '.add-row', function (e) {
@@ -29,15 +25,12 @@ $(document).on('click', '.add-row', function (e) {
         data: createOrderData,
         success: function (response) {
             var count = response.Data.length;
-            //load an orders of customers
-            // var customerId = 21;
-            // console.log(customerId_g);
-            getOrdersOfCustomer(customerId_g);
-            // console.log(customerOrders);
+          
+           getOrdersOfCustomer(customerId_g);
+           
             customerOrderDetails = [];
             customerOrderDetails = customerOrders[indexRow];
-            // console.log(customerOrderDetails);
-            $('#customerOrdersBlock').hide();
+            $('#customerOrdersBlock').hide(); 
             for (var i = 0; i < count; i++) {
                 if (response.Data[i].orderItemId == response.OrderItemId) { //for add only current row data into html table
                     var markup = '';
@@ -45,7 +38,6 @@ $(document).on('click', '.add-row', function (e) {
                     //customerOrderDetails = customerOrders[i];
                     //console.log(customerOrders);
 
-                    // markup += "<div class='table-data-feature'><button class='btn btn-success' data-toggle='tooltip' data-placement='top' title='Edit'><i class='fa fa-edit'></i></button><button class='btn btn-danger' data-toggle='tooltip' data-placement='top' title='Delete'><i class='fa fa-remove'></i></button></div>"
                     markup += "<tr id=" + response.Data[i].orderItemId + "><td>" + response.Data[i].productTitle + "</td><td>" + response.Data[i].productSubTitle + "</td><td>" + response.Data[i].orderItemPrice + "</td>";
                     markup += "<td><div class='btn-group' role='group' aria-label='Basic example'>";
                     markup += "<a class='btn btn-success btn-sm' title='Add Measurment' data-toggle='tooltip' onclick='loadMeasurment(\"" + response.Data[i].productId + "\",\"" + response.Data[i].orderItemId + "\",\"" + (i) + "\")' href='#'><i class='fa fa-edit'></i></a>";
@@ -55,6 +47,8 @@ $(document).on('click', '.add-row', function (e) {
                     $("#productData").append(markup);
                 }
             }
+            
+           
 
         }
     })

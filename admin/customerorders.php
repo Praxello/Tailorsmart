@@ -19,6 +19,17 @@ header('Content-Type: application/json');
 										$tempOrderDetails = $academicResults;
 										$tempOrderId = $academicResults['orderId'];
 										
+										$tempOrderDetails = array("")
+										
+// $academicResults["reecdda"] = $newrwcdd;
+
+
+
+
+
+
+
+
 										$tempOrderItems = null;
 										$orderItemDetails = null;
 										
