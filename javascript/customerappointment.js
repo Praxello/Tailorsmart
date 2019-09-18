@@ -71,7 +71,6 @@ function getAppointmentStatus(appointmentId) {
         case "5":
             status += '<span class="badge badge-pill badge-dark">None</span>';
         break;
-        // code block
   }
   return status;
 }
@@ -85,7 +84,6 @@ function getcustomerappointmentdata(){
          url:api_url+"getappointments.php",
          dataType:"json",
          success: function(response) {
-           // alert(response[0].customerName);
             getslotdata=[...response["Slots"]];
 
             var html='',EmpName='-',orderStatus='-';
@@ -109,7 +107,7 @@ function getcustomerappointmentdata(){
                 html +="<td>"+response["Data"][i].AppointmentDetails.mobile+"</td>";
                 html +="<td>"+EmpName+"</td>";
                 html +="<td>"+orderStatus+"</td>";
-                html +='<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editcustomerappointmentdata('+i+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeSponsers('+i+')"><i class="fa fa-remove"></i></button></div></td>';
+                html +='<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editcustomerappointmentdata('+i+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeAppointment('+i+')"><i class="fa fa-remove"></i></button></div></td>';
                 html +="</tr>";
                 }
            $("#appointmenttbldata").html(html);
@@ -119,7 +117,7 @@ function getcustomerappointmentdata(){
            retrieve: true,
            bPaginate: $('tbody tr').length>10,
            order: [],
-           columnDefs: [ { orderable: false, targets: [0,1,2,3,4,5,6,7] } ],
+           columnDefs: [ { orderable: false, targets: [0,1,2,3,4,5,6,7,8] } ],
            dom: 'Bfrtip',
            buttons: ['copy','csv', 'excel', 'pdf'],
            destroy: true
@@ -180,14 +178,23 @@ function updateAppointmentDetails(){
         },
         dataType:'json',
         success:function(response){
-            swal(response['Message']);
-            $("#customerappointdetailtbl").hide();
-            $("#customerappointtbl").show();
-            getcustomerappointmentdata();
+            if(response['Responsecode']===200){
+                  swal(response['Message']);
+                  $("#customerappointdetailtbl").hide();
+                  $("#customerappointtbl").show();
+                  getcustomerappointmentdata();
+            }
+            else
+            {
+                  swal(response['Message']);
+            }
         }
     });
 }
 
+function removeAppointment(id){
+  alert(id);
+}
 $('#reloadbtn').on('click',function(event){
   event.preventDefault();
   $("#customerappointdetailtbl").hide();

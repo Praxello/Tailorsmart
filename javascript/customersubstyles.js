@@ -110,10 +110,16 @@ function removesubstyle(id){
       },
       dataType:'json',
       success:function(response){
-          swal(response.Message);
-          $("#customerstyletable").show();
-          $("#customerstyletableform").hide();
-          getcustomersubstyles();
+          if(response.Responsecode===200){
+            swal(response.Message);
+            $("#customerstyletable").show();
+            $("#customerstyletableform").hide();
+            getcustomersubstyles();
+          }
+          else {
+            swal(response.Message);
+          }
+
         }
   });
 }
@@ -129,12 +135,12 @@ $('#reloadbtn').on('click',function(event){
 });
 
 // This function is created For Save Style Data
-function savecustomerstyle()
-{
+$('#savebtncustomerstyle').on('click',function(event){
+  event.preventDefault();
   var styletitle = $("#styletitle").val();
   var stylestatus = $("#stylestatus").val();
-  if(styletitle==""||stylestatus==""){
-    swal("Please Enter Title / Select Status");
+  if(styletitle==""||stylestatus==""||styleid==""){
+      swal("Missing Parameter");
   }
   else{
     $.ajax({
@@ -146,22 +152,28 @@ function savecustomerstyle()
         },
         dataType:'json',
         success:function(response){
+          if(response.Responsecode===200){
             swal(response.Message);
             $("#customerstyletable").show();
             $("#customerstyletableform").hide();
             getcustomersubstyles();
+          }
+          else{
+            swal(response.Message);
+          }
         }
     });
   }
-}
+});
 
 // This function is created For Update Style Data
-function updatecustomerstyle(){
+$('#updatebtncustomerstyle').on('click',function(event){
+  event.preventDefault();
   var styleid = $("#styleid").val();
   var styletitle = $("#styletitle").val();
   var stylestatus = $("#stylestatus").val();
-  if(styletitle==""||stylestatus==""){
-    swal("Please Enter Title / Select Status");
+  if(styletitle==""||stylestatus==""||styleid==""){
+      swal("Missing Parameter");
   }
   else{
   $.ajax({
@@ -174,11 +186,16 @@ function updatecustomerstyle(){
       },
       dataType:'json',
       success:function(response){
+        if(response.Responsecode===200){
           swal(response.Message);
           $("#customerstyletable").show();
           $("#customerstyletableform").hide();
           getcustomersubstyles();
+        }
+        else{
+          swal(response.Message);
+        }
       }
   });
-  }
 }
+});

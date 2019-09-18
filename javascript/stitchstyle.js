@@ -134,10 +134,17 @@ function removestitchStyle(id){
       },
       dataType:'json',
       success:function(response){
-          swal(response.Message);
-          getstitchstyles();
-          $("#customerstyletable").show();
-          $("#customerstyletableform").hide();
+
+          if(response.Responsecode===200){
+            swal(response.Message);
+            getstitchstyles();
+            $("#customerstyletable").show();
+            $("#customerstyletableform").hide();
+          }
+          else {
+            swal(response.Message);
+          }
+
       }
   });
 }
@@ -152,16 +159,12 @@ $('#reloadbtn').on('click',function(event){
 });
 
 // This function is created For Save Style Data
-function savecustomerstyle()
-{
+$('#savebtncustomerstyle').on('click',function(event){
+  event.preventDefault();
   var styletitle = $("#styletitle").val();
   var styledetail = $("#styledetail").val();
   var styletype = $("#styletype").val();
   var stylestatus = $("#stylestatus").val();
-  if(styletitle==""||stylestatus==""||styledetail==""||styletype==""){
-    swal("Please Enter Title / Select Status");
-  }
-  else{
     $.ajax({
         url:api_url+'createstitchstyleitem.php',
         type:'POST',
@@ -173,27 +176,27 @@ function savecustomerstyle()
         },
         dataType:'json',
         success:function(response){
+          if(response.Responsecode===200){
             swal(response.Message);
             getstitchstyles();
             $("#customerstyletable").show();
             $("#customerstyletableform").hide();
+          }
+          else {
+            swal(response.Message);
+          }
         }
     });
-  }
-}
+});
 
 // This function is created For Update Style Data
-function updatecustomerstyle(){
+$('#updatebtncustomerstyle').on('click',function(event){
+  event.preventDefault();
   var styleid = $("#styleid").val();
   var styletitle = $("#styletitle").val();
   var styledetail = $("#styledetail").val();
   var styletype = $("#styletype").val();
   var stylestatus = $("#stylestatus").val();
-  if(styletitle==""||stylestatus==""||styledetail==""||styletype==""){
-    swal("Please Enter Title / Select Status");
-  }
-  else{
-  $.ajax({
       url: api_url+'editstitchstyleitem.php',
       type:'POST',
       data:{
@@ -206,11 +209,15 @@ function updatecustomerstyle(){
       },
       dataType:'json',
       success:function(response){
+        if(response.Responsecode===200){
           swal(response.Message);
           getstitchstyles();
           $("#customerstyletable").show();
           $("#customerstyletableform").hide();
+        }
+        else {
+          swal(response.Message);
+        }
       }
   });
-  }
-}
+});

@@ -112,10 +112,16 @@ function removecategory(id){
       },
       dataType:'json',
       success:function(response){
+        if(response.Responsecode===200){
           swal(response.Message);
           $("#customerstyletable").show();
           $("#customerstyletableform").hide();
           getcustomersubstyles();
+        }
+        else {
+          swal(response.Message);
+        }
+
       }
   });
 }
@@ -130,14 +136,10 @@ $('#reloadbtn').on('click',function(event){
 });
 
 // This function is created For Save Style Data
-function savecustomerstyle()
-{
+$('#savebtncustomerstyle').on('click',function(event){
+  event.preventDefault();
   var styletitle = $("#styletitle").val();
   var stylestatus = $("#stylestatus").val();
-  if(styletitle==""||stylestatus==""){
-    swal("Please Enter Title / Select Status");
-  }
-  else{
     $.ajax({
         url:api_url+'createcategory.php',
         type:'POST',
@@ -147,24 +149,26 @@ function savecustomerstyle()
         },
         dataType:'json',
         success:function(response){
+          if(response.Responsecode===200){
             swal(response.Message);
             $("#customerstyletable").show();
             $("#customerstyletableform").hide();
             getcustomersubstyles();
+          }
+          else {
+            swal(response.Message);
+          }
+
         }
     });
-  }
-}
+});
 
 // This function is created For Update Style Data
-function updatecustomerstyle(){
+$('#updatebtncustomerstyle').on('click',function(event){
+  event.preventDefault();
   var styleid = $("#styleid").val();
   var styletitle = $("#styletitle").val();
   var stylestatus = $("#stylestatus").val();
-  if(styletitle==""||stylestatus==""){
-    swal("Please Enter Title / Select Status");
-  }
-  else{
   $.ajax({
       url:api_url+'editcategory.php',
       type:'POST',
@@ -175,11 +179,16 @@ function updatecustomerstyle(){
       },
       dataType:'json',
       success:function(response){
+        if(response.Responsecode===200){
           swal(response.Message);
           $("#customerstyletable").show();
           $("#customerstyletableform").hide();
           getcustomersubstyles();
+        }
+        else {
+          swal(response.Message);
+        }
+
       }
   });
-  }
-}
+});

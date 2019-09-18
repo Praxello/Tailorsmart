@@ -114,11 +114,16 @@ function removeMeasurements(id){
       },
       dataType:'json',
       success:function(response){
+        if(response.Responsecode===200){
           swal(response.Message);
           $("#customerstyletable").show();
           $("#customerstyletableform").hide();
           getmeasurementitems();
-          // window.location.reload();
+        }
+        else {
+            swal(response.Message);
+        }
+
       }
   });
 }
@@ -133,14 +138,10 @@ $('#reloadbtn').on('click',function(event){
 });
 
 // This function is created For Save Style Data
-function savecustomerstyle()
-{
+$('#savebtncustomerstyle').on('click',function(event){
+  event.preventDefault();
   var styletitle = $("#styletitle").val();
   var stylestatus = $("#stylestatus").val();
-  if(styletitle==""||stylestatus==""){
-    swal("Please Enter Title / Select Status");
-  }
-  else{
     $.ajax({
         url:api_url+'createmeasurementitem.php',
         type:'POST',
@@ -150,24 +151,26 @@ function savecustomerstyle()
         },
         dataType:'json',
         success:function(response){
+          if(response.Responsecode===200){
             swal(response.Message);
             $("#customerstyletable").show();
             $("#customerstyletableform").hide();
             getmeasurementitems();
+          }
+          else {
+              swal(response.Message);
+          }
+
         }
     });
-  }
-}
+});
 
 // This function is created For Update Style Data
-function updatecustomerstyle(){
+$('#updatebtncustomerstyle').on('click',function(event){
+  event.preventDefault();
   var styleid = $("#styleid").val();
   var styletitle = $("#styletitle").val();
   var stylestatus = $("#stylestatus").val();
-  if(styletitle==""||stylestatus==""){
-    swal("Please Enter Title / Select Status");
-  }
-  else{
   $.ajax({
       url:api_url+'editmeasurementitem.php',
       type:'POST',
@@ -178,11 +181,16 @@ function updatecustomerstyle(){
       },
       dataType:'json',
       success:function(response){
+        if(response.Responsecode===200){
           swal(response.Message);
           $("#customerstyletable").show();
           $("#customerstyletableform").hide();
           getmeasurementitems();
+        }
+        else {
+            swal(response.Message);
+        }
+
       }
   });
-  }
-}
+});

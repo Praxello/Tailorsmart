@@ -128,8 +128,8 @@
 
                               <div class="form-group">
                               <div style="padding-top:32px"></div>
-                            <button class="btn btn-success" id="savebtncustomerstyle" onclick="savecustomerstyle()" >Save</button>
-                            <button class="btn btn-success" id="updatebtncustomerstyle" onclick="updatecustomerstyle()" style="display:none;">Update</button>
+                            <button class="btn btn-success" id="savebtncustomerstyle">Save</button>
+                            <button class="btn btn-success" id="updatebtncustomerstyle" style="display:none;">Update</button>
                             <button class="btn btn-secondary" id="reloadbtn" >Back</button>
                           </div>
                         </div>

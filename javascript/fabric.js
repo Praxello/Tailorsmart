@@ -150,10 +150,17 @@ function removeFabric(id){
       },
       dataType:'json',
       success:function(response){
-          swal(response.Message);
-          getfabrics();
-          $("#customerstyletable").show();
-          $("#customerstyletableform").hide();
+
+          if(response.Responsecode===200){
+                swal(response.Message);
+                getfabrics();
+                $("#customerstyletable").show();
+                $("#customerstyletableform").hide();
+          }
+          else {
+            swal(response.Message);
+          }
+
       }
   });
 }
@@ -182,7 +189,6 @@ $('#savebtncustomerstyle').on('click',function(event){
   var fabrictype = $("#fabrictype").val();
   var fabricPricevariable = $("#fabricPricevariable").val();
   var fabricactivestatus= $("#fabricactivestatus").val();
-  // ||skuno==""||releasedate==""||hexcolor==""||fabriccategory==""||fabriccolorname==""||fabrictype==""||fabricPricevariable==""||fabricactivestatus==""
     $.ajax({
         url:api_url+'createfabric.php',
         type:'POST',
@@ -202,12 +208,18 @@ $('#savebtncustomerstyle').on('click',function(event){
         },
         dataType:'json',
         success:function(response){
+          if(response.Responsecode===200){
+                swal(response.Message);
+                getfabrics();
+                $("#customerstyletable").show();
+                $("#customerstyletableform").hide();
+          }
+          else {
             swal(response.Message);
-            getfabrics();
-            $("#customerstyletable").show();
-            $("#customerstyletableform").hide();
+          }
         }
     });
+
 
 });
 
@@ -249,10 +261,15 @@ $('#updatebtncustomerstyle').on('click',function(event){
       },
       dataType:'json',
       success:function(response){
+        if(response.Responsecode===200){
+              swal(response.Message);
+              getfabrics();
+              $("#customerstyletable").show();
+              $("#customerstyletableform").hide();
+        }
+        else {
           swal(response.Message);
-          getfabrics();
-          $("#customerstyletable").show();
-          $("#customerstyletableform").hide();
+        }
       }
   });
 });

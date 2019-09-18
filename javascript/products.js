@@ -1,9 +1,16 @@
+var productData = []; // This variable globally declare save all Style Data in Array
+var EmployeeData = new Map();//from getmiscellaneousdata.php names only
+var ParentProducts = new Map();//from getmiscellaneousdata.php for show active products styleTitle
+var CategoryData =new Map();//from getmiscellaneousdata.php for show active products category
+var FabricData = new Map();//from getfabrics.php names only
+var MeasurementData = new Map();//from getmeasurementitems.php for show active products styleTitle
+var StichStyleData =new Map();//from getstitchstyleitem.php for show active products category
 
+getMicellaneousData(); // For Mapping Propose Category / Parent / Employee
+getFabricData();     // For Mapping Propose Fabrics
+getMeasurementData();  // For Mapping Propose Measurement
+getStitchStyleData();  // For Mapping Propose Stitch Style
 getproductdata();
-getmiscellaneousdata();
-getmeasurementitems();
-getstitchstyleitem();
-getallfabricdata();
 
 $('#stylestatus').select2({
   allowClear: true,
@@ -26,94 +33,115 @@ $('#pricevariable').select2({
   allowClear: true,
   placeholder: "Select Price Variable"
 });
-var productData = []; // This variable globally declare save all Style Data in Array
-var measurementData = [];
-var stitchstyleitemData = [];
-var allfabricData =[];
+
 $(document).ready(function() {
 
 });
 
 
-function getmiscellaneousdata(){
+function getMicellaneousData(){
+  // console.log('getmis');
   var selectowner ='',selectparent='',selectcategory='';
   $.ajax({
       type: "GET",
       url: api_url+'getmiscellaneousdata.php',
       success: function(response) {
-
-        var countowner= response['Employee'].length;
-        selectowner +='<option value="">Select Owner</option>';
-        for (var i = 0; i < countowner; i++) {
-        selectowner +="<option value='"+response['Employee'][i].employeeId+"'>"+response['Employee'][i].firstName+"</option>";
+        if (response.Employee != null) {
+            let count_EmployeeData = response.Employee.length;
+            for(var i=0;i<count_EmployeeData;i++){
+                EmployeeData.set(response.Employee[i].employeeId,response.Employee[i]);
+                selectowner +="<option value='"+response.Employee[i].employeeId+"'>"+response.Employee[i].firstName+"</option>";
+                // console.log(EmployeeData.get(response.Employee[i].employeeId));
+            }
+            $("#owner").html(selectowner);
         }
-        $("#owner").html(selectowner);
-
-        var countparent= response['ParentProducts'].length;
-        selectparent +='<option value="">Select Parent</option>';
-        for (var i = 0; i < countparent; i++) {
-        selectparent +="<option value='"+response['ParentProducts'][i].parentId+"'>"+response['ParentProducts'][i].styleTitle+"-"+response['ParentProducts'][i].subStyleTitle+"</option>";
+        if (response.Categories != null) {
+            let count_CategoriesData = response.Categories.length;
+            for(var i=0;i<count_CategoriesData;i++){
+                CategoryData.set(response.Categories[i].categoryId,response.Categories[i]);
+                selectcategory +="<option value='"+response.Categories[i].categoryId+"'>"+response.Categories[i].categoryTitle+"</option>";
+            }
+            $("#category").html(selectcategory);
         }
-        $("#parent").html(selectparent);
-
-        var countparent= response['Categories'].length;
-        selectcategory +='<option value="">Select Category</option>';
-        for (var i = 0; i < countparent; i++) {
-        selectcategory +="<option value='"+response['Categories'][i].categoryId+"'>"+response['Categories'][i].categoryTitle+"</option>";
+        if (response.ParentProducts != null) {
+            let count_ParentProducts = response.ParentProducts.length;
+            for(var i=0;i<count_ParentProducts;i++){
+                ParentProducts.set(response.ParentProducts[i].parentId,response.ParentProducts[i]);
+                selectparent +="<option value='"+response.ParentProducts[i].parentId+"'>"+response.ParentProducts[i].styleTitle+"-"+response.ParentProducts[i].subStyleTitle+"</option>";
+            }
+             $("#parent").html(selectparent);
         }
-        $("#category").html(selectcategory);
+        // console.log(ParentProducts.size);
       }
     });
 }
 
-function getmeasurementitems(){
-  var html ='';
-  $.ajax({
-      type: "GET",
-      url: api_url+"getmeasurementitems.php",
-      success: function(response) {
-        measurementData = [...response['Data']];
-
-      }
-    });
-}
-
-function getstitchstyleitem(){
-  var html ='';
-  $.ajax({
-      type: "GET",
-      url: api_url+"getstitchstyleitem.php",
-      success: function(response) {
-        stitchstyleitemData = [...response['Data']];
-        // console.log(stitchstyleitemData);
-      }
-    });
-}
-
-function getallfabricdata(){
+function getFabricData(){
   var html ='';
   $.ajax({
       type: "GET",
       url: api_url+"getfabrics.php",
       success: function(response) {
-        allfabricData = [...response['Data']];
-          // console.log(allfabricData);
+        if (response.Data != null) {
+            let count_fabricData = response.Data.length;
+            for(var i=0;i<count_fabricData;i++){
+                FabricData.set(response.Data[i].fabricId,response.Data[i]);
+
+            }
+        }
+      }
+    });
+}
+function getMeasurementData(){
+  var html ='';
+  $.ajax({
+      type: "GET",
+      url: api_url+"getmeasurementitems.php",
+      success: function(response) {
+        if (response.Data != null) {
+            let count_measurementData = response.Data.length;
+            for(var i=0;i<count_measurementData;i++){
+                MeasurementData.set(response.Data[i].measurementId,response.Data[i]);
+
+            }
+        }
+      }
+    });
+}
+
+function getStitchStyleData(){
+  var html ='';
+  $.ajax({
+      type: "GET",
+      url: api_url+"getstitchstyleitem.php",
+      success: function(response) {
+        if (response.Data != null) {
+            let count_stitchstyleData = response.Data.length;
+            for(var i=0;i<count_stitchstyleData;i++){
+                StichStyleData.set(response.Data[i].stitchStyleId,response.Data[i]);
+
+            }
+        }
       }
     });
 }
 
 
+
+
 function getproductdata(){
-  $('#styletbl').dataTable().fnDestroy();
-  $("#styletbldata").empty();
+     $('#styletbl').dataTable().fnDestroy();
+     $("#styletbldata").empty();
+
      $.ajax({
          type: "GET",
          url: api_url+"getallproducts.php",
+         async : false,
          success: function(response) {
            // alert(response);
-           var count= response['Data'].length;
+            var count= response['Data'].length;
             var html ="<tr>";
-              var imageUrl ='';
+            var imageUrl ='';
             productData=[...response['Data']];
             for (var i = 0; i < count; i++) {
                 imageUrl = pic_url+'product/300x300/'+response['Data'][i].productId+'.jpg';
@@ -121,7 +149,15 @@ function getproductdata(){
                 html +="<td style='width:15%'><form id='custstyleform"+response['Data'][i].productId+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+response['Data'][i].productId+"' name='file' accept='image/*' style='display:none;' /> <img  accept='image/*' class='img-thumbnail' src='"+imageUrl+"' style='cursor: pointer' alt='No Image' onclick='imguplod("+response['Data'][i].productId+")'></img></form></td>";
                 html +="<td>"+response['Data'][i].productTitle+"</td>";
                 html +="<td style='width:15%'>"+response['Data'][i].productSubTitle+"</td>";
-                html +="<td style='width:5%'>"+response['Data'][i].parentId+"</td>";
+                // console.log(ParentProducts.get(response['Data'][i].parentId));
+                // console.log(response['Data'][i].parentId);
+                if(ParentProducts.has(response['Data'][i].parentId)){
+                    let parentSubName= ParentProducts.get(response['Data'][i].parentId);
+                    html +="<td style='width:5%'>"+parentSubName.styleTitle+" "+parentSubName.subStyleTitle+"</td>";
+                }
+                else{
+                  html +="<td style='width:5%'></td>";
+                }
                 html +="<td style='width:5%'>"+response['Data'][i].skuNo+"</td>";
                 html +="<td style='width:5%'>"+response['Data'][i].price+"</td>";
                 html +="<td style='width:5%'>"+response['Data'][i].releaseDate+"</td>";
@@ -170,7 +206,7 @@ function imguplod(imgid){
                      data: fd,
                      dataType:'json',
                      success:function(response){
-                       swal(response['Message']);
+                        swal(response['Message']);
                         getproductdata();
                      }
               });
@@ -211,6 +247,9 @@ $("#customerstyletable").hide();
 $("#customerstyletableform").show();
 $("#savebtnproducts").hide();
 $("#updatebtnproducts").show();
+fabricmapping();
+measurementmapping();
+stitchstylemapping();
 }
 
 // This function is created For Remove Button
@@ -223,10 +262,17 @@ function removeProduct(id){
       },
       dataType:'json',
       success:function(response){
-          swal(response.Message);
-          getproductdata();
-          $("#customerstyletableform").hide();
-          $("#customerstyletable").show();
+
+          if(response.Responsecode===200){
+            getproductdata();
+            $("#customerstyletableform").hide();
+            $("#customerstyletable").show();
+            swal(response.Message);
+          }
+          else {
+            swal(response.Message);
+          }
+
       }
   });
 }
@@ -274,11 +320,15 @@ $('#savebtnproducts').on('click',function(event){
         },
         dataType:'json',
         success:function(response){
-            swal(response.Message);
-            // window.location.reload();
+          if(response.Responsecode===200){
             getproductdata();
             $("#customerstyletableform").hide();
             $("#customerstyletable").show();
+            swal(response.Message);
+          }
+          else {
+            swal(response.Message);
+          }
 
         }
     });
@@ -323,14 +373,19 @@ $('#updatebtnproducts').on('click',function(event){
       },
       dataType:'json',
       success:function(response){
-          swal(response.Message);
+        if(response.Responsecode===200){
           getproductdata();
           $("#customerstyletableform").hide();
           $("#customerstyletable").show();
+          swal(response.Message);
+        }
+        else {
+          swal(response.Message);
+        }
       }
   });
 });
-var table;
+
 // This function Display Product Fabric Mapping Table Data
 function fabricmapping(){
   $('#fabricmaptbl').dataTable().fnDestroy();
@@ -347,78 +402,41 @@ function fabricmapping(){
             }
             else
             {
-              var count= response['Data'].length;
-              for (var i = 0; i < count; i++) {
-              if(response['Data'][i].productId===productId){
-                   temparray.push(response['Data'][i].fabricId);
-              }
-              }
-            }
 
-            var allfabricDatacount =allfabricData.length;
-            for(var j=0;j<allfabricDatacount;j++)
-            {
-                if(temparray.includes(allfabricData[j].fabricId)){
-                    selfabricmap +='<tr><td>';
-                    selfabricmap +='<lable><input id="check'+allfabricData[j].fabricId+'"  type="checkbox" name="fabricmapcheck"  value="'+allfabricData[j].fabricId+'" checked >';
-                    selfabricmap +='</lable></td>';
-                    selfabricmap +="<td> <img class='img-thumbnail' src='"+pic_url+"fabric/300x300/"+allfabricData[j].skuNo+".jpg' alt='No Image'></img></td>";
-                    selfabricmap +="<td>"+allfabricData[j].fabricTitle+"</td>";
-                    selfabricmap +="<td>"+allfabricData[j].skuNo+"</td></tr>";
+                var count= response['Data'].length;
+                for (var i = 0; i < count; i++) {
+                if(response['Data'][i].productId===productId){
+                temparray.push(response['Data'][i].fabricId);
+                }
+                }
 
+              let fabricDatacount =FabricData.size;
+              for(let k of FabricData.keys())
+                  {
+                    let fabricName = FabricData.get(k);
+                    if(temparray.includes(fabricName.fabricId)){
+                        selfabricmap +='<tr><td>';
+                        selfabricmap +='<lable><input id="check'+fabricName.fabricId+'"  type="checkbox" name="fabricmapcheck"  value="'+fabricName.fabricId+'" checked >';
+                        selfabricmap +='</lable></td>';
+                        selfabricmap +="<td> <img class='img-thumbnail' src='"+pic_url+"fabric/300x300/"+fabricName.skuNo+".jpg' alt='No Image'></img></td>";
+                        selfabricmap +="<td>"+fabricName.fabricTitle+"</td>";
+                        selfabricmap +="<td>"+fabricName.skuNo+"</td></tr>";
+
+                    }
+                    else {
+                        unselfabricmap +='<tr><td>';
+                        unselfabricmap +='<input id="check'+fabricName.fabricId+'"  type="checkbox" name="fabricmapcheck" value="'+fabricName.fabricId+'" alt="No Iamge" >';
+                        unselfabricmap +='</td>';
+                        unselfabricmap +="<td> <img class='img-thumbnail' src='"+pic_url+"fabric/300x300/"+fabricName.skuNo+".jpg' ></img></td>";
+                        unselfabricmap +="<td>"+fabricName.fabricTitle+"</td>";
+                        unselfabricmap +="<td>"+fabricName.skuNo+"</td></tr>";
+                    }
                 }
-                else {
-                    unselfabricmap +='<tr><td>';
-                    unselfabricmap +='<input id="check'+allfabricData[j].fabricId+'"  type="checkbox" name="fabricmapcheck" value="'+allfabricData[j].fabricId+'" alt="No Iamge" >';
-                    unselfabricmap +='</td>';
-                    unselfabricmap +="<td> <img class='img-thumbnail' src='"+pic_url+"fabric/300x300/"+allfabricData[j].skuNo+".jpg' ></img></td>";
-                    unselfabricmap +="<td>"+allfabricData[j].fabricTitle+"</td>";
-                    unselfabricmap +="<td>"+allfabricData[j].skuNo+"</td></tr>";
-                }
-            }
+              }
+
             fabricmap +=selfabricmap;
             fabricmap +=unselfabricmap;
-
             $("#fabricmaptbldata").html(fabricmap);
-            // var counttemparray = temparray.length;
-            // alert(counttemparray);
-            // for(var j=0;j<counttemparray;j++){
-            //   $("#check" + temparray[j]).prop('checked', true);
-            // }
-           // table =$('#fabricmaptbl').DataTable({
-           //
-           //  searching: true,
-           //  retrieve: true,
-           //  bPaginate: $('tbody tr').length>10,
-           //  order: [],
-           //  columnDefs: [ { orderable: false,
-           //  targets: [0,1,2,3] } ],
-           //  dom: 'Bfrtip',
-           //  select: {
-           //      style: 'multi',
-           //      items: 'cell'
-           //  },
-           //  buttons: [],
-           //  destroy: true
-           //  });
-        //      table = $('#fabricmaptbl').DataTable({
-        //        deferRender: true,
-        //       'columnDefs': [
-        //          {
-        //             'targets': 0,
-        //             'checkboxes': {
-        //                'selectRow': true
-        //             }
-        //          }
-        //       ],
-        //       select: {
-        //     style: 'multi',
-        //     items: 'cell'
-        // },
-        //
-        //
-        //     });
-
           }
         });
 }
@@ -445,39 +463,28 @@ function measurementmapping(){
                   tempmeasurementarray.push(response['Data'][i].measurementId);
               }
               }
+              let MeasurementDatacount =MeasurementData.size;
+              for(let k of MeasurementData.keys())
+                  {
+                        let measureName = MeasurementData.get(k);
+                        if(tempmeasurementarray.includes(measureName.measurementId)){
+                          selmeasurement +='<tr><td><label class="checkbox" >';
+                          selmeasurement +='<input id="check'+measureName.measurementId+'" type="checkbox"  name="measurementcheck" value="'+measureName.measurementId+'" checked>';
+                          selmeasurement +='</label></td>';
+                          selmeasurement +="<td>"+measureName.itemTitle+"</td></tr>";
+                        }
+                        else {
+                          unselmeasurement +='<tr><td><label class="checkbox" >';
+                          unselmeasurement +='<input id="check'+measureName.measurementId+'" type="checkbox" name="measurementcheck" value="'+measureName.measurementId+'">';
+                          unselmeasurement +='</label></td>';
+                          unselmeasurement +="<td>"+measureName.itemTitle+"</td></tr>";
+                        }
+                }
             }
-            var measurementDatacount =measurementData.length;
 
-            for(var j=0;j<measurementDatacount;j++)
-            {
-                if(tempmeasurementarray.includes(measurementData[j].measurementId)){
-                  // alert(measurementData[j].measurementId);
-                  selmeasurement +='<tr><td><label class="checkbox" >';
-                  selmeasurement +='<input id="check'+measurementData[j].measurementId+'" type="checkbox"  name="measurementcheck" value="'+measurementData[j].measurementId+'" checked>';
-                  selmeasurement +='</label></td>';
-                  selmeasurement +="<td>"+measurementData[j].itemTitle+"</td></tr>";
-                }
-                else {
-                  unselmeasurement +='<tr><td><label class="checkbox" >';
-                  unselmeasurement +='<input id="check'+measurementData[j].measurementId+'" type="checkbox" name="measurementcheck" value="'+measurementData[j].measurementId+'">';
-                  unselmeasurement +='</label></td>';
-                  unselmeasurement +="<td>"+measurementData[j].itemTitle+"</td></tr>";
-                }
-            }
             measurementhtml += selmeasurement;
             measurementhtml += unselmeasurement;
             $("#measurementmaptbldata").html(measurementhtml);
-            // $("#measurementmaptbldata").append(unselmeasurement);
-            // $('#measurementmaptbl').DataTable({
-            // searching: true,
-            // retrieve: true,
-            // bPaginate: $('tbody tr').length>10,
-            // order: [],
-            // columnDefs: [ { orderable: false, targets: [] } ],
-            // dom: 'Bfrtip',
-            // buttons: [],
-            // destroy: true
-            // });
           }
         });
 }
@@ -486,8 +493,8 @@ function measurementmapping(){
 function stitchstylemapping(){
   $('#stitchstylemaptbl').dataTable().fnDestroy();
   $("#stitchstylemaptbldata").empty();
-    var productId= $("#productId").val();
-    var selstitchhtml='',unstitchhtml='',stitchhtml='';
+  var productId= $("#productId").val();
+  var selstitchhtml='',unstitchhtml='',stitchhtml='';
       $.ajax({
           type: "GET",
           url: api_url+"getproductstitchstylemapping.php",
@@ -501,63 +508,44 @@ function stitchstylemapping(){
             {
               var count= response['Data'].length;
               for (var i = 0; i < count; i++) {
-              // console.log(response['Data'][i].StitchStyle.productId);
-              // console.log(productId);
               if(response['Data'][i].StitchStyle.productId===productId){
               tempstitcharray.push(response['Data'][i].StitchStyle.stitchStyleId);
               }
               }
-            }
-              var stitchstyleitemDatacount =stitchstyleitemData.length;
 
-            for(var j=0;j<stitchstyleitemDatacount;j++)
-            {
-                if(tempstitcharray.includes(stitchstyleitemData[j].stitchStyleId)){
-                  // alert(measurementData[j].measurementId);
-                  selstitchhtml +='<tr><td><label class="checkbox" >';
-                  selstitchhtml +='<input id="check'+stitchstyleitemData[j].stitchStyleId+'" type="checkbox" name="stitchstyleitemcheck" value="'+stitchstyleitemData[j].stitchStyleId+'" checked>';
-                  selstitchhtml +='</label></td>';
-                  selstitchhtml +="<td>"+stitchstyleitemData[j].stitchStyleTitle+"</td></tr>";
-                }
-                else {
-                  unstitchhtml +='<tr><td><label class="checkbox" >';
-                  unstitchhtml +='<input id="check'+stitchstyleitemData[j].stitchStyleId+'" type="checkbox" name="stitchstyleitemcheck" value="'+stitchstyleitemData[j].stitchStyleId+'" >';
-                  unstitchhtml +='</label></td>';
-                  unstitchhtml +="<td>"+stitchstyleitemData[j].stitchStyleTitle+"</td></tr>";
+              let StichStyleDatacount =StichStyleData.size;
+              for(let k of StichStyleData.keys())
+                  {
+                        let stitchName = StichStyleData.get(k);
+                        if(tempstitcharray.includes(stitchName.stitchStyleId)){
+                          // alert(measurementData[j].measurementId);
+                          selstitchhtml +='<tr><td><label class="checkbox" >';
+                          selstitchhtml +='<input id="check'+stitchName.stitchStyleId+'" type="checkbox" name="stitchstyleitemcheck" value="'+stitchName.stitchStyleId+'" checked>';
+                          selstitchhtml +='</label></td>';
+                          selstitchhtml +="<td>"+stitchName.stitchStyleTitle+"</td></tr>";
+                        }
+                        else {
+                          unstitchhtml +='<tr><td><label class="checkbox" >';
+                          unstitchhtml +='<input id="check'+stitchName.stitchStyleId+'" type="checkbox" name="stitchstyleitemcheck" value="'+stitchName.stitchStyleId+'" >';
+                          unstitchhtml +='</label></td>';
+                          unstitchhtml +="<td>"+stitchName.stitchStyleTitle+"</td></tr>";
+                        }
                 }
             }
             stitchhtml += selstitchhtml;
             stitchhtml += unstitchhtml;
             $("#stitchstylemaptbldata").html(stitchhtml);
-            // $('#stitchstylemaptbl').DataTable({
-            // searching: true,
-            // retrieve: true,
-            // bPaginate: $('tbody tr').length>10,
-            // order: [],
-            // columnDefs: [ { orderable: false, targets: [] } ],
-            // dom: 'Bfrtip',
-            // buttons: [],
-            // destroy: true
-            // });
           }
         });
 }
 // This function is created for saved Product Fabric Mapping Function
 $('#savefabric').on('click',function(event){
-   var form = this;
+
   event.preventDefault();
   var TableData = new Array();
   $('#fabricmaptbl').find('input[name="fabricmapcheck"]:checked').each(function(row) {
     TableData.push($(this).val());
   });
-   // var rows_selected = table.column(0).checkboxes.selected();
-   //  $.each(rows_selected, function(index, rowId){
-   //    var  arr = rowId.split("=\"");
-   //    var  arr1 = arr[4].split("\"");
-   //    TableData.push(parseInt(arr1[0]));
-   //
-   //  });
-  //  alert(TableData);
   var productId= $("#productId").val();
   var fabricidarray = TableData.toString();
   $.ajax({
@@ -571,8 +559,15 @@ $('#savefabric').on('click',function(event){
       },
       dataType:'json',
       success:function(response){
-          swal(response.Message);
-          fabricmapping();
+         if(response.Responsecode===200){
+           swal(response.Message);
+           fabricmapping();
+         }
+         else {
+            swal(response.Message);
+         }
+
+
       }
   });
 });
@@ -595,8 +590,15 @@ $('#savemeasurement').on('click',function(event){
       },
       dataType:'json',
       success:function(response){
+        if(response.Responsecode===200){
           swal(response.Message);
           measurementmapping();
+        }
+        else {
+           swal(response.Message);
+        }
+
+
       }
   });
 });
@@ -618,8 +620,51 @@ $('#savestitchbtn').on('click',function(event){
       },
       dataType:'json',
       success:function(response){
+        if(response.Responsecode===200){
           swal(response.Message);
           stitchstylemapping();
+        }
+        else {
+           swal(response.Message);
+        }
       }
   });
+});
+
+
+// // Function Navbar For Fabric Mapping
+// function navfabricmapping()
+// {
+//
+// }
+// // Function Navbar For Measurement Mapping
+// function navmeasurementmapping()
+// {
+//
+// }
+// // Function Navbar For Stitch Style Mapping
+// function navstitchstylemapping()
+// {
+//
+// }
+ // This function Fabric Table Search Box
+$("#fabricmaptblInput").on("keyup", function() {
+var value = $(this).val().toLowerCase();
+$("#fabricmaptbl tr").filter(function() {
+ $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+});
+});
+// This Function Measurment searching
+$("#measurementmaptblInput").on("keyup", function() {
+var value = $(this).val().toLowerCase();
+$("#measurementmaptbl tr").filter(function() {
+ $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+});
+});
+// This Function Stitch Style searching
+$("#stitchstylemaptblInput").on("keyup", function() {
+var value = $(this).val().toLowerCase();
+$("#stitchstylemaptbl tr").filter(function() {
+ $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+});
 });
