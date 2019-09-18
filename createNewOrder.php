@@ -97,7 +97,7 @@
                             <div class="col-sm-3">
                                 <div class="form-group">
 
-                                    <select class="form-control form-control-sm" id="products" style="width:100%">
+                                    <select class="form-control form-control-sm" id="products" style="width:100%" onchange="getPriceOfProduct(this.value)">
                                     </select>
                                 </div>
                             </div>

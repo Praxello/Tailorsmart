@@ -65,7 +65,6 @@ function removeItem(orderItemId, price) {
         orderid: orderId,
         price: price
     };
-    //console.log(removeData);
     $.ajax({
         url: api_url + 'deleteorderitem.php',
         type: 'POST',
@@ -97,6 +96,7 @@ function getActiveProductsList() {
                 if (ParentProducts.has(response.Data[i].parentId)) {
                     styleTitle = ParentProducts.get(response.Data[i].parentId);
                 }
+                ActiveProductsList.set(response.Data[i].productId, response.Data[i].price);
                 createDropdownOptions += "<option value=" + response.Data[i].productId + ">" + response.Data[i].productTitle + '-' + styleTitle + "</option>";
             }
             $("#products").html(createDropdownOptions);
@@ -450,4 +450,11 @@ function loadPriceModal(orderItemId, productTitle, rowId) {
     var price = $('#amt' + orderItemId).val();
     $('#sendPrice').val(price);
     $('#editOrderItemPrice').modal();
+}
+
+function getPriceOfProduct(productId) {
+    if (ActiveProductsList.has(productId)) {
+        var price = ActiveProductsList.get(productId);
+        $('#OrderItemPrice').val(price);
+    }
 }

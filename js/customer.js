@@ -1,5 +1,5 @@
- var api_url = 'http://praxello.com/tailorsmart/admin/';
- //var api_url = './admin/';
+ //var api_url = 'http://praxello.com/tailorsmart/admin/';
+ var api_url = './admin/';
  var customerOrders = []; //all the customers orders
  var customerOrderDetails = []; //for particular order id details
  var orderId = null; //order id for another page reference createNewOrderPage
@@ -16,6 +16,7 @@
  let ParentProducts = new Map(); //from getmiscellaneousdata.php for show active products styleTitle
  let confirmationStatus = new Map();
  var OrderDetailsOfCustomer = []; //like orderId,expectedDeliveryDate,Amount
+ var ActiveProductsList = new Map(); //stored price here
  getStatusMap();
  getConfirmation();
 
