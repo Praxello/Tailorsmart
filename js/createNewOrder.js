@@ -3,19 +3,26 @@ $('#products').select2({
     placeholder: "Select Product Name"
 });
 display_customerInfo();
+displayOrderDetails(OrderDetailsOfCustomer);
+
 function display_customerInfo() {
     let cData = customerData.get(customerId_g);
-            $('#custName').html(cData.firstName+' '+cData.lastName);
-            $('#custEmail').html(cData.email);
-            $('#custAddress').html(cData.address);
-            $('#custCity').html(cData.city);
-            $('#custMobile').html(cData.mobile);
+    $('#custName').html(cData.firstName + ' ' + cData.lastName);
+    $('#custEmail').html(cData.email);
+    $('#custAddress').html(cData.address);
+    $('#custCity').html(cData.city);
+    $('#custMobile').html(cData.mobile);
 }
 
-$(document).on('click', '.add-row', function (e) {
+$('.add-row').on('click', function(e) {
+    var orderItemPrice = $('#OrderItemPrice').val();
+    if (orderItemPrice == '') {
+        orderItemPrice = 0;
+    }
     e.preventDefault();
     var createOrderData = {
         orderid: orderId,
+        orderItemPrice: orderItemPrice,
         productid: $('#products').val()
     };
     $.ajax({
@@ -23,48 +30,48 @@ $(document).on('click', '.add-row', function (e) {
         type: 'POST',
         dataType: 'json',
         data: createOrderData,
-        success: function (response) {
+        success: function(response) {
             var count = response.Data.length;
-          
-           getOrdersOfCustomer(customerId_g);
-           
+
+            getOrdersOfCustomer(customerId_g);
+
             customerOrderDetails = [];
             customerOrderDetails = customerOrders[indexRow];
-            $('#customerOrdersBlock').hide(); 
+            $('#customerOrdersBlock').hide();
             for (var i = 0; i < count; i++) {
                 if (response.Data[i].orderItemId == response.OrderItemId) { //for add only current row data into html table
                     var markup = '';
-                    //work from here for case new data add
-                    //customerOrderDetails = customerOrders[i];
-                    //console.log(customerOrders);
 
                     markup += "<tr id=" + response.Data[i].orderItemId + "><td>" + response.Data[i].productTitle + "</td><td>" + response.Data[i].productSubTitle + "</td><td>" + response.Data[i].orderItemPrice + "</td>";
-                    markup += "<td><div class='btn-group' role='group' aria-label='Basic example'>";
+                    markup += "<td><input type='hidden' id='amt" + response.Data[i].orderItemId + "' value='" + response.Data[i].orderItemPrice + "'/><div class='btn-group' role='group' aria-label='Basic example'>";
+                    markup += "<a class='btn btn-info btn-sm' title='Edit Price' data-toggle='tooltip' onclick='loadPriceModal(\"" + response.Data[i].orderItemId + "\",\"" + response.Data[i].productTitle + "\",\"" + (i + 1) + "\")' href='#'><i class='fa fa-edit'></i></a>";
                     markup += "<a class='btn btn-success btn-sm' title='Add Measurment' data-toggle='tooltip' onclick='loadMeasurment(\"" + response.Data[i].productId + "\",\"" + response.Data[i].orderItemId + "\",\"" + (i) + "\")' href='#'><i class='fa fa-edit'></i></a>";
                     markup += "<a class='btn btn-primary btn-sm' title='add Style' data-toggle='tooltip' href='#' onclick='loadStyles(\"" + response.Data[i].productId + "\",\"" + response.Data[i].orderItemId + "\",\"" + (i) + "\")'><i class='fa fa-user'></i></a>";
                     markup += "<a class='btn btn-warning btn-sm' title='add Fabrics' data-toggle='tooltip' href='#' onclick='loadFabrics(\"" + response.Data[i].productId + "\",\"" + response.Data[i].orderItemId + "\",\"" + (i) + "\")'><i class='fa fa-user'></i></a>";
-                    markup += "<a  class='btn btn-danger btn-sm' title='Remove Item' data-toggle='tooltip' href='#' onclick='removeItem(" + response.Data[i].orderItemId + ")'><i class='fa fa-trash'></i></a></td></div></tr>";
+                    markup += "<a  class='btn btn-danger btn-sm' title='Remove Item' data-toggle='tooltip' href='#' onclick='removeItem(\"" + response.Data[i].orderItemId + "\",\"" + response.Data[i].orderItemPrice + "\")'><i class='fa fa-trash'></i></a></td></div></tr>";
                     $("#productData").append(markup);
                 }
             }
-            
-           
-
+            $('#OrderItemPrice').val('');
+            $('#products').val('').trigger('change');
         }
     })
 
 });
-function removeItem(orderItemId) {
+
+function removeItem(orderItemId, price) {
     var removeData = {
         orderitemid: orderItemId,
-        orderid: orderId
+        orderid: orderId,
+        price: price
     };
+    //console.log(removeData);
     $.ajax({
         url: api_url + 'deleteorderitem.php',
         type: 'POST',
         data: removeData,
         dataType: 'json',
-        success: function (response) {
+        success: function(response) {
             $('#' + orderItemId).remove();
         }
     })
@@ -72,6 +79,7 @@ function removeItem(orderItemId) {
 
 getActiveProductsList();
 loadTable(mar);
+
 function loadTable(param) {
     $("#productData").html(param);
 }
@@ -81,19 +89,23 @@ function getActiveProductsList() {
         url: api_url + 'getactiveproducts.php',
         type: 'GET',
         dataType: 'json',
-        success: function (response) {
+        success: function(response) {
             var createDropdownOptions = '';
             var count = response.Data.length;
             let styleTitle = '';
             for (var i = 0; i < count; i++) {
-                styleTitle = ParentProducts.get(response.Data[i].parentId);
-                createDropdownOptions += "<option value=" + response.Data[i].productId + ">" + response.Data[i].productTitle + '-' +styleTitle + "</option>";
+                if (ParentProducts.has(response.Data[i].parentId)) {
+                    styleTitle = ParentProducts.get(response.Data[i].parentId);
+                }
+                createDropdownOptions += "<option value=" + response.Data[i].productId + ">" + response.Data[i].productTitle + '-' + styleTitle + "</option>";
             }
             $("#products").html(createDropdownOptions);
+            $('#products').val('').trigger('change');
         }
     })
 }
-function loadMeasurment(productId, orderItemId, rowId) {//for mapping product id and measurment id
+
+function loadMeasurment(productId, orderItemId, rowId) { //for mapping product id and measurment id
     customer_orderItemId = orderItemId;
     // console.log(customer_orderItemId);
     var count_1 = 0;
@@ -107,13 +119,13 @@ function loadMeasurment(productId, orderItemId, rowId) {//for mapping product id
         url: api_url + 'getproductmeasurementmapping.php',
         type: 'GET',
         dataType: 'json',
-        success: function (response) {
+        success: function(response) {
             var createDropdownOptions = '';
             var count = response.Data.length;
             var flag = null;
             for (var i = 0; i < count; i++) {
                 if (response.Data[i].productId == productId) {
-                    createDropdownOptions += "<tr><td>" + response.Data[i].measurementId + "</td><td>" + response.Data[i].itemTitle + "</td>";
+                    createDropdownOptions += "<tr><td style='display:none;'>" + response.Data[i].measurementId + "</td><td>" + response.Data[i].itemTitle + "</td>";
                     if (count_1 > 0) {
                         flag = 0;
                         for (var a = 0; a < count_1; a++) {
@@ -138,9 +150,10 @@ function loadMeasurment(productId, orderItemId, rowId) {//for mapping product id
     })
 
 }
+
 function loadStyles(productId, orderItemId, rowId) {
     style_orderItemId = orderItemId;
-    // console.log(customerOrderDetails);
+
     var count_1 = 0;
     var check_styles_exists = customerOrderDetails.orderItems[rowId].Styles;
     if (check_styles_exists != null) {
@@ -150,11 +163,19 @@ function loadStyles(productId, orderItemId, rowId) {
         url: api_url + 'getproductstitchstylemapping.php',
         type: 'GET',
         dataType: 'json',
-        success: function (response) {
-            var firstList = '', secondList = '', thirdList = '';
-            var second = '', third = '', nameKey = 0;
-            var valFirst = '', valSecond = '', valThird = '';
-            var m = 0, flag_0 = null, flag_1 = null;
+        success: function(response) {
+            var firstList = '',
+                secondList = '',
+                thirdList = '';
+            var second = '',
+                third = '',
+                nameKey = 0;
+            var valFirst = '',
+                valSecond = '',
+                valThird = '';
+            var m = 0,
+                flag_0 = null,
+                flag_1 = null;
             var count = response.Data.length;
 
             for (var i = 0; i < count; i++) {
@@ -192,8 +213,7 @@ function loadStyles(productId, orderItemId, rowId) {
 
                             }
 
-                        }
-                        else if (response.Data[i].StitchStyle.stitchStyleType == 1) {
+                        } else if (response.Data[i].StitchStyle.stitchStyleType == 1) {
                             second = response.Data[i].StitchStyle.stitchStyleTitle;
                             valSecond = response.Data[i].StitchStyle.stitchStyleId;
 
@@ -227,8 +247,7 @@ function loadStyles(productId, orderItemId, rowId) {
                             }
                             nameKey++;
 
-                        }
-                        else if (response.Data[i].StitchStyle.stitchStyleType == 2) {
+                        } else if (response.Data[i].StitchStyle.stitchStyleType == 2) {
                             third = response.Data[i].StitchStyle.stitchStyleTitle;
                             valThird = response.Data[i].StitchStyle.stitchStyleId;
                             thirdList += "<tr><td colspan='3' style='text-align:center;'><strong>" + response.Data[i].StitchStyle.stitchStyleTitle + "</strong></td></tr>";
@@ -276,13 +295,14 @@ function loadStyles(productId, orderItemId, rowId) {
         }
     });
 }
+
 function loadFabrics(productId, orderItemId, rowId) {
     fabric_orderItemId = orderItemId;
     //load fabrics data if exists and checked associative checkboxes
     var count_1 = 0;
     var check_fabrics_exists = customerOrderDetails.orderItems[rowId].Fabrics;
     if (check_fabrics_exists != null) {
-         count_1 = customerOrderDetails.orderItems[rowId].Fabrics.length;
+        count_1 = customerOrderDetails.orderItems[rowId].Fabrics.length;
     }
     var flag = null;
     //end for load data
@@ -291,7 +311,7 @@ function loadFabrics(productId, orderItemId, rowId) {
         url: api_url + 'getproductfabricmapping.php',
         type: 'GET',
         dataType: 'json',
-        success: function (response) {
+        success: function(response) {
             var createDropdownOptions = '';
             var count = response.Data.length;
             for (var i = 0; i < count; i++) {
@@ -326,19 +346,24 @@ function loadFabrics(productId, orderItemId, rowId) {
     })
 }
 getPaymentList();
+
 function getPaymentList() {
     var empName = $('#empName').val();
+
+    $("#paymentData").empty();
     $.ajax({
         url: api_url + 'getorderpayments.php',
         type: 'POST',
         data: { orderid: orderId },
-        success: function (response) {
+        success: function(response) {
             var paymentDateTime = null;
             if (response.Data.Payments != null) {
                 var count = response.Data.Payments.length;
                 var markup = '';
                 for (var i = 0; i < count; i++) {
-                    var isSuceed = '', isDeleted = '', deleteEntry = '';
+                    var isSuceed = '',
+                        isDeleted = '',
+                        deleteEntry = '';
                     if (response.Data.Payments[i].isSuceed == 1) {
                         isSuceed = "<td><span class='badge badge-pill badge-success'>completed</span></td>";
                     } else {
@@ -379,12 +404,13 @@ function removePayment(paymentid, orderid) {
         url: api_url + 'deletepayment.php',
         type: 'POST',
         data: removeData,
-        success: function (response) {
+        success: function(response) {
             alert(response.Message);
             getPaymentList();
         }
     })
 }
+
 function updatePaymentFlag(paymentid) {
     var updateData = {
         paymentid: paymentid,
@@ -395,16 +421,33 @@ function updatePaymentFlag(paymentid) {
         url: api_url + 'revertpayment.php',
         type: 'POST',
         data: updateData,
-        success: function (response) {
+        success: function(response) {
             alert(response.Message);
             getPaymentList();
         }
     })
 }
-$(document).on('click','#loadfirstpage',function(e){
-e.preventDefault();
-$('#loadNewPage').empty();
-$('#customerSelectionBlock').show();
-$('#customerOrdersBlock').show();
+$(document).on('click', '#loadfirstpage', function(e) {
+    e.preventDefault();
+    $('#loadNewPage').empty();
+    $('#customerSelectionBlock').show();
+    $('#customerOrdersBlock').show();
 });
 
+function displayOrderDetails(orderDetails) {
+    $('#orderId').html(orderDetails.orderId);
+    $('#Orderamount').html(orderDetails.amount);
+    $('#orderStatus').html(statusMap.get(orderDetails.orderStatus));
+    $('#purchaseDateTime').html(getDate(orderDetails.purchaseDateTime));
+    $('#customerExpectedDate').html(getDate(orderDetails.customerExpectedDate));
+    $('#FinalDeliveryDate').html(getDate(orderDetails.FinalDeliveryDate));
+}
+
+function loadPriceModal(orderItemId, productTitle, rowId) {
+    $('#rowId').val(rowId);
+    $('#orderItemId').val(orderItemId);
+    $('#pTitle').html(productTitle);
+    var price = $('#amt' + orderItemId).val();
+    $('#sendPrice').val(price);
+    $('#editOrderItemPrice').modal();
+}

@@ -14,18 +14,16 @@ if (isset($_POST['categoryid']) && isset($_POST['fabrictitle']) && isset($_POST[
 	$tempDetails = mysqli_real_escape_string($conn,$fabricdetails);
 	$tempTitle = mysqli_real_escape_string($conn,$fabrictitle);
 	$tempBrand = mysqli_real_escape_string($conn,$fabricbrand);
-
-    $sql ="update product_fabric_master set fabricTitle='$tempTitle', fabricBrand = '$tempBrand', fabricDetails ='$tempDetails', skuNo='$skuno', fabricPrice=$fabricprice,releasedate='$releasedate', ispricevariable = $ispricevariable,isActive=$active, hexcolor='$hexcolor',colorname = '$colorname',fabrictype= '$fabrictype',categoryid = $categoryid where fabricid = $fabricid";
-    // echo $sql;
-				$query = mysqli_query($conn,$sql);
+	
+				$query = mysqli_query($conn,"update product_fabric_master set fabricTitle='$tempTitle', fabricBrand = '$tempBrand', fabricDetails ='$tempDetails', skuNo='$skuno', fabricPrice=$fabricprice,releasedate='$releasedate', ispricevariable = $ispricevariable,isActive=$active, hexcolor='$hexcolor',colorname = '$colorname',fabrictype= '$fabrictype',categoryid = $categoryid where fabricid = $fabricid");
 					$rowsAffected=mysqli_affected_rows($conn);
 						if($rowsAffected > 0)
 						{
 					  			$response = array('Message'=>"Fabric updated successfully",'Responsecode'=>200);
 						}
 						else
-						{
-							$response=array("Message"=> mysqli_error($conn)."No data to change or user not present","Responsecode"=>500);
+						{	
+							$response=array("Message"=> mysqli_error($conn)."No data to change or user not present","Responsecode"=>500);					
 						}
 }
 else

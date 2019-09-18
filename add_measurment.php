@@ -17,7 +17,7 @@
                              <table class="table table-bordered" id="sampleTbl">
                                  <thead>
                                      <tr>
-                                         <th>Id</th>
+                                         <th style="display:none;">Id</th>
                                          <th>Measurements</th>
                                          <th>Value</th>
                                      </tr>
@@ -41,52 +41,52 @@
      </div>
  </div>
  <script>
-     var TableData;
-     $('#saveMeasurementsData').on('click', function(event) {
-         event.preventDefault();
-         var rowCount = $("#sampleTbl td").closest("tr").length;
-         if (rowCount > 0) {
-             TableData = storeTblValues();
-             var postdata = {
-                 "orderitemid": customer_orderItemId,
-                 "measurements": TableData
-             };
-             postdata = JSON.stringify(postdata);
-             console.log(postdata);
-             $.ajax({
-                 url: api_url+'createorderitemmeasurement.php',
-                 type: 'POST',
-                 data: {
-                     postdata: postdata
-                 },
-                 success: function(response) {
-                     alert(response.Message);
-                     getOrdersOfCustomer(customerId_g);
-                     customerOrderDetails = customerOrders[indexRow];
-                     $('#customerOrdersBlock').hide();
-                    //  console.log(customerOrderDetails);
-                     $('#myModal').modal('toggle');
-                 }
-             })
-         } else {
-             alert('Add Measurment First');
-         }
-     });
+var TableData;
+$('#saveMeasurementsData').on('click', function(event) {
+    event.preventDefault();
+    var rowCount = $("#sampleTbl td").closest("tr").length;
+    if (rowCount > 0) {
+        TableData = storeTblValues();
+        var postdata = {
+            "orderitemid": customer_orderItemId,
+            "measurements": TableData
+        };
+        postdata = JSON.stringify(postdata);
+        console.log(postdata);
+        $.ajax({
+            url: api_url + 'createorderitemmeasurement.php',
+            type: 'POST',
+            data: {
+                postdata: postdata
+            },
+            success: function(response) {
+                alert(response.Message);
+                getOrdersOfCustomer(customerId_g);
+                customerOrderDetails = customerOrders[indexRow];
+                $('#customerOrdersBlock').hide();
+                //  console.log(customerOrderDetails);
+                $('#myModal').modal('toggle');
+            }
+        })
+    } else {
+        alert('Add Measurment First');
+    }
+});
 
-     function storeTblValues() {
-         var TableData = new Array();
+function storeTblValues() {
+    var TableData = new Array();
 
-         $('#sampleTbl tr').each(function(row, tr) {
-            var measurmentValue = $(tr).find('td:eq(2) input').val();
-             if(measurmentValue == ''){
-                measurmentValue = '-';
-             }
-             TableData[row] = {
-                 "measurementid": $(tr).find('td:eq(0)').text(),
-                 "value": measurmentValue
-             }
-         });
-         TableData.shift(); // first row will be empty - so remove
-         return TableData;
-     }
+    $('#sampleTbl tr').each(function(row, tr) {
+        var measurmentValue = $(tr).find('td:eq(2) input').val();
+        if (measurmentValue == '') {
+            measurmentValue = '-';
+        }
+        TableData[row] = {
+            "measurementid": $(tr).find('td:eq(0)').text(),
+            "value": measurmentValue
+        }
+    });
+    TableData.shift(); // first row will be empty - so remove
+    return TableData;
+}
  </script>

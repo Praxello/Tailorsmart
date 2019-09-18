@@ -19,7 +19,7 @@ if (isset($_POST['usrname']) && isset($_POST['passwrd'])) {
                 break;
             }
         } else {
-            $response = array('Message' => "No user present/ Invalid username or password", "Data" => $records, 'Responsecode' => 200);
+            $response = array('Message' => "No user present/ Invalid username or password", "Data" => $records, 'Responsecode' => 401);
         }
     }
 }

@@ -29,11 +29,11 @@ header('Content-Type: application/json');
 							{
 								while($transactionResult = mysqli_fetch_assoc($transactionQuery))
 									{
-										$transactionId=$transactionResult['orderId'];
+										$transactionDetails=$transactionResult;
 									}
 							}
 						}
-					$response = array('Message'=>"Order created successfully","OrderId"=>$transactionId ,'Responsecode'=>200);	
+					$response = array('Message'=>"Order created successfully","OrderDetails"=>$transactionDetails ,'Responsecode'=>200);	
 				}
 				else
 				{

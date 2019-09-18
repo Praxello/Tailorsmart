@@ -8,20 +8,20 @@ $records = null;
 extract($_POST);
 
 date_default_timezone_set("Asia/Kolkata");
-if (isset($_POST['holidaydate']) && isset($_POST['title'])) {
+if (isset($_POST['orderItemPrice']) && isset($_POST['orderItemId'])) {
 
-	$tempTitle = mysqli_real_escape_string($conn,$title);
 	
-				$query = mysqli_query($conn,"insert into holiday_master(skipdate, holidaytitle) values('$holidaydate','$tempTitle')");
-					if($query==1)
-					{
-					  			$response = array('Message'=>"New holiday created successfully",'Responsecode'=>200);
-					}
+				$query = mysqli_query($conn,"update customer_order_items_master set orderItemPrice = $orderItemPrice  where orderItemId = $orderItemId");
+					$rowsAffected=mysqli_affected_rows($conn);
+						if($rowsAffected > 0)
+						{
+					  			$response = array('Message'=>"Price updated successfully",'Responsecode'=>200);
+						}
 					else
 					{	
 						$a = mysqli_error($conn);
 						if (strpos($a, 'Duplicate') !== false) {
-								$response=array("Message"=> "Duplicate entry for this date","Responsecode"=>500);					
+								$response=array("Message"=> "Duplicate entry","Responsecode"=>500);					
 							}
 							else
 							{
