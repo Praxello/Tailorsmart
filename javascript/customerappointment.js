@@ -34,8 +34,12 @@ function getMicellaneousData(){
       type: "GET",
       url: api_url+"getmiscellaneousdata.php",
       success: function(response) {
-        var countowner= response['Employee'].length;
-        EmployeeData = [...response['Employee']];
+        var countowner=0;
+        if(response['Employee']!=null){
+          countowner= response['Employee'].length;
+          EmployeeData = [...response['Employee']];
+        }
+
         selectemp +='<option value="">Select Employee</option>';
         for (var i = 0; i < countowner; i++) {
         selectemp +="<option value='"+response['Employee'][i].employeeId+"'>"+response['Employee'][i].firstName+" "+response['Employee'][i].lastName+"</option>";
@@ -84,7 +88,10 @@ function getcustomerappointmentdata(){
          url:api_url+"getappointments.php",
          dataType:"json",
          success: function(response) {
-            getslotdata=[...response["Slots"]];
+           if(response["Slots"]!=null){
+               getslotdata=[...response["Slots"]];
+           }
+
 
             var html='',EmpName='-',orderStatus='-';
             var slotcount =getslotdata.length; // For Count length of slot
@@ -92,7 +99,11 @@ function getcustomerappointmentdata(){
               html +="<option value="+getslotdata[i].slotId+">"+getslotdata[i].slotTime+"</option>";
             }
             $("#settimeslot").html(html);
-            var count= response["Data"].length;  // For Count length of Get All Appointment
+              var count;
+            if(response["Data"]!=null){
+              count= response["Data"].length;  // For Count length of Get All Appointment
+            }
+
             var html ="<tr>";
             var EmpCount = EmployeeData.length;
             styleData = [...response["Data"]];

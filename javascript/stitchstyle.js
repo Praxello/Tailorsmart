@@ -23,10 +23,13 @@ function getstitchstyles(){
          // crossDomain:true,
          url: api_url+"getstitchstyleitem.php",
          success: function(response) {
-           var count= response['Data'].length;
+             var count;
+            if(response['Data']!=null){
+               count= response['Data'].length;
+                styleData=[...response['Data']];
+            }
             var html ="<tr>";
                     var imageUrl ='';
-            styleData=[...response['Data']];
             for (var i = 0; i < count; i++) {
                 // html +="<td>"+(i+1)+"</td>";
                 imageUrl = pic_url+'stitchstyle/300x300/'+response['Data'][i].stitchStyleId+'.jpg';
@@ -197,6 +200,7 @@ $('#updatebtncustomerstyle').on('click',function(event){
   var styledetail = $("#styledetail").val();
   var styletype = $("#styletype").val();
   var stylestatus = $("#stylestatus").val();
+  $.ajax({
       url: api_url+'editstitchstyleitem.php',
       type:'POST',
       data:{

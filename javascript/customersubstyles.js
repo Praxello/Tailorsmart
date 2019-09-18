@@ -3,7 +3,7 @@ getcustomersubstyles();
 var styleData = []; // This variable globally declare save all Style Data in Array
 $('#stylestatus').select2({
   allowClear: true,
-  placeholder: "Select Style Status"
+  placeholder: "Select Sub Style Status"
 });
 $(document).ready(function() {
 
@@ -17,9 +17,13 @@ function getcustomersubstyles(){
          type: "GET",
          url: api_url+"getallsubstyle.php",
          success: function(response) {
-           var count= response['Data'].length;
+           var count;
+            if(response['Data']!=null){
+               count= response['Data'].length;
+                styleData=[...response['Data']];
+            }
             var html ="<tr>";
-            styleData=[...response['Data']];
+          
               var imageUrl  ='';
             for (var i = 0; i < count; i++) {
 

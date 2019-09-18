@@ -139,10 +139,16 @@ function getproductdata(){
          async : false,
          success: function(response) {
            // alert(response);
-            var count= response['Data'].length;
+           var count;
+            if(response['Data']!=null){
+               count= response['Data'].length;
+               productData=[...response['Data']];
+            }
+
+            // var count= response['Data'].length;
             var html ="<tr>";
             var imageUrl ='';
-            productData=[...response['Data']];
+
             for (var i = 0; i < count; i++) {
                 imageUrl = pic_url+'product/300x300/'+response['Data'][i].productId+'.jpg';
 

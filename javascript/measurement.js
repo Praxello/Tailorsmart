@@ -2,7 +2,7 @@
 getmeasurementitems();
 $('#stylestatus').select2({
   allowClear: true,
-  placeholder: "Select Style Status"
+  placeholder: "Select Measurement Status"
 });
 
 var styleData = []; // This variable globally declare save all Style Data in Array
@@ -18,9 +18,12 @@ function getmeasurementitems(){
          type: "GET",
          url: api_url+"getmeasurementitems.php",
          success: function(response) {
-           var count= response['Data'].length;
+           var count;
+            if(response['Data']!=null){
+               count= response['Data'].length;
+                styleData=[...response['Data']];
+            }
             var html ="<tr>";
-              styleData=[...response['Data']];
             for (var i = 0; i < count; i++) {
                 // styleData.push(response['Data'][i]);
                 // html +="<td>"+(i+1)+"</td>";

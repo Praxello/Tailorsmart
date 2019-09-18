@@ -32,10 +32,19 @@ function getstitchstyledetailsitem(){
          type: "GET",
          url: api_url+"getstitchstyledetailsitem.php",
          success: function(response) {
-           var count= response['Data'].length;
+            var count;
+            if(response['Data']!=null){
+               count= response['Data'].length;
+               styleData=[...response['Data']];
+            }
             var html ="<tr>";
-            styleData=[...response['Data']];
-            var imageUrl ='';
+
+            var imageUrl ='',ab='';
+            // ab+='<div class="show-reel">';
+            // ab+='  <a href="mobileimages/style/1.jpg" class="lsb-preview" data-lsb-group="header">';
+            // ab+='   <i class="fa fa-eye"></i>';
+            // ab+='  </a>';
+            // ab+='</div>';
             for (var i = 0; i < count; i++) {
                 imageUrl = pic_url+'stitchsubstyle/300x300/'+response['Data'][i].stitchSubStyleId+'.jpg';
                 html +="<td><form id='custstyleform"+response['Data'][i].stitchSubStyleId+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+response['Data'][i].stitchSubStyleId+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' src='"+imageUrl+"'  style='cursor: pointer' onclick='imguplod("+response['Data'][i].stitchSubStyleId+")' alt='No Image'></img></form></td>";
@@ -59,8 +68,10 @@ function getstitchstyledetailsitem(){
                 else {
                   html +='<td><span class="badge badge-pill badge-warning">InActive</span></td>';
                 }
-                // <button class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+i+')"><i class="fa fa-edit"></i></button>
-                html +='<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod('+response['Data'][i].stitchSubStyleId+')"><i class="fa fa-upload"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removestitchStyleDetail('+response['Data'][i].stitchSubStyleId+')"><i class="fa fa-remove"></i></button></div></td>';
+
+                //onclick="showimage('+response['Data'][i].stitchSubStyleId+')";
+                // <button class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Show Image"  onclick="showimage('+response['Data'][i].stitchSubStyleId+')"; ><i class="fa fa-eye"></i></button>
+                html +='<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod('+response['Data'][i].stitchSubStyleId+')"><i class="fa fa-upload"></i></button> <button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+i+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removestitchStyleDetail('+response['Data'][i].stitchSubStyleId+')"><i class="fa fa-remove"></i></button></div></td>';
                 html +="  </tr>";
             }
            $("#styletbldata").html(html);
@@ -95,6 +106,7 @@ function imguplod(imgid){
                      url:"http://praxello.com/tailorsmart/uploadimage.php",
                      type:"POST",
                      contentType: false,
+                     async :false,
                      cache: false,
                      processData:false,
                      data: fd,
@@ -106,20 +118,30 @@ function imguplod(imgid){
               });
    };
 }
+
+
+// show image
+function showimage(id){
+
+  // let src = pic_url+'stitchsubstyle/'+id+'.jpg';
+  // window.open(src);
+}
 // This function is created For Add Button New Style
 function addStyle(){
   $("#customerstyletable").hide();
   $("#customerstyletableform").show();
-   $("#fabricform").trigger("reset");
+
    $("#savebtncustomerstyle").show();
    $("#updatebtncustomerstyle").hide();
+   $("#stitchtitle").val("");
+   $("#newstitchstyleId").val("").trigger('change');
 }
 
 // This function is created For Edit Button
 function editStyle(id){
-$("#stitchstyleid").val(styleData[id].stitchStyleId);
-$("#stitchtitle").val(styleData[id].stitchStyleTitle);
-$("#newstitchstyleId").val(styleData[id].stitchStyleType).trigger('change');
+$("#stitchstyleid").val(styleData[id].stitchSubStyleId);
+$("#stitchtitle").val(styleData[id].stitchSubStyleTitle);
+$("#newstitchstyleId").val(styleData[id].stitchStyleId).trigger('change');
 
 $("#customerstyletable").hide();
 $("#customerstyletableform").show();
@@ -193,4 +215,25 @@ $('#updatebtncustomerstyle').on('click',function(event){
   var stitchstyleid= $("#stitchstyleid").val();
   var stitchtitle = $("#stitchtitle").val();
   var newstitchstyleid = $("#newstitchstyleId").val();
+  $.ajax({
+      url:api_url+'editstitchstyledetailitem.php',
+      type:'POST',
+      data:{
+      stitchsubstyleid:stitchstyleid,
+      title:stitchtitle,
+      stitchstyleid:newstitchstyleid
+      },
+      dataType:'json',
+      success:function(response){
+        if(response.Responsecode===200){
+          swal(response.Message);
+          $("#customerstyletable").show();
+          $("#customerstyletableform").hide();
+          getstitchstyledetailsitem();
+        }
+        else {
+          swal(response.Message);
+        }
+      }
+  });
 });

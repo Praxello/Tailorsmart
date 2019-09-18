@@ -16,6 +16,14 @@
     <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
     <link href="css/helper.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="javascript/lsb.css" />
+    <script src="javascript/jquery-2.2.3.min.js"></script>
+    <script src="javascript/lsb.js"></script>
+    <script>
+      $(window).load(function() {
+        $.fn.lightspeedBox();
+      });
+    </script>
 
 </head>
 
@@ -49,7 +57,7 @@
             </div>
 
             <div class="container-fluid">
-                <!-- Start Page Content -->
+
                 <div class="row" id="customerstyletable" style="display:block;">
                     <div class="col-12">
                         <div class="card">
@@ -59,6 +67,31 @@
                               <div id="data"></div>
                           </div>
                           </div>
+                          <!-- <div class="accent-block">
+                            <div class="content showcase single-image">
+                              <p>
+                                This is some text, an article if you like. The article that should
+                                display individual images like the one below.
+                              </p>
+                              <a href="mobileimages/ads/1.jpg" class="lsb-preview single">
+                                <img
+                                  src="mobileimages/ads/1.jpg"
+                                  alt="A cat and a baloon"
+                                />
+                              </a>
+                              <p>
+                                Or check this one too. This image got no particular purpose other
+                                than display the feature.
+                              </p>
+                              <a href="mobileimages/ads/1.jpg" class="lsb-preview single">
+                                <img src="mobileimages/ads/1.jpg" alt="Survivor" />
+                              </a>
+                            </div>
+                          </div> -->
+
+
+
+
                             <div class="card-body">
 
                                 <div class="table-responsive m-t-40">
@@ -125,15 +158,18 @@
                 <!-- End PAge Content -->
             </div>
 
+
         </div>
         <!-- End Page wrapper  -->
     </div>
     <!-- End Wrapper -->
     <!-- All Jquery -->
-    <script src="js/lib/jquery/jquery.min.js"></script>
+    <!-- -->
+    <!-- <script src="js/lib/jquery/jquery.min.js"></script> -->
     <script src="javascript/apifile.js"></script>
     <link href="select2/select4.css" rel="stylesheet" />
     <script src="select2/select4.js" type="text/javascript"></script>
+
     <!-- Bootstrap tether Core JavaScript -->
     <script src="js/lib/bootstrap/js/popper.min.js"></script>
     <script src="js/lib/bootstrap/js/bootstrap.min.js"></script>

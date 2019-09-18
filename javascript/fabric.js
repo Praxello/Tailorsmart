@@ -23,7 +23,12 @@ function getallcategory(){
       type: "GET",
       url: api_url+"getallcategory.php",
       success: function(response) {
-        var count= response['Data'].length;
+
+        var count;
+         if(response['Data']!=null){
+            count= response['Data'].length;
+
+         }
         html +='<option value="">Select Category</option>';
         for (var i = 0; i < count; i++) {
         html +="<option value='"+response['Data'][i].categoryId+"'>"+response['Data'][i].categoryTitle+"</option>";
@@ -42,9 +47,13 @@ function getfabrics(){
          type: "GET",
          url: api_url+"getfabrics.php",
          success: function(response) {
-           var count= response['Data'].length;
+           var count;
+            if(response['Data']!=null){
+               count= response['Data'].length;
+                styleData=[...response['Data']];
+            }
             var html ="<tr>";
-            styleData=[...response['Data']];
+
             var imageUrl ='';
             for (var i = 0; i < count; i++) {
                imageUrl = pic_url+'fabric/300x300/'+response['Data'][i].skuNo+'.jpg';

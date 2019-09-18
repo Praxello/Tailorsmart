@@ -11,17 +11,16 @@ header('Content-Type: application/json');
 	 date_default_timezone_set("Asia/Kolkata");
 	 $currentDate=date('Y-m-d H:i:s'); //Returns IST	
 	
-	  if(isset($_POST['orderid']) && isset($_POST['productid']))
+	  if(isset($_POST['orderid']) && isset($_POST['productid']) && isset($_POST['orderItemPrice']))
 	 {
 			
-			$query = mysqli_query($conn,"insert into customer_order_items_master(orderid,productid,creationDateTime) values ($orderid,$productid,'$currentDate')");
+			$query = mysqli_query($conn,"insert into customer_order_items_master(orderid,productid,orderItemPrice,creationDateTime) values ($orderid,$productid,$orderItemPrice,'$currentDate')");
 		
 			$rowsAffected=mysqli_affected_rows($conn);
 				if($rowsAffected==1)
 				{
+					$updateAmountQuery = mysqli_query($conn,"UPDATE customer_order_master SET amount = amount + $orderItemPrice WHERE orderId = $orderid");
 					
-					//  $transactionQuery = mysqli_query($conn,"select * from  customer_order_items_master where orderid=$orderid and creationDateTime='$currentDate'");
-						//
 					$transactionQuery = mysqli_query($conn,"select * from  customer_order_items_master oi inner join product_master pm on oi.productid = pm.productid where oi.orderid=$orderid");
 					if($transactionQuery!=null)
 						{

@@ -33,9 +33,13 @@ function getmasterproduct(){
          type: "GET",
          url: api_url+"getparentproducts.php",
          success: function(response) {
-           var count= response['Data'].length;
+           var count;
+           if(response['Data']!=null){
+               count= response['Data'].length;
+               styleData.push(...response['Data']);
+           }
             var html ="<tr>";
-            styleData.push(...response['Data']);
+
                 var imageUrl ='';
             for (var i = 0; i < count; i++) {
                 imageUrl = pic_url+'parent/300x300/'+response['Data'][i].parentId+'.jpg';
@@ -110,8 +114,11 @@ function getmiscellaneousdata(){
       type: "GET",
       url: api_url+'getmiscellaneousdata.php',
       success: function(response) {
+         var countowner =0;
+        if(response['Style']!=null){
+          countowner= response['Style'].length;
+        }
 
-        var countowner= response['Style'].length;
 
         selectmasterstyle +='<option value="">Select Style</option>';
         for (var i = 0; i < countowner; i++) {
@@ -119,8 +126,11 @@ function getmiscellaneousdata(){
         }
 
         $("#masterstyle").html(selectmasterstyle);
+        var countparent =0;
+        if(response['Substyle']!=null){
+          countparent= response['Substyle'].length;
+        }
 
-        var countparent= response['Substyle'].length;
         selectmastersubstyle +='<option value="">Select Sub Style</option>';
         for (var i = 0; i < countparent; i++) {
         selectmastersubstyle +="<option value='"+response['Substyle'][i].subStyleId+"'>"+response['Substyle'][i].subStyleTitle+"</option>";

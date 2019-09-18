@@ -24,7 +24,7 @@
                 <li ><a class="has-arrow  " href="products.php" aria-expanded="false"><i class="fa fa-gift"></i><span class="hide-menu">Products</span></a></li>
                 <li ><a class="has-arrow  " href="customerstyles.php" aria-expanded="false"><i class="fa fa-gift"></i><span class="hide-menu">Styles</span></a></li>
                 <li><a class="has-arrow  " href="customersubstyles.php" aria-expanded="false"><i class="fa fa-gift"></i><span class="hide-menu">Substyles</span></a></li>
-                <li ><a class="has-arrow  " href="managecategory.php" aria-expanded="false"><i class="fa fa-gift"></i><span class="hide-menu">Manage Category</span></a></li>
+                <li ><a class="has-arrow  " href="managecategory.php" aria-expanded="false"><i class="fa fa-gift"></i><span class="hide-menu">Manage Product Category</span></a></li>
                   <li ><a class="has-arrow  " href="measurement.php" aria-expanded="false"><i class="fa fa-gift"></i><span class="hide-menu">Measurements</span></a></li>
                 <li><a class="has-arrow  " href="fabric.php" aria-expanded="false"><i class="fa fa-plus"></i><span class="hide-menu">Fabric</span></a></li>
                 <li ><a class="has-arrow  " href="stitchstyle.php" aria-expanded="false"><i class="fa fa-gift"></i><span class="hide-menu">Stitch-Style</span></a></li>

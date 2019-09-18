@@ -51,3 +51,14 @@
   table name : stitch_style_details_template_master
   columns : {Stitch Style}
   ALTER TABLE `stitch_style_details_template_master` ADD FOREIGN KEY (`stitchStyleId`) REFERENCES `stitch_style_template_master`(`stitchStyleId`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+
+--- newimagename
+
+ALTER TABLE `product_parent_master` ADD FOREIGN KEY (`styleId`) REFERENCES `product_style_master`(`styleId`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `product_parent_master` ADD FOREIGN KEY (`subStyleId`) REFERENCES `product_substyle_master`(`subStyleId`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+ALTER TABLE `product_master` ADD FOREIGN KEY (`parentId`) REFERENCES `product_parent_master`(`parentId`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `product_master` ADD FOREIGN KEY (`categoryId`) REFERENCES `product_category_master`(`categoryId`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `product_fabric_master` ADD FOREIGN KEY (`categoryId`) REFERENCES `product_category_master`(`categoryId`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `stitch_style_details_template_master` ADD FOREIGN KEY (`stitchStyleId`) REFERENCES `stitch_style_template_master`(`stitchStyleId`) ON DELETE RESTRICT ON UPDATE CASCADE;

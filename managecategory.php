@@ -59,7 +59,7 @@
                         <div class="card">
                           <div class="row">
                             <div class="col-md-12">
-                              <button type="button" id="button1" class="btn btn-success" onclick="addStyle()" style="float:right"> New Manage Category</button>
+                              <button type="button" id="button1" class="btn btn-success" onclick="addStyle()" style="float:right">Add New Category</button>
                               <div id="data"></div>
                           </div>
                           </div>

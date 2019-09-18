@@ -16,8 +16,12 @@ function getcustomerstyles(){
          type: "GET",
          url: api_url+"getallstyle.php",
          success: function(response) {
-           var count= response['Data'].length;
-             styleData=[...response['Data']];
+           var count;
+            if(response['Data']!=null){
+               count= response['Data'].length;
+                styleData=[...response['Data']];
+            }
+
             var html ="<tr>";
             var imageUrl ='';
             for (var i = 0; i < count; i++) {
