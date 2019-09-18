@@ -12,12 +12,12 @@
                  <div class="card">
                      <div class="card-body">
                          <input type="hidden" id="valFirst">
-                         <div class="row" >
+                         <div class="row">
                              <div class="table-responsive ">
                                  <table class="table table-bordered" id="firstStyle">
                                      <thead>
                                          <tr>
-                                            <th style='display:none;'>Main Id</th>
+                                             <th style='display:none;'>Main Id</th>
                                              <th style='text-align:center;'>Style</th>
                                              <th style='text-align:center;'>Select multiple</th>
                                          </tr>
@@ -39,7 +39,7 @@
                                  <table class="table table-bordered" id="secondStyle">
                                      <thead>
                                          <tr>
-                                         <th style='display:none;'>Main Id</th>
+                                             <th style='display:none;'>Main Id</th>
                                              <th style='text-align:center;'>Style</th>
                                              <th style='text-align:center;'>Select single</th>
                                          </tr>
@@ -87,88 +87,82 @@
      </div>
  </div>
  <script>
-     var first_TableData, third_TableData, second_TableData;
-     $('#saveStyleData').on('click', function(event) {
-         event.preventDefault();
-         first_TableData = store_firstTblValues();
-        
-         third_TableData = store_thirdTblValues();
-         second_TableData = store_secondTblValues();
-         //console.log(second_TableData);
-         var allTableData = first_TableData.concat(second_TableData, third_TableData);
-         var postdata = {
-             "orderitemid": style_orderItemId,
-             "styles": allTableData
-         };
-         postdata = JSON.stringify(postdata);
-         console.log(postdata);
-         $.ajax({
-             url: api_url + 'createorderitemstyle.php',
-             type: 'POST',
-             data: {
-                 postdata: postdata
-             },
-             success: function(response) {
-                 alert(response.Message);
-                 getOrdersOfCustomer(customerId_g);
-                 customerOrderDetails = customerOrders[indexRow];
-                 $('#customerOrdersBlock').hide();
-                 $('#cl').click();
-             }
-         })
-     });
+var first_TableData, third_TableData, second_TableData;
+$('#saveStyleData').on('click', function(event) {
+    event.preventDefault();
+    first_TableData = store_firstTblValues();
 
-     function store_firstTblValues() {
-         var TableData = new Array();
-         var stitchstyleid = $('#valFirst').val();
-        //  $('#firstStyle').find('input[name="multipleSelection"]:checked').each(function(row) {
-        //      TableData[row] = {
-        //          "stitchstyleid": stitchstyleid,
-        //          "stitchsubstyleid": $(this).val(),
-        //          "value": 'yes'
-        //      }
-        //  });
-        var tableControl = document.getElementById('firstStyle');
-        $('input:checkbox:checked', tableControl).each(function(row) {
+    third_TableData = store_thirdTblValues();
+    second_TableData = store_secondTblValues();
+ 
+    var allTableData = first_TableData.concat(second_TableData, third_TableData);
+    var postdata = {
+        "orderitemid": style_orderItemId,
+        "styles": allTableData
+    };
+    postdata = JSON.stringify(postdata);
+  
+    $.ajax({
+        url: api_url + 'createorderitemstyle.php',
+        type: 'POST',
+        data: {
+            postdata: postdata
+        },
+        success: function(response) {
+            alert(response.Message);
+            getOrdersOfCustomer(customerId_g);
+            customerOrderDetails = customerOrders[indexRow];
+            $('#customerOrdersBlock').hide();
+            $('#cl').click();
+        }
+    })
+});
+
+function store_firstTblValues() {
+    var TableData = new Array();
+    var stitchstyleid = $('#valFirst').val();
+   
+    var tableControl = document.getElementById('firstStyle');
+    $('input:checkbox:checked', tableControl).each(function(row) {
         TableData[row] = {
-                 "stitchstyleid": $(this).parent().prev().prev().text(),
-                 "stitchsubstyleid": $(this).val(),
-                 "value": 'yes'
-             }
-         });
-         return TableData;
-     }
+            "stitchstyleid": $(this).parent().prev().prev().text(),
+            "stitchsubstyleid": $(this).val(),
+            "value": 'yes'
+        }
+    });
+    return TableData;
+}
 
-     function store_secondTblValues() {
-         var TableData = new Array();
-        var tableControl = document.getElementById('secondStyle');
-        $('input:radio:checked', tableControl).each(function(row) {
+function store_secondTblValues() {
+    var TableData = new Array();
+    var tableControl = document.getElementById('secondStyle');
+    $('input:radio:checked', tableControl).each(function(row) {
         TableData[row] = {
-                 "stitchstyleid": $(this).parent().prev().prev().text(),
-                 "stitchsubstyleid": $(this).val(),
-                 "value": 'yes'
-             }
-         });
-         //TableData.shift(); // first row will be empty - so remove
-         return TableData;
-     }
+            "stitchstyleid": $(this).parent().prev().prev().text(),
+            "stitchsubstyleid": $(this).val(),
+            "value": 'yes'
+        }
+    });
+    
+    return TableData;
+}
 
-     function store_thirdTblValues() {
-         var TableData = new Array();
-         var stitchstyleid = $('#valThird').val();
-         var j=0;
-         $('#thirdStyle tr').each(function(row, tr) {
-             if($(tr).find('td:eq(1)').text() != ''){
-                // console.log($(tr).find('td:eq(1)').text());
-             TableData[j] = {
-                 "stitchstyleid": $(tr).find('td:eq(0)').text(),
-                 "stitchsubstyleid": $(tr).find('td:eq(1)').text(),
-                 "value": $(tr).find('td:eq(3) input').val()
-             }
-             j++;
+function store_thirdTblValues() {
+    var TableData = new Array();
+    var stitchstyleid = $('#valThird').val();
+    var j = 0;
+    $('#thirdStyle tr').each(function(row, tr) {
+        if ($(tr).find('td:eq(1)').text() != '') {
+            
+            TableData[j] = {
+                "stitchstyleid": $(tr).find('td:eq(0)').text(),
+                "stitchsubstyleid": $(tr).find('td:eq(1)').text(),
+                "value": $(tr).find('td:eq(3) input').val()
             }
-         });
-         //TableData.shift(); // first row will be empty - so remove
-         return TableData;
-     }
+            j++;
+        }
+    });
+    //TableData.shift(); // first row will be empty - so remove
+    return TableData;
+}
  </script>

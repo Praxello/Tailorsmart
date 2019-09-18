@@ -28,4 +28,8 @@ else
 		    $response = array('Message' => "Parameter missing", "Data" => $records, 'Responsecode' => 402);
 }
 print json_encode($response);
+<<<<<<< HEAD
 ?>
+=======
+?>
+>>>>>>> 65b0eb3eebfdf7dc7611676165c0fe41c1832ee6

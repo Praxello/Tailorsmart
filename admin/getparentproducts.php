@@ -4,7 +4,11 @@ header('Content-Type: application/json');
      include "../connection.php";
 	 mysqli_set_charset($conn,'utf8');
 	 $response=null;
+<<<<<<< HEAD
    $records =null;
+=======
+
+>>>>>>> 65b0eb3eebfdf7dc7611676165c0fe41c1832ee6
 	 extract($_POST);
 
 

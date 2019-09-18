@@ -1,5 +1,5 @@
  <!-- The Modal -->
- <div class="modal" id="FabricsModal" >
+ <div class="modal" id="FabricsModal">
      <div class="modal-dialog modal-lg">
          <div class="modal-content">
 
@@ -8,12 +8,12 @@
                  <h4 class="modal-title">Add Fabrics</h4>
              </div>
              <!-- Modal body -->
-             <div class="modal-body"  style="overflow-x: hidden;max-height: 500px;">
-             <input id="myInput" type="text" placeholder="Search.." class="form-control form-control-sm">
+             <div class="modal-body" style="overflow-x: hidden;max-height: 500px;">
+                 <input id="myInput" type="text" placeholder="Search.." class="form-control form-control-sm">
                  <div class="card">
                      <div class="row">
-                    
-                         <div class="table-responsive" >
+
+                         <div class="table-responsive">
                              <table class="table table-bordered" id="fabricssampleTbl">
                                  <thead>
                                      <tr>
@@ -43,49 +43,49 @@
      </div>
  </div>
  <script>
-     $("#myInput").on("keyup", function() {
+$("#myInput").on("keyup", function() {
     var value = $(this).val().toLowerCase();
     $("#fabricssampleTbl tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
     });
-  });
-     var fabrics_TableData;
-     $('#saveFabricsData').on('click', function(event) {
-         event.preventDefault();
-         //store_fabricsTblValues();
-         fabrics_TableData = store_fabricsTblValues();
-         var postdata = {
-             "orderitemid": fabric_orderItemId,
-             "fabrics": fabrics_TableData
-         };
-         postdata = JSON.stringify(postdata);
-         //console.log(postdata);
-         $.ajax({
-             url: api_url+'createorderitemfabric.php',
-             type: 'POST',
-             data: {
-                 postdata: postdata
-             },
-             success: function(response) {
-                 alert(response.Message);
-                //  console.log(customerId_g);
-                 getOrdersOfCustomer(customerId_g);
-                 customerOrderDetails = customerOrders[indexRow];
-                //  console.log(customerOrderDetails);
-                 $('#customerOrdersBlock').hide();
-                 $('#FabricsModal').modal('toggle');
-             }
-         })
-     });
+});
+var fabrics_TableData;
+$('#saveFabricsData').on('click', function(event) {
+    event.preventDefault();
+    //store_fabricsTblValues();
+    fabrics_TableData = store_fabricsTblValues();
+    var postdata = {
+        "orderitemid": fabric_orderItemId,
+        "fabrics": fabrics_TableData
+    };
+    postdata = JSON.stringify(postdata);
+    //console.log(postdata);
+    $.ajax({
+        url: api_url + 'createorderitemfabric.php',
+        type: 'POST',
+        data: {
+            postdata: postdata
+        },
+        success: function(response) {
+            alert(response.Message);
+            //  console.log(customerId_g);
+            getOrdersOfCustomer(customerId_g);
+            customerOrderDetails = customerOrders[indexRow];
+            //  console.log(customerOrderDetails);
+            $('#customerOrdersBlock').hide();
+            $('#FabricsModal').modal('toggle');
+        }
+    })
+});
 
-     function store_fabricsTblValues() {
-         var TableData = new Array();
-         $('#fabricssampleTbl').find('input[name="fabrics"]:checked').each(function(row) {
-             TableData[row] = {
-                 "fabricid": $(this).val()
-             }
-         });
-         // TableData.shift(); // first row will be empty - so remove
-         return TableData;
-     }
+function store_fabricsTblValues() {
+    var TableData = new Array();
+    $('#fabricssampleTbl').find('input[name="fabrics"]:checked').each(function(row) {
+        TableData[row] = {
+            "fabricid": $(this).val()
+        }
+    });
+    // TableData.shift(); // first row will be empty - so remove
+    return TableData;
+}
  </script>
