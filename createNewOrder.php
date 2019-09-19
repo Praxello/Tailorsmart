@@ -15,31 +15,40 @@
                 <div class="col-sm-6">
                     <div class="card">
                         <div class="row">
+                           
+                            <div class="col-sm-12">
+                            <a href="#" class="text-primary" data-toggle="collapse" data-target="#demo" style="font-weight:bolder;"> Order Details<i
+                                        class="fa fa-close float-right"></i></a>
+                            </div>
+                        </div>
+                        <div id="demo" class="collapse">
+                            <div class="row">
 
-                            <div class="col-sm-4">
-                                <h4 class="card-title">Order Number</h4>
-                                <h6 class="card-subtitle"><span id="orderId"></span></h6>
-                            </div>
-                            <div class="col-sm-4">
-                                <h4 class="card-title">Order Amount</h4>
-                                <h6 class="card-subtitle"><span id="Orderamount"></span></h6>
-                            </div>
-                            <div class="col-sm-4">
-                                <h4 class="card-title">Status</h4>
-                                <h6 class="card-subtitle"><span id="orderStatus"></span></h6>
-                            </div>
-                            <div class="col-sm-4">
-                                <h4 class="card-title">Purchase Date</h4>
-                                <h6 class="card-subtitle"><span id="purchaseDateTime"></span></h6>
-                            </div>
-                            <div class="col-sm-4">
-                                <h4 class="card-title">Expected Delivery Date</h4>
-                                <h6 class="card-subtitle"><span id="customerExpectedDate"></span></h6>
-                            </div>
+                                <div class="col-sm-4">
+                                    <h4 class="card-title">Order Number</h4>
+                                    <h6 class="card-subtitle"><span id="orderId"></span></h6>
+                                </div>
+                                <div class="col-sm-4">
+                                    <h4 class="card-title">Order Amount</h4>
+                                    <h6 class="card-subtitle"><span id="Orderamount"></span></h6>
+                                </div>
+                                <div class="col-sm-4">
+                                    <h4 class="card-title">Status</h4>
+                                    <h6 class="card-subtitle"><span id="orderStatus"></span></h6>
+                                </div>
+                                <div class="col-sm-4">
+                                    <h4 class="card-title">Purchase Date</h4>
+                                    <h6 class="card-subtitle"><span id="purchaseDateTime"></span></h6>
+                                </div>
+                                <div class="col-sm-4">
+                                    <h4 class="card-title">Expected Delivery Date</h4>
+                                    <h6 class="card-subtitle"><span id="customerExpectedDate"></span></h6>
+                                </div>
 
-                            <div class="col-sm-4">
-                                <h4 class="card-title">Final Delivery Date</h4>
-                                <h6 class="card-subtitle"><span id="FinalDeliveryDate"></span></h6>
+                                <div class="col-sm-4">
+                                    <h4 class="card-title">Final Delivery Date</h4>
+                                    <h6 class="card-subtitle"><span id="FinalDeliveryDate"></span></h6>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -47,30 +56,40 @@
                 <div class="col-sm-6">
                     <div class="card">
                         <div class="row">
+                           
+                            <div class="col-sm-12">
+                                <a href="#" class="text-primary" data-toggle="collapse" data-target="#demo1" style="font-weight:bolder;" > Customer Details<i
+                                        class="fa fa-close float-right"></i></a>
+                            </div>
+                        </div>
 
-                            <div class="col-sm-4">
-                                <h4 class="card-title">Customer Name</h4>
-                                <h6 class="card-subtitle"><span id="custName"></span></h6>
-                            </div>
-                            <div class="col-sm-4">
-                                <h4 class="card-title">Email address</h4>
-                                <h6 class="card-subtitle"><span id="custEmail"></span></h6>
-                            </div>
-                            <div class="col-sm-4">
-                                <h4 class="card-title">Contact Number</h4>
-                                <h6 class="card-subtitle"><span id="custMobile"></span></h6>
-                            </div>
-                            <div class="col-sm-4">
-                                <h4 class="card-title">Residence Address</h4>
-                                <h6 class="card-subtitle"><span id="custAddress"></span></h6>
-                            </div>
-                            <div class="col-sm-4">
-                                <h4 class="card-title">City</h4>
-                                <h6 class="card-subtitle"><span id="custCity"></span></h6>
-                            </div>
+                        <div id="demo1" class="collapse">
+                            <div class="row">
 
-                            <div class="col-sm-4">
+                                <div class="col-sm-4">
+                                    <h4 class="card-title">Customer Name</h4>
+                                    <h6 class="card-subtitle"><span id="custName"></span></h6>
+                                </div>
+                                <div class="col-sm-4">
+                                    <h4 class="card-title">Email address</h4>
+                                    <h6 class="card-subtitle"><span id="custEmail"></span></h6>
+                                </div>
+                                <div class="col-sm-4">
+                                    <h4 class="card-title">Contact Number</h4>
+                                    <h6 class="card-subtitle"><span id="custMobile"></span></h6>
+                                </div>
+                                <div class="col-sm-4">
+                                    <h4 class="card-title">Residence Address</h4>
+                                    <h6 class="card-subtitle"><span id="custAddress"></span></h6>
+                                </div>
+                                <div class="col-sm-4">
+                                    <h4 class="card-title">City</h4>
+                                    <h6 class="card-subtitle"><span id="custCity"></span></h6>
+                                </div>
 
+                                <div class="col-sm-4">
+
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -97,7 +116,8 @@
                             <div class="col-sm-3">
                                 <div class="form-group">
 
-                                    <select class="form-control form-control-sm" id="products" style="width:100%" onchange="getPriceOfProduct(this.value)">
+                                    <select class="form-control form-control-sm" id="products" style="width:100%"
+                                        onchange="getPriceOfProduct(this.value)">
                                     </select>
                                 </div>
                             </div>
@@ -108,12 +128,14 @@
                                 </div>
                             </div>
                             <div class="col-sm-3">
-                              <div class="btn-group" role="group" aria-label="add example">
-                                    <button type="button" class="add-row btn btn-success"><i class="fa  fa-plus"></i>Add Product</button>
-                                    <button type="button" class="btn btn-primary" id="loadfirstpage"><i class="fa  fa-arrow-left"></i>Go Back</button></div>
+                                <div class="btn-group" role="group" aria-label="add example">
+                                    <button type="button" class="add-row btn btn-success"><i class="fa  fa-plus"></i>Add
+                                        Product</button>
+                                    <button type="button" class="btn btn-primary" id="loadfirstpage"><i
+                                            class="fa  fa-arrow-left"></i>Go Back</button></div>
                             </div>
                             <div class="col-sm-3">
-                               
+
                             </div>
 
                         </div>
