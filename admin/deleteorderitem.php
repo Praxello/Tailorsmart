@@ -19,7 +19,14 @@ header('Content-Type: application/json');
 				$rowsAffected=mysqli_affected_rows($conn);
 				if($rowsAffected > 0)
 				{
+					
 					$updateAmountQuery = mysqli_query($conn,"UPDATE customer_order_master SET amount = amount - $price WHERE orderId = $orderid");
+					if($updateAmountQuery!=null){
+						$transactionAffected_1=mysqli_num_rows($updateAmountQuery);
+							if($transactionAffected_1>0)
+							{
+							}
+					}
 					  $transactionQuery = mysqli_query($conn,"select * from  customer_order_items_master oi inner join product_master pm on oi.productid = pm.productid where oi.orderid=$orderid");
 						if($transactionQuery!=null)
 						{
