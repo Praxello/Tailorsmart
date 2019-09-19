@@ -1,3 +1,7 @@
+<?php
+session_start();
+$employeeId = $_SESSION['employeeId'];
+$employeeName = $_SESSION['employeeName'];?>
 <!DOCTYPE html>
 <html lang="en">
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />

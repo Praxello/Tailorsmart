@@ -6,9 +6,9 @@ header('Content-Type: application/json');
 	 $response=null;
 	$records= null;
 	 extract($_POST);
-	 if (isset($_POST['customerid']))
-	 {
-		 			$academicQuery = mysqli_query($conn,"select * from customer_order_master where customerid = $customerid order by orderid desc");
+	 // if (isset($_POST['customerid']))
+	 // {
+		 			$academicQuery = mysqli_query($conn,"select * from customer_order_master order by orderid desc");
 						if($academicQuery!=null)
 						{
 							$academicAffected=mysqli_num_rows($academicQuery);
@@ -99,10 +99,10 @@ header('Content-Type: application/json');
 						else{
 									$response = array('Message'=>"No data availalbe".mysqli_error($conn),"Data"=> $records,'Responsecode'=>403);
 							}
-	 }
-	 else
-	 {
-		 		    $response = array('Message' => "Parameter missing", "Data" => $records, 'Responsecode' => 402);
-	 }
+	 // }
+	 // else
+	 // {
+		//  		    $response = array('Message' => "Parameter missing", "Data" => $records, 'Responsecode' => 402);
+	 // }
 	 print json_encode($response);
 ?>

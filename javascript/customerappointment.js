@@ -79,6 +79,30 @@ function getAppointmentStatus(appointmentId) {
   return status;
 }
 
+   var table;
+$.fn.dataTable.ext.search.push(
+function (settings, data, dataIndex) {
+    var min = $('#min').datepicker("getDate");
+    var max = $('#max').datepicker("getDate");
+     // console.log(data[1]);
+    var startDate = new Date(data[1]);
+    if (min == null && max == null) { return true; }
+    if (min == null && startDate <= max) { return true;}
+    if(max == null && startDate >= min) {return true;}
+    if (startDate <= max && startDate >= min) { return true; }
+    return false;
+   }
+);
+
+
+    // $("#min").datepicker({ onSelect: function () { table.draw(); }, changeMonth: true, changeYear: true });
+    // $("#max").datepicker({ onSelect: function () { table.draw(); }, changeMonth: true, changeYear: true });
+    // var table = $('#example').DataTable();
+
+    // Event listener to the two range filtering inputs to redraw on input
+    $('#min, #max').change(function () {
+        table.draw();
+    });
 
 function getcustomerappointmentdata(){
   $('#appointmenttbl').dataTable().fnDestroy();
@@ -123,7 +147,7 @@ function getcustomerappointmentdata(){
                 }
            $("#appointmenttbldata").html(html);
 
-           $('#appointmenttbl').DataTable({
+          table= $('#appointmenttbl').DataTable({
            searching: true,
            retrieve: true,
            bPaginate: $('tbody tr').length>10,

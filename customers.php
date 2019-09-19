@@ -72,22 +72,22 @@ $employeeName = $_SESSION['employeeName'];?>
                         <div class="card">
                         <div class="row">
                                 <div class="col-sm-4">
-                                    
+
                                 </div>
                                 <div class="col-sm-4">
                                 <div class="form-group">
                                         <label class="control-label">Select Customer </label>
-                                      
+
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                 <div class="form-group">
-                                </div>        
+                                </div>
                             </div>
                         </div>
                             <div class="row">
                                 <div class="col-sm-4">
-                                    
+
                                 </div>
                                 <div class="col-sm-4">
                                 <div class="form-group">
@@ -98,13 +98,13 @@ $employeeName = $_SESSION['employeeName'];?>
                                 <div class="col-sm-4">
                                 <div class="form-group">
                                         <button type="button" id="createOrder" class="btn btn-success"><i class="fa  fa-plus"></i>Create New Order</button>
-                                    </div>        
+                                    </div>
                             </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="row" id="customerOrdersBlock" style="display:none">
                     <div class="col-12">
                         <div class="card">
@@ -142,10 +142,8 @@ $employeeName = $_SESSION['employeeName'];?>
     </div>
     <!-- End Wrapper -->
     <!-- All Jquery -->
-    <script
-  src="https://code.jquery.com/jquery-3.4.1.min.js"
-  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-  crossorigin="anonymous"></script>
+    <script src="js/lib/jquery/jquery.min.js"></script>
+    <script src="javascript/apifile.js"></script>
     <!-- <script src="js/lib/jquery/jquery.min.js"></script> -->
     <script src="select2/select4.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
@@ -169,7 +167,7 @@ $employeeName = $_SESSION['employeeName'];?>
     <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
     <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script> -->
     <script src="js/lib/datatables/datatables-init.js"></script>
-   
+
 </body>
 
 </html>

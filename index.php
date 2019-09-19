@@ -44,7 +44,7 @@ if(!isset($_SESSION['employeeId'])){
                         <div class="login-content card">
                             <div class="login-form">
                                 <h4><img src="images/logo1.png" alt="homepage" class="dark-logo" style="width:50%;" /></h4>
-                                
+
                                 <form id="login" method="POST">
                                     <div class="form-group">
                                         <label>Username</label>
@@ -79,6 +79,7 @@ if(!isset($_SESSION['employeeId'])){
     <!-- End Wrapper -->
     <!-- All Jquery -->
     <script src="js/lib/jquery/jquery.min.js"></script>
+    <script src="javascript/apifile.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
     <script src="js/lib/bootstrap/js/popper.min.js"></script>
     <script src="js/lib/bootstrap/js/bootstrap.min.js"></script>

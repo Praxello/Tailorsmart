@@ -1,3 +1,7 @@
+<?php
+session_start();
+$employeeId = $_SESSION['employeeId'];
+$employeeName = $_SESSION['employeeName'];?>
 <!DOCTYPE html>
 <html lang="en">
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
@@ -17,6 +21,7 @@
     <!-- Custom CSS -->
     <link href="css/helper.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="date/date.css" />
 
 </head>
 
@@ -56,8 +61,24 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Data Export</h4>
-                                <h6 class="card-subtitle">Export data to Copy, CSV, Excel, PDF & Print</h6>
+                              <div class="row">
+                                <div class="col-sm-4">
+                                  <div class="form-group">
+                                  <label>From Date</label><sub><font color='red' class="float-right">(MM/DD/YYYY)</font></sub>
+                                  <input type="text" name="min" id="min" class="form-control" />
+                                  </div>
+                                </div>
+                                <div class="col-sm-4">
+                                  <div class="form-group">
+                                  <label>Upto Date</label><sub><font color='red' class="float-right">(MM/DD/YYYY)</font></sub>
+                                  <input type="text" name="max" id="max" class="form-control"  />
+                                  </div>
+                                </div>
+                                <div class="col-sm-4">
+                                  <div class="form-group">
+                                  </div>
+                                </div>
+                              </div>
                                 <div class="table-responsive m-t-40">
                                     <table id="appointmenttbl" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                                         <thead>
@@ -220,6 +241,8 @@
 
 
     <script src="js/lib/datatables/datatables.min.js"></script>
+    <script src="date/datepicker.js"></script>
+    <script src="date/moment.js"></script>
     <!-- <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
     <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
     <script src="js/lib/datatables/cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>

@@ -1,9 +1,10 @@
+<?php
+session_start();
+$employeeId = $_SESSION['employeeId'];
+$employeeName = $_SESSION['employeeName'];?>
 <!DOCTYPE html>
 <html lang="en">
-
-
-<!-- Mirrored from colorlib.com/polygon/elaadmin/table-datatable.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 16 May 2018 06:46:36 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
