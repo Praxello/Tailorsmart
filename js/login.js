@@ -1,5 +1,5 @@
-//var api_url = "http://praxello.com/tailorsmart/admin/login.php";
-var api_url = './admin/login.php';
+var api_url = "http://praxello.com/tailorsmart/admin/login.php";
+// var api_url = './admin/login.php';
 $('#login').on('submit', function(event) {
     event.preventDefault();
     var loginData = {
