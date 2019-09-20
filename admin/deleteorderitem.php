@@ -20,9 +20,11 @@ header('Content-Type: application/json');
 				if($rowsAffected > 0)
 				{
 					
-					$updateAmountQuery = mysqli_query($conn,"UPDATE customer_order_master SET amount = amount - $price WHERE orderId = $orderid");
+						$sql = "UPDATE customer_order_master SET amount = amount - $price WHERE orderId = $orderid";
+						
+					$updateAmountQuery = mysqli_query($conn,$sql);
 					if($updateAmountQuery!=null){
-						$transactionAffected_1=mysqli_num_rows($updateAmountQuery);
+						$transactionAffected_1=mysqli_affected_rows($conn);
 							if($transactionAffected_1>0)
 							{
 							}

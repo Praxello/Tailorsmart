@@ -416,7 +416,6 @@ function updatePaymentFlag(paymentid) {
         paymentid: paymentid,
         employeeid: $('#empId').val()
     };
-    // console.log(updateData);
     $.ajax({
         url: api_url + 'revertpayment.php',
         type: 'POST',
@@ -449,6 +448,7 @@ function loadPriceModal(orderItemId, productTitle, rowId) {
     $('#pTitle').html(productTitle);
     var price = $('#amt' + orderItemId).val();
     $('#sendPrice').val(price);
+    $('#changeAmount').val(price);
     $('#editOrderItemPrice').modal();
 }
 
