@@ -14,6 +14,7 @@
                      <div class="row">
                          <input type="hidden" id="orderItemId" />
                          <input type="hidden" id="rowId" />
+                         <input type="hidden" id="changeAmount"/>
                          <div class="col-sm-12">
                              <div class="form-group">
                                  <label for="amount">Amount</label>
@@ -45,10 +46,11 @@ $('#updatePrice').on('click', function(e) {
         alert('Please Enter an amount');
     } else {
         var updateDetails = {
+            orderid:orderId,
             orderItemPrice: amount,
-            orderItemId: $('#orderItemId').val()
+            orderItemId: $('#orderItemId').val(),
+            changeAmount:$('#changeAmount').val()
         };
-
         $.ajax({
             url: api_url + 'editOrderItemPrice.php',
             type: 'POST',
