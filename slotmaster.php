@@ -45,11 +45,11 @@ $employeeName = $_SESSION['employeeName'];
             <!-- Bread crumb -->
             <div class="row page-titles">
                 <div class="col-md-5 align-self-center">
-                    <h3 class="text-primary">New Master Product</h3> </div>
+                    <h3 class="text-primary">Slot Master</h3> </div>
                 <div class="col-md-7 align-self-center">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item active">Master Product</li>
+                        <li class="breadcrumb-item active">Slot Master</li>
                     </ol>
                 </div>
             </div>
@@ -61,26 +61,22 @@ $employeeName = $_SESSION['employeeName'];
                         <div class="card">
                           <div class="row">
                             <div class="col-md-12">
-                              <button type="button" id="button1" class="btn btn-success" onclick="addStyle()" style="float:right"> New Master</button>
+                              <button type="button" id="button1" class="btn btn-success" onclick="addStyle()" style="float:right"> New Slot</button>
                               <div id="data"></div>
                           </div>
                           </div>
                             <div class="card-body">
 
                                 <div class="table-responsive m-t-40">
-                                    <table id="styletbl" class="display nowrap table table-hover  table-bordered">
+                                    <table id="slottbl" class="display nowrap table table-hover  table-bordered">
                                         <thead>
                                             <tr>
-                                                <!-- <th>Id</th> -->
-                                                <th>Images</th>
-                                                <th>Style</th>
-                                                <th>Sub Style</th>
-                                                <th>Is Group</th>
-                                                <th>Active</th>
-                                                <th>Action </th>
+                                                <th> Slot Title</th>
+                                                <th >Status</th>
+                                                <th >Action </th>
                                             </tr>
                                         </thead>
-                                        <tbody id="styletbldata">
+                                        <tbody id="slottbldata">
                                         </tbody>
                                     </table>
                                 </div>
@@ -92,38 +88,17 @@ $employeeName = $_SESSION['employeeName'];
                   <div class="col-sm-12">
                     <div class="card">
                       <div class="row">
-                      <input type="hidden" id="masterstyleid"/>
+                      <input type="hidden" id="slotid"/>
                       <div class="col-sm-4">
                         <div class="form-group">
-                          <label class="control-label">Style</label>
-                          <select  class="form-control" id="masterstyle" style="width:100%;">
-                            <option value="">Select Style</option>
-
-                          </select>
-                        </div>
-                      </div>
-                      <div class="col-sm-4">
-                        <div class="form-group">
-                          <label class="control-label">Sub Style</label>
-                          <select  class="form-control" id="mastersubstyle" style="width:100%;">
-
-                          </select>
-                        </div>
-                      </div>
-                      <div class="col-sm-4">
-                        <div class="form-group">
-                          <label class="control-label">Is Group</label>
-                          <select  class="form-control" id="masterisgroup" style="width:100%;">
-                            <option value="">Select IsGroup</option>
-                            <option value="0">No</option>
-                            <option value="1">Yes</option>
-                          </select>
+                          <label class="control-label">Title</label>
+                          <input type="text" class="form-control" id="slottitle"  title="Enter Title"/>
                         </div>
                       </div>
                         <div class="col-sm-4">
                           <div class="form-group">
                             <label class="control-label">Status</label>
-                            <select  class="form-control" id="stylestatus" style="width:100%;">
+                            <select  class="form-control" id="slotstatus" style="width:100%;">
                               <option value="">Select Status</option>
                               <option value="0">InActive</option>
                               <option value="1">Active</option>
@@ -137,7 +112,7 @@ $employeeName = $_SESSION['employeeName'];
                               <div style="padding-top:32px"></div>
                             <button class="btn btn-success" id="savebtncustomerstyle"  >Save</button>
                             <button class="btn btn-success" id="updatebtncustomerstyle" style="display:none;">Update</button>
-                            <button class="btn btn-secondary" id="reloadbtn" >Back</button>
+                            <button class="btn btn-secondary" id="reloadbtn">Back</button>
                           </div>
                         </div>
 
@@ -156,7 +131,6 @@ $employeeName = $_SESSION['employeeName'];
     <!-- All Jquery -->
     <script src="js/lib/jquery/jquery.min.js"></script>
     <script src="javascript/apifile.js"></script>
-    <script src="javascript/validation.js"></script>
     <link href="select2/select4.css" rel="stylesheet" />
     <script src="select2/select4.js" type="text/javascript"></script>
     <!-- Bootstrap tether Core JavaScript -->
@@ -181,8 +155,7 @@ $employeeName = $_SESSION['employeeName'];
     <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
     <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
     <script src="js/lib/datatables/datatables-init.js"></script> -->
-    <script src="javascript/masterproduct.js"></script>
-
+    <script src="javascript/slotmaster.js"></script>
     <script src="js/lib/sweetalert/sweetalert.min.js"></script>
     <!-- <script src="js/lib/sweetalert/sweetalert.init.js"></script> -->
 

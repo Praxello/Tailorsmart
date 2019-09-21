@@ -8,9 +8,9 @@ $records = null;
 extract($_POST);
 
 date_default_timezone_set("Asia/Kolkata");
-if (isset($_POST['substyleId']) ) {
+if (isset($_POST['subStyleId']) ) {
 
-				$query = mysqli_query($conn,"DELETE FROM product_substyle_master WHERE subStyleId = $substyleId");
+				$query = mysqli_query($conn,"DELETE FROM product_substyle_master WHERE subStyleId = $subStyleId");
 					if($query==1)
 					{
 					  			$response = array('Message'=>"Delete Sub  Style successfully",'Responsecode'=>200);

@@ -8,25 +8,27 @@ $records = null;
 extract($_POST);
 
 date_default_timezone_set("Asia/Kolkata");
-if (isset($_POST['holidaydate']) && isset($_POST['title'])) {
+if (isset($_POST['skipDate']) && isset($_POST['holidayTitle'])) {
 
-	$tempTitle = mysqli_real_escape_string($conn,$title);
-	
-				$query = mysqli_query($conn,"insert into holiday_master(skipdate, holidaytitle) values('$holidaydate','$tempTitle')");
+	      $tempTitle = mysqli_real_escape_string($conn,$holidayTitle);
+
+				$query = mysqli_query($conn,"insert into holiday_master(skipdate, holidaytitle) values('$skipDate','$tempTitle')");
 					if($query==1)
 					{
-					  			$response = array('Message'=>"New holiday created successfully",'Responsecode'=>200);
+						     $last_id = mysqli_insert_id($conn);
+						      $s = strval($last_id);
+					  			$response = array('Message'=>"New holiday created successfully",'Responsecode'=>200,'RowId'=>$last_id);
 					}
 					else
-					{	
+					{
 						$a = mysqli_error($conn);
 						if (strpos($a, 'Duplicate') !== false) {
-								$response=array("Message"=> "Duplicate entry for this date","Responsecode"=>500);					
+								$response=array("Message"=> "Duplicate entry for this date","Responsecode"=>500);
 							}
 							else
 							{
-							$response=array("Message"=> mysqli_error($conn)." No data to change or item not present","Responsecode"=>500);	
-							}				
+							$response=array("Message"=> mysqli_error($conn)." No data to change or item not present","Responsecode"=>500);
+							}
 					}
 }
 else

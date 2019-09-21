@@ -1,18 +1,49 @@
-
+var styleData = new Map(); // This variable globally declare save all Style Data in Array
+let confirmationStatus = new Map();
+getConfirmation();
 getcustomersubstyles();
-var styleData = []; // This variable globally declare save all Style Data in Array
 $('#stylestatus').select2({
   allowClear: true,
   placeholder: "Select Sub Style Status"
 });
-$(document).ready(function() {
+function getConfirmation() {
+    confirmationStatus.set('0', '<span class="badge badge-pill badge-warning">InActive</span>');
+    confirmationStatus.set('1', '<span class="badge badge-pill badge-primary">Active</span>');
+}
 
-});
+
+function settabledata(styleData){
+  var html ='';
+  $('#styletbl').dataTable().fnDestroy();
+  $("#styletbldata").empty();
+  for(let k of styleData.keys())
+  {
+        var AllData= styleData.get(k);
+        html +='<tr>';
+        let isConfirmed = confirmationStatus.get(AllData.isActive);
+        let imageUrl = pic_url+'substyle/300x300/'+k+'.jpg';
+        html +="<td><form id='custstyleform"+k+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+k+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' src='"+imageUrl+"'  style='cursor: pointer' onclick='imguplod("+k+")' alt='No Image'></img></form></td>";
+        html +="<td>"+AllData.subStyleTitle+"</td>";
+        html +="<td>"+isConfirmed+"</td>";
+        html +='<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod('+k+')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+k+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removesubstyle('+k+')"><i class="fa fa-remove"></i></button></div></td>';
+        html +="</tr>";
+  }
+  $("#styletbldata").html(html);
+  $('#styletbl').DataTable({
+  searching: true,
+  retrieve: true,
+  bPaginate: $('tbody tr').length>10,
+  order: [],
+  columnDefs: [ { orderable: false, targets: [0,1,2,3] } ],
+  dom: 'Bfrtip',
+  buttons: [],
+  destroy: true
+  });
+
+}
 
 // This function is created for Get All Style Data.
 function getcustomersubstyles(){
-  $('#styletbl').dataTable().fnDestroy();
-  $("#styletbldata").empty();
      $.ajax({
          type: "GET",
          url: api_url+"getallsubstyle.php",
@@ -20,38 +51,12 @@ function getcustomersubstyles(){
            var count;
             if(response['Data']!=null){
                count= response['Data'].length;
-                styleData=[...response['Data']];
             }
-            var html ="<tr>";
-          
-              var imageUrl  ='';
-            for (var i = 0; i < count; i++) {
-
-                imageUrl = pic_url+'substyle/300x300/'+response['Data'][i].subStyleId+'.jpg';
-                // html +="<td>"+(i+1)+"</td>";
-                // html +="<td> <form id='custstyleform"+response['Data'][i].subStyleId+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+response['Data'][i].styleId+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' src='"+imageUrl+"'  style='cursor: pointer' onclick='imguplod("+response['Data'][i].subStyleId+")'></img></form></td>";
-                html +="<td><form id='custstyleform"+response['Data'][i].subStyleId+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+response['Data'][i].subStyleId+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' src='"+imageUrl+"'  style='cursor: pointer' onclick='imguplod("+response['Data'][i].subStyleId+")' alt='No Image'></img></form></td>";
-                html +="<td>"+response['Data'][i].subStyleTitle+"</td>";
-                if(response['Data'][i].isActive==1){
-                  html +='<td><span class="badge badge-pill badge-primary">Active</span></td>';
-                }
-                else {
-                  html +='<td><span class="badge badge-pill badge-warning">InActive</span></td>';
-                }
-                html +='<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod('+response['Data'][i].subStyleId+')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+i+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removesubstyle('+response['Data'][i].subStyleId+')"><i class="fa fa-remove"></i></button></div></td>';
-                html +="  </tr>";
+            for(var i=0;i<count;i++)
+            {
+            styleData.set(response.Data[i].subStyleId,response.Data[i]);
             }
-           $("#styletbldata").html(html);
-           $('#styletbl').DataTable({
-           searching: true,
-           retrieve: true,
-           bPaginate: $('tbody tr').length>10,
-           order: [],
-           columnDefs: [ { orderable: false, targets: [0,1,2,3] } ],
-           dom: 'Bfrtip',
-           buttons: [],
-           destroy: true
-           });
+            settabledata(styleData);
          }
      });
 }
@@ -77,7 +82,7 @@ function imguplod(imgid){
                      dataType:'json',
                      success:function(response){
                        swal(response['Message']);
-                       getcustomersubstyles();
+                       // getcustomersubstyles();
                        // getcustomerstyles();
                      }
               });
@@ -95,38 +100,17 @@ function addStyle(){
 
 // This function is created For Edit Button
 function editStyle(id){
-$("#styleid").val(styleData[id].subStyleId);
-$("#styletitle").val(styleData[id].subStyleTitle);
-$("#stylestatus").val(styleData[id].isActive).trigger('change');
+var AllData= styleData.get(id.toString());
+$("#styleid").val(AllData.subStyleId);
+$("#styletitle").val(AllData.subStyleTitle);
+$("#stylestatus").val(AllData.isActive).trigger('change');
 $("#customerstyletable").hide();
 $("#customerstyletableform").show();
 $("#savebtncustomerstyle").hide();
 $("#updatebtncustomerstyle").show();
 }
 
-// This function is created For Remove Button
-function removesubstyle(id){
-  $.ajax({
-      url:api_url+'deletesubstyle.php',
-      type:'POST',
-      data:{
-        substyleId:id
-      },
-      dataType:'json',
-      success:function(response){
-          if(response.Responsecode===200){
-            swal(response.Message);
-            $("#customerstyletable").show();
-            $("#customerstyletableform").hide();
-            getcustomersubstyles();
-          }
-          else {
-            swal(response.Message);
-          }
 
-        }
-  });
-}
 
 // This function is created For Refresh Action / Backbutton
 $('#reloadbtn').on('click',function(event){
@@ -143,24 +127,27 @@ $('#savebtncustomerstyle').on('click',function(event){
   event.preventDefault();
   var styletitle = $("#styletitle").val();
   var stylestatus = $("#stylestatus").val();
-  if(styletitle==""||stylestatus==""||styleid==""){
+  if(styletitle==""||stylestatus==""){
       swal("Missing Parameter");
   }
   else{
+    var obj ={
+              subStyleTitle:styletitle,
+              isActive:stylestatus
+            };
     $.ajax({
         url:api_url+'createsubstyle.php',
         type:'POST',
-        data:{
-          substyletitle:styletitle,
-          active:stylestatus
-        },
+        data:obj,
         dataType:'json',
         success:function(response){
           if(response.Responsecode===200){
             swal(response.Message);
             $("#customerstyletable").show();
             $("#customerstyletableform").hide();
-            getcustomersubstyles();
+            obj.substyleid = response.RowId;
+            styleData.set(response.RowId,obj);
+            settabledata(styleData);
           }
           else{
             swal(response.Message);
@@ -180,21 +167,24 @@ $('#updatebtncustomerstyle').on('click',function(event){
       swal("Missing Parameter");
   }
   else{
+    var obj ={
+      subStyleId:styleid,
+      subStyleTitle:styletitle,
+      isActive:stylestatus
+    };
   $.ajax({
       url:api_url+'editsubstyle.php',
       type:'POST',
-      data:{
-        substyleid:styleid,
-        substyletitle:styletitle,
-        active:stylestatus
-      },
+      data:obj,
       dataType:'json',
       success:function(response){
         if(response.Responsecode===200){
           swal(response.Message);
           $("#customerstyletable").show();
           $("#customerstyletableform").hide();
-          getcustomersubstyles();
+          styleData.delete(styleid.toString());
+          styleData.set(styleid.toString(),obj);
+          settabledata(styleData);
         }
         else{
           swal(response.Message);
@@ -203,3 +193,28 @@ $('#updatebtncustomerstyle').on('click',function(event){
   });
 }
 });
+
+// This function is created For Remove Button
+function removesubstyle(id){
+  $.ajax({
+      url:api_url+'deletesubstyle.php',
+      type:'POST',
+      data:{
+        subStyleId:id
+      },
+      dataType:'json',
+      success:function(response){
+          if(response.Responsecode===200){
+            swal(response.Message);
+            $("#customerstyletable").show();
+            $("#customerstyletableform").hide();
+            styleData.delete(id.toString());
+            settabledata(styleData);
+          }
+          else {
+            swal(response.Message);
+          }
+
+        }
+  });
+}

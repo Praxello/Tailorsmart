@@ -1,7 +1,9 @@
 <?php
 session_start();
+if(isset($_SESSION['employeeId'])){
 $employeeId = $_SESSION['employeeId'];
-$employeeName = $_SESSION['employeeName'];?>
+$employeeName = $_SESSION['employeeName'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -162,3 +164,6 @@ $employeeName = $_SESSION['employeeName'];?>
 
 </body>
 </html>
+<?php }else{
+header('Location:index.php');
+}?>

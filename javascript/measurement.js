@@ -1,15 +1,43 @@
-
+var styleData = new Map(); // This variable globally declare save all Style Data in Array
+let confirmationStatus = new Map();
 getmeasurementitems();
+getConfirmation();
 $('#stylestatus').select2({
   allowClear: true,
   placeholder: "Select Measurement Status"
 });
+function getConfirmation() {
+    confirmationStatus.set('0', '<span class="badge badge-pill badge-warning">InActive</span>');
+    confirmationStatus.set('1', '<span class="badge badge-pill badge-primary">Active</span>');
+}
+function settabledata(styleData){
+  // console.log(styleData);
+  var html ='';
+  $('#styletbl').dataTable().fnDestroy();
+  $("#styletbldata").empty();
+  for(let k of styleData.keys())
+  {
+        var AllData= styleData.get(k);
+        html +='<tr>';
+        let isConfirmed = confirmationStatus.get(AllData.isActive);
+        html +="<td>"+AllData.itemTitle+"</td>";
+        html +="<td>"+isConfirmed+"</td>";
+        html +='<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+k+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeMeasurements('+k+')"><i class="fa fa-remove"></i></button></div></td>';
+        html +="</tr>";
+  }
+  $("#styletbldata").html(html);
+  $('#styletbl').DataTable({
+  searching: true,
+  retrieve: true,
+  bPaginate: $('tbody tr').length>10,
+  order: [],
+  columnDefs: [ { orderable: false, targets: [0,1,2] } ],
+  dom: 'Bfrtip',
+  buttons: [],
+  destroy: true
+  });
 
-var styleData = []; // This variable globally declare save all Style Data in Array
-
-$(document).ready(function() {
-
-});
+}
 // This function is created for Get All Style Data.
 function getmeasurementitems(){
   $('#styletbl').dataTable().fnDestroy();
@@ -21,36 +49,12 @@ function getmeasurementitems(){
            var count;
             if(response['Data']!=null){
                count= response['Data'].length;
-                styleData=[...response['Data']];
             }
-            var html ="<tr>";
-            for (var i = 0; i < count; i++) {
-                // styleData.push(response['Data'][i]);
-                // html +="<td>"+(i+1)+"</td>";
-                // html ='<td><input  name="eventprofile'+response['Data'][i].styleId+'" accept="image/*"  ></td>';
-                  // <form id="eventform"   method="post" enctype="multipart/form-data">
-                // html +="<td><form id='custstyleform"+response['Data'][i].styleId+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+response['Data'][i].styleId+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' src='"+pic_url+"style/"+response['Data'][i].styleId+".jpg' width='10%' height='10%' style='cursor: pointer' onclick='imguplod("+response['Data'][i].styleId+")'></img></form></td>";
-                html +="<td>"+response['Data'][i].itemTitle+"</td>";
-                if(response['Data'][i].isActive==1){
-                  html +='<td><span class="badge badge-pill badge-primary">Active</span></td>';
-                }
-                else {
-                  html +='<td><span class="badge badge-pill badge-warning">InActive</span></td>';
-                }
-                html +='<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+i+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeMeasurements('+response['Data'][i].measurementId+')"><i class="fa fa-remove"></i></button></div></td>';
-                html +="  </tr>";
+            for(var i=0;i<count;i++)
+            {
+            styleData.set(response.Data[i].measurementId,response.Data[i]);
             }
-           $("#styletbldata").html(html);
-           $('#styletbl').DataTable({
-           searching: true,
-           retrieve: true,
-           bPaginate: $('tbody tr').length>10,
-           order: [],
-           columnDefs: [ { orderable: false, targets: [0,1,2] } ],
-           dom: 'Bfrtip',
-           buttons: [],
-           destroy: true
-           });
+            settabledata(styleData);
          }
      });
 }
@@ -62,13 +66,7 @@ function imguplod(imgid){
    var fileupload = document.getElementById('customerstylepic'+imgid);
    fileupload.onchange = function () {
                 var customerstylepic = $('#customerstylepic'+imgid).val();
-                // alert(customerstylepic);
-                // alert(imgid);
                 var formdata = new FormData($("#custstyleform"+imgid));
-                // var formdata = new FormData(document.querySelector("custstyleform"+imgid));
-                // alert(formdata);
-                // var formdata= document.getElementById("custstyleform"+imgid).submit();
-                 // alert(formdata);
                 $.ajax({
                      url:"src/addimg.php",
                      type:"POST",
@@ -98,38 +96,17 @@ function addStyle(){
 
 // This function is created For Edit Button
 function editStyle(id){
-$("#styleid").val(styleData[id].measurementId);
-$("#styletitle").val(styleData[id].itemTitle);
-$("#stylestatus").val(styleData[id].isActive).trigger('change');
+var AllData= styleData.get(id.toString());
+$("#styleid").val(AllData.measurementId);
+$("#styletitle").val(AllData.itemTitle);
+$("#stylestatus").val(AllData.isActive).trigger('change');
 $("#customerstyletable").hide();
 $("#customerstyletableform").show();
 $("#savebtncustomerstyle").hide();
 $("#updatebtncustomerstyle").show();
 }
 
-// This function is created For Remove Button
-function removeMeasurements(id){
-  $.ajax({
-      url:api_url+'deletemeasurements.php',
-      type:'POST',
-      data:{
-        measureId:id
-      },
-      dataType:'json',
-      success:function(response){
-        if(response.Responsecode===200){
-          swal(response.Message);
-          $("#customerstyletable").show();
-          $("#customerstyletableform").hide();
-          getmeasurementitems();
-        }
-        else {
-            swal(response.Message);
-        }
 
-      }
-  });
-}
 
 // This function is created For Refresh Action / Backbutton
 $('#reloadbtn').on('click',function(event){
@@ -145,20 +122,28 @@ $('#savebtncustomerstyle').on('click',function(event){
   event.preventDefault();
   var styletitle = $("#styletitle").val();
   var stylestatus = $("#stylestatus").val();
+  if(styletitle==""||stylestatus==""){
+      swal("Missing Parameter");
+  }
+  else{
+    var obj={
+            itemTitle:styletitle,
+             isActive:stylestatus
+           };
     $.ajax({
+
         url:api_url+'createmeasurementitem.php',
         type:'POST',
-        data:{
-          title:styletitle,
-          active:stylestatus
-        },
+        data:obj,
         dataType:'json',
         success:function(response){
           if(response.Responsecode===200){
             swal(response.Message);
             $("#customerstyletable").show();
             $("#customerstyletableform").hide();
-            getmeasurementitems();
+            obj.substyleid = response.RowId;
+            styleData.set(response.RowId,obj);
+            settabledata(styleData);
           }
           else {
               swal(response.Message);
@@ -166,6 +151,7 @@ $('#savebtncustomerstyle').on('click',function(event){
 
         }
     });
+  }
 });
 
 // This function is created For Update Style Data
@@ -174,21 +160,29 @@ $('#updatebtncustomerstyle').on('click',function(event){
   var styleid = $("#styleid").val();
   var styletitle = $("#styletitle").val();
   var stylestatus = $("#stylestatus").val();
+
+  if(styletitle==""||stylestatus==""||styleid==""){
+      swal("Missing Parameter");
+  }
+  else{
+    var obj={
+      measurementId:styleid,
+      itemTitle:styletitle,
+      isActive:stylestatus
+    };
   $.ajax({
       url:api_url+'editmeasurementitem.php',
       type:'POST',
-      data:{
-        itemid:styleid,
-        title:styletitle,
-        active:stylestatus
-      },
+      data:obj,
       dataType:'json',
       success:function(response){
         if(response.Responsecode===200){
           swal(response.Message);
           $("#customerstyletable").show();
           $("#customerstyletableform").hide();
-          getmeasurementitems();
+          styleData.delete(styleid.toString());
+          styleData.set(styleid.toString(),obj);
+          settabledata(styleData);
         }
         else {
             swal(response.Message);
@@ -196,4 +190,30 @@ $('#updatebtncustomerstyle').on('click',function(event){
 
       }
   });
+}
 });
+
+// This function is created For Remove Button
+function removeMeasurements(id){
+  $.ajax({
+      url:api_url+'deletemeasurements.php',
+      type:'POST',
+      data:{
+        measurementId:id
+      },
+      dataType:'json',
+      success:function(response){
+        if(response.Responsecode===200){
+          swal(response.Message);
+          $("#customerstyletable").show();
+          $("#customerstyletableform").hide();
+          styleData.delete(id.toString());
+          settabledata(styleData);
+        }
+        else {
+            swal(response.Message);
+        }
+
+      }
+  });
+}

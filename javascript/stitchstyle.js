@@ -1,4 +1,13 @@
-
+var styleData = new Map(); // This variable globally declare save all Style Data in Array
+let confirmationStatus = new Map();
+getConfirmation();
+let mapStitchStyle = new Map();
+mapstitchstyle();
+function mapstitchstyle() {
+    mapStitchStyle.set('0', 'Multiple selection');
+    mapStitchStyle.set('1', 'Single Selection');
+    mapStitchStyle.set('2', 'Input Field');
+}
 getstitchstyles();
 $('#styletype').select2({
   allowClear: true,
@@ -8,12 +17,44 @@ $('#stylestatus').select2({
   allowClear: true,
   placeholder: "Select Style Status"
 });
+function getConfirmation() {
+    confirmationStatus.set('0', '<span class="badge badge-pill badge-warning">InActive</span>');
+    confirmationStatus.set('1', '<span class="badge badge-pill badge-primary">Active</span>');
+}
+function settabledata(styleData){
+  console.log(styleData);
+  var html ='';
+  $('#styletbl').dataTable().fnDestroy();
+  $("#styletbldata").empty();
+  for(let k of styleData.keys())
+  {
+        var AllData= styleData.get(k);
+        let mapStitch = mapStitchStyle.get(AllData.stitchStyleType.toString());
+        let isConfirmed = confirmationStatus.get(AllData.isActive);
+        html +='<tr>';
+        let imageUrl = pic_url+'stitchstyle/300x300/'+k+'.jpg';
+        html +="<td><form id='custstyleform"+k+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+k+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' src='"+imageUrl+"'  style='cursor: pointer' onclick='imguplod("+k+")' alt='No Image'></img></form></td>";
+        html +="<td>"+AllData.stitchStyleTitle+"</td>";
+        html +="<td>"+AllData.stitchStyleDetails+"</td>";
+        html +="<td>"+mapStitch+"</td>";
+        html +="<td>"+isConfirmed+"</td>";
+        html +='<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod('+k+')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+k+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removestitchStyle('+k+')"><i class="fa fa-remove"></i></button></div></td>';
+        html +="</tr>";
+  }
+  $("#styletbldata").html(html);
+  $('#styletbl').DataTable({
+  searching: true,
+  retrieve: true,
+  bPaginate: $('tbody tr').length>10,
+  order: [],
+  columnDefs: [ { orderable: false, targets: [0,1,2,3] } ],
+  dom: 'Bfrtip',
+  buttons: [],
+  destroy: true
+  });
 
-var styleData = []; // This variable globally declare save all Style Data in Array
+}
 
-$(document).ready(function() {
-
-});
 // This function is created for Get All Style Data.
 function getstitchstyles(){
   $('#styletbl').dataTable().fnDestroy();
@@ -26,48 +67,12 @@ function getstitchstyles(){
              var count;
             if(response['Data']!=null){
                count= response['Data'].length;
-                styleData=[...response['Data']];
             }
-            var html ="<tr>";
-                    var imageUrl ='';
-            for (var i = 0; i < count; i++) {
-                // html +="<td>"+(i+1)+"</td>";
-                imageUrl = pic_url+'stitchstyle/300x300/'+response['Data'][i].stitchStyleId+'.jpg';
-                html +="<td><form id='custstyleform"+response['Data'][i].stitchStyleId+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+response['Data'][i].stitchStyleId+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' src='"+imageUrl+"'  style='cursor: pointer' onclick='imguplod("+response['Data'][i].stitchStyleId+")' alt='No Image'></img></form></td>";
-                // html +="<td> <img class='img-thumbnail' src='"+pic_url+"stitchstyle/"+response['Data'][i].stitchStyleId+".jpg' width='10%' height='10%'></img></td>";
-                html +="<td>"+response['Data'][i].stitchStyleTitle+"</td>";
-                html +="<td>"+response['Data'][i].stitchStyleDetails+"</td>";
-                switch(response['Data'][i].stitchStyleType) {
-                                case "0":
-                                html +="<td> Multiple selection </td>";
-                                  break;
-                                case "1":
-                                  html +="<td>Single Selection</td>";
-                                  break;
-                                case "2":
-                                  html +="<td>Input Field</td>";
-                                    break;
-                              }
-                if(response['Data'][i].isActive==1){
-                  html +='<td><span class="badge badge-pill badge-primary">Active</span></td>';
-                }
-                else {
-                  html +='<td><span class="badge badge-pill badge-warning">InActive</span></td>';
-                }
-                html +='<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod('+response['Data'][i].stitchStyleId+')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+i+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removestitchStyle('+response['Data'][i].stitchStyleId+')"><i class="fa fa-remove"></i></button></div></td>';
-                html +="  </tr>";
+            for(var i=0;i<count;i++)
+            {
+            styleData.set(response.Data[i].stitchStyleId,response.Data[i]);
             }
-           $("#styletbldata").html(html);
-           $('#styletbl').DataTable({
-           searching: true,
-           retrieve: true,
-           bPaginate: $('tbody tr').length>10,
-           order: [],
-           columnDefs: [ { orderable: false, targets: [0,1,2,3,4] } ],
-           dom: 'Bfrtip',
-           buttons: [],
-           destroy: true
-           });
+            settabledata(styleData);
          }
      });
 }
@@ -116,41 +121,18 @@ function addStyle(){
 
 // This function is created For Edit Button
 function editStyle(id){
-$("#styleid").val(styleData[id].stitchStyleId);
-$("#styletitle").val(styleData[id].stitchStyleTitle);
-$("#styledetail").val(styleData[id].stitchStyleDetails);
-$("#styletype").val(styleData[id].stitchStyleType).trigger('change');
-$("#stylestatus").val(styleData[id].isActive).trigger('change');
+var AllData= styleData.get(id.toString());
+$("#styleid").val(AllData.stitchStyleId);
+$("#styletitle").val(AllData.stitchStyleTitle);
+$("#styledetail").val(AllData.stitchStyleDetails);
+$("#styletype").val(AllData.stitchStyleType).trigger('change');
+$("#stylestatus").val(AllData.isActive).trigger('change');
 $("#customerstyletable").hide();
 $("#customerstyletableform").show();
 $("#savebtncustomerstyle").hide();
 $("#updatebtncustomerstyle").show();
 }
 
-// This function is created For Remove Button
-function removestitchStyle(id){
-  $.ajax({
-      url:api_url+'deletestitchstyle.php',
-      type:'POST',
-      data:{
-        stitchstyleId:id
-      },
-      dataType:'json',
-      success:function(response){
-
-          if(response.Responsecode===200){
-            swal(response.Message);
-            getstitchstyles();
-            $("#customerstyletable").show();
-            $("#customerstyletableform").hide();
-          }
-          else {
-            swal(response.Message);
-          }
-
-      }
-  });
-}
 
 // This function is created For Refresh Action / Backbutton
 $('#reloadbtn').on('click',function(event){
@@ -168,28 +150,36 @@ $('#savebtncustomerstyle').on('click',function(event){
   var styledetail = $("#styledetail").val();
   var styletype = $("#styletype").val();
   var stylestatus = $("#stylestatus").val();
+  if(styletitle==""||stylestatus==""||styletype==""||styledetail==""){
+      swal("Missing Parameter");
+  }
+  else{
+    var obj ={
+      stitchStyleTitle:styletitle,
+      stitchStyleDetails:styledetail,
+      stitchStyleType:styletype,
+      isActive:stylestatus
+    };
     $.ajax({
         url:api_url+'createstitchstyleitem.php',
         type:'POST',
-        data:{
-          title:styletitle,
-          details:styledetail,
-          type:styletype,
-          active:stylestatus
-        },
+        data:obj,
         dataType:'json',
         success:function(response){
           if(response.Responsecode===200){
             swal(response.Message);
-            getstitchstyles();
             $("#customerstyletable").show();
             $("#customerstyletableform").hide();
+            obj.stitchStyleId = response.RowId;
+            styleData.set(response.RowId,obj);
+            settabledata(styleData);
           }
           else {
             swal(response.Message);
           }
         }
     });
+  }
 });
 
 // This function is created For Update Style Data
@@ -200,28 +190,64 @@ $('#updatebtncustomerstyle').on('click',function(event){
   var styledetail = $("#styledetail").val();
   var styletype = $("#styletype").val();
   var stylestatus = $("#stylestatus").val();
+  if(styleid==""||styletitle==""||stylestatus==""||styletype==""||styledetail==""){
+      swal("Missing Parameter");
+  }
+  else{
+    var obj ={
+      stitchStyleId:styleid,
+      stitchStyleTitle:styletitle,
+      stitchStyleDetails:styledetail,
+      stitchStyleType:styletype,
+      isActive:stylestatus
+    };
   $.ajax({
       url: api_url+'editstitchstyleitem.php',
       type:'POST',
-      data:{
-
-        stitchstyleid:styleid,
-        title:styletitle,
-        details:styledetail,
-        type:styletype,
-        active:stylestatus
-      },
+      data:obj,
       dataType:'json',
       success:function(response){
         if(response.Responsecode===200){
           swal(response.Message);
-          getstitchstyles();
+
           $("#customerstyletable").show();
           $("#customerstyletableform").hide();
+          styleData.delete(styleid.toString());
+          styleData.set(styleid.toString(),obj);
+          settabledata(styleData);
         }
         else {
           swal(response.Message);
         }
       }
   });
+}
 });
+
+
+// This function is created For Remove Button
+function removestitchStyle(id){
+  $.ajax({
+      url:api_url+'deletestitchstyle.php',
+      type:'POST',
+      data:{
+        stitchStyleId:id
+      },
+      dataType:'json',
+      success:function(response){
+
+          if(response.Responsecode===200){
+            swal(response.Message);
+
+            $("#customerstyletable").show();
+            $("#customerstyletableform").hide();
+            styleData.delete(id.toString());
+            settabledata(styleData);
+          }
+          else {
+            swal(response.Message);
+          }
+
+      }
+  });
+}

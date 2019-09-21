@@ -1,19 +1,13 @@
 
  var EmployeeData = new Map(); //from getmiscellaneousdata.php names only
  var currencyData = [];
- let ParentProducts = new Map(); //from getmiscellaneousdata.php for show active products styleTitle
-
+ let ParentProducts = new Map(); //from getmiscellaneousdata.php
  let statusMap = new Map(); //for static status
  let confirmationStatus = new Map();
- // var ActiveProductsList = new Map(); //stored price here
  let customerData = new Map(); //data of customers like name,address
  getStatusMap();
  getConfirmation();
-   var table;
-
-  // $(document).ready(function(){
-  //
-  // });
+ var table;
 
   $.fn.dataTable.ext.search.push(
   function (settings, data, dataIndex) {
@@ -64,7 +58,7 @@
          success: function(response) {
              if (response.Employee != null) {
                  var count_EmployeeData = response.Employee.length;
-                 $("#sptotalemp").html(count_EmployeeData);
+
                  for (var i = 0; i < count_EmployeeData; i++) {
                      EmployeeData.set(response.Employee[i].employeeId, response.Employee[i].firstName + ' ' + response.Employee[i].lastName);
                  }
@@ -74,7 +68,7 @@
              }
              if (response.ParentProducts != null) {
                  var count_ParentProducts = response.ParentProducts.length;
-                 $("#sptotalproduct").html(count_ParentProducts);
+
                  for (var i = 0; i < count_ParentProducts; i++) {
                      ParentProducts.set(response.ParentProducts[i].parentId, response.ParentProducts[i].styleTitle);
                  }
@@ -135,7 +129,7 @@ function getallorders(){
                count= response['Data'].length;
                 // styleData=[...response['Data']];
             }
-            let recamt = 0;
+            let recamt = 0,orderamt=0;
             var responseData = "";
             for (var i = 0; i < count; i++) {
                 orderStatus = statusMap.get(response.Data[i].OrderDetails.orderStatus);
@@ -154,6 +148,7 @@ function getallorders(){
                 var dateString = moment(now).format('DD-MM-YYYY');
                 // console.log(response.Data[i].OrderDetails.RecievedAmount);
                 recamt = parseInt(recamt) + parseInt(response.Data[i].OrderDetails.RecievedAmount);
+                orderamt = parseInt(orderamt) + parseInt(response.Data[i].OrderDetails.amount);
                 // console.log(dateString);
                 // console.log( response.Data[i].OrderDetails.purchaseDateTime );
                 responseData += "<tr>";
@@ -172,6 +167,7 @@ function getallorders(){
             }
            $("#sptotalorder").html(count);
            $("#spreceivedamt").html(recamt);
+           $("#sptotalproduct").html(orderamt);
            $("#customerordertbldata").html(responseData);
            table =$('#customerordertbl').DataTable({
            searching: true,

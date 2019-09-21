@@ -4,5 +4,5 @@
  $employeeName = $_GET['employeeName'];
  $_SESSION['employeeId'] =  $employeeId;
  $_SESSION['employeeName'] =  $employeeName;
- header('Location:customerappointment.php');
+ header('Location:allorders.php');
 ?>

@@ -8,27 +8,29 @@ $records = null;
 extract($_POST);
 
 date_default_timezone_set("Asia/Kolkata");
-if (isset($_POST['title']) && isset($_POST['details']) && isset($_POST['type']) && isset($_POST['active']) ) {
+if (isset($_POST['stitchStyleTitle']) && isset($_POST['stitchStyleDetails']) && isset($_POST['stitchStyleType']) && isset($_POST['isActive']) ) {
 
-	$tempTitle = mysqli_real_escape_string($conn,$title);
-	$tempDetails = mysqli_real_escape_string($conn,$details);
-	
-// stitchStyleTitle, stitchStyleDetails, stitchStyleType, isActive	
-				$query = mysqli_query($conn,"insert into   stitch_style_template_master(stitchStyleTitle, stitchStyleDetails, stitchStyleType, isActive) values('$tempTitle','$tempDetails',$type,$active)");
+	$tempTitle = mysqli_real_escape_string($conn,$stitchStyleTitle);
+	$tempDetails = mysqli_real_escape_string($conn,$stitchStyleDetails);
+
+// stitchStyleTitle, stitchStyleDetails, stitchStyleType, isActive
+				$query = mysqli_query($conn,"insert into stitch_style_template_master(stitchStyleTitle, stitchStyleDetails, stitchStyleType, isActive) values('$tempTitle','$tempDetails',$stitchStyleType,$isActive)");
 					if($query==1)
 					{
-					  			$response = array('Message'=>"New item created successfully",'Responsecode'=>200);
+									$last_id = mysqli_insert_id($conn);
+									$s = strval($last_id);
+					  			$response = array('Message'=>"New item created successfully",'Responsecode'=>200,'RowId'=>$last_id);
 					}
 					else
-					{	
+					{
 						$a = mysqli_error($conn);
 						if (strpos($a, 'Duplicate') !== false) {
-								$response=array("Message"=> "Duplicate entry","Responsecode"=>500);					
+								$response=array("Message"=> "Duplicate entry","Responsecode"=>500);
 							}
 							else
 							{
-							$response=array("Message"=> mysqli_error($conn)." or No data to change or item not present","Responsecode"=>500);	
-							}				
+							$response=array("Message"=> mysqli_error($conn)." or No data to change or item not present","Responsecode"=>500);
+							}
 					}
 }
 else

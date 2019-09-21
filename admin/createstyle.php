@@ -8,15 +8,17 @@ $records = null;
 extract($_POST);
 
 date_default_timezone_set("Asia/Kolkata");
-if (isset($_POST['styletitle']) && isset($_POST['active'])) {
+if (isset($_POST['styleTitle']) && isset($_POST['isActive'])) {
 
-	$tempTitle = mysqli_real_escape_string($conn,$styletitle);
+	$tempTitle = mysqli_real_escape_string($conn,$styleTitle);
 
 
-				$query = mysqli_query($conn,"insert into product_style_master(styletitle, isActive) values( '$tempTitle',$active)");
+				$query = mysqli_query($conn,"insert into product_style_master(styleTitle, isActive) values( '$tempTitle',$isActive)");
 					if($query==1)
 					{
-					  			$response = array('Message'=>"New style created successfully",'Responsecode'=>200);
+						$last_id = mysqli_insert_id($conn);
+						$s = strval($last_id);
+					  $response = array('Message'=>"New style created successfully",'Responsecode'=>200,'RowId'=>$last_id);
 					}
 					else
 					{

@@ -45,11 +45,11 @@ $employeeName = $_SESSION['employeeName'];
             <!-- Bread crumb -->
             <div class="row page-titles">
                 <div class="col-md-5 align-self-center">
-                    <h3 class="text-primary">New Master Product</h3> </div>
+                    <h3 class="text-primary">Add Users</h3> </div>
                 <div class="col-md-7 align-self-center">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item active">Master Product</li>
+                        <li class="breadcrumb-item active">Add Users</li>
                     </ol>
                 </div>
             </div>
@@ -61,26 +61,27 @@ $employeeName = $_SESSION['employeeName'];
                         <div class="card">
                           <div class="row">
                             <div class="col-md-12">
-                              <button type="button" id="button1" class="btn btn-success" onclick="addStyle()" style="float:right"> New Master</button>
+                              <button type="button" id="button1" class="btn btn-success" onclick="addStyle()" style="float:right">Add Employee</button>
                               <div id="data"></div>
                           </div>
                           </div>
                             <div class="card-body">
 
                                 <div class="table-responsive m-t-40">
-                                    <table id="styletbl" class="display nowrap table table-hover  table-bordered">
+                                    <table id="employeetbl" class="display nowrap table table-hover  table-bordered">
                                         <thead>
                                             <tr>
-                                                <!-- <th>Id</th> -->
-                                                <th>Images</th>
-                                                <th>Style</th>
-                                                <th>Sub Style</th>
-                                                <th>Is Group</th>
-                                                <th>Active</th>
-                                                <th>Action </th>
+
+                                                <th> Emp Name</th>
+                                                <th>Email</th>
+                                                <th>Mobile</th>
+                                                <th>User Role</th>
+                                                <th>Address</th>
+                                                <th >Status</th>
+                                                <th >Action </th>
                                             </tr>
                                         </thead>
-                                        <tbody id="styletbldata">
+                                        <tbody id="employeetbldata">
                                         </tbody>
                                     </table>
                                 </div>
@@ -92,32 +93,73 @@ $employeeName = $_SESSION['employeeName'];
                   <div class="col-sm-12">
                     <div class="card">
                       <div class="row">
-                      <input type="hidden" id="masterstyleid"/>
+                      <input type="hidden" id="empid"/>
                       <div class="col-sm-4">
                         <div class="form-group">
-                          <label class="control-label">Style</label>
-                          <select  class="form-control" id="masterstyle" style="width:100%;">
-                            <option value="">Select Style</option>
+                          <label class="control-label">First Name</label>
+                          <input type="text" class="form-control" id="firstname"  title="Enter First Name"/>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label class="control-label">Last Name</label>
+                          <input type="text" class="form-control" id="lastname"  title="Enter Last Name"/>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label class="control-label">User Role</label>
+                          <select  class="form-control" id="userrole" style="width:100%;">
 
                           </select>
                         </div>
                       </div>
                       <div class="col-sm-4">
                         <div class="form-group">
-                          <label class="control-label">Sub Style</label>
-                          <select  class="form-control" id="mastersubstyle" style="width:100%;">
-
-                          </select>
+                          <label class="control-label">Email</label>
+                          <input type="text" class="form-control" id="email"  title="Enter Email"/>
                         </div>
                       </div>
                       <div class="col-sm-4">
                         <div class="form-group">
-                          <label class="control-label">Is Group</label>
-                          <select  class="form-control" id="masterisgroup" style="width:100%;">
-                            <option value="">Select IsGroup</option>
-                            <option value="0">No</option>
-                            <option value="1">Yes</option>
-                          </select>
+                          <label class="control-label">Mobile No</label><font color='red'>*</font>
+                          <input type="text" class="form-control" id="mobileno"  title="Enter Mobile No"/>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label class="control-label">City</label>
+                          <input type="text" class="form-control" id="city"  title="Enter City"/>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label class="control-label">State</label>
+                          <input type="text" class="form-control" id="state"  title="Enter State"/>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label class="control-label">Address</label>
+                          <input type="text" class="form-control" id="address"  title="Enter Addres"/>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label class="control-label">Birth Date</label>
+                          <input type="date" class="form-control" id="birthdate"  title="Enter Birth Date"/>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label class="control-label">Adhar Id</label>
+                          <input type="text" class="form-control" id="adharid"  title="Enter Adhar Id"/>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label class="control-label">Password</label>
+                          <input type="text" class="form-control" id="password"  title="Enter Addres"/>
                         </div>
                       </div>
                         <div class="col-sm-4">
@@ -137,7 +179,7 @@ $employeeName = $_SESSION['employeeName'];
                               <div style="padding-top:32px"></div>
                             <button class="btn btn-success" id="savebtncustomerstyle"  >Save</button>
                             <button class="btn btn-success" id="updatebtncustomerstyle" style="display:none;">Update</button>
-                            <button class="btn btn-secondary" id="reloadbtn" >Back</button>
+                            <button class="btn btn-secondary" id="reloadbtn">Back</button>
                           </div>
                         </div>
 
@@ -156,9 +198,9 @@ $employeeName = $_SESSION['employeeName'];
     <!-- All Jquery -->
     <script src="js/lib/jquery/jquery.min.js"></script>
     <script src="javascript/apifile.js"></script>
-    <script src="javascript/validation.js"></script>
     <link href="select2/select4.css" rel="stylesheet" />
     <script src="select2/select4.js" type="text/javascript"></script>
+    <!-- <script src="javascript/collectionsort.js"></script> -->
     <!-- Bootstrap tether Core JavaScript -->
     <script src="js/lib/bootstrap/js/popper.min.js"></script>
     <script src="js/lib/bootstrap/js/bootstrap.min.js"></script>
@@ -181,8 +223,7 @@ $employeeName = $_SESSION['employeeName'];
     <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
     <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
     <script src="js/lib/datatables/datatables-init.js"></script> -->
-    <script src="javascript/masterproduct.js"></script>
-
+    <script src="javascript/emp.js"></script>
     <script src="js/lib/sweetalert/sweetalert.min.js"></script>
     <!-- <script src="js/lib/sweetalert/sweetalert.init.js"></script> -->
 

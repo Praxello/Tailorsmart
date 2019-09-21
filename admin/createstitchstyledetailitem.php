@@ -8,27 +8,29 @@ $records = null;
 extract($_POST);
 
 date_default_timezone_set("Asia/Kolkata");
-if(isset($_POST['title']) &&  isset($_POST['stitchstyleid'])) 
+if(isset($_POST['stitchSubStyleTitle']) &&  isset($_POST['stitchStyleId']))
 {
 
-	$tempTitle = mysqli_real_escape_string($conn,$title);
-	
-// stitchStyleTitle, stitchStyleDetails, stitchStyleType, isActive	
-				$query = mysqli_query($conn,"insert into stitch_style_details_template_master(stitchStyleId, stitchSubStyleTitle) values($stitchstyleid,'$tempTitle')");
+	$tempTitle = mysqli_real_escape_string($conn,$stitchSubStyleTitle);
+
+// stitchStyleTitle, stitchStyleDetails, stitchStyleType, isActive
+				$query = mysqli_query($conn,"insert into stitch_style_details_template_master(stitchStyleId, stitchSubStyleTitle) values($stitchStyleId,'$tempTitle')");
 					if($query==1)
 					{
-					  			$response = array('Message'=>"New item created successfully",'Responsecode'=>200);
+									$last_id = mysqli_insert_id($conn);
+					 				$s = strval($last_id);
+					  			$response = array('Message'=>"New item created successfully",'Responsecode'=>200,'RowId'=>$last_id);
 					}
 					else
-					{	
+					{
 						$a = mysqli_error($conn);
 						if (strpos($a, 'Duplicate') !== false) {
-								$response=array("Message"=> "Duplicate entry","Responsecode"=>500);					
+								$response=array("Message"=> "Duplicate entry","Responsecode"=>500);
 							}
 							else
 							{
-							$response=array("Message"=> mysqli_error($conn)." or No data to change or item not present","Responsecode"=>500);	
-							}				
+							$response=array("Message"=> mysqli_error($conn)." or No data to change or item not present","Responsecode"=>500);
+							}
 					}
 }
 else

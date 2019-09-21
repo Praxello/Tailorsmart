@@ -8,23 +8,23 @@ $records = null;
 extract($_POST);
 
 date_default_timezone_set("Asia/Kolkata");
-if (isset($_POST['holidaydate'])) {
-				$query = mysqli_query($conn,"delete from holiday_master where skipdate= '$holidaydate'");
+if (isset($_POST['holidayId'])) {
+				$query = mysqli_query($conn,"delete from holiday_master where holidayId= '$holidayId'");
 					$rowsAffected=mysqli_affected_rows($conn);
 						if($rowsAffected > 0)
 						{
 					  			$response = array('Message'=>"Holiday deleted successfully",'Responsecode'=>200);
 						}
 					else
-					{	
+					{
 						$a = mysqli_error($conn);
 						if (strpos($a, 'Duplicate') !== false) {
-								$response=array("Message"=> "Duplicate entry","Responsecode"=>500);					
+								$response=array("Message"=> "Duplicate entry","Responsecode"=>500);
 							}
 							else
 							{
-							$response=array("Message"=> mysqli_error($conn)." No data to change or item not present","Responsecode"=>500);	
-							}				
+							$response=array("Message"=> mysqli_error($conn)." No data to change or item not present","Responsecode"=>500);
+							}
 					}
 }
 else

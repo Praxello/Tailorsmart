@@ -8,19 +8,21 @@ $records = null;
 extract($_POST);
 
 date_default_timezone_set("Asia/Kolkata");
-if (isset($_POST['substyletitle']) && isset($_POST['active'])) {
+if (isset($_POST['subStyleTitle']) && isset($_POST['isActive'])) {
 
-	$tempTitle = mysqli_real_escape_string($conn,$substyletitle);
+	$tempTitle = mysqli_real_escape_string($conn,$subStyleTitle);
 
-	
-				$query = mysqli_query($conn,"insert into product_substyle_master(substyletitle, isActive) values( '$tempTitle',$active)");
+
+				$query = mysqli_query($conn,"insert into product_substyle_master(subStyleTitle, isActive) values( '$tempTitle',$isActive)");
 					if($query==1)
 					{
-					  			$response = array('Message'=>"New Substyle created successfully",'Responsecode'=>200);
+									$last_id = mysqli_insert_id($conn);
+									$s = strval($last_id);
+					  			$response = array('Message'=>"New Substyle created successfully",'Responsecode'=>200,'RowId'=>$last_id);
 					}
 					else
-					{	
-						$response=array("Message"=> mysqli_error($conn)." failed","Responsecode"=>500);					
+					{
+						$response=array("Message"=> mysqli_error($conn)." failed","Responsecode"=>500);
 					}
 }
 else

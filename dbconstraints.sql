@@ -62,3 +62,6 @@ ALTER TABLE `product_master` ADD FOREIGN KEY (`parentId`) REFERENCES `product_pa
 ALTER TABLE `product_master` ADD FOREIGN KEY (`categoryId`) REFERENCES `product_category_master`(`categoryId`) ON DELETE RESTRICT ON UPDATE CASCADE;
 ALTER TABLE `product_fabric_master` ADD FOREIGN KEY (`categoryId`) REFERENCES `product_category_master`(`categoryId`) ON DELETE RESTRICT ON UPDATE CASCADE;
 ALTER TABLE `stitch_style_details_template_master` ADD FOREIGN KEY (`stitchStyleId`) REFERENCES `stitch_style_template_master`(`stitchStyleId`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+
+ALTER TABLE `employee_master` ADD FOREIGN KEY (`roleId`) REFERENCES `user_roles`(`roleId`) ON DELETE RESTRICT ON UPDATE RESTRICT;

@@ -8,16 +8,15 @@ $records = null;
 extract($_POST);
 
 date_default_timezone_set("Asia/Kolkata");
-if (isset($_POST['stitchsubstyleId'])) {
+if (isset($_POST['holidayId']) && isset($_POST['holidayTitle']) && isset($_POST['skipDate'])) {
 
-	$tempTitle = mysqli_real_escape_string($conn,$title);
+	$tempTitle = mysqli_real_escape_string($conn,$holidayTitle);
 
-// stitchStyleTitle, stitchStyleDetails, stitchStyleType, isActive
-				$query = mysqli_query($conn,"delete from  stitch_style_details_template_master where stitchsubstyleId=$stitchsubstyleId");
+				$query = mysqli_query($conn,"update holiday_master set holidayTitle = '$tempTitle' , skipDate='$skipDate' where holidayId = $holidayId");
 					$rowsAffected=mysqli_affected_rows($conn);
 						if($rowsAffected > 0)
 						{
-					  			$response = array('Message'=>"Item deleted successfully",'Responsecode'=>200);
+					  			$response = array('Message'=>"Holiday updated successfully",'Responsecode'=>200);
 						}
 					else
 					{

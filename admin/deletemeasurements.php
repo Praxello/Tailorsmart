@@ -8,9 +8,9 @@ $records = null;
 extract($_POST);
 
 date_default_timezone_set("Asia/Kolkata");
-if (isset($_POST['measureId']) ) {
+if (isset($_POST['measurementId']) ) {
 
-				$query = mysqli_query($conn,"DELETE FROM measurement_item_master WHERE measurementId = $measureId");
+				$query = mysqli_query($conn,"DELETE FROM measurement_item_master WHERE measurementId = $measurementId");
 					if($query==1)
 					{
 					  			$response = array('Message'=>"Delete Measurement successfully",'Responsecode'=>200);

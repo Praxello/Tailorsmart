@@ -1,7 +1,9 @@
 <?php
 session_start();
+if(isset($_SESSION['employeeId'])){
 $employeeId = $_SESSION['employeeId'];
-$employeeName = $_SESSION['employeeName'];?>
+$employeeName = $_SESSION['employeeName'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
@@ -64,13 +66,13 @@ $employeeName = $_SESSION['employeeName'];?>
                               <div class="row">
                                 <div class="col-sm-4">
                                   <div class="form-group">
-                                  <label>From Date</label><sub><font color='red' class="float-right">(MM/DD/YYYY)</font></sub>
+                                  <label>From Date</label><font color='red' class="float-right">(MM/DD/YYYY)</font>
                                   <input type="text" name="min" id="min" class="form-control" />
                                   </div>
                                 </div>
                                 <div class="col-sm-4">
                                   <div class="form-group">
-                                  <label>Upto Date</label><sub><font color='red' class="float-right">(MM/DD/YYYY)</font></sub>
+                                  <label>Upto Date</label><font color='red' class="float-right">(MM/DD/YYYY)</font>
                                   <input type="text" name="max" id="max" class="form-control"  />
                                   </div>
                                 </div>
@@ -255,3 +257,6 @@ $employeeName = $_SESSION['employeeName'];?>
     <script src="js/lib/sweetalert/sweetalert.min.js"></script>
 </body>
 </html>
+<?php }else{
+header('Location:index.php');
+}?>

@@ -8,15 +8,12 @@ $records = null;
 extract($_POST);
 
 date_default_timezone_set("Asia/Kolkata");
-if (isset($_POST['categoryTitle']) && isset($_POST['isActive'])) {
+if (isset($_POST['employeeId']) ) {
 
-	      $tempTitle = mysqli_real_escape_string($conn,$categoryTitle);
-				$query = mysqli_query($conn,"insert into product_category_master(categoryTitle, isActive) values( '$tempTitle',$isActive)");
+				$query = mysqli_query($conn,"DELETE FROM employee_master where employeeId = $employeeId");
 					if($query==1)
 					{
-									$last_id = mysqli_insert_id($conn);
-									$s = strval($last_id);
-					  			$response = array('Message'=>"New category created successfully",'Responsecode'=>200,'RowId'=>$last_id);
+					  			$response = array('Message'=>"Delete  successfully",'Responsecode'=>200);
 					}
 					else
 					{

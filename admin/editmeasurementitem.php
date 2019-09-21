@@ -8,26 +8,26 @@ $records = null;
 extract($_POST);
 
 date_default_timezone_set("Asia/Kolkata");
-if (isset($_POST['title']) && isset($_POST['itemid']) && isset($_POST['active'])) {
+if (isset($_POST['itemTitle']) && isset($_POST['measurementId']) && isset($_POST['isActive'])) {
 
-	$tempTitle = mysqli_real_escape_string($conn,$title);
-	
-				$query = mysqli_query($conn,"update measurement_item_master set itemtitle = '$tempTitle' , isactive=$active where measurementid = $itemid");
+	$tempTitle = mysqli_real_escape_string($conn,$itemTitle);
+
+				$query = mysqli_query($conn,"update measurement_item_master set itemTitle = '$tempTitle' , isActive=$isActive where measurementId = $measurementId");
 					$rowsAffected=mysqli_affected_rows($conn);
 						if($rowsAffected > 0)
 						{
 					  			$response = array('Message'=>"Item updated successfully",'Responsecode'=>200);
 						}
 					else
-					{	
+					{
 						$a = mysqli_error($conn);
 						if (strpos($a, 'Duplicate') !== false) {
-								$response=array("Message"=> "Duplicate entry","Responsecode"=>500);					
+								$response=array("Message"=> "Duplicate entry","Responsecode"=>500);
 							}
 							else
 							{
-							$response=array("Message"=> mysqli_error($conn)." No data to change or item not present","Responsecode"=>500);	
-							}				
+							$response=array("Message"=> mysqli_error($conn)." No data to change or item not present","Responsecode"=>500);
+							}
 					}
 }
 else

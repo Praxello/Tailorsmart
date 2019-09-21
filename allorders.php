@@ -1,7 +1,9 @@
 <?php
 session_start();
+if(isset($_SESSION['employeeId'])){
 $employeeId = $_SESSION['employeeId'];
-$employeeName = $_SESSION['employeeName'];?>
+$employeeName = $_SESSION['employeeName'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
@@ -77,7 +79,7 @@ $employeeName = $_SESSION['employeeName'];?>
                               </div>
                               <div class="media-body media-text-right">
                                   <h2><div id="spreceivedamt"></div></h2>
-                                  <p class="m-b-0">Received Amount</p>
+                                  <p class="m-b-0">Total Received Amount</p>
                               </div>
                           </div>
                       </div>
@@ -86,11 +88,11 @@ $employeeName = $_SESSION['employeeName'];?>
                       <div class="card p-30">
                           <div class="media">
                               <div class="media-left meida media-middle">
-                                  <span><i class="fa fa-shopping-cart f-s-40 color-warning"></i></span>
+                                  <span><i class="fa fa-inr f-s-40 color-warning"></i></span>
                               </div>
                               <div class="media-body media-text-right">
                                   <h2><div id="sptotalproduct"></div></h2>
-                                  <p class="m-b-0">Total Product</p>
+                                  <p class="m-b-0">Total Order Amount</p>
                               </div>
                           </div>
                       </div>
@@ -102,8 +104,8 @@ $employeeName = $_SESSION['employeeName'];?>
                                   <span><i class="fa fa-user f-s-40 color-danger"></i></span>
                               </div>
                               <div class="media-body media-text-right">
-                                  <h2><div id="sptotalemp"></div></h2>
-                                  <p class="m-b-0">Total Employee</p>
+                                  <h2>32</h2>
+                                  <p class="m-b-0">Orders</p>
                               </div>
                           </div>
                       </div>
@@ -116,13 +118,13 @@ $employeeName = $_SESSION['employeeName'];?>
                           <div class="row">
                             <div class="col-sm-4">
                               <div class="form-group">
-                              <label>From Date</label><sub><font color='red' class="float-right">(MM/DD/YYYY)</font></sub>
+                              <label>From Date</label><font color='red' class="float-right">(MM/DD/YYYY)</font>
                               <input type="text" name="min" id="min" class="form-control" />
                               </div>
                             </div>
                             <div class="col-sm-4">
                               <div class="form-group">
-                              <label>Upto Date</label><sub><font color='red' class="float-right">(MM/DD/YYYY)</font></sub>
+                              <label>Upto Date</label><font color='red' class="float-right">(MM/DD/YYYY)</font>
                               <input type="text" name="max" id="max" class="form-control"  />
                               </div>
                             </div>
@@ -202,3 +204,6 @@ $employeeName = $_SESSION['employeeName'];?>
 </body>
 
 </html>
+<?php }else{
+header('Location:index.php');
+}?>

@@ -8,22 +8,22 @@ $records = null;
 extract($_POST);
 
 date_default_timezone_set("Asia/Kolkata");
-if (isset($_POST['stitchsubstyleId'])) {
+if (isset($_POST['slotTime']) && isset($_POST['isActive'])) {
 
-	$tempTitle = mysqli_real_escape_string($conn,$title);
+	      $tempTitle = mysqli_real_escape_string($conn,$slotTime);
 
-// stitchStyleTitle, stitchStyleDetails, stitchStyleType, isActive
-				$query = mysqli_query($conn,"delete from  stitch_style_details_template_master where stitchsubstyleId=$stitchsubstyleId");
-					$rowsAffected=mysqli_affected_rows($conn);
-						if($rowsAffected > 0)
-						{
-					  			$response = array('Message'=>"Item deleted successfully",'Responsecode'=>200);
-						}
+				$query = mysqli_query($conn,"insert into appointment_slots(slotTime, isActive) values('$tempTitle','$isActive')");
+					if($query==1)
+					{
+						     $last_id = mysqli_insert_id($conn);
+						      $s = strval($last_id);
+					  			$response = array('Message'=>"New Slot created successfully",'Responsecode'=>200,'RowId'=>$last_id);
+					}
 					else
 					{
 						$a = mysqli_error($conn);
 						if (strpos($a, 'Duplicate') !== false) {
-								$response=array("Message"=> "Duplicate entry","Responsecode"=>500);
+								$response=array("Message"=> "Duplicate entry for this date","Responsecode"=>500);
 							}
 							else
 							{

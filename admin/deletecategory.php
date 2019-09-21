@@ -8,9 +8,9 @@ $records = null;
 extract($_POST);
 
 date_default_timezone_set("Asia/Kolkata");
-if (isset($_POST['categoryid']) ) {
+if (isset($_POST['categoryId']) ) {
 
-				$query = mysqli_query($conn,"DELETE FROM product_category_master WHERE categoryId = $categoryid");
+				$query = mysqli_query($conn,"DELETE FROM product_category_master WHERE categoryId = $categoryId");
 					if($query==1)
 					{
 					  			$response = array('Message'=>"Delete Category successfully",'Responsecode'=>200);

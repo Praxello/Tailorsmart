@@ -1,14 +1,46 @@
-
+var styleData = new Map(); // This variable globally declare save all Style Data in Array
+let confirmationStatus = new Map();
+getConfirmation();
 getcustomersubstyles();
-var styleData = []; // This variable globally declare save all Style Data in Array
 $('#stylestatus').select2({
   allowClear: true,
   placeholder: "Select Category Status"
 });
-$(document).ready(function() {
+function getConfirmation() {
+    confirmationStatus.set('0', '<span class="badge badge-pill badge-warning">InActive</span>');
+    confirmationStatus.set('1', '<span class="badge badge-pill badge-primary">Active</span>');
+}
 
-});
+function settabledata(styleData){
+  var html ='';
+  $('#styletbl').dataTable().fnDestroy();
+  $("#styletbldata").empty();
+  for(let k of styleData.keys())
+  {
+        var AllData= styleData.get(k);
+        html +='<tr>';
+        let isConfirmed = confirmationStatus.get(AllData.isActive);
+        let imageUrl = pic_url+'category/300x300/'+k+'.jpg';
+        html +="<td><form id='custstyleform"+k+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+k+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' src='"+imageUrl+"'  style='cursor: pointer' onclick='imguplod("+k+")' alt='No Image'></img></form></td>";
+        html +="<td>"+AllData.categoryTitle+"</td>";
+        html +="<td>"+isConfirmed+"</td>";
+        html +='<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod('+k+')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+k+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removecategory('+k+')"><i class="fa fa-remove"></i></button></div></td>';
 
+        html +="</tr>";
+  }
+  $("#styletbldata").html(html);
+  $('#styletbl').DataTable({
+  searching: true,
+  retrieve: true,
+  bPaginate: $('tbody tr').length>10,
+  order: [],
+  columnDefs: [ { orderable: false, targets: [0,1,2,3] } ],
+  dom: 'Bfrtip',
+  buttons: [],
+  destroy: true
+  });
+
+}
 // This function is created for Get All Style Data.
 function getcustomersubstyles(){
   $('#styletbl').dataTable().fnDestroy();
@@ -20,41 +52,12 @@ function getcustomersubstyles(){
            var count;
             if(response['Data']!=null){
                count= response['Data'].length;
-                styleData=[...response['Data']];
             }
-            var html ="<tr>";
-            
-              var imageUrl ='';
-            for (var i = 0; i < count; i++) {
-              imageUrl = pic_url+'category/300x300/'+response['Data'][i].categoryId+'.jpg';
-              // var file = doesFileExist(imageUrl);
-              // if(!file){
-              //  imageUrl = pic_url+'category/300x300/0.jpg';
-              // };
-                // html +="<td>"+(i+1)+"</td>";
-                html +="<td><form id='custstyleform"+response['Data'][i].categoryId+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+response['Data'][i].categoryId+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' src='"+imageUrl+"'  style='cursor: pointer' onclick='imguplod("+response['Data'][i].categoryId+")' alt='No Image'></img></form></td>";
-                // html +="<td> <img class='img-thumbnail' src='"+pic_url+"category/"+response['Data'][i].categoryId+".jpg' width='10%' height='10%'></img></td>";
-                html +="<td>"+response['Data'][i].categoryTitle+"</td>";
-                if(response['Data'][i].isActive==1){
-                  html +='<td><span class="badge badge-pill badge-primary">Active</span></td>';
-                }
-                else {
-                  html +='<td><span class="badge badge-pill badge-warning">InActive</span></td>';
-                }
-                html +='<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod('+response['Data'][i].categoryId+')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+i+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removecategory('+response['Data'][i].categoryId+')"><i class="fa fa-remove"></i></button></div></td>';
-                html +="  </tr>";
+            for(var i=0;i<count;i++)
+            {
+            styleData.set(response.Data[i].categoryId,response.Data[i]);
             }
-           $("#styletbldata").html(html);
-           $('#styletbl').DataTable({
-           searching: true,
-           retrieve: true,
-           bPaginate: $('tbody tr').length>10,
-           order: [],
-           columnDefs: [ { orderable: false, targets: [0,1,2,3] } ],
-           dom: 'Bfrtip',
-           buttons: [],
-           destroy: true
-           });
+            settabledata(styleData);
          }
      });
 }
@@ -97,38 +100,17 @@ function addStyle(){
 
 // This function is created For Edit Button
 function editStyle(id){
-$("#styleid").val(styleData[id].categoryId);
-$("#styletitle").val(styleData[id].categoryTitle);
-$("#stylestatus").val(styleData[id].isActive).trigger('change');
+var AllData= styleData.get(id.toString());
+$("#styleid").val(AllData.categoryId);
+$("#styletitle").val(AllData.categoryTitle);
+$("#stylestatus").val(AllData.isActive).trigger('change');
 $("#customerstyletable").hide();
 $("#customerstyletableform").show();
 $("#savebtncustomerstyle").hide();
 $("#updatebtncustomerstyle").show();
 }
 
-// This function is created For Remove Button
-function removecategory(id){
-  $.ajax({
-      url:api_url+'deletecategory.php',
-      type:'POST',
-      data:{
-        categoryid:id
-      },
-      dataType:'json',
-      success:function(response){
-        if(response.Responsecode===200){
-          swal(response.Message);
-          $("#customerstyletable").show();
-          $("#customerstyletableform").hide();
-          getcustomersubstyles();
-        }
-        else {
-          swal(response.Message);
-        }
 
-      }
-  });
-}
 
 // This function is created For Refresh Action / Backbutton
 $('#reloadbtn').on('click',function(event){
@@ -142,29 +124,37 @@ $('#reloadbtn').on('click',function(event){
 // This function is created For Save Style Data
 $('#savebtncustomerstyle').on('click',function(event){
   event.preventDefault();
+
   var styletitle = $("#styletitle").val();
   var stylestatus = $("#stylestatus").val();
+  if(styletitle==""||stylestatus==""){
+      swal("Missing Parameter");
+  }
+  else{
+    var obj ={
+      categoryTitle:styletitle,
+      isActive:stylestatus
+    };
     $.ajax({
         url:api_url+'createcategory.php',
         type:'POST',
-        data:{
-          categorytitle:styletitle,
-          active:stylestatus
-        },
+        data:obj,
         dataType:'json',
         success:function(response){
           if(response.Responsecode===200){
             swal(response.Message);
             $("#customerstyletable").show();
             $("#customerstyletableform").hide();
-            getcustomersubstyles();
+            obj.categoryId = response.RowId;
+            styleData.set(response.RowId,obj);
+            settabledata(styleData);
           }
           else {
             swal(response.Message);
           }
-
         }
     });
+  }
 });
 
 // This function is created For Update Style Data
@@ -173,21 +163,28 @@ $('#updatebtncustomerstyle').on('click',function(event){
   var styleid = $("#styleid").val();
   var styletitle = $("#styletitle").val();
   var stylestatus = $("#stylestatus").val();
+  if(styletitle==""||stylestatus==""||styleid==""){
+      swal("Missing Parameter");
+  }
+  else{
+    var obj = {
+      categoryId:styleid,
+      categoryTitle:styletitle,
+      isActive:stylestatus
+    };
   $.ajax({
       url:api_url+'editcategory.php',
       type:'POST',
-      data:{
-        categoryid:styleid,
-        categorytitle:styletitle,
-        active:stylestatus
-      },
+      data:obj,
       dataType:'json',
       success:function(response){
         if(response.Responsecode===200){
           swal(response.Message);
           $("#customerstyletable").show();
           $("#customerstyletableform").hide();
-          getcustomersubstyles();
+          styleData.delete(styleid.toString());
+          styleData.set(styleid.toString(),obj);
+          settabledata(styleData);
         }
         else {
           swal(response.Message);
@@ -195,4 +192,31 @@ $('#updatebtncustomerstyle').on('click',function(event){
 
       }
   });
+}
 });
+
+
+// This function is created For Remove Button
+function removecategory(id){
+  $.ajax({
+      url:api_url+'deletecategory.php',
+      type:'POST',
+      data:{
+        categoryId:id
+      },
+      dataType:'json',
+      success:function(response){
+        if(response.Responsecode===200){
+          swal(response.Message);
+          $("#customerstyletable").show();
+          $("#customerstyletableform").hide();
+          styleData.delete(id.toString());
+          settabledata(styleData);
+        }
+        else {
+          swal(response.Message);
+        }
+
+      }
+  });
+}
