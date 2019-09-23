@@ -63,6 +63,10 @@ function getstitchstyles(){
          type: "GET",
          // crossDomain:true,
          url: api_url+"getstitchstyleitem.php",
+         beforeSend: function() {
+               $(".preloader").show();
+               // console.log("before");
+         },
          success: function(response) {
              var count;
             if(response['Data']!=null){
@@ -73,6 +77,11 @@ function getstitchstyles(){
             styleData.set(response.Data[i].stitchStyleId,response.Data[i]);
             }
             settabledata(styleData);
+         },
+         complete:function(response){
+
+           // console.log("after");
+           $(".preloader").hide();
          }
      });
 }
@@ -100,9 +109,18 @@ function imguplod(imgid){
                      processData:false,
                      data: fd,
                      dataType:'json',
+                     beforeSend: function() {
+                           $(".preloader").show();
+                           // console.log("before");
+                     },
                      success:function(response){
                        swal(response['Message']);
                        getstitchstyles();
+                     },
+                     complete:function(response){
+
+                       // console.log("after");
+                       $(".preloader").hide();
                      }
               });
    };
@@ -165,6 +183,10 @@ $('#savebtncustomerstyle').on('click',function(event){
         type:'POST',
         data:obj,
         dataType:'json',
+        beforeSend: function() {
+              $(".preloader").show();
+              // console.log("before");
+        },
         success:function(response){
           if(response.Responsecode===200){
             swal(response.Message);
@@ -177,6 +199,11 @@ $('#savebtncustomerstyle').on('click',function(event){
           else {
             swal(response.Message);
           }
+        },
+        complete:function(response){
+
+          // console.log("after");
+          $(".preloader").hide();
         }
     });
   }
@@ -206,6 +233,10 @@ $('#updatebtncustomerstyle').on('click',function(event){
       type:'POST',
       data:obj,
       dataType:'json',
+      beforeSend: function() {
+            $(".preloader").show();
+            // console.log("before");
+      },
       success:function(response){
         if(response.Responsecode===200){
           swal(response.Message);
@@ -219,6 +250,11 @@ $('#updatebtncustomerstyle').on('click',function(event){
         else {
           swal(response.Message);
         }
+      },
+      complete:function(response){
+
+        // console.log("after");
+        $(".preloader").hide();
       }
   });
 }
@@ -234,6 +270,10 @@ function removestitchStyle(id){
         stitchStyleId:id
       },
       dataType:'json',
+      beforeSend: function() {
+            $(".preloader").show();
+            // console.log("before");
+      },
       success:function(response){
 
           if(response.Responsecode===200){
@@ -248,6 +288,11 @@ function removestitchStyle(id){
             swal(response.Message);
           }
 
+      },
+      complete:function(response){
+
+        // console.log("after");
+        $(".preloader").hide();
       }
   });
 }

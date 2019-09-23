@@ -1,10 +1,18 @@
-var styleData = [];
-var EmployeeData  = [];
-var getslotdata =[];
-var selectitemsdata =[];
-
+var styleData = new Map();
+var EmployeeData  =new Map();
+var getslotdata =new Map();
+// var selectitemsdata =new Map();
+let confirmationStatus = new Map();
+getConfirmation();
 getMicellaneousData();
+function getConfirmation() {
+    confirmationStatus.set('0', '<span class="badge badge-pill badge-primary">Idle</span>');
+    confirmationStatus.set('1', '<span class="badge badge-pill badge-success">Confirmed</span>');
+    confirmationStatus.set('2', '<span class="badge badge-pill badge-danger">Cancelled</span>');
+    confirmationStatus.set('3', '<span class="badge badge-pill badge-warning"> Withdrawn by customer</span>');
+    confirmationStatus.set('5', '<span class="badge badge-pill badge-dark">None</span>');
 
+}
 
 setTimeout(function(){
 getcustomerappointmentdata();
@@ -37,49 +45,20 @@ function getMicellaneousData(){
         var countowner=0;
         if(response['Employee']!=null){
           countowner= response['Employee'].length;
-          EmployeeData = [...response['Employee']];
+          // EmployeeData = [...response['Employee']];
         }
 
         selectemp +='<option value="">Select Employee</option>';
         for (var i = 0; i < countowner; i++) {
         selectemp +="<option value='"+response['Employee'][i].employeeId+"'>"+response['Employee'][i].firstName+" "+response['Employee'][i].lastName+"</option>";
+        EmployeeData.set(response.Employee[i].employeeId,response.Employee[i]);
         }
         $("#setemployeeId").html(selectemp);
       }
     });
 }
-function getEmployeeName(empId,count) {
-    var empName = '';
-    for(var i=0;i<count;i++){
-        if(empId == EmployeeData[i].employeeId){
-            empName = EmployeeData[i].firstName + ' '+EmployeeData[i].lastName;
-        }
-    }
-    return empName;
-}
-function getAppointmentStatus(appointmentId) {
-  var status ='';
-  switch(appointmentId) {
-        case "0":
-           status +='<span class="badge badge-pill badge-primary">Idle</span>';
-        break;
-        case "1":
-          status +='<span class="badge badge-pill badge-success">Confirmed</span>';
-        break;
-        case "2":
-          status +='<span class="badge badge-pill badge-danger">Cancelled</span>';
-        break;
-        case "3":
-            status +='<span class="badge badge-pill badge-warning"> Withdrawn by customer</span>';
-        break;
-        case "5":
-            status += '<span class="badge badge-pill badge-dark">None</span>';
-        break;
-  }
-  return status;
-}
 
-   var table;
+  var table;
 $.fn.dataTable.ext.search.push(
 function (settings, data, dataIndex) {
     var min = $('#min').datepicker("getDate");
@@ -103,133 +82,180 @@ function (settings, data, dataIndex) {
     $('#min, #max').change(function () {
         table.draw();
     });
+    function settabledata(styleData){
+      var html ='';
+      $('#appointmenttbl').dataTable().fnDestroy();
+      $("#appointmenttbldata").empty();
+
+      for(let k of styleData.keys())
+      {
+            var AllData= styleData.get(k);
+            html +='<tr>';
+            let EmpName =EmployeeData.get(AllData.servingEmployeeId);
+            let orderStatus =confirmationStatus.get(AllData.appointmentStatus);
+            html +="<td>"+AllData.firstName+" "+AllData.lastname+"</td>";
+            html +="<td>"+AllData.appointmentDate+"</td>";
+            html +="<td>"+AllData.slotTime+"</td>";
+            html +="<td>"+AllData.address+"</td>";
+            html +="<td>"+AllData.city+"</td>";
+            html +="<td>"+AllData.mobile+"</td>";
+            html +="<td>"+EmpName.firstName+" "+EmpName.lastName+"</td>";
+            html +="<td>"+orderStatus+"</td>";
+            html +='<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editcustomerappointmentdata('+k+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeAppointment('+k+')"><i class="fa fa-remove"></i></button></div></td>';
+            html +="</tr>";
+      }
+      $("#appointmenttbldata").html(html);
+     table= $('#appointmenttbl').DataTable({
+      searching: true,
+      retrieve: true,
+      bPaginate: $('tbody tr').length>10,
+      order: [],
+      columnDefs: [ { orderable: false, targets: [0,1,2,3,4,5,6,7,8] } ],
+      dom: 'Bfrtip',
+      buttons: ['copy','csv', 'excel', 'pdf'],
+      destroy: true
+      });
+
+    }
 
 function getcustomerappointmentdata(){
-  $('#appointmenttbl').dataTable().fnDestroy();
-  $("#appointmenttbldata").empty();
+
      $.ajax({
          type: "GET",
          url:api_url+"getappointments.php",
          dataType:"json",
          success: function(response) {
+           var slotcount=0;
            if(response["Slots"]!=null){
-               getslotdata=[...response["Slots"]];
+               slotcount =response["Slots"].length;
            }
 
-
             var html='',EmpName='-',orderStatus='-';
-            var slotcount =getslotdata.length; // For Count length of slot
             for(var i=0;i<slotcount;i++){
-              html +="<option value="+getslotdata[i].slotId+">"+getslotdata[i].slotTime+"</option>";
+              html +="<option value="+response.Slots[i].slotId+">"+response.Slots[i].slotTime+"</option>";
+              getslotdata.set(response.Slots[i].slotId,response.Slots[i]);
             }
+            // console.log(html);
             $("#settimeslot").html(html);
-              var count;
+
+            var count;
             if(response["Data"]!=null){
               count= response["Data"].length;  // For Count length of Get All Appointment
             }
 
-            var html ="<tr>";
-            var EmpCount = EmployeeData.length;
-            styleData = [...response["Data"]];
             for (var i = 0; i < count; i++) {
-                EmpName = getEmployeeName(response["Data"][i].AppointmentDetails.servingEmployeeId,EmpCount);
-                orderStatus = getAppointmentStatus(response["Data"][i].AppointmentDetails.appointmentStatus);
-                html +="<td>"+response["Data"][i].AppointmentDetails.firstName+" "+response["Data"][i].AppointmentDetails.lastname+"</td>";
-                html +="<td>"+response["Data"][i].AppointmentDetails.appointmentDate+"</td>";
-                html +="<td>"+response["Data"][i].AppointmentDetails.slotTime+"</td>";
-                html +="<td>"+response["Data"][i].AppointmentDetails.address+"</td>";
-                html +="<td>"+response["Data"][i].AppointmentDetails.city+"</td>";
-                html +="<td>"+response["Data"][i].AppointmentDetails.mobile+"</td>";
-                html +="<td>"+EmpName+"</td>";
-                html +="<td>"+orderStatus+"</td>";
-                html +='<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editcustomerappointmentdata('+i+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeAppointment('+i+')"><i class="fa fa-remove"></i></button></div></td>';
-                html +="</tr>";
-                }
-           $("#appointmenttbldata").html(html);
-
-          table= $('#appointmenttbl').DataTable({
-           searching: true,
-           retrieve: true,
-           bPaginate: $('tbody tr').length>10,
-           order: [],
-           columnDefs: [ { orderable: false, targets: [0,1,2,3,4,5,6,7,8] } ],
-           dom: 'Bfrtip',
-           buttons: ['copy','csv', 'excel', 'pdf'],
-           destroy: true
-           });
+                styleData.set(response.Data[i].AppointmentDetails.appointmentId,response.Data[i].AppointmentDetails);
+            }
+            settabledata(styleData);
 
          }
      });
 }
 function editcustomerappointmentdata(id){
       // setEmployeeData();
+      var AllData= styleData.get(id.toString());
       $("#appointdetailtbldata").empty();
-      // console.log(styleData[id]);
+       // console.log(AllData);
       $("#customerappointtbl").hide(); // Hide the content Customer Appointment Table.
       $("#customerappointdetailtbl").show(); //  Show the content Customer Appointment Detail
       $("#appointdetailtbldata").empty();
-      $("#appointmentdetailaddr").html(styleData[id].AppointmentDetails.address+","+styleData[id].AppointmentDetails.city);
-      $("#customername").html(styleData[id].AppointmentDetails.firstName+" "+styleData[id].AppointmentDetails.lastname);
-      $("#appointmentdate").html(styleData[id].AppointmentDetails.appointmentDate);
-      $("#slottime").html(styleData[id].AppointmentDetails.slotTime);
-      $("#setemployeeId").val(styleData[id].AppointmentDetails.servingEmployeeId).trigger('change');
-      // alert(styleData[id].appointmentStatus);
-      $("#appointmentStatus").val(styleData[id].AppointmentDetails.appointmentStatus).trigger('change');
-      $("#settimeslot").val(styleData[id].AppointmentDetails.slotId).trigger('change');
+      $("#appointmentdetailaddr").html(AllData.address+","+AllData.city);
+      $("#customername").html(AllData.firstName+" "+AllData.lastname);
+      $("#appointmentdate").html(AllData.appointmentDate);
+      $("#slottime").html(AllData.slotTime);
+      $("#setemployeeId").val(AllData.servingEmployeeId).trigger('change');
+      $("#appointmentStatus").val(AllData.appointmentStatus).trigger('change');
+      $("#settimeslot").val(AllData.slotId).trigger('change');
       var appointmentStatusTitle =$("#appointmentStatus option:selected").text();
       $("#appointmentstatus").html(appointmentStatusTitle);
-      $("#employeename").html(styleData[id].AppointmentDetails.email);
-      $("#updateappointmentdate").val(styleData[id].AppointmentDetails.appointmentDate);
-      $("#appointmentdetailid").val(styleData[id].AppointmentDetails.appointmentId);
-      var selectitemlen = styleData[id].SelectedItems.length;
-      var html ='';
-      for(var i=0;i<selectitemlen;i++){
-        var selectfabriclen = styleData[id].SelectedItems[i].Fabrics.length;
-        html +='<tr>';
-        html +='<td style="color: orange;font-weight: bolder;">'+styleData[id].SelectedItems[i].Product.productTitle+'</td>';
-        html +='<td>'+styleData[id].SelectedItems[i].Fabrics[0].fabricTitle+'</td>';
-        html +='</tr>';
-        for(var j=1;j<selectfabriclen;j++){
-           html +='<tr>';
-           html +='<td> </td>';
-           html +='<td>'+styleData[id].SelectedItems[i].Fabrics[j].fabricTitle+'</td>';
-           html +='</tr>';
+      $("#employeename").html(AllData.email);
+      $("#updateappointmentdate").val(AllData.appointmentDate);
+      $("#appointmentdetailid").val(AllData.appointmentId);
+      if(AllData.SelectedItems!=null){
+        var selectitemlen = AllData.SelectedItems.length;
+        var html ='';
+        var selectfabriclen =0;
+        for(var i=0;i<selectitemlen;i++){
+              if(AllData.SelectedItems[i].Fabrics!=null){
+                 selectfabriclen = AllData.SelectedItems[i].Fabrics.length;
+                 html +='<tr>';
+                 html +='<td style="color: orange;font-weight: bolder;">'+AllData.SelectedItems[i].Product.productTitle+'</td>';
+                 html +='<td>'+AllData.SelectedItems[i].Fabrics[0].fabricTitle+'</td>';
+                 html +='</tr>';
+              }
+
+
+          for(var j=1;j<selectfabriclen;j++){
+             html +='<tr>';
+             html +='<td> </td>';
+             html +='<td>'+AllData.SelectedItems[i].Fabrics[j].fabricTitle+'</td>';
+             html +='</tr>';
+          }
+
         }
         $("#appointdetailtbldata").html(html);
-      }
+       }
+
+
 }
 
+
 function updateAppointmentDetails(){
+  var appointmentId=$('#appointmentdetailid').val();
+  var obj =
+    {
+    appointmentId:appointmentId,
+    slotId:$('#settimeslot').val(),
+    servingEmployeeId:$('#setemployeeId').val(),
+    appointmentDate:$('#updateappointmentdate').val(),
+    appointmentStatus:$('#appointmentStatus').val()
+    };
     $.ajax({
         url:api_url+'updatecustomerappointment.php',
         type:'POST',
-        data:
-        {
-          appointmentid:$('#appointmentdetailid').val(),
-          slotId:$('#settimeslot').val(),
-          employeeid:$('#setemployeeId').val(),
-          appointmentDate:$('#updateappointmentdate').val(),
-          status:$('#appointmentStatus').val()
-        },
+        data:obj,
         dataType:'json',
+        beforeSend: function() {
+              $(".preloader").show();
+              // console.log("before");
+        },
         success:function(response){
             if(response['Responsecode']===200){
                   swal(response['Message']);
                   $("#customerappointdetailtbl").hide();
                   $("#customerappointtbl").show();
-                  getcustomerappointmentdata();
+                  var AllData= styleData.get(appointmentId.toString());
+                  obj.address=AllData.address;
+                  obj.city=AllData.city;
+                  obj.customerId=AllData.customerId;
+                  obj.email=AllData.email;
+                  obj.employeename=AllData.employeename;
+                  obj.fabricIds=AllData.fabricIds;
+                  obj.firstName=AllData.firstName;
+                  obj.lastname=AllData.lastname;
+                  obj.mobile=AllData.mobile;
+                  obj.productIds=AllData.productIds;
+                  obj.slotTime=AllData.slotTime;
+
+                  styleData.set(appointmentId.toString(),obj);
+                  settabledata(styleData);
             }
             else
             {
                   swal(response['Message']);
             }
+        },
+        complete:function(response){
+
+          // console.log("after");
+          $(".preloader").hide();
         }
     });
 }
 
-function removeAppointment(id){
-  alert(id);
-}
+// function removeAppointment(id){
+//   alert(id);
+// }
 $('#reloadbtn').on('click',function(event){
   event.preventDefault();
   $("#customerappointdetailtbl").hide();

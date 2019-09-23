@@ -70,8 +70,8 @@
          type: 'GET',
          dataType: 'json',
          beforeSend: function() {
-             console.log('in before');
-             $(".preloader").fadeIn();
+           // console.log('in before');
+          $(".preloader").show();
          },
          success: function(response) {
              var createDropdownOptions = '';
@@ -88,8 +88,8 @@
              $("#customerId").html(createDropdownOptions);
          },
          complete: function() {
-             console.log('in complete');
-             $(".preloader").fadeOut();
+            // console.log("after");
+             $(".preloader").hide(1000);
          }
      })
  }
@@ -112,6 +112,10 @@
          async: false,
          data: { customerid: customerId },
          dataType: 'json',
+         beforeSend: function() {
+               $(".preloader").show();
+               // console.log("before");
+         },
          success: function(response) {
              if (response.Data != null) {
                  var count = response.Data.length;
@@ -164,6 +168,11 @@
                  });
              }
 
+         },
+         complete:function(response){
+
+           // console.log("after");
+           $(".preloader").hide();
          }
      });
  }
@@ -270,6 +279,10 @@
              type: 'POST',
              dataType: 'json',
              data: OrderData,
+             beforeSend: function() {
+                   $(".preloader").show();
+                   // console.log("before");
+             },
              success: function(response) {
                  var OrderId = response.OrderDetails.orderId;
                  orderId = OrderId;
@@ -282,6 +295,11 @@
                  $('#customerOrdersBlock').hide();
                  $('#loadNewPage').load('createNewOrder.php');
 
+             },
+             complete:function(response){
+
+               // console.log("after");
+               $(".preloader").hide();
              }
          })
      }

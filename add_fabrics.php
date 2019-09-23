@@ -59,12 +59,16 @@ $('#saveFabricsData').on('click', function(event) {
         "fabrics": fabrics_TableData
     };
     postdata = JSON.stringify(postdata);
-    //console.log(postdata);
+
     $.ajax({
         url: api_url + 'createorderitemfabric.php',
         type: 'POST',
         data: {
             postdata: postdata
+        },
+        beforeSend: function() {
+              $(".preloader").show();
+              // console.log("before");
         },
         success: function(response) {
             alert(response.Message);
@@ -74,7 +78,13 @@ $('#saveFabricsData').on('click', function(event) {
             //  console.log(customerOrderDetails);
             $('#customerOrdersBlock').hide();
             $('#FabricsModal').modal('toggle');
+        },
+        complete:function(response){
+
+          // console.log("after");
+          $(".preloader").hide();
         }
+
     })
 });
 

@@ -133,7 +133,7 @@ function settabledata(styleData){
         var AllData= styleData.get(k);
         let isConfirmed = confirmationStatus.get(AllData.isActive);
         html +='<tr>';
-        let imageUrl = pic_url+'product/300x300/'+k+'.jpg';
+        let imageUrl = img_url+'product/300x300/'+k+'.jpg';
 
         html +="<td style='width:15%'><form id='custstyleform"+k+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+k+"' name='file' accept='image/*' style='display:none;' /> <img  accept='image/*' class='img-thumbnail' src='"+imageUrl+"' style='cursor: pointer' alt='No Image' onclick='imguplod("+k+")'></img></form></td>";
         html +="<td>"+AllData.productTitle+"</td>";
@@ -195,8 +195,9 @@ function imguplod(imgid){
                 fd.append('file',files);
                 fd.append('imgname',imgid);
                 fd.append('foldername',"product");
+                // console.log(fd);
                 $.ajax({
-                     url:"http://praxello.com/tailorsmart/uploadimage.php",
+                     url:"uploadimage.php",
                      type:"POST",
                      contentType: false,
                      cache: false,
@@ -272,6 +273,10 @@ $('#savebtnproducts').on('click',function(event){
         type:'POST',
         data:obj,
         dataType:'json',
+        beforeSend: function() {
+              $(".preloader").show();
+              // console.log("before");
+        },
         success:function(response){
           if(response.Responsecode===200){
             // getproductdata();
@@ -286,6 +291,11 @@ $('#savebtnproducts').on('click',function(event){
             swal(response.Message);
           }
 
+        },
+        complete:function(response){
+
+          // console.log("after");
+          $(".preloader").hide();
         }
     });
 });
@@ -326,6 +336,10 @@ $('#updatebtnproducts').on('click',function(event){
       type:'POST',
       data:obj,
       dataType:'json',
+      beforeSend: function() {
+            $(".preloader").show();
+            // console.log("before");
+      },
       success:function(response){
         if(response.Responsecode===200){
           swal(response.Message);
@@ -339,6 +353,11 @@ $('#updatebtnproducts').on('click',function(event){
         {
           swal(response.Message);
         }
+      },
+      complete:function(response){
+
+        // console.log("after");
+        $(".preloader").hide();
       }
   });
 });
@@ -353,6 +372,10 @@ function removeProduct(id){
         productId:id
       },
       dataType:'json',
+      beforeSend: function() {
+            $(".preloader").show();
+            // console.log("before");
+      },
       success:function(response){
           if(response.Responsecode===200){
             $("#customerstyletableform").hide();
@@ -365,6 +388,11 @@ function removeProduct(id){
             swal(response.Message);
           }
 
+      },
+      complete:function(response){
+
+        // console.log("after");
+        $(".preloader").hide();
       }
   });
 }
@@ -432,6 +460,10 @@ function fabricmapping(){
       $.ajax({
           type: "GET",
           url: api_url+"getproductfabricmapping.php",
+          beforeSend: function() {
+                $(".preloader").show();
+                // console.log("before");
+          },
           success: function(response) {
             var temparray = [];
             if(response['Data']==null){
@@ -447,6 +479,11 @@ function fabricmapping(){
                 }
             }
                 setfabrcmapping(temparray);
+          },
+          complete:function(response){
+
+            // console.log("after");
+            $(".preloader").hide();
           }
         });
 }
@@ -487,6 +524,10 @@ function measurementmapping(){
       $.ajax({
           type: "GET",
           url: api_url+"getproductmeasurementmapping.php",
+          beforeSend: function() {
+                $(".preloader").show();
+                // console.log("before");
+          },
           success: function(response) {
 
             var tempmeasurementarray = [];
@@ -503,6 +544,11 @@ function measurementmapping(){
 
             }
               setmeasuremapping(tempmeasurementarray);
+          },
+          complete:function(response){
+
+            // console.log("after");
+            $(".preloader").hide();
           }
         });
 }
@@ -541,6 +587,10 @@ function stitchstylemapping(){
       $.ajax({
           type: "GET",
           url: api_url+"getproductstitchstylemapping.php",
+          beforeSend: function() {
+                $(".preloader").show();
+                // console.log("before");
+          },
           success: function(response) {
             var tempstitcharray = [];
             if(response['Data']==null){
@@ -556,6 +606,11 @@ function stitchstylemapping(){
 
             }
             setstitchstylemapping(tempstitcharray);
+          },
+          complete:function(response){
+
+            // console.log("after");
+            $(".preloader").hide();
           }
         });
 }
@@ -579,6 +634,10 @@ $('#savefabric').on('click',function(event){
       cache:false,
       data:obj,
       dataType:'json',
+      beforeSend: function() {
+            $(".preloader").show();
+            // console.log("before");
+      },
       success:function(response){
          if(response.Responsecode===200){
            swal(response.Message);
@@ -590,6 +649,11 @@ $('#savefabric').on('click',function(event){
          }
 
 
+      },
+      complete:function(response){
+
+        // console.log("after");
+        $(".preloader").hide();
       }
   });
 });
@@ -612,6 +676,10 @@ $('#savemeasurement').on('click',function(event){
       type:'POST',
       data:obj,
       dataType:'json',
+      beforeSend: function() {
+            $(".preloader").show();
+            // console.log("before");
+      },
       success:function(response){
         if(response.Responsecode===200){
           swal(response.Message);
@@ -621,6 +689,11 @@ $('#savemeasurement').on('click',function(event){
         else {
            swal(response.Message);
         }
+      },
+      complete:function(response){
+
+        // console.log("after");
+        $(".preloader").hide();
       }
   });
 });
@@ -642,6 +715,10 @@ $('#savestitchbtn').on('click',function(event){
       type:'POST',
       data:obj,
       dataType:'json',
+      beforeSend: function() {
+            $(".preloader").show();
+            // console.log("before");
+      },
       success:function(response){
         if(response.Responsecode===200){
           swal(response.Message);
@@ -651,26 +728,17 @@ $('#savestitchbtn').on('click',function(event){
         else {
            swal(response.Message);
         }
+      },
+      complete:function(response){
+
+        // console.log("after");
+        $(".preloader").hide();
       }
   });
 });
 
 
-// // Function Navbar For Fabric Mapping
-// function navfabricmapping()
-// {
-//
-// }
-// // Function Navbar For Measurement Mapping
-// function navmeasurementmapping()
-// {
-//
-// }
-// // Function Navbar For Stitch Style Mapping
-// function navstitchstylemapping()
-// {
-//
-// }
+
  // This function Fabric Table Search Box
 $("#fabricmaptblInput").on("keyup", function() {
 var value = $(this).val().toLowerCase();

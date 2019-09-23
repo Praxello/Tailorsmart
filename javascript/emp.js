@@ -18,6 +18,10 @@ function getalluserrights(){
      $.ajax({
          type: "GET",
          url: api_url+"getuserrights.php",
+         beforeSend: function() {
+               $(".preloader").show();
+               // console.log("before");
+         },
          success: function(response) {
            var count=0;
             if(response['Data']!=null){
@@ -30,12 +34,17 @@ function getalluserrights(){
             }
             // console.log(RoleData);
             $("#userrole").html(userrole);
+         },
+         complete:function(response){
+
+           // console.log("after");
+           $(".preloader").hide();
          }
      });
 }
 
 function  setemployeemaster(EmployeeData){
-  console.log(EmployeeData);
+  // console.log(EmployeeData);
   var html ;
   $('#employeetbl').dataTable().fnDestroy();
   $("#employeetbldata").empty();
@@ -83,6 +92,10 @@ function getcustomerstyles(){
      $.ajax({
          type: "GET",
          url: api_url+"getallstaff.php",
+         beforeSend: function() {
+               $(".preloader").show();
+               // console.log("before");
+         },
          success: function(response) {
            var count;
             if(response['Data']!=null){
@@ -95,6 +108,11 @@ function getcustomerstyles(){
             EmployeeData.set(response.Data[i].employeeId,response.Data[i]);
             }
             setemployeemaster(EmployeeData);
+         },
+         complete:function(response){
+
+           // console.log("after");
+           $(".preloader").hide();
          }
      });
 }
@@ -186,6 +204,10 @@ $('#savebtncustomerstyle').on('click',function(event){
         type:'POST',
         data:obj,
         dataType:'json',
+        beforeSend: function() {
+              $(".preloader").show();
+              // console.log("before");
+        },
         success:function(response){
 
             if(response.Responsecode==200){
@@ -199,6 +221,11 @@ $('#savebtncustomerstyle').on('click',function(event){
             else{
               swal(response.Message);
             }
+        },
+        complete:function(response){
+
+          // console.log("after");
+          $(".preloader").hide();
         }
     });
 });
@@ -240,6 +267,10 @@ $('#updatebtncustomerstyle').on('click',function(event){
       type:'POST',
       data:obj,
       dataType:'json',
+      beforeSend: function() {
+            $(".preloader").show();
+            // console.log("before");
+      },
       success:function(response){
 
             if(response.Responsecode==200){
@@ -253,6 +284,11 @@ $('#updatebtncustomerstyle').on('click',function(event){
            else{
              swal(response.Message);
            }
+      },
+      complete:function(response){
+
+        // console.log("after");
+        $(".preloader").hide();
       }
   });
 
@@ -267,6 +303,10 @@ function removeStyle(id){
         employeeId:id
       },
       dataType:'json',
+      beforeSend: function() {
+            $(".preloader").show();
+            // console.log("before");
+      },
       success:function(response){
         if(response.Responsecode==200){
           $("#customerstyletable").show();
@@ -278,6 +318,11 @@ function removeStyle(id){
         else{
           swal(response.Message);
         }
+      },
+      complete:function(response){
+
+        // console.log("after");
+        $(".preloader").hide();
       }
   });
 }

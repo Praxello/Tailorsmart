@@ -1,5 +1,7 @@
 var styleData = new Map();
 let confirmationStatus = new Map();
+var mapstyleData = new Map();
+var mapstitchStyleData = new Map();
 getmiscellaneousdata();
 getConfirmation();
 function getConfirmation() {
@@ -26,7 +28,7 @@ $('#stylestatus').select2({
 
 
 function settabledata(styleData){
-   console.log(styleData);
+   // console.log(styleData);
   var html ='';
   $('#styletbl').dataTable().fnDestroy();
   $("#styletbldata").empty();
@@ -122,6 +124,7 @@ function getmiscellaneousdata(){
           selectmasterstyle +='<option value="">Select Style</option>';
           for (var i = 0; i < countowner; i++) {
           selectmasterstyle +="<option value='"+response['Style'][i].styleId+"'>"+response['Style'][i].styleTitle+"</option>";
+          mapstyleData.set(response.Style[i].styleId,response.Style[i]);
           }
           $("#masterstyle").html(selectmasterstyle);
          // -----------
@@ -132,6 +135,7 @@ function getmiscellaneousdata(){
           selectmastersubstyle +='<option value="">Select Sub Style</option>';
           for (var i = 0; i < countparent; i++) {
           selectmastersubstyle +="<option value='"+response['Substyle'][i].subStyleId+"'>"+response['Substyle'][i].subStyleTitle+"</option>";
+          mapstitchStyleData.set(response.Substyle[i].subStyleId,response.Substyle[i]);
           }
           $("#mastersubstyle").html(selectmastersubstyle);
       }
@@ -184,28 +188,46 @@ $('#savebtncustomerstyle').on('click',function(event){
   var mastersubstyle= $("#mastersubstyle").val();
   var masterisgroup= $("#masterisgroup").val();
   var stylestatus= $("#stylestatus").val();
+  var obj = {
+    styleId:masterstyle,
+    subStyleId:mastersubstyle,
+    isGroup:masterisgroup,
+    isActive:stylestatus
+  };
+  // styleTitle: "shirt"
+  // subStyleTitle: "h1"
   $.ajax({
       url:api_url+'createproductparent.php',
       type:'POST',
-      data:{
-        styleid:masterstyle,
-        substyleid:mastersubstyle,
-        isgroup:masterisgroup,
-        active:stylestatus
-      },
+      data:obj,
       dataType:'json',
+      beforeSend: function() {
+            $(".preloader").show();
+            // console.log("before");
+      },
       success:function(response){
 
           if(response.Responsecode===200){
             swal(response.Message);
             $("#customerstyletable").show();
             $("#customerstyletableform").hide();
-            getmasterproduct();
+            let styletit= mapstyleData.get(masterstyle.toString());
+            let substyletit = mapstitchStyleData.get(mastersubstyle.toString());
+            obj.styleTitle = styletit.styleTitle;
+            obj.subStyleTitle = substyletit.subStyleTitle;
+            obj.parentId = response.RowId.toString();
+            styleData.set(response.RowId.toString(),obj);
+            settabledata(styleData);
           }
           else {
             swal(response.Message);
           }
 
+      },
+      complete:function(response){
+
+        // console.log("after");
+        $(".preloader").hide();
       }
   });
 });
@@ -217,28 +239,42 @@ $('#updatebtncustomerstyle').on('click',function(event){
   var mastersubstyle= $("#mastersubstyle").val();
   var masterisgroup= $("#masterisgroup").val();
   var stylestatus= $("#stylestatus").val();
-
+  var obj = {
+    parentId :masterstyleid,
+    styleId:masterstyle,
+    subStyleId:mastersubstyle,
+    isGroup:masterisgroup,
+    isActive:stylestatus
+  };
   $.ajax({
       url:api_url+'editproductparent.php',
       type:'POST',
-      data:{
-        parentid : masterstyleid,
-        styleid:masterstyle,
-        substyleid:mastersubstyle,
-        isgroup:masterisgroup,
-        active:stylestatus
-      },
+      data:obj,
       dataType:'json',
+      beforeSend: function() {
+            $(".preloader").show();
+            // console.log("before");
+      },
       success:function(response){
         if(response.Responsecode===200){
-            swal(response.Message);
+          swal(response.Message);
           $("#customerstyletable").show();
           $("#customerstyletableform").hide();
-          getmasterproduct();
+          let styletit= mapstyleData.get(masterstyle.toString());
+          let substyletit = mapstitchStyleData.get(mastersubstyle.toString());
+          obj.styleTitle = styletit.styleTitle;
+          obj.subStyleTitle = substyletit.subStyleTitle;
+          styleData.set(masterstyleid.toString(),obj);
+          settabledata(styleData);
         }
         else {
             swal(response.Message);
         }
+      },
+      complete:function(response){
+
+        // console.log("after");
+        $(".preloader").hide();
       }
   });
 });
@@ -249,19 +285,29 @@ function removemaster(id){
       url:api_url+'deleteproductparent.php',
       type:'POST',
       data:{
-        parentid:id
+        parentId:id
       },
       dataType:'json',
+      beforeSend: function() {
+            $(".preloader").show();
+            // console.log("before");
+      },
       success:function(response){
         if(response.Responsecode===200){
           swal(response.Message);
           $("#customerstyletable").show();
           $("#customerstyletableform").hide();
-          getmasterproduct();
+          styleData.delete(id.toString());
+          settabledata(styleData);
         }
         else {
             swal(response.Message);
         }
+      },
+      complete:function(response){
+
+        // console.log("after");
+        $(".preloader").hide();
       }
   });
 }
