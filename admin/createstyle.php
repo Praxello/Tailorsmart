@@ -13,7 +13,7 @@ if (isset($_POST['styleTitle']) && isset($_POST['isActive'])) {
 	$tempTitle = mysqli_real_escape_string($conn,$styleTitle);
 
 
-				$query = mysqli_query($conn,"insert into product_style_master(styleTitle, isActive) values( '$tempTitle',$isActive)");
+				$query = mysqli_query($conn,"insert into product_style_master(styleTitle, isActive) values('$tempTitle',$isActive)");
 					if($query==1)
 					{
 						$last_id = mysqli_insert_id($conn);

@@ -54,7 +54,7 @@ header('Content-Type: application/json');
 
 						}
            $employeeRecords=null;
-						$academicQuery = mysqli_query($conn,"select employeeId, userRole, firstName, lastName from employee_master");
+						$academicQuery = mysqli_query($conn,"select employeeId, roleId, firstName, lastName from employee_master where isActive ='1'");
 						if($academicQuery!=null)
 						{
 							$academicAffected=mysqli_num_rows($academicQuery);

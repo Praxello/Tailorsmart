@@ -22,7 +22,7 @@ function getConfirmation() {
     confirmationStatus.set('1', '<span class="badge badge-pill badge-primary">Active</span>');
 }
 function settabledata(styleData){
-  console.log(styleData);
+  // console.log(styleData);
   var html ='';
   $('#styletbl').dataTable().fnDestroy();
   $("#styletbldata").empty();
@@ -102,7 +102,7 @@ function imguplod(imgid){
                      dataType:'json',
                      success:function(response){
                        swal(response['Message']);
-                        getstitchstyles();
+                       getstitchstyles();
                      }
               });
    };
@@ -170,8 +170,8 @@ $('#savebtncustomerstyle').on('click',function(event){
             swal(response.Message);
             $("#customerstyletable").show();
             $("#customerstyletableform").hide();
-            obj.stitchStyleId = response.RowId;
-            styleData.set(response.RowId,obj);
+            obj.stitchStyleId = response.RowId.toString();
+            styleData.set(response.RowId.toString(),obj);
             settabledata(styleData);
           }
           else {
@@ -212,7 +212,7 @@ $('#updatebtncustomerstyle').on('click',function(event){
 
           $("#customerstyletable").show();
           $("#customerstyletableform").hide();
-          styleData.delete(styleid.toString());
+          // styleData.delete(styleid.toString());
           styleData.set(styleid.toString(),obj);
           settabledata(styleData);
         }

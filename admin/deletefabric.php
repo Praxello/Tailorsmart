@@ -8,9 +8,9 @@ $records = null;
 extract($_POST);
 
 date_default_timezone_set("Asia/Kolkata");
-if (isset($_POST['fabricid']) ) {
+if (isset($_POST['fabricId']) ) {
 
-				$query = mysqli_query($conn,"DELETE FROM product_fabric_master WHERE fabricId = $fabricid");
+				$query = mysqli_query($conn,"DELETE FROM product_fabric_master WHERE fabricId = $fabricId");
 					if($query==1)
 					{
 					  			$response = array('Message'=>"Delete Fabric successfully",'Responsecode'=>200);

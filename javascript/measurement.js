@@ -141,8 +141,8 @@ $('#savebtncustomerstyle').on('click',function(event){
             swal(response.Message);
             $("#customerstyletable").show();
             $("#customerstyletableform").hide();
-            obj.substyleid = response.RowId;
-            styleData.set(response.RowId,obj);
+            obj.measurementId = response.RowId.toString();
+            styleData.set(response.RowId.toString(),obj);
             settabledata(styleData);
           }
           else {
@@ -180,7 +180,7 @@ $('#updatebtncustomerstyle').on('click',function(event){
           swal(response.Message);
           $("#customerstyletable").show();
           $("#customerstyletableform").hide();
-          styleData.delete(styleid.toString());
+          // styleData.delete(styleid.toString());
           styleData.set(styleid.toString(),obj);
           settabledata(styleData);
         }

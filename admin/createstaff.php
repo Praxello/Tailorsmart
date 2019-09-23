@@ -20,7 +20,7 @@ if (isset($_POST['roleId']) && isset($_POST['firstName'])  && isset($_POST['last
 
 	//employeeId, attendanceDate, latitude, longitude, address, deviceId, model
 
- 			$query = mysqli_query($conn,"insert into employee_master(roleId, firstName, lastName, email, mobile, city, state, adharId, address, password, birthDate, isActive) values ('$roleId', '$tempFname', '$tempLname', '$email', '$mobile', '$city', '$state', '$adharId', '$tempAddress', '$tempPassword', '$birthDate', $isActive)");
+ 			$query = mysqli_query($conn,"insert into employee_master(roleId, firstName, lastName, email, mobile, city, state, adharId, address, password, birthDate, isActive) values ('$roleId', '$tempFname', '$tempLname', '$email', '$mobile', '$city', '$state', '$adharId', '$tempAddress', '$tempPassword', '$birthDate', '$isActive')");
 					if($query==1)
 					{
                   $last_id = mysqli_insert_id($conn);

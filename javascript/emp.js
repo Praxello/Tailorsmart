@@ -34,21 +34,11 @@ function getalluserrights(){
      });
 }
 
-// function sortMapByObject(unordered){
-//   console.log("Sort"+unordered);
-//   const ordered = {};
-//   Object.keys(unordered).sort().forEach(function(key) {
-//   ordered[key] = unordered[key];
-//   console.log("key"+ordered[key]);
-//    });
-//   console.log(ordered);
-//  }
 function  setemployeemaster(EmployeeData){
+  console.log(EmployeeData);
   var html ;
   $('#employeetbl').dataTable().fnDestroy();
   $("#employeetbldata").empty();
-  // sortMapByObject(EmployeeData);
-  // console.log(EmployeeData);
   for(let k of EmployeeData.keys())
   {
         var EmpData= EmployeeData.get(k);
@@ -173,6 +163,9 @@ $('#savebtncustomerstyle').on('click',function(event){
   var adharid =$("#adharid").val();
   var password =$("#password").val();
   var stylestatus =$("#stylestatus").val();
+  if(stylestatus==""){
+    stylestatus=0;
+  }
   event.preventDefault();
   var obj = {
     address: address,
@@ -199,8 +192,8 @@ $('#savebtncustomerstyle').on('click',function(event){
               $("#customerstyletable").show();
               $("#customerstyletableform").hide();
               swal(response.Message);
-              obj.employeeId = response.RowId;
-              EmployeeData.set(response.RowId,obj);
+              obj.employeeId = response.RowId.toString();
+              EmployeeData.set(response.RowId.toString(),obj);
               setemployeemaster(EmployeeData);
             }
             else{
@@ -252,7 +245,7 @@ $('#updatebtncustomerstyle').on('click',function(event){
             if(response.Responsecode==200){
           $("#customerstyletable").show();
           $("#customerstyletableform").hide();
-            EmployeeData.delete(empId);
+
             EmployeeData.set(empId,obj);
             setemployeemaster(EmployeeData);
              swal(response.Message);
@@ -268,7 +261,7 @@ $('#updatebtncustomerstyle').on('click',function(event){
 // This function is created For Remove Button
 function removeStyle(id){
   $.ajax({
-      url:api_url+'deleteslotholiday.php',
+      url:api_url+'deleteemp.php',
       type:'POST',
       data:{
         employeeId:id
@@ -279,7 +272,6 @@ function removeStyle(id){
           $("#customerstyletable").show();
           $("#customerstyletableform").hide();
           EmployeeData.delete(id.toString());
-
           setemployeemaster(EmployeeData);
           swal(response.Message);
         }

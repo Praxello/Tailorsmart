@@ -11,7 +11,7 @@ function getConfirmation() {
     confirmationStatus.set('1', '<span class="badge badge-pill badge-primary">Active</span>');
 }
 function setslotmaster(SlotData){
-  // console.log(SlotData);
+  console.log(SlotData);
   var html ='';
   $('#slottbl').dataTable().fnDestroy();
   $("#slottbldata").empty();
@@ -114,8 +114,8 @@ $('#savebtncustomerstyle').on('click',function(event){
               $("#customerstyletable").show();
               $("#customerstyletableform").hide();
               swal(response.Message);
-              obj.holidayId = response.RowId;
-              SlotData.set(response.RowId,obj);
+              obj.slotId = response.RowId;
+              SlotData.set(response.RowId.toString(),obj);
               setslotmaster(SlotData);
             }
             else{
@@ -145,10 +145,9 @@ $('#updatebtncustomerstyle').on('click',function(event){
           if(response.Responsecode==200){
           $("#customerstyletable").show();
           $("#customerstyletableform").hide();
-           SlotData.delete(slotid);
            SlotData.set(slotid,obj);
            setslotmaster(SlotData);
-             swal(response.Message);
+           swal(response.Message);
            }
            else{
              swal(response.Message);

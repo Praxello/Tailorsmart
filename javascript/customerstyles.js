@@ -12,10 +12,11 @@ function getConfirmation() {
     confirmationStatus.set('1', '<span class="badge badge-pill badge-primary">Active</span>');
 }
 function settabledata(styleData){
+  console.log(styleData);
   var html ='';
   $('#styletbl').dataTable().fnDestroy();
   $("#styletbldata").empty();
- console.log(styleData);
+
   for(let k of styleData.keys())
   {
         var AllData= styleData.get(k);
@@ -101,7 +102,7 @@ function addStyle(){
 // This function is created For Edit Button
 function editStyle(id){
 
-var AllData= styleData.get(id);
+var AllData= styleData.get(id.toString());
 $("#styleid").val(AllData.styleId);
 $("#styletitle").val(AllData.styleTitle);
 $("#stylestatus").val(AllData.isActive).trigger('change');
@@ -148,8 +149,8 @@ $('#savebtncustomerstyle').on('click',function(event){
               $("#customerstyletableform").hide();
 
               swal(response.Message);
-              obj.styleId = response.RowId;
-              styleData.set(response.RowId,obj);
+              obj.styleId = response.RowId.toString();
+              styleData.set(response.RowId.toString(),obj);
               settabledata(styleData);
             }
             else{
@@ -186,7 +187,7 @@ $('#updatebtncustomerstyle').on('click',function(event){
           if(response.Responsecode==200){
           $("#customerstyletable").show();
           $("#customerstyletableform").hide();
-          styleData.delete(styleid.toString());
+          // styleData.delete(styleid.toString());
           styleData.set(styleid.toString(),obj);
           settabledata(styleData);
            swal(response.Message);

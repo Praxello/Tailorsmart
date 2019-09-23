@@ -12,6 +12,7 @@ function getConfirmation() {
 }
 
 function settabledata(styleData){
+  // console.log(styleData);
   var html ='';
   $('#styletbl').dataTable().fnDestroy();
   $("#styletbldata").empty();
@@ -145,8 +146,8 @@ $('#savebtncustomerstyle').on('click',function(event){
             swal(response.Message);
             $("#customerstyletable").show();
             $("#customerstyletableform").hide();
-            obj.categoryId = response.RowId;
-            styleData.set(response.RowId,obj);
+            obj.categoryId = response.RowId.toString();
+            styleData.set(response.RowId.toString(),obj);
             settabledata(styleData);
           }
           else {

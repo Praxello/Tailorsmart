@@ -1,8 +1,8 @@
 var HolidayData = new Map();//from getallstaff.php names only
-
 getholiday();
 
 function setholidaymaster(HolidayData){
+  console.log(HolidayData);
   var html ='';
   $('#holidaytbl').dataTable().fnDestroy();
   $("#holidaytbldata").empty();
@@ -106,7 +106,7 @@ $('#savebtncustomerstyle').on('click',function(event){
               $("#customerstyletableform").hide();
               swal(response.Message);
               obj.holidayId = response.RowId;
-              HolidayData.set(response.RowId,obj);
+              HolidayData.set(response.RowId.toString(),obj);
               setholidaymaster(HolidayData);
             }
             else{
@@ -137,7 +137,6 @@ $('#updatebtncustomerstyle').on('click',function(event){
           if(response.Responsecode==200){
           $("#customerstyletable").show();
           $("#customerstyletableform").hide();
-           HolidayData.delete(holidayid);
            HolidayData.set(holidayid,obj);
            setholidaymaster(HolidayData);
              swal(response.Message);
@@ -163,7 +162,6 @@ function removeStyle(id){
           $("#customerstyletable").show();
           $("#customerstyletableform").hide();
           HolidayData.delete(id.toString());
-
           setholidaymaster(HolidayData);
           swal(response.Message);
         }

@@ -41,6 +41,7 @@ function getstitchstyleitem(){
     });
 }
 function settabledata(styleData){
+  // console.log(styleData);
   var html ='';
   $('#styletbl').dataTable().fnDestroy();
   $("#styletbldata").empty();
@@ -189,8 +190,8 @@ $('#savebtncustomerstyle').on('click',function(event){
             obj.stitchStyleDetails =mapData.stitchStyleDetails;
             obj.isActive=mapData.isActive;
 
-            obj.stitchSubStyleId = response.RowId;
-            styleData.set(response.RowId,obj);
+            obj.stitchSubStyleId = response.RowId.toString();
+            styleData.set(response.RowId.toString(),obj);
             settabledata(styleData);
           }
           else {
@@ -226,7 +227,6 @@ $('#updatebtncustomerstyle').on('click',function(event){
           obj.stitchStyleType =mapData.stitchStyleType;
           obj.stitchStyleDetails =mapData.stitchStyleDetails;
           obj.isActive=mapData.isActive;
-          styleData.delete(stitchstyleid.toString());
           styleData.set(stitchstyleid.toString(),obj);
           settabledata(styleData);
         }

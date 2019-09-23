@@ -1,5 +1,12 @@
-getmasterproduct();
+var styleData = new Map();
+let confirmationStatus = new Map();
 getmiscellaneousdata();
+getConfirmation();
+function getConfirmation() {
+    confirmationStatus.set('0', '<span class="badge badge-pill badge-warning">InActive</span>');
+    confirmationStatus.set('1', '<span class="badge badge-pill badge-primary">Active</span>');
+}
+getmasterproduct();
 $('#masterstyle').select2({
   allowClear: true,
   placeholder: "Select Style"
@@ -17,18 +24,44 @@ $('#stylestatus').select2({
   placeholder: "Select Master Product Status"
 });
 
-var styleData = []; // This variable globally declare save all Style Data in Array
 
-$(document).ready(function() {
+function settabledata(styleData){
+   console.log(styleData);
+  var html ='';
+  $('#styletbl').dataTable().fnDestroy();
+  $("#styletbldata").empty();
+  for(let k of styleData.keys())
+  {
+        var AllData= styleData.get(k);
+        let imageUrl = pic_url+'parent/300x300/'+k+'.jpg';
+        html +='<tr>';
+        let isGroup = confirmationStatus.get(AllData.isGroup);
+        let isConfirmed = confirmationStatus.get(AllData.isActive);
+        html +="<td><form id='custstyleform"+k+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+k+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' src='"+imageUrl+"' style='cursor: pointer' onclick='imguplod("+k+")' alt='No Image'></img></form></td>";
+        html +="<td>"+AllData.styleTitle+"</td>";
+        html +="<td>"+AllData.subStyleTitle+"</td>";
+        html +="<td>"+isGroup+"</td>";
+        html +="<td>"+isConfirmed+"</td>";
+        html +='<td ><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod('+k+')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+k+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removemaster('+k+')"><i class="fa fa-remove"></i></button></div></td>';
+        html +="</tr>";
+  }
+  $("#styletbldata").html(html);
+  $('#styletbl').DataTable({
+  searching: true,
+  retrieve: true,
+  bPaginate: $('tbody tr').length>10,
+  order: [],
+  columnDefs: [ { orderable: false, targets: [0,1,2,3,4,5] } ],
+  dom: 'Bfrtip',
+  buttons: [],
+  destroy: true
+  });
 
-});
-
-
+}
 
 // This function is created for Get All Style Data.
 function getmasterproduct(){
-  $('#styletbl').dataTable().fnDestroy();
-  $("#styletbldata").empty();
+
      $.ajax({
          type: "GET",
          url: api_url+"getparentproducts.php",
@@ -36,43 +69,12 @@ function getmasterproduct(){
            var count;
            if(response['Data']!=null){
                count= response['Data'].length;
-               styleData.push(...response['Data']);
            }
-            var html ="<tr>";
-
-                var imageUrl ='';
-            for (var i = 0; i < count; i++) {
-                imageUrl = pic_url+'parent/300x300/'+response['Data'][i].parentId+'.jpg';
-
-                html +="<td><form id='custstyleform"+response['Data'][i].parentId+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+response['Data'][i].parentId+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' src='"+imageUrl+"' style='cursor: pointer' onclick='imguplod("+response['Data'][i].parentId+")' alt='No Image'></img></form></td>";
-                html +="<td>"+response['Data'][i].styleTitle+"</td>";
-                html +="<td>"+response['Data'][i].subStyleTitle+"</td>";
-                if(response['Data'][i].isGroup==1){
-                  html +='<td><span class="badge badge-pill badge-primary">Active</span></td>';
-                }
-                else {
-                  html +='<td><span class="badge badge-pill badge-warning">InActive</span></td>';
-                }
-                if(response['Data'][i].isActive==1){
-                  html +='<td><span class="badge badge-pill badge-primary">Active</span></td>';
-                }
-                else {
-                  html +='<td><span class="badge badge-pill badge-warning">InActive</span></td>';
-                }
-                html +='<td ><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod('+response['Data'][i].parentId+')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+i+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removemaster('+response['Data'][i].parentId+')"><i class="fa fa-remove"></i></button></div></td>';
-                html +="  </tr>";
-            }
-           $("#styletbldata").html(html);
-           $('#styletbl').DataTable({
-           searching: true,
-           retrieve: true,
-           bPaginate: $('tbody tr').length>10,
-           order: [],
-           columnDefs: [ { orderable: false, targets: [0,1,2,3,4,5] } ],
-           dom: 'Bfrtip',
-           buttons: [],
-           destroy: true
-           });
+           for(var i=0;i<count;i++)
+           {
+           styleData.set(response.Data[i].parentId,response.Data[i]);
+           }
+           settabledata(styleData);
          }
      });
 }
@@ -109,33 +111,29 @@ function imguplod(imgid){
 
 function getmiscellaneousdata(){
   var selectmasterstyle ='',selectmastersubstyle='';
-  // console.log(api_url);
   $.ajax({
       type: "GET",
       url: api_url+'getmiscellaneousdata.php',
       success: function(response) {
          var countowner =0;
-        if(response['Style']!=null){
+          if(response['Style']!=null){
           countowner= response['Style'].length;
-        }
-
-
-        selectmasterstyle +='<option value="">Select Style</option>';
-        for (var i = 0; i < countowner; i++) {
-        selectmasterstyle +="<option value='"+response['Style'][i].styleId+"'>"+response['Style'][i].styleTitle+"</option>";
-        }
-
-        $("#masterstyle").html(selectmasterstyle);
-        var countparent =0;
-        if(response['Substyle']!=null){
-          countparent= response['Substyle'].length;
-        }
-
-        selectmastersubstyle +='<option value="">Select Sub Style</option>';
-        for (var i = 0; i < countparent; i++) {
-        selectmastersubstyle +="<option value='"+response['Substyle'][i].subStyleId+"'>"+response['Substyle'][i].subStyleTitle+"</option>";
-        }
-        $("#mastersubstyle").html(selectmastersubstyle);
+          }
+          selectmasterstyle +='<option value="">Select Style</option>';
+          for (var i = 0; i < countowner; i++) {
+          selectmasterstyle +="<option value='"+response['Style'][i].styleId+"'>"+response['Style'][i].styleTitle+"</option>";
+          }
+          $("#masterstyle").html(selectmasterstyle);
+         // -----------
+          var countparent =0;
+          if(response['Substyle']!=null){
+            countparent= response['Substyle'].length;
+          }
+          selectmastersubstyle +='<option value="">Select Sub Style</option>';
+          for (var i = 0; i < countparent; i++) {
+          selectmastersubstyle +="<option value='"+response['Substyle'][i].subStyleId+"'>"+response['Substyle'][i].subStyleTitle+"</option>";
+          }
+          $("#mastersubstyle").html(selectmastersubstyle);
       }
     });
 }
@@ -154,12 +152,12 @@ function addStyle(){
 
 // This function is created For Edit Button
 function editStyle(id){
-
-$("#masterstyleid").val(styleData[id].parentId);
-$("#masterstyle").val(styleData[id].styleId).trigger('change');
-$("#mastersubstyle").val(styleData[id].subStyleId).trigger('change');
-$("#masterisgroup").val(styleData[id].isGroup).trigger('change');
-$("#stylestatus").val(styleData[id].isActive).trigger('change');
+var AllData= styleData.get(id.toString());
+$("#masterstyleid").val(AllData.parentId);
+$("#masterstyle").val(AllData.styleId).trigger('change');
+$("#mastersubstyle").val(AllData.subStyleId).trigger('change');
+$("#masterisgroup").val(AllData.isGroup).trigger('change');
+$("#stylestatus").val(AllData.isActive).trigger('change');
 
 $("#customerstyletable").hide();
 $("#customerstyletableform").show();
@@ -167,28 +165,7 @@ $("#savebtncustomerstyle").hide();
 $("#updatebtncustomerstyle").show();
 }
 
-// This function is created For Remove Button
-function removemaster(id){
-  $.ajax({
-      url:api_url+'deleteproductparent.php',
-      type:'POST',
-      data:{
-        parentid:id
-      },
-      dataType:'json',
-      success:function(response){
-        if(response.Responsecode===200){
-          swal(response.Message);
-          $("#customerstyletable").show();
-          $("#customerstyletableform").hide();
-          getmasterproduct();
-        }
-        else {
-            swal(response.Message);
-        }
-      }
-  });
-}
+
 
 // This function is created For Refresh Action / Backbutton
 $('#reloadbtn').on('click',function(event){
@@ -265,3 +242,26 @@ $('#updatebtncustomerstyle').on('click',function(event){
       }
   });
 });
+
+// This function is created For Remove Button
+function removemaster(id){
+  $.ajax({
+      url:api_url+'deleteproductparent.php',
+      type:'POST',
+      data:{
+        parentid:id
+      },
+      dataType:'json',
+      success:function(response){
+        if(response.Responsecode===200){
+          swal(response.Message);
+          $("#customerstyletable").show();
+          $("#customerstyletableform").hide();
+          getmasterproduct();
+        }
+        else {
+            swal(response.Message);
+        }
+      }
+  });
+}

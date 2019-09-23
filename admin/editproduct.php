@@ -8,21 +8,21 @@ $records = null;
 extract($_POST);
 
   //productId, categoryId, styleId, subStyleId, productTitle, productSubTitle, productDetails, price, releaseDate, ownerId, sequenceNo, isPriceVariable, isActive
-if (isset($_POST['productid']) && isset($_POST['categoryid']) && isset($_POST['parentid'])  && isset($_POST['skuno']) && isset($_POST['producttitle']) && isset($_POST['productsubtitle']) && isset($_POST['productdetails']) && isset($_POST['price']) && isset($_POST['releasedate'])&& isset($_POST['ownerid'])&& isset($_POST['sequenceno']) && isset($_POST['active'])  && isset($_POST['ispricevariable'])) {
+if (isset($_POST['productId']) && isset($_POST['categoryId']) && isset($_POST['parentId'])  && isset($_POST['skuNo']) && isset($_POST['productTitle']) && isset($_POST['productSubTitle']) && isset($_POST['productDetails']) && isset($_POST['price']) && isset($_POST['releaseDate'])&& isset($_POST['ownerId'])&& isset($_POST['sequenceNo']) && isset($_POST['isActive'])  && isset($_POST['isPriceVariable'])) {
 
-	$tempDetails = mysqli_real_escape_string($conn,$productdetails);
-	$tempTitle = mysqli_real_escape_string($conn,$producttitle);
-	$tempSubtitle = mysqli_real_escape_string($conn,$productsubtitle);
-	
-					$query = mysqli_query($conn,"update product_master set categoryId = $categoryid , productTitle = '$tempTitle', productSubTitle = '$tempSubtitle', productDetails ='$tempDetails', price=$price, releaseDate='$releasedate',ownerId=$ownerid , sequenceNo=$sequenceno , isPriceVariable = $ispricevariable, isActive = $active, skuno='$skuno',parentid=$parentid where productid=$productid");
+	$tempDetails = mysqli_real_escape_string($conn,$productDetails);
+	$tempTitle = mysqli_real_escape_string($conn,$productTitle);
+	$tempSubtitle = mysqli_real_escape_string($conn,$productSubTitle);
+
+					$query = mysqli_query($conn,"update product_master set categoryId = $categoryId , productTitle = '$tempTitle',productSubTitle = '$tempSubtitle', productDetails ='$tempDetails', price=$price, releaseDate='$releaseDate',ownerId=$ownerId , sequenceNo=$sequenceNo , isPriceVariable = '$isPriceVariable', isActive ='$isActive', skuno='$skuNo',parentid='$parentId' where productId=$productId");
 						$rowsAffected=mysqli_affected_rows($conn);
 						if($rowsAffected > 0)
 						{
 					  			$response = array('Message'=>"Product updated successfully",'Responsecode'=>200);
 						}
 						else
-						{	
-							$response=array("Message"=> mysqli_error($conn)."No data to change or product not present","Responsecode"=>500);					
+						{
+							$response=array("Message"=> mysqli_error($conn)."No data to change or product not present","Responsecode"=>500);
 						}
 }
 else

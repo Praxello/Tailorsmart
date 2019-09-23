@@ -8,22 +8,23 @@ $records = null;
 extract($_POST);
 
 date_default_timezone_set("Asia/Kolkata");
-if (isset($_POST['categoryid']) && isset($_POST['fabrictitle']) && isset($_POST['fabricbrand']) && isset($_POST['fabricdetails'])  && isset($_POST['skuno']) && isset($_POST['fabricprice']) && isset($_POST['releasedate'])&& isset($_POST['active']) && isset($_POST['ispricevariable']) && isset($_POST['hexcolor']) && isset($_POST['colorname']) && isset($_POST['fabrictype']) && isset($_POST['fabricid'])) {
+
+if (isset($_POST['categoryId']) && isset($_POST['fabricTitle']) && isset($_POST['fabricBrand']) && isset($_POST['fabricDetails'])&& isset($_POST['skuNo']) && isset($_POST['fabricPrice']) && isset($_POST['releaseDate'])&& isset($_POST['isActive'])&& isset($_POST['isPriceVariable']) && isset($_POST['hexColor']) && isset($_POST['colorName']) && isset($_POST['fabricType'])  && isset($_POST['fabricId'])) {
 
 
-	$tempDetails = mysqli_real_escape_string($conn,$fabricdetails);
-	$tempTitle = mysqli_real_escape_string($conn,$fabrictitle);
-	$tempBrand = mysqli_real_escape_string($conn,$fabricbrand);
-	
-				$query = mysqli_query($conn,"update product_fabric_master set fabricTitle='$tempTitle', fabricBrand = '$tempBrand', fabricDetails ='$tempDetails', skuNo='$skuno', fabricPrice=$fabricprice,releasedate='$releasedate', ispricevariable = $ispricevariable,isActive=$active, hexcolor='$hexcolor',colorname = '$colorname',fabrictype= '$fabrictype',categoryid = $categoryid where fabricid = $fabricid");
+	$tempDetails = mysqli_real_escape_string($conn,$fabricDetails);
+	$tempTitle = mysqli_real_escape_string($conn,$fabricTitle);
+	$tempBrand = mysqli_real_escape_string($conn,$fabricBrand);
+
+				$query = mysqli_query($conn,"update product_fabric_master set fabricTitle='$tempTitle', fabricBrand = '$tempBrand', fabricDetails ='$tempDetails', skuNo='$skuNo',fabricPrice='$fabricPrice',releaseDate='$releaseDate', isPriceVariable = '$isPriceVariable',isActive='$isActive', hexColor='$hexColor',colorName = '$colorName',fabricType= '$fabricType',categoryId = '$categoryId' where fabricId = $fabricId");
 					$rowsAffected=mysqli_affected_rows($conn);
 						if($rowsAffected > 0)
 						{
 					  			$response = array('Message'=>"Fabric updated successfully",'Responsecode'=>200);
 						}
 						else
-						{	
-							$response=array("Message"=> mysqli_error($conn)."No data to change or user not present","Responsecode"=>500);					
+						{
+							$response=array("Message"=> mysqli_error($conn)."No data to change or user not present","Responsecode"=>500);
 						}
 }
 else

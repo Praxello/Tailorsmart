@@ -33,14 +33,8 @@ $employeeName = $_SESSION['employeeName'];
     </div>
     <!-- Main wrapper  -->
     <div id="main-wrapper">
-        <!-- header header  -->
-
-        <!-- End header header -->
-        <!-- Left Sidebar  -->
         <?php include "mainheader.php"; ?>
         <?php include "leftsidebar.php"; ?>
-        <!-- End Left Sidebar  -->
-        <!-- Page wrapper  -->
         <div class="page-wrapper">
             <!-- Bread crumb -->
             <div class="row page-titles">

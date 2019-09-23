@@ -235,7 +235,7 @@ $employeeName = $_SESSION['employeeName'];
                                             <div class="row">
 
 
-                                                    <div class="card-body">
+                                                    <div class="card-body" style="padding: 2%;">
 
                                                         <div class="table-responsive m-t-40" style="overflow-y: scroll;max-height: 521px;">
 
@@ -274,7 +274,7 @@ $employeeName = $_SESSION['employeeName'];
                                                   </div>
                                             </div>
                                               <div class="row">
-                                                <div class="card-body">
+                                                <div class="card-body" style="padding: 2%;">
 
                                                     <div class="table-responsive m-t-40" style="overflow-y: scroll;max-height: 521px;">
                                                         <table id="measurementmaptbl" class="display nowrap table table-hover  table-bordered" >
@@ -309,7 +309,7 @@ $employeeName = $_SESSION['employeeName'];
                                                   </div>
                                             </div>
                                               <div class="row">
-                                                <div class="card-body">
+                                                <div class="card-body" style="padding: 2%;">
 
                                                     <div class="table-responsive m-t-40" style="overflow-y: scroll;max-height: 521px;">
                                                         <table id="stitchstylemaptbl" class="display nowrap table table-hover  table-bordered" >
