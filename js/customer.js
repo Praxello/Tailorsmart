@@ -1,4 +1,4 @@
-var api_url = 'http://praxello.com/tailorsmart/admin/';
+// var api_url = 'http://praxello.com/tailorsmart/admin/';
 //var api_url = './admin/';
 var customerOrders = []; //all the customers orders
 var customerOrderDetails = []; //for particular order id details

@@ -143,6 +143,7 @@ function loadMeasurment(productId, orderItemId, rowId) { //for mapping product i
         },
         success: function(response) {
             var createDropdownOptions = '';
+            if(response.Data !=null){
             var count = response.Data.length;
             var flag = null;
             for (var i = 0; i < count; i++) {
@@ -168,6 +169,7 @@ function loadMeasurment(productId, orderItemId, rowId) { //for mapping product i
             }
             $("#measurementTable").html(createDropdownOptions);
             $('#myModal').modal();
+          }
         },
         complete:function(response){
 
@@ -207,6 +209,7 @@ function loadStyles(productId, orderItemId, rowId) {
             var m = 0,
                 flag_0 = null,
                 flag_1 = null;
+                  if(response.Data !=null){
             var count = response.Data.length;
 
             for (var i = 0; i < count; i++) {
@@ -323,6 +326,7 @@ function loadStyles(productId, orderItemId, rowId) {
             $('#valSecond').val(valSecond);
             $('#valThird').val(valThird);
             $('#styleModal').modal();
+          }
         },
         complete:function(response){
 
@@ -354,6 +358,7 @@ function loadFabrics(productId, orderItemId, rowId) {
         },
         success: function(response) {
             var createDropdownOptions = '';
+              if(response.Data !=null){
             var count = response.Data.length;
             for (var i = 0; i < count; i++) {
                 if (response.Data[i].productId == productId) {
@@ -383,6 +388,7 @@ function loadFabrics(productId, orderItemId, rowId) {
 
             $("#fabricsTable").html(createDropdownOptions);
             $('#FabricsModal').modal();
+          }
         },
         complete:function(response){
 

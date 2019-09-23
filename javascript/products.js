@@ -133,7 +133,7 @@ function settabledata(styleData){
         var AllData= styleData.get(k);
         let isConfirmed = confirmationStatus.get(AllData.isActive);
         html +='<tr>';
-        let imageUrl = img_url+'product/300x300/'+k+'.jpg';
+        let imageUrl = pic_url+'product/300x300/'+k+'.jpg';
 
         html +="<td style='width:15%'><form id='custstyleform"+k+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+k+"' name='file' accept='image/*' style='display:none;' /> <img  accept='image/*' class='img-thumbnail' src='"+imageUrl+"' style='cursor: pointer' alt='No Image' onclick='imguplod("+k+")'></img></form></td>";
         html +="<td>"+AllData.productTitle+"</td>";
@@ -197,7 +197,7 @@ function imguplod(imgid){
                 fd.append('foldername',"product");
                 // console.log(fd);
                 $.ajax({
-                     url:"uploadimage.php",
+                     url:"http://praxello.com/tailorsmart/uploadimage.php",
                      type:"POST",
                      contentType: false,
                      cache: false,
