@@ -118,6 +118,10 @@ function getallorders(){
      $.ajax({
          type: "GET",
          url: api_url+"getallcustomerorders.php",
+         beforeSend: function() {
+               $(".preloader").show();
+
+         },
          success: function(response) {
            var count;
            var orderStatus = null,
@@ -179,6 +183,10 @@ function getallorders(){
            buttons: [],
            destroy: true
            });
+         },
+         complete:function(response){
+           $(".preloader").hide();
+           // console.log("after");
          }
      });
 }

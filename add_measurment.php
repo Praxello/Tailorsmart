@@ -52,12 +52,16 @@ $('#saveMeasurementsData').on('click', function(event) {
             "measurements": TableData
         };
         postdata = JSON.stringify(postdata);
-        console.log(postdata);
+        // console.log(postdata);
         $.ajax({
             url: api_url + 'createorderitemmeasurement.php',
             type: 'POST',
             data: {
                 postdata: postdata
+            },
+            beforeSend: function() {
+                  $(".preloader").show();
+                  // console.log("before");
             },
             success: function(response) {
                 alert(response.Message);
@@ -66,6 +70,11 @@ $('#saveMeasurementsData').on('click', function(event) {
                 $('#customerOrdersBlock').hide();
                 //  console.log(customerOrderDetails);
                 $('#myModal').modal('toggle');
+            },
+            complete:function(response){
+
+              // console.log("after");
+              $(".preloader").hide();
             }
         })
     } else {

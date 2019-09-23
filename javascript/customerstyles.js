@@ -12,7 +12,7 @@ function getConfirmation() {
     confirmationStatus.set('1', '<span class="badge badge-pill badge-primary">Active</span>');
 }
 function settabledata(styleData){
-  console.log(styleData);
+  // console.log(styleData);
   var html ='';
   $('#styletbl').dataTable().fnDestroy();
   $("#styletbldata").empty();
@@ -142,6 +142,10 @@ $('#savebtncustomerstyle').on('click',function(event){
         type:'POST',
         data:obj,
         dataType:'json',
+        beforeSend: function() {
+              $(".preloader").show();
+              // console.log("before");
+        },
         success:function(response){
 
             if(response.Responsecode==200){
@@ -156,6 +160,11 @@ $('#savebtncustomerstyle').on('click',function(event){
             else{
               swal(response.Message);
             }
+        },
+        complete:function(response){
+
+          // console.log("after");
+          $(".preloader").hide();
         }
     });
   }
@@ -182,6 +191,10 @@ $('#updatebtncustomerstyle').on('click',function(event){
       type:'POST',
       data:obj,
       dataType:'json',
+      beforeSend: function() {
+            $(".preloader").show();
+            // console.log("before");
+      },
       success:function(response){
 
           if(response.Responsecode==200){
@@ -195,6 +208,11 @@ $('#updatebtncustomerstyle').on('click',function(event){
            else{
              swal(response.Message);
            }
+      },
+      complete:function(response){
+
+        // console.log("after");
+        $(".preloader").hide();
       }
   });
 }
@@ -209,6 +227,10 @@ function removeStyle(id){
         styleId:id
       },
       dataType:'json',
+      beforeSend: function() {
+            $(".preloader").show();
+            // console.log("before");
+      },
       success:function(response){
         if(response.Responsecode==200){
           $("#customerstyletable").show();
@@ -220,6 +242,11 @@ function removeStyle(id){
         else{
           swal(response.Message);
         }
+      },
+      complete:function(response){
+
+        // console.log("after");
+        $(".preloader").hide();
       }
   });
 }

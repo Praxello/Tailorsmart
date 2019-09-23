@@ -31,7 +31,7 @@
                              <div class="form-group">
                                  <label for="currency">Currency</label>
                                  <select class="form-control form-control-sm" id="currency" name="currency">
-                                     
+
                                  </select>
                              </div>
                          </div>
@@ -100,9 +100,18 @@
              url: api_url + 'createpaymentfororder.php',
              type: 'POST',
              data: paymentData,
+             beforeSend: function() {
+                   $(".preloader").show();
+                   // console.log("before");
+             },
              success: function(response) {
                  alert(response.Message);
                  $('#paymentLinkModal').modal('toggle');
+             },
+             complete:function(response){
+
+               // console.log("after");
+               $(".preloader").hide();
              }
          })
 

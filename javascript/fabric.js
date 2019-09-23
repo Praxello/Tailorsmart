@@ -81,6 +81,10 @@ function getfabrics(){
      $.ajax({
          type: "GET",
          url: api_url+"getfabrics.php",
+         beforeSend: function() {
+               $(".preloader").show();
+               // console.log("before");
+         },
          success: function(response) {
            var count;
             if(response['Data']!=null){
@@ -91,6 +95,11 @@ function getfabrics(){
             styleData.set(response.Data[i].fabricId,response.Data[i]);
             }
             settabledata(styleData);
+         },
+         complete:function(response){
+
+           // console.log("after");
+           $(".preloader").hide();
          }
      });
 }
@@ -203,6 +212,10 @@ $('#savebtncustomerstyle').on('click',function(event){
          type:'POST',
          data:obj,
          dataType:'json',
+         beforeSend: function() {
+               $(".preloader").show();
+               // console.log("before");
+         },
          success:function(response){
            if(response.Responsecode===200){
                  swal(response.Message);
@@ -216,6 +229,11 @@ $('#savebtncustomerstyle').on('click',function(event){
            else {
              swal(response.Message);
            }
+         },
+         complete:function(response){
+
+           // console.log("after");
+           $(".preloader").hide();
          }
      });
    // }
@@ -262,6 +280,10 @@ $('#updatebtncustomerstyle').on('click',function(event){
       type:'POST',
       data:obj,
       dataType:'json',
+      beforeSend: function() {
+            $(".preloader").show();
+            // console.log("before");
+      },
       success:function(response){
         if(response.Responsecode===200){
               swal(response.Message);
@@ -274,6 +296,11 @@ $('#updatebtncustomerstyle').on('click',function(event){
         else {
           swal(response.Message);
         }
+      },
+      complete:function(response){
+
+        // console.log("after");
+        $(".preloader").hide();
       }
   });
 // }
@@ -288,6 +315,10 @@ function removeFabric(id){
         fabricId:id
       },
       dataType:'json',
+      beforeSend: function() {
+            $(".preloader").show();
+            // console.log("before");
+      },
       success:function(response){
 
           if(response.Responsecode===200){
@@ -302,6 +333,11 @@ function removeFabric(id){
             swal(response.Message);
           }
 
+      },
+      complete:function(response){
+
+        // console.log("after");
+        $(".preloader").hide();
       }
   });
 }

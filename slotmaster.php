@@ -22,7 +22,28 @@ $employeeName = $_SESSION['employeeName'];
     <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
     <link href="css/helper.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    <!-- <style>
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
 
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style> -->
 </head>
 
 <body class="fix-header fix-sidebar">
@@ -55,8 +76,14 @@ $employeeName = $_SESSION['employeeName'];
             </div>
 
             <div class="container-fluid">
+              <div class="preloader1" style="display:none;">
+                  <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
+              </div>
                 <!-- Start Page Content -->
+  <!-- <div class="loader" ></div> -->
                 <div class="row" id="customerstyletable" style="display:block;">
+
                     <div class="col-12">
                         <div class="card">
                           <div class="row">
@@ -85,6 +112,7 @@ $employeeName = $_SESSION['employeeName'];
                     </div>
                 </div>
                 <div class="row" id="customerstyletableform" style="display:none;">
+
                   <div class="col-sm-12">
                     <div class="card">
                       <div class="row">

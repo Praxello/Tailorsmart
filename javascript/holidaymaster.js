@@ -2,7 +2,7 @@ var HolidayData = new Map();//from getallstaff.php names only
 getholiday();
 
 function setholidaymaster(HolidayData){
-  console.log(HolidayData);
+  // console.log(HolidayData);
   var html ='';
   $('#holidaytbl').dataTable().fnDestroy();
   $("#holidaytbldata").empty();
@@ -37,6 +37,10 @@ function getholiday(){
      $.ajax({
          type: "GET",
          url: api_url+"getslotholidays.php",
+         beforeSend: function() {
+               $(".preloader").show();
+               // console.log("before");
+         },
          success: function(response) {
            var count;
             if(response['Data']!=null){
@@ -47,6 +51,11 @@ function getholiday(){
             HolidayData.set(response.Data[i].holidayId,response.Data[i]);
             }
             setholidaymaster(HolidayData);
+         },
+         complete:function(response){
+
+           // console.log("after");
+           $(".preloader").hide();
          }
      });
 }
@@ -99,6 +108,10 @@ $('#savebtncustomerstyle').on('click',function(event){
         type:'POST',
         data:obj,
         dataType:'json',
+        beforeSend: function() {
+              $(".preloader").show();
+              // console.log("before");
+        },
         success:function(response){
 
             if(response.Responsecode==200){
@@ -112,6 +125,11 @@ $('#savebtncustomerstyle').on('click',function(event){
             else{
               swal(response.Message);
             }
+        },
+        complete:function(response){
+
+          // console.log("after");
+          $(".preloader").hide();
         }
     });
 });
@@ -132,6 +150,10 @@ $('#updatebtncustomerstyle').on('click',function(event){
       type:'POST',
       data:obj,
       dataType:'json',
+      beforeSend: function() {
+            $(".preloader").show();
+            // console.log("before");
+      },
       success:function(response){
 
           if(response.Responsecode==200){
@@ -144,6 +166,11 @@ $('#updatebtncustomerstyle').on('click',function(event){
            else{
              swal(response.Message);
            }
+      },
+      complete:function(response){
+
+        // console.log("after");
+        $(".preloader").hide();
       }
   });
 });
@@ -157,6 +184,10 @@ function removeStyle(id){
         holidayId:id
       },
       dataType:'json',
+      beforeSend: function() {
+            $(".preloader").show();
+            // console.log("before");
+      },
       success:function(response){
         if(response.Responsecode==200){
           $("#customerstyletable").show();
@@ -168,6 +199,11 @@ function removeStyle(id){
         else{
           swal(response.Message);
         }
+      },
+      complete:function(response){
+
+        // console.log("after");
+        $(".preloader").hide();
       }
   });
 }

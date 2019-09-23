@@ -11,7 +11,7 @@ function getConfirmation() {
     confirmationStatus.set('1', '<span class="badge badge-pill badge-primary">Active</span>');
 }
 function setslotmaster(SlotData){
-  console.log(SlotData);
+  // console.log(SlotData);
   var html ='';
   $('#slottbl').dataTable().fnDestroy();
   $("#slottbldata").empty();
@@ -46,6 +46,10 @@ function getslots(){
      $.ajax({
          type: "GET",
          url: api_url+"getAllSlots.php",
+         beforeSend: function() {
+               $(".preloader").show();
+               // console.log("before");
+         },
          success: function(response) {
            var count;
             if(response['Data']!=null){
@@ -56,6 +60,11 @@ function getslots(){
             SlotData.set(response.Data[i].slotId,response.Data[i]);
             }
             setslotmaster(SlotData);
+         },
+         complete:function(response){
+
+           // console.log("after");
+           $(".preloader").hide();
          }
      });
 }
@@ -108,6 +117,10 @@ $('#savebtncustomerstyle').on('click',function(event){
         type:'POST',
         data:obj,
         dataType:'json',
+        beforeSend: function() {
+              $(".preloader").show();
+              // console.log("before");
+        },
         success:function(response){
 
             if(response.Responsecode==200){
@@ -121,6 +134,10 @@ $('#savebtncustomerstyle').on('click',function(event){
             else{
               swal(response.Message);
             }
+        },
+        complete:function(response){
+          $(".preloader").hide();
+          // console.log("after");
         }
     });
 });
@@ -141,6 +158,10 @@ $('#updatebtncustomerstyle').on('click',function(event){
       type:'POST',
       data:obj,
       dataType:'json',
+      beforeSend: function() {
+            $(".preloader").show();
+            // console.log("before");
+      },
       success:function(response){
           if(response.Responsecode==200){
           $("#customerstyletable").show();
@@ -152,6 +173,11 @@ $('#updatebtncustomerstyle').on('click',function(event){
            else{
              swal(response.Message);
            }
+      },
+      complete:function(response){
+
+        // console.log("after");
+        $(".preloader").hide();
       }
   });
 });
@@ -165,6 +191,10 @@ function removeStyle(id){
         slotId:id
       },
       dataType:'json',
+      beforeSend: function() {
+            $(".preloader").show();
+            // console.log("before");
+      },
       success:function(response){
         if(response.Responsecode==200){
           $("#customerstyletable").show();
@@ -176,6 +206,11 @@ function removeStyle(id){
         else{
           swal(response.Message);
         }
+      },
+      complete:function(response){
+
+        // console.log("after");
+        $(".preloader").hide();
       }
   });
 }

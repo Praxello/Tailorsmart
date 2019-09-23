@@ -30,6 +30,10 @@ $('.add-row').on('click', function(e) {
         type: 'POST',
         dataType: 'json',
         data: createOrderData,
+        beforeSend: function() {
+              $(".preloader").show();
+              // console.log("before");
+        },
         success: function(response) {
             var count = response.Data.length;
 
@@ -54,6 +58,11 @@ $('.add-row').on('click', function(e) {
             }
             $('#OrderItemPrice').val('');
             $('#products').val('').trigger('change');
+        },
+        complete:function(response){
+
+          // console.log("after");
+          $(".preloader").hide();
         }
     })
 
@@ -88,6 +97,10 @@ function getActiveProductsList() {
         url: api_url + 'getactiveproducts.php',
         type: 'GET',
         dataType: 'json',
+        beforeSend: function() {
+              $(".preloader").show();
+              // console.log("before");
+        },
         success: function(response) {
             var createDropdownOptions = '';
             var count = response.Data.length;
@@ -101,6 +114,11 @@ function getActiveProductsList() {
             }
             $("#products").html(createDropdownOptions);
             $('#products').val('').trigger('change');
+        },
+        complete:function(response){
+
+          // console.log("after");
+          $(".preloader").hide();
         }
     })
 }
@@ -119,6 +137,10 @@ function loadMeasurment(productId, orderItemId, rowId) { //for mapping product i
         url: api_url + 'getproductmeasurementmapping.php',
         type: 'GET',
         dataType: 'json',
+        beforeSend: function() {
+              $(".preloader").show();
+              // console.log("before");
+        },
         success: function(response) {
             var createDropdownOptions = '';
             var count = response.Data.length;
@@ -146,6 +168,11 @@ function loadMeasurment(productId, orderItemId, rowId) { //for mapping product i
             }
             $("#measurementTable").html(createDropdownOptions);
             $('#myModal').modal();
+        },
+        complete:function(response){
+
+          // console.log("after");
+          $(".preloader").hide();
         }
     })
 
@@ -163,6 +190,10 @@ function loadStyles(productId, orderItemId, rowId) {
         url: api_url + 'getproductstitchstylemapping.php',
         type: 'GET',
         dataType: 'json',
+        beforeSend: function() {
+              $(".preloader").show();
+              // console.log("before");
+        },
         success: function(response) {
             var firstList = '',
                 secondList = '',
@@ -292,7 +323,13 @@ function loadStyles(productId, orderItemId, rowId) {
             $('#valSecond').val(valSecond);
             $('#valThird').val(valThird);
             $('#styleModal').modal();
+        },
+        complete:function(response){
+
+          // console.log("after");
+          $(".preloader").hide();
         }
+
     });
 }
 
@@ -311,6 +348,10 @@ function loadFabrics(productId, orderItemId, rowId) {
         url: api_url + 'getproductfabricmapping.php',
         type: 'GET',
         dataType: 'json',
+        beforeSend: function() {
+              $(".preloader").show();
+              // console.log("before");
+        },
         success: function(response) {
             var createDropdownOptions = '';
             var count = response.Data.length;
@@ -342,6 +383,11 @@ function loadFabrics(productId, orderItemId, rowId) {
 
             $("#fabricsTable").html(createDropdownOptions);
             $('#FabricsModal').modal();
+        },
+        complete:function(response){
+
+          // console.log("after");
+          $(".preloader").hide();
         }
     })
 }

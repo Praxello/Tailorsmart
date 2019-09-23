@@ -11,6 +11,10 @@ $('#login').on('submit', function(event) {
         type: 'POST',
         data: loginData,
         dataType: 'json',
+        beforeSend: function() {
+            $(".preloader").show();
+            // console.log("before");
+        },
         success: function(response) {
             if (response.Data != null) {
                 var employeeId = response.Data.employeeId;
@@ -19,6 +23,23 @@ $('#login').on('submit', function(event) {
             } else {
                 alert('Enter Correct Username and password');
             }
+        },
+        complete: function(response) {
+
+            // console.log("after");
+            $(".preloader").hide();
         }
     })
 });
+
+// beforeSend: function() {
+//       $(".preloader").fadeIn();
+//       // console.log("before");
+// },
+//
+// ,
+// complete:function(response){
+//
+//   // console.log("after");
+//   $(".preloader").fadeOut();
+// }

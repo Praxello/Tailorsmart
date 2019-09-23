@@ -94,19 +94,23 @@ $('#saveStyleData').on('click', function(event) {
 
     third_TableData = store_thirdTblValues();
     second_TableData = store_secondTblValues();
- 
+
     var allTableData = first_TableData.concat(second_TableData, third_TableData);
     var postdata = {
         "orderitemid": style_orderItemId,
         "styles": allTableData
     };
     postdata = JSON.stringify(postdata);
-  
+
     $.ajax({
         url: api_url + 'createorderitemstyle.php',
         type: 'POST',
         data: {
             postdata: postdata
+        },
+        beforeSend: function() {
+              $(".preloader").show();
+              // console.log("before");
         },
         success: function(response) {
             alert(response.Message);
@@ -114,6 +118,11 @@ $('#saveStyleData').on('click', function(event) {
             customerOrderDetails = customerOrders[indexRow];
             $('#customerOrdersBlock').hide();
             $('#cl').click();
+        },
+        complete:function(response){
+
+          // console.log("after");
+          $(".preloader").hide();
         }
     })
 });
@@ -121,7 +130,7 @@ $('#saveStyleData').on('click', function(event) {
 function store_firstTblValues() {
     var TableData = new Array();
     var stitchstyleid = $('#valFirst').val();
-   
+
     var tableControl = document.getElementById('firstStyle');
     $('input:checkbox:checked', tableControl).each(function(row) {
         TableData[row] = {
@@ -143,7 +152,7 @@ function store_secondTblValues() {
             "value": 'yes'
         }
     });
-    
+
     return TableData;
 }
 
@@ -153,7 +162,7 @@ function store_thirdTblValues() {
     var j = 0;
     $('#thirdStyle tr').each(function(row, tr) {
         if ($(tr).find('td:eq(1)').text() != '') {
-            
+
             TableData[j] = {
                 "stitchstyleid": $(tr).find('td:eq(0)').text(),
                 "stitchsubstyleid": $(tr).find('td:eq(1)').text(),

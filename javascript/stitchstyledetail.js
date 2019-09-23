@@ -25,6 +25,10 @@ function getstitchstyleitem(){
   $.ajax({
       type: "GET",
       url: api_url+"getstitchstyleitem.php",
+      beforeSend: function() {
+            $(".preloader").show();
+            // console.log("before");
+      },
       success: function(response) {
         var count;
         if(response['Data']!=null){
@@ -37,6 +41,11 @@ function getstitchstyleitem(){
         html +="<option value='"+response['Data'][i].stitchStyleId+"'>"+response['Data'][i].stitchStyleTitle+"</option>";
         }
         $("#newstitchstyleId").html(html);
+      },
+      complete:function(response){
+
+        // console.log("after");
+        $(".preloader").hide();
       }
     });
 }
@@ -79,6 +88,10 @@ function getstitchstyledetailsitem(){
      $.ajax({
          type: "GET",
          url: api_url+"getstitchstyledetailsitem.php",
+         beforeSend: function() {
+               $(".preloader").show();
+               // console.log("before");
+         },
          success: function(response) {
             var count;
             if(response['Data']!=null){
@@ -89,6 +102,11 @@ function getstitchstyledetailsitem(){
             styleData.set(response.Data[i].stitchSubStyleId,response.Data[i]);
             }
             settabledata(styleData);
+         },
+         complete:function(response){
+
+           // console.log("after");
+           $(".preloader").hide();
          }
      });
 }
@@ -115,9 +133,18 @@ function imguplod(imgid){
                      processData:false,
                      data: fd,
                      dataType:'json',
+                     beforeSend: function() {
+                           $(".preloader").show();
+                           // console.log("before");
+                     },
                      success:function(response){
                        swal(response['Message']);
                        getstitchstyledetailsitem();
+                     },
+                     complete:function(response){
+
+                       // console.log("after");
+                       $(".preloader").hide();
                      }
               });
    };
@@ -179,6 +206,10 @@ $('#savebtncustomerstyle').on('click',function(event){
         type:'POST',
         data:obj,
         dataType:'json',
+        beforeSend: function() {
+              $(".preloader").show();
+              // console.log("before");
+        },
         success:function(response){
           if(response.Responsecode===200){
             swal(response.Message);
@@ -197,6 +228,11 @@ $('#savebtncustomerstyle').on('click',function(event){
           else {
             swal(response.Message);
           }
+        },
+        complete:function(response){
+
+          // console.log("after");
+          $(".preloader").hide();
         }
     });
 });
@@ -217,6 +253,10 @@ $('#updatebtncustomerstyle').on('click',function(event){
       type:'POST',
       data:obj,
       dataType:'json',
+      beforeSend: function() {
+            $(".preloader").show();
+            // console.log("before");
+      },
       success:function(response){
         if(response.Responsecode===200){
           swal(response.Message);
@@ -233,6 +273,11 @@ $('#updatebtncustomerstyle').on('click',function(event){
         else {
           swal(response.Message);
         }
+      },
+      complete:function(response){
+
+        // console.log("after");
+        $(".preloader").hide();
       }
   });
 });
@@ -246,6 +291,10 @@ function removestitchStyleDetail(id){
         stitchsubstyleId:id
       },
       dataType:'json',
+      beforeSend: function() {
+            $(".preloader").show();
+            // console.log("before");
+      },
       success:function(response){
         if(response.Responsecode===200){
           swal(response.Message);
@@ -257,6 +306,11 @@ function removestitchStyleDetail(id){
         else {
           swal(response.Message);
         }
+      },
+      complete:function(response){
+
+        // console.log("after");
+        $(".preloader").hide();
       }
   });
 }
