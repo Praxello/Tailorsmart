@@ -8,9 +8,9 @@ $records = null;
 extract($_POST);
 
 date_default_timezone_set("Asia/Kolkata");
-if (isset($_POST['parentid']) ) {
+if (isset($_POST['parentId']) ) {
 
-				$query = mysqli_query($conn,"DELETE FROM product_parent_master WHERE parentId = $parentid");
+				$query = mysqli_query($conn,"DELETE FROM product_parent_master WHERE parentId = $parentId");
 					if($query==1)
 					{
 					  			$response = array('Message'=>"Delete product parent created successfully",'Responsecode'=>200);

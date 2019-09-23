@@ -12,7 +12,7 @@ if (isset($_POST['itemTitle']) && isset($_POST['measurementId']) && isset($_POST
 
 	$tempTitle = mysqli_real_escape_string($conn,$itemTitle);
 
-				$query = mysqli_query($conn,"update measurement_item_master set itemTitle = '$tempTitle' , isActive='$isActive' where measurementId = $measurementId");
+				$query = mysqli_query($conn,"update measurement_item_master set itemTitle = '$tempTitle' , isActive=$isActive where measurementId = $measurementId");
 					$rowsAffected=mysqli_affected_rows($conn);
 						if($rowsAffected > 0)
 						{

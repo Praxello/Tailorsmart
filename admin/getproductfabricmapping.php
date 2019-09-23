@@ -4,7 +4,7 @@ header('Content-Type: application/json');
      include "../connection.php";
 	 mysqli_set_charset($conn,'utf8');
 	 $response=null;
-	
+	 $records = null;
 	 extract($_POST);
 	  
 		 			$academicQuery = mysqli_query($conn,"select * from product_fabric_mapping_master map inner join product_fabric_master fabric on map.fabricid = fabric.fabricid");

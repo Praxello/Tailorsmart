@@ -8,12 +8,14 @@ $records = null;
 extract($_POST);
 
 date_default_timezone_set("Asia/Kolkata");
-if (isset($_POST['styleid']) && isset($_POST['substyleid']) && isset($_POST['isgroup']) && isset($_POST['active']) ) {
+if (isset($_POST['styleId']) && isset($_POST['subStyleId']) && isset($_POST['isGroup']) && isset($_POST['isActive']) ) {
 
-				$query = mysqli_query($conn,"insert into product_parent_master(styleid,substyleid,isgroup,isactive) values($styleid,$substyleid,$isgroup,$active)");
+				$query = mysqli_query($conn,"insert into product_parent_master(styleid,substyleid,isgroup,isactive) values($styleId,$subStyleId,$isGroup,$isActive)");
 					if($query==1)
 					{
-					  			$response = array('Message'=>"New product parent created successfully",'Responsecode'=>200);
+									$last_id = mysqli_insert_id($conn);
+									$s = strval($last_id);
+					  			$response = array('Message'=>"New product parent created successfully",'Responsecode'=>200,'RowId'=>$last_id);
 					}
 					else
 					{

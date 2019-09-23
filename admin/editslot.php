@@ -10,9 +10,9 @@ extract($_POST);
 date_default_timezone_set("Asia/Kolkata");
 if (isset($_POST['slotId']) && isset($_POST['slotTime']) && isset($_POST['isActive'])) {
 
-	        $tempTitle = mysqli_real_escape_string($conn,$slotTime);
+	         $tempTitle = mysqli_real_escape_string($conn,$slotTime);
 
-				  $query = mysqli_query($conn,"update appointment_slots set slotTime = '$slotTime' , isActive=$isActive where slotId = $slotId");
+				$query = mysqli_query($conn,"update appointment_slots set slotTime = '$slotTime' , isActive='$isActive' where slotId = $slotId");
 					$rowsAffected=mysqli_affected_rows($conn);
 						if($rowsAffected > 0)
 						{
