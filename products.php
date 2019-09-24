@@ -187,8 +187,8 @@ $employeeName = $_SESSION['employeeName'];
                                               <label class="control-label">Price variable</label>
                                               <select  class="form-control" id="pricevariable" style="width:100%;">
                                                 <option value="">Select Status</option>
-                                                <option value="1">Off</option>
-                                                <option value="0">On</option>
+                                                <option value="1">YES</option>
+                                                <option value="0">NO</option>
                                               </select>
 
                                             </div>

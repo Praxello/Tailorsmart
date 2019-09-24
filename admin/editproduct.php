@@ -14,7 +14,7 @@ if (isset($_POST['productId']) && isset($_POST['categoryId']) && isset($_POST['p
 	$tempTitle = mysqli_real_escape_string($conn,$productTitle);
 	$tempSubtitle = mysqli_real_escape_string($conn,$productSubTitle);
 
-					$query = mysqli_query($conn,"update product_master set categoryId = $categoryId , productTitle = '$tempTitle',productSubTitle = '$tempSubtitle', productDetails ='$tempDetails', price=$price, releaseDate='$releaseDate',ownerId=$ownerId , sequenceNo=$sequenceNo , isPriceVariable = '$isPriceVariable', isActive ='$isActive', skuno='$skuNo',parentid='$parentId' where productId=$productId");
+					$query = mysqli_query($conn,"update product_master set categoryId = $categoryId,productTitle = '$tempTitle',productSubTitle = '$tempSubtitle', productDetails ='$tempDetails', price=$price, releaseDate='$releaseDate',ownerId=$ownerId , sequenceNo=$sequenceNo , isPriceVariable = '$isPriceVariable', isActive ='$isActive', skuno='$skuNo',parentid='$parentId' where productId=$productId");
 						$rowsAffected=mysqli_affected_rows($conn);
 						if($rowsAffected > 0)
 						{

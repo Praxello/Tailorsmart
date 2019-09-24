@@ -25,8 +25,12 @@ function settabledata(styleData){
         html +="<td><form id='custstyleform"+k+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+k+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' src='"+imageUrl+"'  style='cursor: pointer' onclick='imguplod("+k+")' alt='No Image'></img></form></td>";
         html +="<td>"+AllData.categoryTitle+"</td>";
         html +="<td>"+isConfirmed+"</td>";
+        if(AllData.categoryTitle!="All"){
         html +='<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod('+k+')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+k+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removecategory('+k+')"><i class="fa fa-remove"></i></button></div></td>';
-
+        }
+        else {
+        html +='<td></td>';
+        }
         html +="</tr>";
   }
   $("#styletbldata").html(html);

@@ -11,11 +11,12 @@ function getConfirmation() {
     confirmationStatus.set('0', '<span class="badge badge-pill badge-warning">InActive</span>');
     confirmationStatus.set('1', '<span class="badge badge-pill badge-primary">Active</span>');
 }
-getMicellaneousData(); // For Mapping Propose Category / Parent / Employee
 getFabricData();     // For Mapping Propose Fabrics
 getMeasurementData();  // For Mapping Propose Measurement
 getStitchStyleData();  // For Mapping Propose Stitch Style
-getproductdata();
+getMicellaneousData(); // For Mapping Propose Category / Parent / Employee
+
+
 
 
 
@@ -48,22 +49,7 @@ function getMicellaneousData(){
       type: "GET",
       url: api_url+'getmiscellaneousdata.php',
       success: function(response) {
-        if (response.Employee != null) {
-            let count_EmployeeData = response.Employee.length;
-            for(var i=0;i<count_EmployeeData;i++){
-                EmployeeData.set(response.Employee[i].employeeId,response.Employee[i]);
-                selectowner +="<option value='"+response.Employee[i].employeeId+"'>"+response.Employee[i].firstName+"</option>";
-            }
-            $("#owner").html(selectowner);
-        }
-        if (response.Categories != null) {
-            let count_CategoriesData = response.Categories.length;
-            for(var i=0;i<count_CategoriesData;i++){
-                CategoryData.set(response.Categories[i].categoryId,response.Categories[i]);
-                selectcategory +="<option value='"+response.Categories[i].categoryId+"'>"+response.Categories[i].categoryTitle+"</option>";
-            }
-            $("#category").html(selectcategory);
-        }
+        // console.log(response);
         if (response.ParentProducts != null) {
             let count_ParentProducts = response.ParentProducts.length;
             for(var i=0;i<count_ParentProducts;i++){
@@ -72,7 +58,25 @@ function getMicellaneousData(){
             }
              $("#parent").html(selectparent);
         }
-        // console.log(ParentProducts.size);
+        if (response.Employee != null) {
+            let count_EmployeeData = response.Employee.length;
+            for(var i=0;i<count_EmployeeData;i++){
+                EmployeeData.set(response.Employee[i].employeeId,response.Employee[i]);
+                selectowner +="<option value='"+response.Employee[i].employeeId+"'>"+response.Employee[i].firstName+"</option>";
+            }
+            $("#owner").html(selectowner);
+        }
+        // console.log(EmployeeData);
+        if (response.Categories != null) {
+            let count_CategoriesData = response.Categories.length;
+            for(var i=0;i<count_CategoriesData;i++){
+                CategoryData.set(response.Categories[i].categoryId,response.Categories[i]);
+                selectcategory +="<option value='"+response.Categories[i].categoryId+"'>"+response.Categories[i].categoryTitle+"</option>";
+            }
+            $("#category").html(selectcategory);
+        }
+         getproductdata();
+
       }
     });
 }
@@ -124,7 +128,8 @@ function getStitchStyleData(){
     });
 }
 function settabledata(styleData){
-  // console.log(styleData);
+   //console.log(ParentProducts);
+   // console.log(styleData);
   var html ='';
   $('#styletbl').dataTable().fnDestroy();
   $("#styletbldata").empty();
@@ -132,16 +137,19 @@ function settabledata(styleData){
   {
         var AllData= styleData.get(k);
         let isConfirmed = confirmationStatus.get(AllData.isActive);
+
         html +='<tr>';
         let imageUrl = pic_url+'product/300x300/'+k+'.jpg';
-
+        let parentname = ParentProducts.get(AllData.parentId);
         html +="<td style='width:15%'><form id='custstyleform"+k+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+k+"' name='file' accept='image/*' style='display:none;' /> <img  accept='image/*' class='img-thumbnail' src='"+imageUrl+"' style='cursor: pointer' alt='No Image' onclick='imguplod("+k+")'></img></form></td>";
         html +="<td>"+AllData.productTitle+"</td>";
         html +="<td style='width:15%'>"+AllData.productSubTitle+"</td>";
+
+        html +="<td style='width:10%'>"+parentname.styleTitle+" "+parentname.subStyleTitle+"</td>";
         html +="<td style='width:5%'>"+AllData.skuNo+"</td>";
         html +="<td style='width:5%'>"+AllData.price+"</td>";
         html +="<td style='width:5%'>"+AllData.releaseDate+"</td>";
-        html +="<td style='width:5%'>"+AllData.sequenceNo+"</td>";
+
         html +="<td style='width:5%'>"+AllData.sequenceNo+"</td>";
         html +="<td>"+isConfirmed+"</td>";
         html +='<td style="width:5%"><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod('+k+')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+k+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeProduct('+k+')"><i class="fa fa-remove"></i></button></div></td>';

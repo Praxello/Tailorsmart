@@ -23,8 +23,7 @@
                 <li><a class="has-arrow  " href="customerappointment.php" aria-expanded="false"><i
                             class="fa fa-calendar"></i><span class="hide-menu">Appointment Management</span></a></li>
 
-                <li><a class="has-arrow  " href="masterproducts.php" aria-expanded="false"><i
-                            class="fa  fa-desktop "></i><span class="hide-menu">Master Products</span></a></li>
+
                 <li><a class="has-arrow  " href="products.php" aria-expanded="false"><i class="fa fa-diamond"></i><span
                             class="hide-menu">Products</span></a></li>
                             <li> <a class="has-arrow" href="/" aria-expanded="false"><i class="fa fa-shopping-cart"></i>
@@ -34,6 +33,8 @@
                                                           class="fa fa-male"></i><span class="" style="padding: 20px;">Styles</span></a></li>
                                               <li><a class="  " href="customersubstyles.php" aria-expanded="false" ><i
                                                           class="fa fa-female"></i><span class="" style="padding: 20px;">Substyles</span></a></li>
+                                              <li><a class="  " href="masterproducts.php" aria-expanded="false"><i
+                                                              class="fa  fa-desktop "></i><span class="hide-menu" style="padding: 20px;">Master Products</span></a></li>
                                               <li><a class="  " href="managecategory.php" aria-expanded="false"><i
                                                           class="fa fa-list-alt"></i><span class="hide-menu" style="padding: 20px;">Manage Category</span></a></li>
                                               <li><a class="  " href="measurement.php" aria-expanded="false"><i class="fa fa-balance-scale"></i><span
