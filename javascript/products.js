@@ -285,7 +285,7 @@ $('#savebtnproducts').on('click',function(event){
             swal(response.Message);
             obj.productId = response.RowId.toString();
             styleData.set(response.RowId.toString(),obj);
-            settabledata(styleData);
+            // settabledata(styleData);
           }
           else {
             swal(response.Message);
@@ -443,9 +443,9 @@ function setfabrcmapping(temparray){
         }
         else {
             unselfabricmap +='<tr><td>';
-            unselfabricmap +='<input id="check'+fabricName.fabricId+'"  type="checkbox" name="fabricmapcheck" value="'+fabricName.fabricId+'" alt="No Iamge" >';
+            unselfabricmap +='<input id="check'+fabricName.fabricId+'"  type="checkbox" name="fabricmapcheck" value="'+fabricName.fabricId+'"  >';
             unselfabricmap +='</td>';
-            unselfabricmap +="<td> <img class='img-thumbnail' src='"+pic_url+"fabric/300x300/"+fabricName.skuNo+".jpg' ></img></td>";
+            unselfabricmap +="<td> <img class='img-thumbnail' src='"+pic_url+"fabric/300x300/"+fabricName.skuNo+".jpg' alt='No Image' ></img></td>";
             unselfabricmap +="<td>"+fabricName.fabricTitle+"</td>";
             unselfabricmap +="<td>"+fabricName.skuNo+"</td></tr>";
         }

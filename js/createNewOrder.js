@@ -48,10 +48,10 @@ $('.add-row').on('click', function(e) {
 
                     markup += "<tr id=" + response.Data[i].orderItemId + "><td>" + response.Data[i].productTitle + "</td><td>" + response.Data[i].productSubTitle + "</td><td>" + response.Data[i].orderItemPrice + "</td>";
                     markup += "<td><input type='hidden' id='amt" + response.Data[i].orderItemId + "' value='" + response.Data[i].orderItemPrice + "'/><div class='btn-group' role='group' aria-label='Basic example'>";
-                    markup += "<a class='btn btn-info btn-sm' title='Edit Price' data-toggle='tooltip' onclick='loadPriceModal(\"" + response.Data[i].orderItemId + "\",\"" + response.Data[i].productTitle + "\",\"" + (i + 1) + "\")' href='#'><i class='fa fa-edit'></i></a>";
-                    markup += "<a class='btn btn-success btn-sm' title='Add Measurment' data-toggle='tooltip' onclick='loadMeasurment(\"" + response.Data[i].productId + "\",\"" + response.Data[i].orderItemId + "\",\"" + (i) + "\")' href='#'><i class='fa fa-edit'></i></a>";
-                    markup += "<a class='btn btn-primary btn-sm' title='add Style' data-toggle='tooltip' href='#' onclick='loadStyles(\"" + response.Data[i].productId + "\",\"" + response.Data[i].orderItemId + "\",\"" + (i) + "\")'><i class='fa fa-user'></i></a>";
-                    markup += "<a class='btn btn-warning btn-sm' title='add Fabrics' data-toggle='tooltip' href='#' onclick='loadFabrics(\"" + response.Data[i].productId + "\",\"" + response.Data[i].orderItemId + "\",\"" + (i) + "\")'><i class='fa fa-user'></i></a>";
+                    markup += "<a class='btn btn-info btn-sm' title='Edit Price' data-toggle='tooltip' onclick='loadPriceModal(\"" + response.Data[i].orderItemId + "\",\"" + response.Data[i].productTitle + "\",\"" + (i + 1) + "\")' href='#'><i class='fa fa-inr'></i></a>";
+                    markup += "<a class='btn btn-success btn-sm' title='Add Measurment' data-toggle='tooltip' onclick='loadMeasurment(\"" + response.Data[i].productId + "\",\"" + response.Data[i].orderItemId + "\",\"" + (i) + "\")' href='#'><i class='fa fa-balance-scale'></i></a>";
+                    markup += "<a class='btn btn-primary btn-sm' title='add Style' data-toggle='tooltip' href='#' onclick='loadStyles(\"" + response.Data[i].productId + "\",\"" + response.Data[i].orderItemId + "\",\"" + (i) + "\")'><i class='fa fa-male'></i></a>";
+                    markup += "<a class='btn btn-warning btn-sm' title='add Fabrics' data-toggle='tooltip' href='#' onclick='loadFabrics(\"" + response.Data[i].productId + "\",\"" + response.Data[i].orderItemId + "\",\"" + (i) + "\")'><i class='fa fa-gift'></i></a>";
                     markup += "<a  class='btn btn-danger btn-sm' title='Remove Item' data-toggle='tooltip' href='#' onclick='removeItem(\"" + response.Data[i].orderItemId + "\",\"" + response.Data[i].orderItemPrice + "\")'><i class='fa fa-trash'></i></a></td></div></tr>";
                     $("#productData").append(markup);
                 }
@@ -89,6 +89,7 @@ getActiveProductsList();
 loadTable(mar);
 
 function loadTable(param) {
+  $("#productData").empty();
     $("#productData").html(param);
 }
 
@@ -408,6 +409,7 @@ function getPaymentList() {
         type: 'POST',
         data: { orderid: orderId },
         success: function(response) {
+         
             var paymentDateTime = null;
             if (response.Data.Payments != null) {
                 var count = response.Data.Payments.length;
@@ -440,10 +442,8 @@ function getPaymentList() {
                 }
                 $("#paymentData").html(markup);
             }
-
-
         }
-    })
+    });
 }
 
 function removePayment(paymentid, orderid) {

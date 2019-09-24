@@ -106,6 +106,7 @@
              },
              success: function(response) {
                  alert(response.Message);
+               getPaymentList();
                  $('#paymentLinkModal').modal('toggle');
              },
              complete:function(response){
