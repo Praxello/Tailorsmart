@@ -110,7 +110,6 @@ $('#saveStyleData').on('click', function(event) {
         },
         beforeSend: function() {
               $(".preloader").show();
-              // console.log("before");
         },
         success: function(response) {
             alert(response.Message);
@@ -120,8 +119,6 @@ $('#saveStyleData').on('click', function(event) {
             $('#cl').click();
         },
         complete:function(response){
-
-          // console.log("after");
           $(".preloader").hide();
         }
     })

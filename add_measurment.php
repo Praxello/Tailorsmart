@@ -61,7 +61,6 @@ $('#saveMeasurementsData').on('click', function(event) {
             },
             beforeSend: function() {
                   $(".preloader").show();
-                  // console.log("before");
             },
             success: function(response) {
                 alert(response.Message);
@@ -72,8 +71,6 @@ $('#saveMeasurementsData').on('click', function(event) {
                 $('#myModal').modal('toggle');
             },
             complete:function(response){
-
-              // console.log("after");
               $(".preloader").hide();
             }
         })

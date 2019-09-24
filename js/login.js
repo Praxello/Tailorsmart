@@ -13,7 +13,6 @@ $('#login').on('submit', function(event) {
         dataType: 'json',
         beforeSend: function() {
             $(".preloader").show();
-            // console.log("before");
         },
         success: function(response) {
             if (response.Data != null) {
@@ -25,21 +24,7 @@ $('#login').on('submit', function(event) {
             }
         },
         complete: function(response) {
-
-            // console.log("after");
             $(".preloader").hide();
         }
     })
 });
-
-// beforeSend: function() {
-//       $(".preloader").fadeIn();
-//       // console.log("before");
-// },
-//
-// ,
-// complete:function(response){
-//
-//   // console.log("after");
-//   $(".preloader").fadeOut();
-// }

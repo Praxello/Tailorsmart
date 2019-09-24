@@ -68,7 +68,6 @@ $('#saveFabricsData').on('click', function(event) {
         },
         beforeSend: function() {
               $(".preloader").show();
-              // console.log("before");
         },
         success: function(response) {
             alert(response.Message);
@@ -80,8 +79,6 @@ $('#saveFabricsData').on('click', function(event) {
             $('#FabricsModal').modal('toggle');
         },
         complete:function(response){
-
-          // console.log("after");
           $(".preloader").hide();
         }
 

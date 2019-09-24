@@ -70,7 +70,6 @@ function getAllCustomers() {
         type: 'GET',
         dataType: 'json',
         beforeSend: function() {
-            // console.log('in before');
             $(".preloader").show();
         },
         success: function(response) {
@@ -88,7 +87,6 @@ function getAllCustomers() {
             $("#customerId").html(createDropdownOptions);
         },
         complete: function() {
-            // console.log("after");
             $(".preloader").hide(1000);
         }
     })
@@ -97,10 +95,6 @@ $('#customerId').select2({
     allowClear: true,
     placeholder: "Select Customer Name"
 });
-// function showing(customerId){
-//     getOrdersOfCustomer(customerId);
-//     showOrdersData(customerOrders);
-// }
 //first select customer then customerOrders[] intialize to all order details of that customer
 function getOrdersOfCustomer(customerId) {
     customerId_g = customerId;
@@ -114,7 +108,6 @@ function getOrdersOfCustomer(customerId) {
         dataType: 'json',
         beforeSend: function() {
             $(".preloader").show();
-            // console.log("before");
         },
         success: function(response) {
             if (response.Data != null) {
@@ -170,53 +163,11 @@ function getOrdersOfCustomer(customerId) {
 
         },
         complete: function(response) {
-
-            // console.log("after");
             $(".preloader").hide();
         }
     });
 }
-// function showOrdersData(customerOrders){
-//     var count = customerOrders.length;
-//     $('#customerOrdersDataTable').dataTable().fnDestroy();
-//     $("#customerOrdersData").empty();
-//     var orderStatus = null, isConfirmed = null, customerExpectedDate = null, FinalDeliveryDate = null,EmpName='-';
-//                 $('#customerOrdersBlock').show();
-//                 var responseData = "";
-//                 for (var i = 0; i < count; i++) {
-//                     orderStatus = statusMap.get(customerOrders[i].OrderDetails.orderStatus);
-//                     isConfirmed = confirmationStatus.get(customerOrders[i].OrderDetails.isConfirmed);
-//                     if (customerOrders[i].OrderDetails.promoCode == null) {
-//                         customerOrders[i].OrderDetails.promoCode = '-';
-//                     }
-//                     EmpName = EmployeeData.get(customerOrders[i].OrderDetails.employeeId);
-//                     customerExpectedDate = getDate(customerOrders[i].OrderDetails.customerExpectedDate);
-//                     FinalDeliveryDate = getDate(customerOrders[i].OrderDetails.FinalDeliveryDate);
-//                     responseData += "<tr>";
-//                     responseData += "<td>" + customerOrders[i].OrderDetails.amount + "</td>";
-//                     responseData += "<td>" + customerOrders[i].OrderDetails.promoCode + "</td>";
-//                     responseData += "<td>" + orderStatus + "</td>";
-//                     responseData += "<td>" + isConfirmed + "</td>";
-//                     responseData += "<td>" + customerExpectedDate + "</td>";
-//                     responseData += "<td>" + FinalDeliveryDate + "</td>";
-//                     responseData += "<td>" + EmpName + "</td>";
-//                     responseData += "<td><div class='btn-group' role='group' aria-label='Basic example'>";
-//                     responseData += '<button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="showData(' + customerOrders[i].OrderDetails.orderId + ',' + (i) + ')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>';
-//                     responseData += "</div></td></tr>";
-//                 }
-//                 $("#customerOrdersData").html(responseData);
 
-//                 $('#customerOrdersDataTable').DataTable({
-//                     searching: true,
-//                     retrieve: true,
-//                     bPaginate: $('tbody tr').length > 10,
-//                     order: [],
-//                     columnDefs: [{ orderable: false, targets: [0, 1, 2, 3, 4, 5,6,7] }],
-//                     dom: 'Bfrtip',
-//                     buttons: ['copy', 'csv', 'excel', 'pdf'],
-//                     destroy: true
-//                 });
-// }
 function getDate(date) {
     var output = '-';
     if (date == null) {
@@ -281,7 +232,6 @@ $('#createOrder').on('click', function(event) {
             data: OrderData,
             beforeSend: function() {
                 $(".preloader").show();
-                // console.log("before");
             },
             success: function(response) {
                 var OrderId = response.OrderDetails.orderId;
@@ -297,8 +247,6 @@ $('#createOrder').on('click', function(event) {
 
             },
             complete: function(response) {
-
-                // console.log("after");
                 $(".preloader").hide();
             }
         })

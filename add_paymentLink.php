@@ -102,16 +102,13 @@
              data: paymentData,
              beforeSend: function() {
                    $(".preloader").show();
-                   // console.log("before");
              },
              success: function(response) {
                  alert(response.Message);
-               getPaymentList();
+                getPaymentList();
                  $('#paymentLinkModal').modal('toggle');
              },
              complete:function(response){
-
-               // console.log("after");
                $(".preloader").hide();
              }
          })
