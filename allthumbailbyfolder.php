@@ -25,5 +25,5 @@ function createThumbs( $pathToImages, $pathToThumbs, $thumbWidth )
   }
   print(json_encode($response));
 }
-createThumbs("mobileimages/ads/","300x300/",100);
+createThumbs("mobileimages/fabric/","300x300/",100);
 ?>

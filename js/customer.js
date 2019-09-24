@@ -1,5 +1,5 @@
-// var api_url = 'http://praxello.com/tailorsmart/admin/';
-var api_url = './admin/';
+ var api_url = 'http://praxello.com/tailorsmart/admin/';
+// var api_url = './admin/';
 var customerOrders = []; //all the customers orders
 var customerOrderDetails = []; //for particular order id details
 var orderId = null; //order id for another page reference createNewOrderPage
@@ -237,7 +237,7 @@ $('#createOrder').on('click', function(event) {
                 var OrderId = response.OrderDetails.orderId;
                 orderId = OrderId;
                 indexRow = 0;
-
+mar = '';
                 if (response.OrderDetails != null) {
                     OrderDetailsOfCustomer = response.OrderDetails;
                 }
