@@ -24,8 +24,7 @@
                             class="fa fa-calendar"></i><span class="hide-menu">Appointment Management</span></a></li>
 
 
-                <li><a class="has-arrow  " href="products.php" aria-expanded="false"><i class="fa fa-diamond"></i><span
-                            class="hide-menu">Products</span></a></li>
+
                             <li> <a class="has-arrow" href="/" aria-expanded="false"><i class="fa fa-shopping-cart"></i>
                                           <span class="hide-menu">Masters</span></a>
                                             <ul aria-expanded="false" class="collapse">
@@ -37,6 +36,8 @@
                                                               class="fa  fa-desktop "></i><span class="hide-menu" style="padding: 20px;">Master Products</span></a></li>
                                               <li><a class="  " href="managecategory.php" aria-expanded="false"><i
                                                           class="fa fa-list-alt"></i><span class="hide-menu" style="padding: 20px;">Manage Category</span></a></li>
+                                              <li><a class=" " href="products.php" aria-expanded="false"><i class="fa fa-diamond"></i><span
+                                                                      class="hide-menu" style="padding: 20px;">Products</span></a></li>
                                               <li><a class="  " href="measurement.php" aria-expanded="false"><i class="fa fa-balance-scale"></i><span
                                                           class="hide-menu" style="padding: 20px;">Measurements</span></a></li>
                                               <li><a class="  " href="fabric.php" aria-expanded="false"><i class="fa fa-gift"></i><span

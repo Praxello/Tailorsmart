@@ -34,7 +34,7 @@ if(!isset($_FILES["file"]["type"])){
     $newimagename = $ImageNameId.".jpg";
     $targetPath = $target_dir.$ImageNameId.".jpg";
     //unlink($upload300x300_dir.$newimagename);
-    createThumbnail($newimagename, 70, 70, $target_dir, $upload300x300_dir);
+    // createThumbnail($newimagename, 70, 70, $target_dir, $upload300x300_dir);
     // unlink($targetPath);
     move_uploaded_file($sourcePath,$targetPath) ;
     if (file_exists($upload300x300_dir.$newimagename))
