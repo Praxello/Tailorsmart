@@ -64,8 +64,8 @@ function getholiday(){
 function addStyle(){
   $("#customerstyletable").hide();
   $("#customerstyletableform").show();
-  $("#styletitle").val("");
-  $("#stylestatus").val("").trigger('change');
+  $("#holidaytitle").val("");
+  $("#holidaydate").val("");
   $("#savebtncustomerstyle").show();
   $("#updatebtncustomerstyle").hide();
 }

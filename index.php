@@ -79,7 +79,7 @@ if(!isset($_SESSION['employeeId'])){
     <!-- End Wrapper -->
     <!-- All Jquery -->
     <script src="js/lib/jquery/jquery.min.js"></script>
-    <script src="javascript/apifile.js"></script>
+     <!--<script src="javascript/apifile.js"></script>-->
     <!-- Bootstrap tether Core JavaScript -->
     <script src="js/lib/bootstrap/js/popper.min.js"></script>
     <script src="js/lib/bootstrap/js/bootstrap.min.js"></script>

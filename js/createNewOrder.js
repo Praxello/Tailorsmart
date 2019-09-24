@@ -31,8 +31,7 @@ $('.add-row').on('click', function(e) {
         dataType: 'json',
         data: createOrderData,
         beforeSend: function() {
-              $(".preloader").show();
-              // console.log("before");
+            $(".preloader").show();
         },
         success: function(response) {
             var count = response.Data.length;
@@ -48,10 +47,10 @@ $('.add-row').on('click', function(e) {
 
                     markup += "<tr id=" + response.Data[i].orderItemId + "><td>" + response.Data[i].productTitle + "</td><td>" + response.Data[i].productSubTitle + "</td><td>" + response.Data[i].orderItemPrice + "</td>";
                     markup += "<td><input type='hidden' id='amt" + response.Data[i].orderItemId + "' value='" + response.Data[i].orderItemPrice + "'/><div class='btn-group' role='group' aria-label='Basic example'>";
-                    markup += "<a class='btn btn-info btn-sm' title='Edit Price' data-toggle='tooltip' onclick='loadPriceModal(\"" + response.Data[i].orderItemId + "\",\"" + response.Data[i].productTitle + "\",\"" + (i + 1) + "\")' href='#'><i class='fa fa-edit'></i></a>";
-                    markup += "<a class='btn btn-success btn-sm' title='Add Measurment' data-toggle='tooltip' onclick='loadMeasurment(\"" + response.Data[i].productId + "\",\"" + response.Data[i].orderItemId + "\",\"" + (i) + "\")' href='#'><i class='fa fa-edit'></i></a>";
-                    markup += "<a class='btn btn-primary btn-sm' title='add Style' data-toggle='tooltip' href='#' onclick='loadStyles(\"" + response.Data[i].productId + "\",\"" + response.Data[i].orderItemId + "\",\"" + (i) + "\")'><i class='fa fa-user'></i></a>";
-                    markup += "<a class='btn btn-warning btn-sm' title='add Fabrics' data-toggle='tooltip' href='#' onclick='loadFabrics(\"" + response.Data[i].productId + "\",\"" + response.Data[i].orderItemId + "\",\"" + (i) + "\")'><i class='fa fa-user'></i></a>";
+                    markup += "<a class='btn btn-info btn-sm' title='Edit Price' data-toggle='tooltip' onclick='loadPriceModal(\"" + response.Data[i].orderItemId + "\",\"" + response.Data[i].productTitle + "\",\"" + (i + 1) + "\")' href='#'><i class='fa fa-inr'></i></a>";
+                    markup += "<a class='btn btn-success btn-sm' title='Add Measurment' data-toggle='tooltip' onclick='loadMeasurment(\"" + response.Data[i].productId + "\",\"" + response.Data[i].orderItemId + "\",\"" + (i) + "\")' href='#'><i class='fa fa-balance-scale'></i></a>";
+                    markup += "<a class='btn btn-primary btn-sm' title='add Style' data-toggle='tooltip' href='#' onclick='loadStyles(\"" + response.Data[i].productId + "\",\"" + response.Data[i].orderItemId + "\",\"" + (i) + "\")'><i class='fa fa-male'></i></a>";
+                    markup += "<a class='btn btn-warning btn-sm' title='add Fabrics' data-toggle='tooltip' href='#' onclick='loadFabrics(\"" + response.Data[i].productId + "\",\"" + response.Data[i].orderItemId + "\",\"" + (i) + "\")'><i class='fa fa-gift'></i></a>";
                     markup += "<a  class='btn btn-danger btn-sm' title='Remove Item' data-toggle='tooltip' href='#' onclick='removeItem(\"" + response.Data[i].orderItemId + "\",\"" + response.Data[i].orderItemPrice + "\")'><i class='fa fa-trash'></i></a></td></div></tr>";
                     $("#productData").append(markup);
                 }
@@ -59,10 +58,8 @@ $('.add-row').on('click', function(e) {
             $('#OrderItemPrice').val('');
             $('#products').val('').trigger('change');
         },
-        complete:function(response){
-
-          // console.log("after");
-          $(".preloader").hide();
+        complete: function(response) {
+            $(".preloader").hide();
         }
     })
 
@@ -89,6 +86,7 @@ getActiveProductsList();
 loadTable(mar);
 
 function loadTable(param) {
+    $("#productData").empty();
     $("#productData").html(param);
 }
 
@@ -98,8 +96,7 @@ function getActiveProductsList() {
         type: 'GET',
         dataType: 'json',
         beforeSend: function() {
-              $(".preloader").show();
-              // console.log("before");
+            $(".preloader").show();
         },
         success: function(response) {
             var createDropdownOptions = '';
@@ -115,10 +112,8 @@ function getActiveProductsList() {
             $("#products").html(createDropdownOptions);
             $('#products').val('').trigger('change');
         },
-        complete:function(response){
-
-          // console.log("after");
-          $(".preloader").hide();
+        complete: function(response) {
+            $(".preloader").hide();
         }
     })
 }
@@ -138,45 +133,42 @@ function loadMeasurment(productId, orderItemId, rowId) { //for mapping product i
         type: 'GET',
         dataType: 'json',
         beforeSend: function() {
-              $(".preloader").show();
-              // console.log("before");
+            $(".preloader").show();
         },
         success: function(response) {
             var createDropdownOptions = '';
-            if(response.Data !=null){
-            var count = response.Data.length;
-            var flag = null;
-            for (var i = 0; i < count; i++) {
-                if (response.Data[i].productId == productId) {
-                    createDropdownOptions += "<tr><td style='display:none;'>" + response.Data[i].measurementId + "</td><td>" + response.Data[i].itemTitle + "</td>";
-                    if (count_1 > 0) {
-                        flag = 0;
-                        for (var a = 0; a < count_1; a++) {
-                            if (response['Data'][i].measurementId == check_mesurment_exists[a].measurementId) {
-                                createDropdownOptions += "<td><input type='text' name='measurmentValues[]'  value=" + check_mesurment_exists[a].value + " class='form-control form-control-sm'></td>";
-                                flag = 1;
+            if (response.Data != null) {
+                var count = response.Data.length;
+                var flag = null;
+                for (var i = 0; i < count; i++) {
+                    if (response.Data[i].productId == productId) {
+                        createDropdownOptions += "<tr><td style='display:none;'>" + response.Data[i].measurementId + "</td><td>" + response.Data[i].itemTitle + "</td>";
+                        if (count_1 > 0) {
+                            flag = 0;
+                            for (var a = 0; a < count_1; a++) {
+                                if (response['Data'][i].measurementId == check_mesurment_exists[a].measurementId) {
+                                    createDropdownOptions += "<td><input type='text' name='measurmentValues[]'  value=" + check_mesurment_exists[a].value + " class='form-control form-control-sm'></td>";
+                                    flag = 1;
+                                }
                             }
-                        }
-                        if (flag == 0) {
-                            createDropdownOptions += "<td><input type='text' name='measurmentValues[]'  class='form-control form-control-sm'></td>";
-                        }
+                            if (flag == 0) {
+                                createDropdownOptions += "<td><input type='text' name='measurmentValues[]'  class='form-control form-control-sm'></td>";
+                            }
 
-                    } else {
-                        createDropdownOptions += "<td><input type='text' name='measurmentValues[]'   class='form-control form-control-sm'></td>";
+                        } else {
+                            createDropdownOptions += "<td><input type='text' name='measurmentValues[]'   class='form-control form-control-sm'></td>";
+                        }
+                        createDropdownOptions += "</tr>";
                     }
-                    createDropdownOptions += "</tr>";
                 }
+                $("#measurementTable").html(createDropdownOptions);
+                $('#myModal').modal();
             }
-            $("#measurementTable").html(createDropdownOptions);
-            $('#myModal').modal();
-          }
         },
-        complete:function(response){
-
-          // console.log("after");
-          $(".preloader").hide();
+        complete: function(response) {
+            $(".preloader").hide();
         }
-    })
+    });
 
 }
 
@@ -193,8 +185,7 @@ function loadStyles(productId, orderItemId, rowId) {
         type: 'GET',
         dataType: 'json',
         beforeSend: function() {
-              $(".preloader").show();
-              // console.log("before");
+            $(".preloader").show();
         },
         success: function(response) {
             var firstList = '',
@@ -209,129 +200,127 @@ function loadStyles(productId, orderItemId, rowId) {
             var m = 0,
                 flag_0 = null,
                 flag_1 = null;
-                  if(response.Data !=null){
-            var count = response.Data.length;
+            if (response.Data != null) {
+                var count = response.Data.length;
 
-            for (var i = 0; i < count; i++) {
-                if (response.Data[i].StitchStyle.productId == productId) {
-                    if (response.Data[i].StitchSubstyle != null) {
-                        var StitchSubstyleCount = response.Data[i].StitchSubstyle.length;
-                        if (response.Data[i].StitchStyle.stitchStyleType == 0) {
-                            valFirst = response.Data[i].StitchStyle.stitchStyleId;
-                            firstList += "<tr><td colspan='3' style='text-align:center;'><strong>" + response.Data[i].StitchStyle.stitchStyleTitle + "</strong></td></tr>";
-                            for (var j = 0; j < StitchSubstyleCount; j++) {
-                                flag_0 = 0;
+                for (var i = 0; i < count; i++) {
+                    if (response.Data[i].StitchStyle.productId == productId) {
+                        if (response.Data[i].StitchSubstyle != null) {
+                            var StitchSubstyleCount = response.Data[i].StitchSubstyle.length;
+                            if (response.Data[i].StitchStyle.stitchStyleType == 0) {
+                                valFirst = response.Data[i].StitchStyle.stitchStyleId;
+                                firstList += "<tr><td colspan='3' style='text-align:center;'><strong>" + response.Data[i].StitchStyle.stitchStyleTitle + "</strong></td></tr>";
+                                for (var j = 0; j < StitchSubstyleCount; j++) {
+                                    flag_0 = 0;
 
-                                firstList += "<tr><td style='display:none;'>" + response.Data[i].StitchStyle.stitchStyleId + "</td><td>" + response.Data[i].StitchSubstyle[j].stitchSubStyleTitle + "</td>";
-                                if (count_1 > 0) {
+                                    firstList += "<tr><td style='display:none;'>" + response.Data[i].StitchStyle.stitchStyleId + "</td><td>" + response.Data[i].StitchSubstyle[j].stitchSubStyleTitle + "</td>";
+                                    if (count_1 > 0) {
 
-                                    for (var a = 0; a < count_1; a++) {
-                                        if (response.Data[i].StitchSubstyle[j].stitchSubStyleId == check_styles_exists[a].stitchSubStyleId) {
+                                        for (var a = 0; a < count_1; a++) {
+                                            if (response.Data[i].StitchSubstyle[j].stitchSubStyleId == check_styles_exists[a].stitchSubStyleId) {
 
-                                            firstList += "<td><input type='checkbox' name='multipleSelection'  value=" + response.Data[i].StitchSubstyle[j].stitchSubStyleId + " checked></td>";
-                                            m++;
-                                            flag_0 = 1;
+                                                firstList += "<td><input type='checkbox' name='multipleSelection'  value=" + response.Data[i].StitchSubstyle[j].stitchSubStyleId + " checked></td>";
+                                                m++;
+                                                flag_0 = 1;
 
+                                            }
                                         }
-                                    }
-                                    if (flag_0 == 0) {
+                                        if (flag_0 == 0) {
+                                            firstList += "<td><input type='checkbox' name='multipleSelection'  value=" + response.Data[i].StitchSubstyle[j].stitchSubStyleId + "></td>";
+                                        }
+
+
+                                    } else {
                                         firstList += "<td><input type='checkbox' name='multipleSelection'  value=" + response.Data[i].StitchSubstyle[j].stitchSubStyleId + "></td>";
                                     }
+                                    firstList += "</tr>";
 
 
-                                } else {
-                                    firstList += "<td><input type='checkbox' name='multipleSelection'  value=" + response.Data[i].StitchSubstyle[j].stitchSubStyleId + "></td>";
                                 }
-                                firstList += "</tr>";
 
+                            } else if (response.Data[i].StitchStyle.stitchStyleType == 1) {
+                                second = response.Data[i].StitchStyle.stitchStyleTitle;
+                                valSecond = response.Data[i].StitchStyle.stitchStyleId;
 
-                            }
+                                secondList += "<tr><td colspan='3' style='text-align:center;'><strong>" + response.Data[i].StitchStyle.stitchStyleTitle + "</strong></td></tr>";
+                                for (var k = 0; k < StitchSubstyleCount; k++) {
+                                    secondList += "<tr><td style='display:none;'>" + response.Data[i].StitchStyle.stitchStyleId + "</td><td>" + response.Data[i].StitchSubstyle[k].stitchSubStyleTitle + "</td>";
+                                    flag_1 = 0;
+                                    if (count_1 > 0) {
 
-                        } else if (response.Data[i].StitchStyle.stitchStyleType == 1) {
-                            second = response.Data[i].StitchStyle.stitchStyleTitle;
-                            valSecond = response.Data[i].StitchStyle.stitchStyleId;
+                                        for (var a = 0; a < count_1; a++) {
 
-                            secondList += "<tr><td colspan='3' style='text-align:center;'><strong>" + response.Data[i].StitchStyle.stitchStyleTitle + "</strong></td></tr>";
-                            for (var k = 0; k < StitchSubstyleCount; k++) {
-                                secondList += "<tr><td style='display:none;'>" + response.Data[i].StitchStyle.stitchStyleId + "</td><td>" + response.Data[i].StitchSubstyle[k].stitchSubStyleTitle + "</td>";
-                                flag_1 = 0;
-                                if (count_1 > 0) {
+                                            if (response.Data[i].StitchSubstyle[k].stitchSubStyleId == check_styles_exists[a].stitchSubStyleId) {
 
-                                    for (var a = 0; a < count_1; a++) {
-
-                                        if (response.Data[i].StitchSubstyle[k].stitchSubStyleId == check_styles_exists[a].stitchSubStyleId) {
-
-                                            secondList += "<td><input type='radio' name='" + response.Data[i].StitchStyle.stitchStyleId + "chek'   value=" + response.Data[i].StitchSubstyle[k].stitchSubStyleId + " checked></td>";
-                                            m++;
-                                            flag_1 = 1;
+                                                secondList += "<td><input type='radio' name='" + response.Data[i].StitchStyle.stitchStyleId + "chek'   value=" + response.Data[i].StitchSubstyle[k].stitchSubStyleId + " checked></td>";
+                                                m++;
+                                                flag_1 = 1;
+                                            }
                                         }
-                                    }
-                                    if (flag_1 == 0) {
+                                        if (flag_1 == 0) {
 
 
-                                        secondList += "<td><input type='radio' name='" + response.Data[i].StitchStyle.stitchStyleId + "chek'   value=" + response.Data[i].StitchSubstyle[k].stitchSubStyleId + "></td>";
-
-                                    }
-
-                                } else {
-                                    secondList += "<td><input type='radio' name='" + nameKey + "singleSelection'   value=" + response.Data[i].StitchSubstyle[k].stitchSubStyleId + "></td>";
-                                }
-                                secondList += "</tr>";
-
-                            }
-                            nameKey++;
-
-                        } else if (response.Data[i].StitchStyle.stitchStyleType == 2) {
-                            third = response.Data[i].StitchStyle.stitchStyleTitle;
-                            valThird = response.Data[i].StitchStyle.stitchStyleId;
-                            thirdList += "<tr><td colspan='3' style='text-align:center;'><strong>" + response.Data[i].StitchStyle.stitchStyleTitle + "</strong></td></tr>";
-                            for (var l = 0; l < StitchSubstyleCount; l++) {
-                                //console.log('k count '+k);
-                                flag_2 = 0;
-                                thirdList += "<tr><td style='display:none;'>" + response.Data[i].StitchStyle.stitchStyleId + "</td><td style='display:none;'>" + response.Data[i].StitchSubstyle[l].stitchSubStyleId + "</td>";
-                                thirdList += "<td>" + response.Data[i].StitchSubstyle[l].stitchSubStyleTitle + "</td>";
-                                if (count_1 > 0) {
-                                    for (var a = 0; a < count_1; a++) {
-                                        if (response.Data[i].StitchSubstyle[l].stitchSubStyleId == check_styles_exists[a].stitchSubStyleId) {
-                                            thirdList += "<td><input type='text' class='form-control form-control-sm' value=" + check_styles_exists[a].value + "></td>";
-                                            m++;
-                                            flag_2 = 1;
-                                            // console.log('m in 2 '+m);
+                                            secondList += "<td><input type='radio' name='" + response.Data[i].StitchStyle.stitchStyleId + "chek'   value=" + response.Data[i].StitchSubstyle[k].stitchSubStyleId + "></td>";
 
                                         }
+
+                                    } else {
+                                        secondList += "<td><input type='radio' name='" + nameKey + "singleSelection'   value=" + response.Data[i].StitchSubstyle[k].stitchSubStyleId + "></td>";
                                     }
-                                    if (flag_2 == 0) {
+                                    secondList += "</tr>";
+
+                                }
+                                nameKey++;
+
+                            } else if (response.Data[i].StitchStyle.stitchStyleType == 2) {
+                                third = response.Data[i].StitchStyle.stitchStyleTitle;
+                                valThird = response.Data[i].StitchStyle.stitchStyleId;
+                                thirdList += "<tr><td colspan='3' style='text-align:center;'><strong>" + response.Data[i].StitchStyle.stitchStyleTitle + "</strong></td></tr>";
+                                for (var l = 0; l < StitchSubstyleCount; l++) {
+                                    //console.log('k count '+k);
+                                    flag_2 = 0;
+                                    thirdList += "<tr><td style='display:none;'>" + response.Data[i].StitchStyle.stitchStyleId + "</td><td style='display:none;'>" + response.Data[i].StitchSubstyle[l].stitchSubStyleId + "</td>";
+                                    thirdList += "<td>" + response.Data[i].StitchSubstyle[l].stitchSubStyleTitle + "</td>";
+                                    if (count_1 > 0) {
+                                        for (var a = 0; a < count_1; a++) {
+                                            if (response.Data[i].StitchSubstyle[l].stitchSubStyleId == check_styles_exists[a].stitchSubStyleId) {
+                                                thirdList += "<td><input type='text' class='form-control form-control-sm' value=" + check_styles_exists[a].value + "></td>";
+                                                m++;
+                                                flag_2 = 1;
+                                                // console.log('m in 2 '+m);
+
+                                            }
+                                        }
+                                        if (flag_2 == 0) {
+                                            thirdList += "<td><input type='text' class='form-control form-control-sm'></td>";
+                                        }
+
+                                    } else {
                                         thirdList += "<td><input type='text' class='form-control form-control-sm'></td>";
                                     }
+                                    thirdList += "</tr>";
 
-                                } else {
-                                    thirdList += "<td><input type='text' class='form-control form-control-sm'></td>";
                                 }
-                                thirdList += "</tr>";
-
                             }
                         }
+
                     }
-
                 }
+
+                valThird = Number(valThird);
+                valFirst = Number(valFirst);
+                valSecond = Number(valSecond);
+                $("#FirststyleTable").html(firstList);
+                $("#SecondstyleTable").html(secondList);
+                $("#ThirdstyleTable").html(thirdList);
+                $('#valFirst').val(valFirst);
+                $('#valSecond').val(valSecond);
+                $('#valThird').val(valThird);
+                $('#styleModal').modal();
             }
-
-            valThird = Number(valThird);
-            valFirst = Number(valFirst);
-            valSecond = Number(valSecond);
-            $("#FirststyleTable").html(firstList);
-            $("#SecondstyleTable").html(secondList);
-            $("#ThirdstyleTable").html(thirdList);
-            $('#valFirst').val(valFirst);
-            $('#valSecond').val(valSecond);
-            $('#valThird').val(valThird);
-            $('#styleModal').modal();
-          }
         },
-        complete:function(response){
-
-          // console.log("after");
-          $(".preloader").hide();
+        complete: function(response) {
+            $(".preloader").hide();
         }
 
     });
@@ -353,47 +342,44 @@ function loadFabrics(productId, orderItemId, rowId) {
         type: 'GET',
         dataType: 'json',
         beforeSend: function() {
-              $(".preloader").show();
-              // console.log("before");
+            $(".preloader").show();
         },
         success: function(response) {
             var createDropdownOptions = '';
-              if(response.Data !=null){
-            var count = response.Data.length;
-            for (var i = 0; i < count; i++) {
-                if (response.Data[i].productId == productId) {
-                    //createDropdownOptions += "<td>" + response['Data'][i].fabricTitle + "</td>";
-                    createDropdownOptions += "<tr><td><img class='img-thumbnail' src='http://praxello.com/tailorsmart/mobileimages/fabric/300x300/" + response['Data'][i].skuNo + ".jpg' alt='No Image Available'></img></td>";
-                    createDropdownOptions += "<td>" + response['Data'][i].fabricTitle + "</td>";
-                    createDropdownOptions += "<td>" + response['Data'][i].skuNo + "</td>";
-                    createDropdownOptions += "<td>" + response['Data'][i].fabricPrice + "</td>";
-                    if (count_1 > 0) {
-                        flag = 0;
-                        for (var j = 0; j < count_1; j++) {
-                            if (response['Data'][i].fabricId == check_fabrics_exists[j].fabricId) {
-                                createDropdownOptions += "<td><input type='checkbox' name='fabrics' value=" + response['Data'][i].fabricId + " checked></td>";
-                                flag = 1;
+            if (response.Data != null) {
+                var count = response.Data.length;
+                for (var i = 0; i < count; i++) {
+                    if (response.Data[i].productId == productId) {
+                        //createDropdownOptions += "<td>" + response['Data'][i].fabricTitle + "</td>";
+                        createDropdownOptions += "<tr><td><img class='img-thumbnail' src='http://praxello.com/tailorsmart/mobileimages/fabric/300x300/" + response['Data'][i].skuNo + ".jpg' alt='No Image Available'></img></td>";
+                        createDropdownOptions += "<td>" + response['Data'][i].fabricTitle + "</td>";
+                        createDropdownOptions += "<td>" + response['Data'][i].skuNo + "</td>";
+                        createDropdownOptions += "<td>" + response['Data'][i].fabricPrice + "</td>";
+                        if (count_1 > 0) {
+                            flag = 0;
+                            for (var j = 0; j < count_1; j++) {
+                                if (response['Data'][i].fabricId == check_fabrics_exists[j].fabricId) {
+                                    createDropdownOptions += "<td><input type='checkbox' name='fabrics' value=" + response['Data'][i].fabricId + " checked></td>";
+                                    flag = 1;
+                                }
                             }
-                        }
-                        if (flag == 0) {
+                            if (flag == 0) {
+                                createDropdownOptions += "<td><input type='checkbox' name='fabrics' value=" + response['Data'][i].fabricId + "></td>";
+                            }
+
+                        } else {
                             createDropdownOptions += "<td><input type='checkbox' name='fabrics' value=" + response['Data'][i].fabricId + "></td>";
                         }
-
-                    } else {
-                        createDropdownOptions += "<td><input type='checkbox' name='fabrics' value=" + response['Data'][i].fabricId + "></td>";
+                        createDropdownOptions += "</tr>";
                     }
-                    createDropdownOptions += "</tr>";
                 }
+
+                $("#fabricsTable").html(createDropdownOptions);
+                $('#FabricsModal').modal();
             }
-
-            $("#fabricsTable").html(createDropdownOptions);
-            $('#FabricsModal').modal();
-          }
         },
-        complete:function(response){
-
-          // console.log("after");
-          $(".preloader").hide();
+        complete: function(response) {
+            $(".preloader").hide();
         }
     })
 }
@@ -408,6 +394,7 @@ function getPaymentList() {
         type: 'POST',
         data: { orderid: orderId },
         success: function(response) {
+
             var paymentDateTime = null;
             if (response.Data.Payments != null) {
                 var count = response.Data.Payments.length;
@@ -440,10 +427,8 @@ function getPaymentList() {
                 }
                 $("#paymentData").html(markup);
             }
-
-
         }
-    })
+    });
 }
 
 function removePayment(paymentid, orderid) {
@@ -478,7 +463,7 @@ function updatePaymentFlag(paymentid) {
         }
     })
 }
-$(document).on('click', '#loadfirstpage', function(e) {
+$('#loadfirstpage').on('click', function(e) {
     e.preventDefault();
     $('#loadNewPage').empty();
     $('#customerSelectionBlock').show();
