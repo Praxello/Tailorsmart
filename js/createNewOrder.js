@@ -163,6 +163,8 @@ function loadMeasurment(productId, orderItemId, rowId) { //for mapping product i
                 }
                 $("#measurementTable").html(createDropdownOptions);
                 $('#myModal').modal();
+            }else{
+              alert('Add Measurment First');
             }
         },
         complete: function(response) {
@@ -317,6 +319,8 @@ function loadStyles(productId, orderItemId, rowId) {
                 $('#valSecond').val(valSecond);
                 $('#valThird').val(valThird);
                 $('#styleModal').modal();
+            }else{
+              alert('Add Styles First');
             }
         },
         complete: function(response) {
@@ -376,6 +380,8 @@ function loadFabrics(productId, orderItemId, rowId) {
 
                 $("#fabricsTable").html(createDropdownOptions);
                 $('#FabricsModal').modal();
+            }else{
+              alert('Add Fabrics First');
             }
         },
         complete: function(response) {
