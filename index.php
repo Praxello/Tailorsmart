@@ -43,6 +43,7 @@ if(!isset($_SESSION['employeeId'])){
                     <div class="col-lg-4">
                         <div class="login-content card">
                             <div class="login-form">
+
                                 <h4><img src="images/logo1.png" alt="homepage" class="dark-logo" style="width:50%;" /></h4>
 
                                 <form id="login" method="POST">
@@ -50,6 +51,7 @@ if(!isset($_SESSION['employeeId'])){
                                         <label>Username</label>
                                         <input type="text" class="form-control form-control-sm"  name="usrname" id="usrname" required>
                                     </div>
+
                                     <div class="form-group">
                                         <label>Password</label>
                                         <input type="password" class="form-control form-control-sm"  name="passwrd" id="passwrd" required>
@@ -63,6 +65,7 @@ if(!isset($_SESSION['employeeId'])){
         									</label>
 
                                     </div>
+                                        <div id="wait" style="display: none;   border: 0px solid black; position: absolute; top: 50%; left: 45%;"><img src="images/spinner.gif" width="64" height="64" /><br>Loading..</div>
                                     <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Sign in</button>
                                     <div class="register-link m-t-15 text-center">
                                         <p>Don't have account ? <a href="#"> Sign Up Here</a></p>
@@ -79,7 +82,8 @@ if(!isset($_SESSION['employeeId'])){
     <!-- End Wrapper -->
     <!-- All Jquery -->
     <script src="js/lib/jquery/jquery.min.js"></script>
-     <!--<script src="javascript/apifile.js"></script>-->
+     <script src="javascript/apifile.js"></script>
+     <script type="text/javascript" src="js/ajaxLoader.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
     <script src="js/lib/bootstrap/js/popper.min.js"></script>
     <script src="js/lib/bootstrap/js/bootstrap.min.js"></script>

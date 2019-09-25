@@ -1,4 +1,4 @@
- var api_url = 'http://praxello.com/tailorsmart/admin/';
+ // var api_url = 'http://praxello.com/tailorsmart/admin/';
 // var api_url = './admin/';
 var customerOrders = []; //all the customers orders
 var customerOrderDetails = []; //for particular order id details
@@ -87,7 +87,7 @@ function getAllCustomers() {
             $("#customerId").html(createDropdownOptions);
         },
         complete: function() {
-            $(".preloader").hide(1000);
+            $(".preloader").hide();
         }
     })
 }
@@ -192,7 +192,11 @@ function showData(orderid, rowId) {
         var count = customerOrderDetails.orderItems.length;
         var markup = '';
         for (var i = 0; i < count; i++) {
-            markup += "<tr id=" + customerOrderDetails.orderItems[i].OrderItem.orderItemId + "><td>" + customerOrderDetails.orderItems[i].OrderItem.productTitle + "</td>";
+          let styleTitle = '';
+          if (ParentProducts.has(customerOrderDetails.orderItems[i].OrderItem.parentId)) {
+              styleTitle = ParentProducts.get(customerOrderDetails.orderItems[i].OrderItem.parentId);
+          }
+            markup += "<tr id=" + customerOrderDetails.orderItems[i].OrderItem.orderItemId + "><td>" + customerOrderDetails.orderItems[i].OrderItem.productTitle +'-'+styleTitle+ "</td>";
             markup += "<td>" + customerOrderDetails.orderItems[i].OrderItem.productSubTitle + "</td><td>" + customerOrderDetails.orderItems[i].OrderItem.orderItemPrice + "</td>";
             markup += "<td><input type='hidden' id='amt" + customerOrderDetails.orderItems[i].OrderItem.orderItemId + "' value='" + customerOrderDetails.orderItems[i].OrderItem.orderItemPrice + "'/><div class='btn-group' role='group' aria-label='Basic example'>";
             markup += "<a class='btn btn-info btn-sm' title='Edit Price' data-toggle='tooltip' onclick='loadPriceModal(\"" + customerOrderDetails.orderItems[i].OrderItem.orderItemId + "\",\"" + customerOrderDetails.orderItems[i].OrderItem.productTitle + "\",\"" + (i + 1) + "\")' href='#'><i class='fa fa-inr'></i></a>";

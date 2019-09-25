@@ -74,7 +74,22 @@ header('Content-Type: application/json');
 											$tempOrderItems[] = array('OrderItem'=>$orderItemDetails ,"Fabrics"=>$tempOrderFabrics,"Measurements"=> $tempOrderItemMeasurements,'Styles'=>$tempOrderStyles);	
 											}
 										}
-								$records[] =  array('OrderDetails'=>$tempOrderDetails ,"orderItems"=> $tempOrderItems);	
+										
+										
+										//get payment records now
+												$paymentRecords = null;
+												$paymentQuery = mysqli_query($conn,"select * from 	customer_order_payments where orderid=$tempOrderId");
+												$academicAffected5 = mysqli_num_rows($paymentQuery);
+												if($academicAffected5 > 0)
+												{
+													while($paymentResult = mysqli_fetch_assoc($paymentQuery))
+													{
+														$paymentRecords[] = $paymentResult;
+													}
+												}
+										
+										
+								$records[] =  array('OrderDetails'=>$tempOrderDetails ,"orderItems"=> $tempOrderItems, "Payments"=>$paymentRecords);	
 									
 									}
 							$response = array('Message'=>"All data fetched successfully".mysqli_error($conn),"Data"=>$records,'Responsecode'=>200);	

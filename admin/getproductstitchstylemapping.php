@@ -4,7 +4,7 @@ header('Content-Type: application/json');
      include "../connection.php";
 	 mysqli_set_charset($conn,'utf8');
 	 $response=null;
-	 $records = null;
+	
 	 extract($_POST);
 	  
 		 			$academicQuery = mysqli_query($conn,"select * from product_catalog_style_master pcm inner join product_master pm on pcm.productid = pm.productid inner join stitch_style_template_master pim on pim.stitchStyleId = pcm.stitchStyleId");

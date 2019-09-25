@@ -45,9 +45,7 @@ function getMicellaneousData(){
         var countowner=0;
         if(response['Employee']!=null){
           countowner= response['Employee'].length;
-          // EmployeeData = [...response['Employee']];
         }
-
         selectemp +='<option value="">Select Employee</option>';
         for (var i = 0; i < countowner; i++) {
         selectemp +="<option value='"+response['Employee'][i].employeeId+"'>"+response['Employee'][i].firstName+" "+response['Employee'][i].lastName+"</option>";
@@ -58,7 +56,7 @@ function getMicellaneousData(){
     });
 }
 
-  var table;
+var table;
 $.fn.dataTable.ext.search.push(
 function (settings, data, dataIndex) {
     var min = $('#min').datepicker("getDate");
@@ -82,16 +80,25 @@ function (settings, data, dataIndex) {
     $('#min, #max').change(function () {
         table.draw();
     });
-    function settabledata(styleData){
-      var html ='';
+
+function settabledata(styleData){
+      // console.log(styleData);
+      // console.log(EmployeeData);
+      var html ='',varhtml='';
       $('#appointmenttbl').dataTable().fnDestroy();
       $("#appointmenttbldata").empty();
-
       for(let k of styleData.keys())
       {
             var AllData= styleData.get(k);
             html +='<tr>';
-            let EmpName =EmployeeData.get(AllData.servingEmployeeId);
+            if(AllData.servingEmployeeId!=null){
+              let EmpName =EmployeeData.get(AllData.servingEmployeeId);
+              varhtml ="<td>"+EmpName.firstName+" "+EmpName.lastName+"</td>";
+            }
+            else {
+                varhtml ="<td></td>";
+            }
+
             let orderStatus =confirmationStatus.get(AllData.appointmentStatus);
             html +="<td>"+AllData.firstName+" "+AllData.lastname+"</td>";
             html +="<td>"+AllData.appointmentDate+"</td>";
@@ -99,13 +106,13 @@ function (settings, data, dataIndex) {
             html +="<td>"+AllData.address+"</td>";
             html +="<td>"+AllData.city+"</td>";
             html +="<td>"+AllData.mobile+"</td>";
-            html +="<td>"+EmpName.firstName+" "+EmpName.lastName+"</td>";
+            html +=varhtml;
             html +="<td>"+orderStatus+"</td>";
             html +='<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editcustomerappointmentdata('+k+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeAppointment('+k+')"><i class="fa fa-remove"></i></button></div></td>';
             html +="</tr>";
       }
       $("#appointmenttbldata").html(html);
-     table= $('#appointmenttbl').DataTable({
+      table= $('#appointmenttbl').DataTable({
       searching: true,
       retrieve: true,
       bPaginate: $('tbody tr').length>10,
@@ -115,7 +122,6 @@ function (settings, data, dataIndex) {
       buttons: ['copy','csv', 'excel', 'pdf'],
       destroy: true
       });
-
     }
 
 function getcustomerappointmentdata(){

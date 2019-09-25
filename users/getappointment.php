@@ -95,6 +95,7 @@ header('Content-Type: application/json');
 											}
 											}
 						
+						
 										$academicQuery = mysqli_query($conn,"SELECT * FROM  holiday_master");
 										if($academicQuery!=null)
 											{
@@ -109,6 +110,7 @@ header('Content-Type: application/json');
 										}
 										
 								
+					//	$records=array("Appointments"=>$appointmentRecords);
 							
 							$response = array('Message'=>"All data fetched successfully".mysqli_error($conn),"Data"=>$appointmentRecords,"Holiday"=>$holidays,"Slots"=>$slots,'Responsecode'=>200);	
 							}
