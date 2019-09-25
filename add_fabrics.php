@@ -5,7 +5,7 @@
 
              <!-- Modal Header -->
              <div class="modal-header">
-                 <h4 class="modal-title">Add Fabrics</h4>
+                 <h4 class="modal-title">Order Fabrics</h4>
              </div>
              <!-- Modal body -->
              <div class="modal-body" style="overflow-x: hidden;max-height: 500px;">

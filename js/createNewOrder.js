@@ -412,7 +412,7 @@ function getPaymentList() {
                     var isSuceed = '',
                         isDeleted = '',
                         deleteEntry = '';
-                    if (response.Data.Payments[i].isSuceed == 0) {
+                    if (response.Data.Payments[i].isSuceed == 1) {
                         isSuceed = "<td><span class='badge badge-pill badge-success'>completed</span></td>";
                     } else {
                         isSuceed = "<td><span class='badge badge-pill badge-danger'>pending</span></td>";

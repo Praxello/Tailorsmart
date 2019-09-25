@@ -5,7 +5,7 @@
 
              <!-- Modal Header -->
              <div class="modal-header">
-                 <h4 class="modal-title">Add Styles</h4>
+                 <h4 class="modal-title">Order Styles</h4>
              </div>
              <!-- Modal body -->
              <div class="modal-body" style="overflow-x: hidden;max-height: 500px;">

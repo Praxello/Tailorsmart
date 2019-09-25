@@ -170,7 +170,7 @@ $employeeName = $_SESSION['employeeName'];
                                           </div>
                                           <div class="col-sm-4">
                                             <div class="form-group">
-                                              <label class="control-label">category</label>
+                                              <label class="control-label">Category</label>
                                               <select  class="form-control" id="category" style="width:100%;">
                                                 <!-- <option value="">Select Parent</option> -->
                                               </select>

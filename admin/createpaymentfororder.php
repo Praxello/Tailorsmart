@@ -19,7 +19,7 @@ if (isset($_POST['orderid']) && isset($_POST['currencyCode']) && isset($_POST['t
 		$status = 1;
 
 	}
-			     	$query = mysqli_query($conn,"insert into customer_order_payments (orderId, paymentType, paymentMode, amount,currency, isSuceed, createdBy, paymentDateTime)  values($orderid,'$type','$mode',$amount,'$currencyCode',$status,$employeeid,'$currentDate')");
+			     	$query = mysqli_query($conn,"INSERT INTO customer_order_payments (orderId, paymentType, paymentMode, amount,currency, isSuceed, createdBy, paymentDateTime)  values($orderid,'$type','$mode',$amount,'$currencyCode',$status,$employeeid,'$currentDate')");
 					$rowsAffected=mysqli_affected_rows($conn);
 						if($rowsAffected > 0)
 						{
