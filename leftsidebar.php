@@ -20,7 +20,7 @@
                     </ul>
                 </li>
 
-                <li><a class="has-arrow  " href="customerappointment.php" aria-expanded="false"><i
+                <li><a   href="customerappointment.php" aria-expanded="false"><i
                             class="fa fa-calendar"></i><span class="hide-menu">Appointment Management</span></a></li>
 
 
