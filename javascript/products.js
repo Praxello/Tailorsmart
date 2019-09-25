@@ -205,7 +205,7 @@ function imguplod(imgid){
                 fd.append('foldername',"product");
                 // console.log(fd);
                 $.ajax({
-                     url:"http://praxello.com/tailorsmart/uploadimage.php",
+                     url:img_url,
                      type:"POST",
                      contentType: false,
                      cache: false,

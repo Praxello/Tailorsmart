@@ -79,7 +79,7 @@ function imguplod(imgid){
                 fd.append('foldername',"category");
                 $.ajax({
                      // url:"src/addimg.php",
-                     url:"http://praxello.com/tailorsmart/uploadimage.php",
+                     url:img_url,
                      type:"POST",
                      contentType: false,
                      cache: false,
