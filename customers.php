@@ -145,7 +145,7 @@ $employeeName = $_SESSION['employeeName'];
     <!-- End Wrapper -->
     <!-- All Jquery -->
     <script src="js/lib/jquery/jquery.min.js"></script>
-   
+     <script src="javascript/apifile.js"></script>
     <!-- <script src="js/lib/jquery/jquery.min.js"></script> -->
     <script src="select2/select4.js"></script>
     <!-- Bootstrap tether Core JavaScript -->

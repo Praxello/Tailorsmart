@@ -19,7 +19,7 @@
 
 
 $to      = $result['email'];
-$subject = 'Password recovery from TailorSmart';
+$subject = 'Password recovery from ECCA';
 $message = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional
 .dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -58,14 +58,14 @@ $message = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http
                 </tr>
         <tr>
             <td align="left" valign="top" style="padding-left:20px; padding-top:10px; color:#363636; padding-bottom:15px; line-height:12px; font-size:14px; padding-right:20px; font-family:Arial, Helvetica, sans-serif;">
-                Your password for Tailor application is : '.$result['password'].'
+                Your password for ECCA application is : '.$result['password'].'
             </td>
         </tr>
         <td style="padding:3px 0 15px 20px;  color:#363636; font-size:14px;  font-family:Arial, Helvetica, sans-serif;">
                     Regards
                     </td>
         <tr>
-                <td align="left" valign="top" style="padding:10px 15px; background:#3B4851; font-family:Arial, Helvetica, sans-serif; color:#fff; font-size:14px;">&copy; '.date("Y").' TailorSmart app All rights reserved</td>
+                <td align="left" valign="top" style="padding:10px 15px; background:#3B4851; font-family:Arial, Helvetica, sans-serif; color:#fff; font-size:14px;">&copy; '.date("Y").' ECCA app All rights reserved</td>
               </tr>
     </table>
 </body>
@@ -75,7 +75,7 @@ $message = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http
 $headers  = 'MIME-Version: 1.0' . "\r\n";
 $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 
-$headers .= 'From:admin@praxello.com' . "\r\n";
+$headers .= 'From:admin@theecca.com' . "\r\n";
 mail($to, $subject, $message, $headers);
 					}
 			

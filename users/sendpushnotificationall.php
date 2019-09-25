@@ -16,7 +16,7 @@ $data1 = array('body' => $message);
 
 $records=null;
 
-  $query = mysqli_query($conn,"select distinct(deviceId) from mobile_patient_gcm_apns_master");
+  $query = mysqli_query($conn,"select distinct(deviceId) from customer_gcm_apns_master");
 
 		if($query!=null)
 

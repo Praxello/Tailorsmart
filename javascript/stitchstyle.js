@@ -168,7 +168,7 @@ $('#savebtncustomerstyle').on('click',function(event){
   var styledetail = $("#styledetail").val();
   var styletype = $("#styletype").val();
   var stylestatus = $("#stylestatus").val();
-  if(styletitle==""||stylestatus==""||styletype==""||styledetail==""){
+  if(styletitle==""||stylestatus==""||styletype==""){
       swal("Missing Parameter");
   }
   else{

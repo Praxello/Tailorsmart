@@ -96,7 +96,7 @@ function imguplod(imgid){
                 fd.append('foldername',"parent");
                 // fd.append('foldername',"stitchstyle");
                 $.ajax({
-                    url:"http://praxello.com/tailorsmart/uploadimage.php",
+                    url:"uploadimage.php",
                      type:"POST",
                      contentType: false,
                      cache: false,

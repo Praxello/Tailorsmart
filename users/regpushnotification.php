@@ -7,7 +7,7 @@
 	 {
 	extract($_POST);
 	
-	$query = mysqli_query($conn,"delete from  customer_gcm_apns_master where customerid =$userid");
+	$query = mysqli_query($conn,"delelte from  customer_gcm_apns_master where customerid =$userid");
 	
 	$query = mysqli_query($conn,"insert into customer_gcm_apns_master(customerid,deviceId,osType,appVersion) values($userid,'$deviceid','$ostype','$appversion')");
 	
