@@ -1,7 +1,7 @@
 var styleData = new Map();
 var EmployeeData  =new Map();
 var getslotdata =new Map();
-// var selectitemsdata =new Map();
+var selectitemsdata =new Map();
 let confirmationStatus = new Map();
 getConfirmation();
 getMicellaneousData();
@@ -82,8 +82,6 @@ function (settings, data, dataIndex) {
     });
 
 function settabledata(styleData){
-      // console.log(styleData);
-      // console.log(EmployeeData);
       var html ='',varhtml='';
       $('#appointmenttbl').dataTable().fnDestroy();
       $("#appointmenttbldata").empty();
@@ -91,7 +89,7 @@ function settabledata(styleData){
       {
             var AllData= styleData.get(k);
             html +='<tr>';
-            if(AllData.servingEmployeeId!=null){
+            if(EmployeeData.has(AllData.servingEmployeeId)){
               let EmpName =EmployeeData.get(AllData.servingEmployeeId);
               varhtml ="<td>"+EmpName.firstName+" "+EmpName.lastName+"</td>";
             }
@@ -141,7 +139,6 @@ function getcustomerappointmentdata(){
               html +="<option value="+response.Slots[i].slotId+">"+response.Slots[i].slotTime+"</option>";
               getslotdata.set(response.Slots[i].slotId,response.Slots[i]);
             }
-            // console.log(html);
             $("#settimeslot").html(html);
 
             var count;
@@ -149,8 +146,10 @@ function getcustomerappointmentdata(){
               count= response["Data"].length;  // For Count length of Get All Appointment
             }
 
-            for (var i = 0; i < count; i++) {
+            for (var i = 0; i < count; i++)
+            {
                 styleData.set(response.Data[i].AppointmentDetails.appointmentId,response.Data[i].AppointmentDetails);
+                selectitemsdata.set(response.Data[i].AppointmentDetails.appointmentId,response.Data[i].SelectedItems);
             }
             settabledata(styleData);
 
@@ -160,8 +159,9 @@ function getcustomerappointmentdata(){
 function editcustomerappointmentdata(id){
       // setEmployeeData();
       var AllData= styleData.get(id.toString());
+      var Allitemdata= selectitemsdata.get(id.toString());
+
       $("#appointdetailtbldata").empty();
-       // console.log(AllData);
       $("#customerappointtbl").hide(); // Hide the content Customer Appointment Table.
       $("#customerappointdetailtbl").show(); //  Show the content Customer Appointment Detail
       $("#appointdetailtbldata").empty();
@@ -177,24 +177,30 @@ function editcustomerappointmentdata(id){
       $("#employeename").html(AllData.email);
       $("#updateappointmentdate").val(AllData.appointmentDate);
       $("#appointmentdetailid").val(AllData.appointmentId);
-      if(AllData.SelectedItems!=null){
-        var selectitemlen = AllData.SelectedItems.length;
+        // console.log(Allitemdata);
+      if(Allitemdata!=null){
+        var selectitemlen = Allitemdata.length;
+        // console.log(selectitemlen);
         var html ='';
         var selectfabriclen =0;
-        for(var i=0;i<selectitemlen;i++){
-              if(AllData.SelectedItems[i].Fabrics!=null){
-                 selectfabriclen = AllData.SelectedItems[i].Fabrics.length;
+        for(var i=0;i<selectitemlen;i++)
+        {
+
+              if(Allitemdata[i].Fabrics!=null)
+              {
+                 selectfabriclen = Allitemdata[i].Fabrics.length;
                  html +='<tr>';
-                 html +='<td style="color: orange;font-weight: bolder;">'+AllData.SelectedItems[i].Product.productTitle+'</td>';
-                 html +='<td>'+AllData.SelectedItems[i].Fabrics[0].fabricTitle+'</td>';
+                 html +='<td style="color: orange;font-weight: bolder;">'+Allitemdata[i].Product.productTitle+'</td>';
+                 html +='<td>'+Allitemdata[i].Fabrics[0].fabricTitle+'</td>';
                  html +='</tr>';
               }
 
 
-          for(var j=1;j<selectfabriclen;j++){
+          for(var j=1;j<selectfabriclen;j++)
+          {
              html +='<tr>';
              html +='<td> </td>';
-             html +='<td>'+AllData.SelectedItems[i].Fabrics[j].fabricTitle+'</td>';
+             html +='<td>'+Allitemdata[i].Fabrics[j].fabricTitle+'</td>';
              html +='</tr>';
           }
 
