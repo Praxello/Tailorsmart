@@ -48,7 +48,7 @@ $('.add-row').on('click', function(e) {
                     if (ParentProducts.has(response.Data[i].parentId)) {
                         styleTitle = ParentProducts.get(response.Data[i].parentId);
                     }
-                    markup += "<tr id=" + response.Data[i].orderItemId + "><td>" + response.Data[i].productTitle +'-'+styleTitle+"</td><td>" + response.Data[i].productSubTitle + "</td><td>" + response.Data[i].orderItemPrice + "</td>";
+                    markup += "<tr id=" + response.Data[i].orderItemId + "><td>" + response.Data[i].productTitle + '-' + styleTitle + "</td><td>" + response.Data[i].productSubTitle + "</td><td>" + response.Data[i].orderItemPrice + "</td>";
                     markup += "<td><input type='hidden' id='amt" + response.Data[i].orderItemId + "' value='" + response.Data[i].orderItemPrice + "'/><div class='btn-group' role='group' aria-label='Basic example'>";
                     markup += "<a class='btn btn-info btn-sm' title='Edit Price' data-toggle='tooltip' onclick='loadPriceModal(\"" + response.Data[i].orderItemId + "\",\"" + response.Data[i].productTitle + "\",\"" + (i + 1) + "\")' href='#'><i class='fa fa-inr'></i></a>";
                     markup += "<a class='btn btn-success btn-sm' title='Add Measurment' data-toggle='tooltip' onclick='loadMeasurment(\"" + response.Data[i].productId + "\",\"" + response.Data[i].orderItemId + "\",\"" + (i) + "\")' href='#'><i class='fa fa-balance-scale'></i></a>";
@@ -166,8 +166,8 @@ function loadMeasurment(productId, orderItemId, rowId) { //for mapping product i
                 }
                 $("#measurementTable").html(createDropdownOptions);
                 $('#myModal').modal();
-            }else{
-              alert('Add Measurment First');
+            } else {
+                alert('Add Measurment First');
             }
         },
         complete: function(response) {
@@ -322,8 +322,8 @@ function loadStyles(productId, orderItemId, rowId) {
                 $('#valSecond').val(valSecond);
                 $('#valThird').val(valThird);
                 $('#styleModal').modal();
-            }else{
-              alert('Add Styles First');
+            } else {
+                alert('Add Styles First');
             }
         },
         complete: function(response) {
@@ -383,8 +383,8 @@ function loadFabrics(productId, orderItemId, rowId) {
 
                 $("#fabricsTable").html(createDropdownOptions);
                 $('#FabricsModal').modal();
-            }else{
-              alert('Add Fabrics First');
+            } else {
+                alert('Add Fabrics First');
             }
         },
         complete: function(response) {
@@ -412,7 +412,7 @@ function getPaymentList() {
                     var isSuceed = '',
                         isDeleted = '',
                         deleteEntry = '';
-                    if (response.Data.Payments[i].isSuceed == 1) {
+                    if (response.Data.Payments[i].isSuceed == 0) {
                         isSuceed = "<td><span class='badge badge-pill badge-success'>completed</span></td>";
                     } else {
                         isSuceed = "<td><span class='badge badge-pill badge-danger'>pending</span></td>";
