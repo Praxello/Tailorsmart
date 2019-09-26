@@ -504,3 +504,28 @@ function getPriceOfProduct(productId) {
         $('#OrderItemPrice').val(price);
     }
 }
+changeStatusOfOrder();
+
+function changeStatusOfOrder() {
+    var OrderDetails = customerOrders[indexRow];
+    $('#statusOfOrder').val(OrderDetails.OrderDetails.orderStatus).trigger('change');
+    $('#confirmationOfOrder').val(OrderDetails.OrderDetails.isConfirmed).trigger('change');
+}
+$('#updateorderstatus').on('click', function() {
+    orderStatusData = {
+        orderId: orderId,
+        statusOfOrder: $('#statusOfOrder').val(),
+        confirmationOfOrder: $('#confirmationOfOrder').val(),
+        dateOfExpected: $('#dateOfExpected').val(),
+        dateOfFinalDelivery: $('#dateOfFinalDelivery').val()
+    };
+    $.ajax({
+        url: api_url + 'updatecustomerorderstatus.php',
+        type: 'POST',
+        data: orderStatusData,
+        dataType: 'json',
+        success: function(response) {
+            alert(response.Message);
+        }
+    });
+});

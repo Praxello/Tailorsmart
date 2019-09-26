@@ -11,9 +11,10 @@ $('#login').on('submit', function(event) {
         dataType: 'json',
         success: function(response) {
             if (response.Data != null) {
+                var roleId = response.Data.roleId;
                 var employeeId = response.Data.employeeId;
                 var employeeName = response.Data.firstName + ' ' + response.Data.lastName;
-                window.location.href = 'createSession.php?employeeId=' + employeeId + '&employeeName=' + employeeName;
+                window.location.href = 'createSession.php?employeeId=' + employeeId + '&employeeName=' + employeeName + '&roleId=' + roleId;
             } else {
                 alert('Enter Correct Username and password');
             }

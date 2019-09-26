@@ -8,6 +8,9 @@
         <li class="nav-item">
             <a class="nav-link" data-toggle="tab" href="#paymentlink"><i class="fa fa fa-rupee"></i>Payment Links</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#OrderStatus"><i class="fa fa fa-rupee"></i>Order Status</a>
+        </li>
     </ul>
     <div class="tab-content">
         <div id="productHome" class="tab-pane active"><br>
@@ -188,6 +191,75 @@
                     </table>
                 </div>
             </div>
+        </div>
+        <div id="OrderStatus" class="tab-pane">
+        <div class="col-sm-12">
+                    <div class="card">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="control-label">Change status of order</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="control-label">Confirmation of order</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                <label class="control-label">Change Expected Delivery Date </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                <label class="control-label">Change Final Delivery Date</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+
+                                    <select class="form-control form-control-sm"  style="width:100%" id="statusOfOrder">
+                                    <option value="0">Not completed</option>
+                                    <option value="1">Confirmed</option>
+                                    <option value="2">Processing</option>
+                                    <option value="3">Sent for Trial</option>
+                                    <option value="4">Completed</option>
+                                    <option value="5">Cancelled</option>
+                                    <option value="6">For Alteration</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                <select class="form-control form-control-sm"  style="width:100%" id="confirmationOfOrder">
+                                <option value="0">Not Confirmed</option>
+                                <option value="1">Confirmed</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                            <input type="date" class="form-control form-control-sm" id="dateOfExpected" value="<?php echo  date('Y-m-d');?>">
+                            </div>
+                            <div class="col-sm-3">
+                            <input type="date" class="form-control form-control-sm" id="dateOfFinalDelivery" value="<?php echo  date('Y-m-d');?>">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                              
+                            </div>
+                            <div class="col-sm-4">
+                                <button type="button" class="btn btn-success" id="updateorderstatus">Update Status</button>
+                            </div>
+                            <div class="col-sm-4">
+                              
+                            </div>
+                        </div>
+                    </div>
+                </div>
         </div>
     </div>
     <?php include 'add_measurment.php'; ?>
