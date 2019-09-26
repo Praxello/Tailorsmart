@@ -16,10 +16,6 @@ getMeasurementData();  // For Mapping Propose Measurement
 getStitchStyleData();  // For Mapping Propose Stitch Style
 getMicellaneousData(); // For Mapping Propose Category / Parent / Employee
 
-
-
-
-
 $('#stylestatus').select2({
   allowClear: true,
   placeholder: "Select Style Status"
@@ -429,6 +425,25 @@ fabricmapping();
 measurementmapping();
 stitchstylemapping();
 }
+// document.addEventListener('DOMContentLoaded', function () {
+//   var checkbox = document.querySelector('input[type="checkbox"]');
+//
+//   checkbox.addEventListener('change', function () {
+//     if (checkbox.checked) {
+//      $('#fabricmaptbl').find('input[name="fabricmapcheck"]:checked').each(function(row) {
+//        console.log($(this).val());
+//      });
+//
+//       console.log('Checked');
+//     } else {
+//       $('#fabricmaptbl').find('input[name="fabricmapcheck"]:not(:checked)').each(function(row) {
+//          console.log($(this).val());
+//       });
+//
+//       console.log('Not checked');
+//     }
+//   });
+// });
 function setfabrcmapping(temparray){
 
   // $('#fabricmaptbl').dataTable().fnDestroy();
@@ -441,7 +456,7 @@ function setfabrcmapping(temparray){
       {
         let fabricName = FabricData.get(k);
         if(temparray.includes(fabricName.fabricId)){
-            selfabricmap +='<tr><td>';
+            selfabricmap +='<tr id='+fabricName.fabricId+'><td>';
             selfabricmap +='<lable><input id="check'+fabricName.fabricId+'"  type="checkbox" name="fabricmapcheck"  value="'+fabricName.fabricId+'" checked >';
             selfabricmap +='</lable></td>';
             selfabricmap +="<td> <img class='img-thumbnail' src='"+pic_url+"fabric/300x300/"+fabricName.skuNo+".jpg' alt='No Image'></img></td>";
@@ -450,7 +465,7 @@ function setfabrcmapping(temparray){
 
         }
         else {
-            unselfabricmap +='<tr><td>';
+            unselfabricmap +='<tr  id='+fabricName.fabricId+'><td>';
             unselfabricmap +='<input id="check'+fabricName.fabricId+'"  type="checkbox" name="fabricmapcheck" value="'+fabricName.fabricId+'"  >';
             unselfabricmap +='</td>';
             unselfabricmap +="<td> <img class='img-thumbnail' src='"+pic_url+"fabric/300x300/"+fabricName.skuNo+".jpg' alt='No Image' ></img></td>";
@@ -465,6 +480,7 @@ function setfabrcmapping(temparray){
 // This function Display Product Fabric Mapping Table Data
 function fabricmapping(){
       var productId= $("#productId").val();
+
       $.ajax({
           type: "GET",
           url: api_url+"getproductfabricmapping.php",

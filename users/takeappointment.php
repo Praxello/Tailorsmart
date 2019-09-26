@@ -28,7 +28,9 @@ if (isset($_POST['customerid']) && isset($_POST['productids']) &&  isset($_POST[
 										$records[]=$academicResults;
 									}
 							$response = array('Message'=>"Appointment marked successfully".mysqli_error($conn),"Data"=>$records,'Responsecode'=>200);
-							}
+              
+
+              }
 							else
 							{
 									$response = array('Message'=>"No data availalbe".mysqli_error($conn),"Data"=> $records,'Responsecode'=>403);

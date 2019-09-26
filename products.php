@@ -23,7 +23,87 @@ $employeeName = $_SESSION['employeeName'];
     <link href="css/helper.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
       <!-- <link href="dropzone/dropzone.css" rel="stylesheet" type="text/css"> -->
+    <style media="screen">
+    .switch {
+position: relative;
+display: inline-block;
+width: 130px;
+height: 34px;
+}
 
+.switch input {display:none;}
+
+.slider {
+position: absolute;
+cursor: pointer;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: #ca2222;
+-webkit-transition: .4s;
+transition: .4s;
+}
+
+.slider:before {
+position: absolute;
+content: "";
+height: 26px;
+width: 26px;
+left: 4px;
+bottom: 4px;
+background-color: white;
+-webkit-transition: .4s;
+transition: .4s;
+}
+
+input:checked + .slider {
+background-color: #2ab934;
+}
+
+input:focus + .slider {
+box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+-webkit-transform: translateX(55px);
+-ms-transform: translateX(55px);
+transform: translateX(90px);
+}
+
+/*------ ADDED CSS ---------*/
+.on
+{
+display: none;
+}
+
+.on, .off
+{
+color: white;
+position: absolute;
+transform: translate(-50%,-50%);
+top: 50%;
+left: 50%;
+font-size: 10px;
+font-family: Verdana, sans-serif;
+}
+
+input:checked+ .slider .on
+{display: block;}
+
+input:checked + .slider .off
+{display: none;}
+
+/*--------- END --------*/
+
+/* Rounded sliders */
+.slider.round {
+border-radius: 34px;
+}
+
+.slider.round:before {
+border-radius: 50%;}
+</style>
 </head>
 
 <body class="fix-header fix-sidebar">
@@ -225,21 +305,38 @@ $employeeName = $_SESSION['employeeName'];
                                             </div>
                                             </div>
                                             <div class="row">
-                                                  <div class="col-sm-4">
+                                                  <div class="col-sm-4" >
                                                   <div class="form-group">
                                                       <label>Search</label>
                                                       <input id="fabricmaptblInput" type="text" placeholder="Search.." class="form-control form-control-sm">
                                                   </div>
                                                   </div>
+                                                  <div class="col-sm-4" >
+                                                  <div class="form-group">
+                                                    <div style="padding-top:20px"></div>
+                                                    <label class="switch">
+                                                      <input type="checkbox" id="togBtn" >
+                                                      <div class="slider round">
+                                                      <span class="off">Unselected</span>
+                                                      <span class="on">Selected</span>
+
+                                                    </div>
+                                                  </label>
+                                                  </div>
+                                                  </div>
                                             </div>
                                             <div class="row">
+                                              <div class="col-sm-2" >
+                                              <div class="form-group">
+                                              </div>
+                                            </div>
+                                                <div class="col-sm-8" >
+                                                <div class="form-group">
+                                                    <div class="card-body" style="">
 
+                                                        <div class="table-responsive m-t-40" style="overflow: auto;max-height: 521px;">
 
-                                                    <div class="card-body" style="padding: 2%;">
-
-                                                        <div class="table-responsive m-t-40" style="overflow-y: scroll;max-height: 521px;">
-
-                                                            <table id="fabricmaptbl" class="display nowrap table table-hover  table-bordered" >
+                                                            <table id="fabricmaptbl" class="display nowrap table table-hover table-bordered" >
                                                                 <thead>
                                                                     <tr>
                                                                         <th>Select</th>
@@ -255,7 +352,12 @@ $employeeName = $_SESSION['employeeName'];
                                                             </table>
                                                         </div>
                                                     </div>
-
+                                                  </div>
+                                              </div>
+                                              <div class="col-sm-2" >
+                                              <div class="form-group">
+                                              </div>
+                                            </div>
                                             </div>
                                           </div>
                                           <div id="navpills-3" class="tab-pane">
