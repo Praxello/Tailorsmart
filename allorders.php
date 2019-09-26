@@ -58,7 +58,7 @@ $employeeName = $_SESSION['employeeName'];
 
             <div class="container-fluid">
               <div class="row">
-                  <div class="col-md-3">
+                  <div class="col-md-4">
                       <div class="card p-30">
                           <div class="media">
                               <div class="media-left meida media-middle">
@@ -71,7 +71,7 @@ $employeeName = $_SESSION['employeeName'];
                           </div>
                       </div>
                   </div>
-                  <div class="col-md-3">
+                  <div class="col-md-4">
                       <div class="card p-30">
                           <div class="media">
                               <div class="media-left meida media-middle">
@@ -84,7 +84,7 @@ $employeeName = $_SESSION['employeeName'];
                           </div>
                       </div>
                   </div>
-                  <div class="col-md-3">
+                  <div class="col-md-4">
                       <div class="card p-30">
                           <div class="media">
                               <div class="media-left meida media-middle">
@@ -97,7 +97,7 @@ $employeeName = $_SESSION['employeeName'];
                           </div>
                       </div>
                   </div>
-                  <div class="col-md-3">
+                  <!-- <div class="col-md-3">
                       <div class="card p-30">
                           <div class="media">
                               <div class="media-left meida media-middle">
@@ -109,7 +109,7 @@ $employeeName = $_SESSION['employeeName'];
                               </div>
                           </div>
                       </div>
-                  </div>
+                  </div> -->
               </div>
                 <!-- Start Page Content -->
                 <div class="row" id="customerstyletable" style="display:block;">

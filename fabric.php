@@ -20,6 +20,7 @@ $employeeName = $_SESSION['employeeName'];
     <!-- Bootstrap Core CSS -->
     <link href="css/lib/sweetalert/sweetalert.css" rel="stylesheet">
     <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="css/lib/bootstrap/asterisks.css" rel="stylesheet">
     <link href="css/helper.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 
@@ -98,51 +99,51 @@ $employeeName = $_SESSION['employeeName'];
                       <div class="row">
                       <input type="hidden" id="fabricid"/>
                       <div class="col-sm-4">
-                        <div class="form-group">
+                        <div class="form-group required">
                           <label class="control-label">Fabric Title</label>
-                          <input type="text" class="form-control" id="fabrictitle"  title="Enter Fabric Title"/>
+                          <input type="text" class="form-control" id="fabrictitle"  title="Enter Fabric Title" required/>
                         </div>
                       </div>
                       <div class="col-sm-4">
-                        <div class="form-group">
+                        <div class="form-group required">
                           <label class="control-label">Fabric Brand</label>
-                          <input type="text" class="form-control" id="fabricbrand"  title="Enter Fabric Brand"/>
+                          <input type="text" class="form-control" id="fabricbrand"  title="Enter Fabric Brand" required/>
                         </div>
                       </div>
                       <div class="col-sm-4">
-                        <div class="form-group">
+                        <div class="form-group required">
                           <label class="control-label">Fabric Details</label>
-                          <input type="text" class="form-control" id="fabricdetail"  title="Enter Fabric Details"/>
+                          <input type="text" class="form-control" id="fabricdetail"  title="Enter Fabric Details" required/>
                         </div>
                       </div>
                       <div class="col-sm-4">
-                        <div class="form-group">
+                        <div class="form-group required">
                           <label class="control-label">Fabric Price</label>
-                          <input type="text" class="form-control" id="fabricprice"  title="Enter Fabric Price"/>
+                          <input type="text" class="form-control" id="fabricprice"  title="Enter Fabric Price" required/>
                         </div>
                       </div>
                       <div class="col-sm-4">
-                        <div class="form-group">
+                        <div class="form-group required">
                           <label class="control-label">SKU No</label>
-                          <input type="text" class="form-control" id="skuno"  title="Enter SKU No"/>
+                          <input type="text" class="form-control" id="skuno"  title="Enter SKU No" required/>
                         </div>
                       </div>
                       <div class="col-sm-4">
-                        <div class="form-group">
+                        <div class="form-group required">
                           <label class="control-label">Release Date</label>
-                          <input type="date" class="form-control" id="releasedate"  title="Enter Release Date"/>
+                          <input type="date" class="form-control" id="releasedate"  title="Enter Release Date" required/>
                         </div>
                       </div>
                       <div class="col-sm-4">
-                        <div class="form-group">
+                        <div class="form-group required">
                           <label class="control-label">Hexcolor</label>
-                          <input type="color" class="form-control" id="hexcolor"  title="Enter Hexcolor"/>
+                          <input type="color" class="form-control" id="hexcolor"  title="Enter Hexcolor" required/>
                         </div>
                       </div>
                       <div class="col-sm-4">
-                        <div class="form-group">
+                        <div class="form-group required">
                           <label class="control-label">Category</label>
-                          <select  class="form-control" id="fabriccategory" style="width:100%;">
+                          <select  class="form-control" id="fabriccategory" style="width:100%;" required>
 
                             <option value="0">InActive</option>
                             <option value="1">Active</option>
@@ -150,21 +151,21 @@ $employeeName = $_SESSION['employeeName'];
                         </div>
                       </div>
                       <div class="col-sm-4">
-                        <div class="form-group">
+                        <div class="form-group required">
                           <label class="control-label">Color Name</label>
-                          <input type="text" class="form-control" id="fabriccolorname"  title="Enter Color Name"/>
+                          <input type="text" class="form-control" id="fabriccolorname"  title="Enter Color Name" required/>
                         </div>
                       </div>
                       <div class="col-sm-4">
-                        <div class="form-group">
+                        <div class="form-group required">
                           <label class="control-label">Fabric Type</label>
-                          <input type="text" class="form-control" id="fabrictype"  title="Enter Title"/>
+                          <input type="text" class="form-control" id="fabrictype"  title="Enter Title" required/>
                         </div>
                       </div>
                       <div class="col-sm-4">
-                        <div class="form-group">
+                        <div class="form-group required">
                           <label class="control-label">Price Variable</label>
-                          <select  class="form-control" id="fabricPricevariable" style="width:100%;">
+                          <select  class="form-control" id="fabricPricevariable" style="width:100%;" required>
                             <option value="">Select Status</option>
                             <option value="0">Off</option>
                             <option value="1">On</option>
@@ -172,9 +173,9 @@ $employeeName = $_SESSION['employeeName'];
                         </div>
                       </div>
                         <div class="col-sm-4">
-                          <div class="form-group">
+                          <div class="form-group required">
                             <label class="control-label"> Active Status</label>
-                            <select  class="form-control" id="fabricactivestatus" style="width:100%;">
+                            <select  class="form-control" id="fabricactivestatus" style="width:100%;" required>
                               <option value="">Select Status</option>
                               <option value="0">InActive</option>
                               <option value="1">Active</option>
@@ -184,7 +185,7 @@ $employeeName = $_SESSION['employeeName'];
                         </div>
                         <div class="col-sm-4">
 
-                              <div class="form-group">
+                              <div class="form-group required">
                               <div style="padding-top:32px"></div>
                             <button class="btn btn-success" id="savebtncustomerstyle"  >Save</button>
                             <button class="btn btn-success" id="updatebtncustomerstyle"  style="display:none;">Update</button>

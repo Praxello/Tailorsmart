@@ -15,11 +15,6 @@ function getConfirmation() {
 
 }
 
-setTimeout(function() {
-    getcustomerappointmentdata();
-}, 5000);
-
-
 $(document).ready(function() {
 
 });
@@ -53,13 +48,25 @@ function getMicellaneousData() {
                 EmployeeData.set(response.Employee[i].employeeId, response.Employee[i]);
             }
             $("#setemployeeId").html(selectemp);
+            getcustomerappointmentdata();
         }
     });
 }
 
-var table;
+var table=$('#appointmenttbl').DataTable({
+    searching: true,
+    retrieve: true,
+    bPaginate: $('tbody tr').length > 10,
+    order: [],
+    columnDefs: [{ orderable: false, targets: [0, 1, 2, 3, 4, 5, 6, 7, 8,9] }],
+    dom: 'Bfrtip',
+    buttons: ['copy', 'csv', 'excel', 'pdf'],
+    destroy: true
+});
 $.fn.dataTable.ext.search.push(
     function(settings, data, dataIndex) {
+      // var min =$("#min").val();
+      //   var max =$("#max").val();
         var min = $('#min').datepicker("getDate");
         var max = $('#max').datepicker("getDate");
         // console.log(data[1]);
@@ -73,14 +80,28 @@ $.fn.dataTable.ext.search.push(
 );
 
 
-// $("#min").datepicker({ onSelect: function () { table.draw(); }, changeMonth: true, changeYear: true });
-// $("#max").datepicker({ onSelect: function () { table.draw(); }, changeMonth: true, changeYear: true });
-// var table = $('#example').DataTable();
-
 // Event listener to the two range filtering inputs to redraw on input
 $('#min, #max').change(function() {
-    table.draw();
+  var min =$("#min").val();
+    var max =$("#max").val();
+  var min = $('#min').datepicker("getDate");
+  var max = $('#max').datepicker("getDate");
+  
+  table.draw();
 });
+
+function retddmmyyyy(date){
+  var nd = new Date(min);
+  var ndate =(nd.getDate())+"/"+(parseInt(nd.getMonth())+ 1)+"/"+nd.getFullYear();
+  return ndate;
+}
+// $("input").on("change", function() {
+//     this.setAttribute(
+//         "data-date",
+//         moment(this.value, "YYYY-MM-DD")
+//         .format( this.getAttribute("data-date-format") )
+//     )
+// }).trigger("change");
 
 function settabledata(styleData) {
     var html = '',
@@ -96,10 +117,11 @@ function settabledata(styleData) {
         } else {
             varhtml = "<td></td>";
         }
-
+        let newdate =getDate(AllData.appointmentDate);
         let orderStatus = confirmationStatus.get(AllData.appointmentStatus);
         html += "<td>" + AllData.firstName + " " + AllData.lastname + "</td>";
-        html += "<td>" + AllData.appointmentDate + "</td>";
+        html += "<td style='display:none;'>" + AllData.appointmentDate + "</td>";
+        html += "<td>" + newdate + "</td>";
         html += "<td>" + AllData.slotTime + "</td>";
         html += "<td>" + AllData.address + "</td>";
         html += "<td>" + AllData.city + "</td>";
@@ -115,11 +137,23 @@ function settabledata(styleData) {
         retrieve: true,
         bPaginate: $('tbody tr').length > 10,
         order: [],
-        columnDefs: [{ orderable: false, targets: [0, 1, 2, 3, 4, 5, 6, 7, 8] }],
+        columnDefs: [{ orderable: false, targets: [0, 1, 2, 3, 4, 5, 6, 7, 8,9] }],
         dom: 'Bfrtip',
         buttons: ['copy', 'csv', 'excel', 'pdf'],
         destroy: true
     });
+}
+
+function getDate(date) {
+    var output = '-';
+    if (date == null) {
+        return output;
+    } else {
+        var d = new Date(date);
+        output = d.toDateString(); // outputs to "Thu May 28 2015"
+        // output = d.toGMTString(); //outputs to "Thu, 28 May 2015 22:10:21 GMT"
+    }
+    return output;
 }
 
 function getcustomerappointmentdata() {
@@ -179,35 +213,37 @@ function editcustomerappointmentdata(id) {
     $("#employeename").html(AllData.email);
     $("#updateappointmentdate").val(AllData.appointmentDate);
     $("#appointmentdetailid").val(AllData.appointmentId);
-    console.log(Allitemdata);
     if (Allitemdata != null) {
         var selectitemlen = Allitemdata.length;
-        // console.log(selectitemlen);
         var html = '';
         var selectfabriclen = 0;
         for (var i = 0; i < selectitemlen; i++) {
-
-            if (Allitemdata[i].Fabrics != null) {
-                selectfabriclen = Allitemdata[i].Fabrics.length;
-                html += '<tr>';
-                html += '<td style="color: orange;font-weight: bolder;">' + Allitemdata[i].Product.productTitle + '</td>';
-                html += '<td>' + Allitemdata[i].Fabrics[0].fabricTitle + '</td>';
-                html += '</tr>';
+            if (Allitemdata[i].Product != null) {
+                if(Allitemdata[i].Fabrics != null){
+                   html += '<tr>';
+                   selectfabriclen = Allitemdata[i].Fabrics.length;
+                   html += '<td style="color: orange;font-weight: bolder;">' + Allitemdata[i].Product.productTitle + '</td>';
+                   html += '<td>' + Allitemdata[i].Fabrics[0].fabricTitle + '</td>';
+                   for (var j = 1; j < selectfabriclen; j++)
+                   {
+                       html += '<tr>';
+                       html += '<td> </td>';
+                       html += '<td>' + Allitemdata[i].Fabrics[j].fabricTitle + '</td>';
+                       html += '</tr>';
+                   }
+                }
+                else {
+                    html += '<tr>';
+                    html += '<td style="color: orange;font-weight: bolder;">' + Allitemdata[i].Product.productTitle + '</td>';
+                    html += '<td></td>';
+                    html += '</tr>';
+                }
             } else {
                 html += '<tr>';
-                html += '<td style="color: orange;font-weight: bolder;">' + Allitemdata[i].Product.productTitle + '</td>';
+                html += '<td style="color: orange;font-weight: bolder;">No Products Available Till Yet</td>';
                 html += '<td></td>';
                 html += '</tr>';
             }
-
-
-            for (var j = 1; j < selectfabriclen; j++) {
-                html += '<tr>';
-                html += '<td> </td>';
-                html += '<td>' + Allitemdata[i].Fabrics[j].fabricTitle + '</td>';
-                html += '</tr>';
-            }
-
         }
         $("#appointdetailtbldata").html(html);
     }
@@ -259,8 +295,6 @@ function updateAppointmentDetails() {
             }
         },
         complete: function(response) {
-
-            // console.log("after");
             $(".preloader").hide();
         }
     });

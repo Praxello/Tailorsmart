@@ -18,32 +18,11 @@ $employeeName = $_SESSION['employeeName'];
     <!-- <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png"> -->
     <title>Smart - Tailor</title>
     <!-- Bootstrap Core CSS -->
+    <link href="css/lib/bootstrap/asterisks.css" rel="stylesheet">
     <link href="css/lib/sweetalert/sweetalert.css" rel="stylesheet">
     <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
     <link href="css/helper.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-    <!-- <style>
-.loader {
-  border: 16px solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 16px solid #3498db;
-  width: 120px;
-  height: 120px;
-  -webkit-animation: spin 2s linear infinite; /* Safari */
-  animation: spin 2s linear infinite;
-}
-
-/* Safari */
-@-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-</style> -->
 </head>
 
 <body class="fix-header fix-sidebar">
@@ -118,13 +97,13 @@ $employeeName = $_SESSION['employeeName'];
                       <div class="row">
                       <input type="hidden" id="slotid"/>
                       <div class="col-sm-4">
-                        <div class="form-group">
+                        <div class="form-group required">
                           <label class="control-label">Title</label>
                           <input type="text" class="form-control" id="slottitle"  title="Enter Title"/>
                         </div>
                       </div>
                         <div class="col-sm-4">
-                          <div class="form-group">
+                          <div class="form-group required">
                             <label class="control-label">Status</label>
                             <select  class="form-control" id="slotstatus" style="width:100%;">
                               <option value="">Select Status</option>

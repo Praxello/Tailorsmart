@@ -21,7 +21,7 @@ $employeeName = $_SESSION['employeeName'];
     <!-- Bootstrap Core CSS -->
     <link href="css/lib/sweetalert/sweetalert.css" rel="stylesheet">
     <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
-
+    <link href="css/lib/bootstrap/asterisks.css" rel="stylesheet">
     <link href="css/helper.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 
@@ -94,13 +94,13 @@ $employeeName = $_SESSION['employeeName'];
                       <div class="row">
                       <input type="hidden" id="styleid"/>
                       <div class="col-sm-4">
-                        <div class="form-group">
+                        <div class="form-group required">
                           <label class="control-label">Title</label>
                           <input type="text" class="form-control" id="styletitle"  title="Enter Title"/>
                         </div>
                       </div>
                         <div class="col-sm-4">
-                          <div class="form-group">
+                          <div class="form-group required">
                             <label class="control-label">Status</label>
                             <select id="stylestatus" class="form-control" style="width:100%;">
                               <option value="">Select Status</option>

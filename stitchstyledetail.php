@@ -20,6 +20,7 @@ $employeeName = $_SESSION['employeeName'];
     <!-- Bootstrap Core CSS -->
     <link href="css/lib/sweetalert/sweetalert.css" rel="stylesheet">
     <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="css/lib/bootstrap/asterisks.css" rel="stylesheet">
     <link href="css/helper.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="javascript/lsb.css" />
@@ -129,7 +130,7 @@ $employeeName = $_SESSION['employeeName'];
                       <div class="row">
                       <input type="hidden" id="stitchstyleid"/>
                       <div class="col-sm-4">
-                        <div class="form-group">
+                        <div class="form-group required">
                           <label class="control-label"> Title</label>
                           <input type="text" class="form-control" id="stitchtitle"  title="Enter  Title"/>
                         </div>
@@ -137,7 +138,7 @@ $employeeName = $_SESSION['employeeName'];
 
 
                       <div class="col-sm-4">
-                        <div class="form-group">
+                        <div class="form-group required">
                           <label class="control-label">Stitch Style Id</label>
                           <select  class="form-control" id="newstitchstyleId" style="width:100%;">
 
@@ -147,7 +148,7 @@ $employeeName = $_SESSION['employeeName'];
 
                         <div class="col-sm-4">
 
-                              <div class="form-group">
+                              <div class="form-group required">
                               <div style="padding-top:32px"></div>
                             <button class="btn btn-success" id="savebtncustomerstyle"  >Save</button>
                             <button class="btn btn-success" id="updatebtncustomerstyle"  style="display:none;">Update</button>

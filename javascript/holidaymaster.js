@@ -99,39 +99,43 @@ $('#savebtncustomerstyle').on('click',function(event){
   event.preventDefault();
   var holidaytitle = $("#holidaytitle").val();
   var holidaydate = $("#holidaydate").val();
-  var obj = {
-    holidayTitle:holidaytitle,
-    skipDate:holidaydate
-    };
-    $.ajax({
-        url:api_url+'createslotholiday.php',
-        type:'POST',
-        data:obj,
-        dataType:'json',
-        beforeSend: function() {
-              $(".preloader").show();
-              // console.log("before");
-        },
-        success:function(response){
+  if(holidaytitle===""||holidaydate===""){
+    swal("Parameter Missing");
+  }
+  else{
+    var obj = {
+      holidayTitle:holidaytitle,
+      skipDate:holidaydate
+      };
+      $.ajax({
+          url:api_url+'createslotholiday.php',
+          type:'POST',
+          data:obj,
+          dataType:'json',
+          beforeSend: function() {
+                $(".preloader").show();
+                // console.log("before");
+          },
+          success:function(response){
 
-            if(response.Responsecode==200){
-              $("#customerstyletable").show();
-              $("#customerstyletableform").hide();
-              swal(response.Message);
-              obj.holidayId = response.RowId;
-              HolidayData.set(response.RowId.toString(),obj);
-              setholidaymaster(HolidayData);
-            }
-            else{
-              swal(response.Message);
-            }
-        },
-        complete:function(response){
+              if(response.Responsecode==200){
+                $("#customerstyletable").show();
+                $("#customerstyletableform").hide();
+                swal(response.Message);
+                obj.holidayId = response.RowId;
+                HolidayData.set(response.RowId.toString(),obj);
+                setholidaymaster(HolidayData);
+              }
+              else{
+                swal(response.Message);
+              }
+          },
+          complete:function(response){
+            $(".preloader").hide();
+          }
+      });
+  }
 
-          // console.log("after");
-          $(".preloader").hide();
-        }
-    });
 });
 
 //This function is created For Update Style Data
@@ -140,6 +144,11 @@ $('#updatebtncustomerstyle').on('click',function(event){
   var holidayid = $("#holiid").val();
   var holidaytitle = $("#holidaytitle").val();
   var holidaydate = $("#holidaydate").val();
+  if(holidaytitle===""||holidaydate===""){
+    swal("Parameter Missing");
+  }
+  else{
+
   var obj = {
     holidayId:holidayid,
     holidayTitle:holidaytitle,
@@ -173,6 +182,7 @@ $('#updatebtncustomerstyle').on('click',function(event){
         $(".preloader").hide();
       }
   });
+}
 });
 
 // This function is created For Remove Button

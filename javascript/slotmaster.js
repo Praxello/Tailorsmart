@@ -108,38 +108,44 @@ $('#savebtncustomerstyle').on('click',function(event){
   event.preventDefault();
   var slottitle = $("#slottitle").val();
   var slotstatus = $("#slotstatus").val();
-  var obj = {
-    slotTime:slottitle,
-    isActive:slotstatus
-    };
-    $.ajax({
-        url:api_url+'createslot.php',
-        type:'POST',
-        data:obj,
-        dataType:'json',
-        beforeSend: function() {
-              $(".preloader").show();
-              // console.log("before");
-        },
-        success:function(response){
+  if(slottitle===""||slotstatus===""){
+    swal("Parameter Missing");
+  }
+  else {
+    var obj = {
+      slotTime:slottitle,
+      isActive:slotstatus
+      };
+      $.ajax({
+          url:api_url+'createslot.php',
+          type:'POST',
+          data:obj,
+          dataType:'json',
+          beforeSend: function() {
+                $(".preloader").show();
+                // console.log("before");
+          },
+          success:function(response){
 
-            if(response.Responsecode==200){
-              $("#customerstyletable").show();
-              $("#customerstyletableform").hide();
-              swal(response.Message);
-              obj.slotId = response.RowId;
-              SlotData.set(response.RowId.toString(),obj);
-              setslotmaster(SlotData);
-            }
-            else{
-              swal(response.Message);
-            }
-        },
-        complete:function(response){
-          $(".preloader").hide();
-          // console.log("after");
-        }
-    });
+              if(response.Responsecode==200){
+                $("#customerstyletable").show();
+                $("#customerstyletableform").hide();
+                swal(response.Message);
+                obj.slotId = response.RowId;
+                SlotData.set(response.RowId.toString(),obj);
+                setslotmaster(SlotData);
+              }
+              else{
+                swal(response.Message);
+              }
+          },
+          complete:function(response){
+            $(".preloader").hide();
+            // console.log("after");
+          }
+      });
+  }
+
 });
 
 //This function is created For Update Style Data
@@ -153,6 +159,10 @@ $('#updatebtncustomerstyle').on('click',function(event){
     slotTime:slottitle,
     isActive:slotstatus
     };
+    if(slottitle===""||slotstatus===""){
+      swal("Parameter Missing");
+    }
+    else {
   $.ajax({
       url:api_url+'editslot.php',
       type:'POST',
@@ -180,6 +190,7 @@ $('#updatebtncustomerstyle').on('click',function(event){
         $(".preloader").hide();
       }
   });
+}
 });
 
 // This function is created For Remove Button

@@ -18,6 +18,7 @@ $employeeName = $_SESSION['employeeName'];
     <!-- <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png"> -->
     <title>Smart - Tailor</title>
     <!-- Bootstrap Core CSS -->
+    <link href="css/lib/bootstrap/asterisks.css" rel="stylesheet">
     <link href="css/lib/sweetalert/sweetalert.css" rel="stylesheet">
     <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
     <link href="css/helper.css" rel="stylesheet">
@@ -92,78 +93,80 @@ $employeeName = $_SESSION['employeeName'];
                 <div class="row" id="customerstyletableform" style="display:none;">
                   <div class="col-sm-12">
                     <div class="card">
+
                       <div class="row">
+
                       <input type="hidden" id="empid"/>
                       <div class="col-sm-4">
-                        <div class="form-group">
+                        <div class="form-group required">
                           <label class="control-label">First Name</label>
-                          <input type="text" class="form-control" id="firstname"  title="Enter First Name"/>
+                          <input type="text" class="form-control" id="firstname"  title="Enter First Name" required/>
                         </div>
                       </div>
                       <div class="col-sm-4">
-                        <div class="form-group">
+                        <div class="form-group required">
                           <label class="control-label">Last Name</label>
-                          <input type="text" class="form-control" id="lastname"  title="Enter Last Name"/>
+                          <input type="text" class="form-control" id="lastname"  title="Enter Last Name" required/>
                         </div>
                       </div>
                       <div class="col-sm-4">
-                        <div class="form-group">
+                        <div class="form-group required">
                           <label class="control-label">User Role</label>
-                          <select  class="form-control" id="userrole" style="width:100%;">
+                          <select  class="form-control" id="userrole" style="width:100%;" required>
 
                           </select>
                         </div>
                       </div>
                       <div class="col-sm-4">
-                        <div class="form-group">
+                        <div class="form-group required">
                           <label class="control-label">Email</label>
-                          <input type="text" class="form-control" id="email"  title="Enter Email"/>
+                          <input type="text" class="form-control" id="email"  title="Enter Email" required/>
                         </div>
                       </div>
                       <div class="col-sm-4">
-                        <div class="form-group">
-                          <label class="control-label">Mobile No</label><font color='red'>*</font>
-                          <input type="text" class="form-control" id="mobileno"  title="Enter Mobile No"/>
+                        <div class="form-group required">
+                          <label class="control-label">Mobile No</label>
+                          <input type="text" class="form-control" id="mobileno"  title="Enter Mobile No" required/>
                         </div>
                       </div>
                       <div class="col-sm-4">
-                        <div class="form-group">
+                        <div class="form-group required">
                           <label class="control-label">City</label>
-                          <input type="text" class="form-control" id="city"  title="Enter City"/>
+                          <input type="text" class="form-control" id="city"  title="Enter City" required/>
                         </div>
                       </div>
                       <div class="col-sm-4">
-                        <div class="form-group">
+                        <div class="form-group required">
                           <label class="control-label">State</label>
-                          <input type="text" class="form-control" id="state"  title="Enter State"/>
+                          <input type="text" class="form-control" id="state"  title="Enter State" required/>
                         </div>
                       </div>
                       <div class="col-sm-4">
-                        <div class="form-group">
+                        <div class="form-group required">
                           <label class="control-label">Address</label>
-                          <input type="text" class="form-control" id="address"  title="Enter Addres"/>
+                          <input type="text" class="form-control" id="address"  title="Enter Addres" required/>
                         </div>
                       </div>
                       <div class="col-sm-4">
-                        <div class="form-group">
+                        <div class="form-group ">
                           <label class="control-label">Birth Date</label>
-                          <input type="date" class="form-control" id="birthdate"  title="Enter Birth Date"/>
+                          <input type="date" class="form-control" id="birthdate"  title="Enter Birth Date" required/>
                         </div>
                       </div>
                       <div class="col-sm-4">
-                        <div class="form-group">
+                        <div class="form-group ">
                           <label class="control-label">Adhar Id</label>
-                          <input type="text" class="form-control" id="adharid"  title="Enter Adhar Id"/>
+                          <input type="text" class="form-control" id="adharid"  title="Enter Adhar Id" required/>
                         </div>
                       </div>
                       <div class="col-sm-4">
-                        <div class="form-group">
+                        <div class="form-group required">
                           <label class="control-label">Password</label>
-                          <input type="text" class="form-control" id="password"  title="Enter Addres"/>
+                          <input type="text" class="form-control" id="password"  title="Enter Password" required/>
                         </div>
                       </div>
                         <div class="col-sm-4">
-                          <div class="form-group">
+                          <div class="form-group ">
                             <label class="control-label">Status</label>
                             <select  class="form-control" id="stylestatus" style="width:100%;">
                               <option value="">Select Status</option>
@@ -175,7 +178,7 @@ $employeeName = $_SESSION['employeeName'];
                         </div>
                         <div class="col-sm-4">
 
-                              <div class="form-group">
+                              <div class="form-group required">
                               <div style="padding-top:32px"></div>
                             <button class="btn btn-success" id="savebtncustomerstyle"  >Save</button>
                             <button class="btn btn-success" id="updatebtncustomerstyle" style="display:none;">Update</button>
@@ -184,6 +187,7 @@ $employeeName = $_SESSION['employeeName'];
                         </div>
 
                       </div>
+
                     </div>
                   </div>
                 </div>

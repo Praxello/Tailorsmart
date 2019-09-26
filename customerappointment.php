@@ -19,6 +19,7 @@ $employeeName = $_SESSION['employeeName'];
     <title>Smart - Tailor</title>
     <!-- Bootstrap Core CSS -->
     <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="css/lib/bootstrap/asterisks.css" rel="stylesheet">
     <link href="css/lib/sweetalert/sweetalert.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="css/helper.css" rel="stylesheet">
@@ -67,13 +68,13 @@ $employeeName = $_SESSION['employeeName'];
                                 <div class="col-sm-4">
                                   <div class="form-group">
                                   <label>From Date</label><font color='red' class="float-right">(MM/DD/YYYY)</font>
-                                  <input type="text" name="min" id="min" class="form-control" />
+                                  <input type="text" name="min" id="min" class="form-control" placeholder="MM/DD/YYYY"/>
                                   </div>
                                 </div>
                                 <div class="col-sm-4">
                                   <div class="form-group">
                                   <label>Upto Date</label><font color='red' class="float-right">(MM/DD/YYYY)</font>
-                                  <input type="text" name="max" id="max" class="form-control"  />
+                                  <input type="text" name="max" id="max" class="form-control" placeholder="MM/DD/YYYY" />
                                   </div>
                                 </div>
                                 <div class="col-sm-4">
@@ -88,6 +89,7 @@ $employeeName = $_SESSION['employeeName'];
 
                                                 <th>Customer Name</th>
                                                 <th>Appointment Date</th>
+                                                <th style='display:none;'>Date</th>
                                                 <th>Slot Time</th>
                                                 <th>Address</th>
                                                 <th>City</th>
@@ -167,9 +169,9 @@ $employeeName = $_SESSION['employeeName'];
                         <div class="row">
 
                         <div class="col-sm-3">
-                          <div class="form-group">
-                              <label class="control-label">Appointment Status</label>
-                                  <select class="form-control" id="appointmentStatus" style="width:100%;">
+                          <div class="form-group required">
+                              <label class="control-label ">Appointment Status</label>
+                                  <select class="form-control" id="appointmentStatus" style="width:100%;" required>
                                     <option value="0">Idle</option>
                                     <option value="1">Confirmed</option>
                                     <option value="2">Cancelled</option>
@@ -179,25 +181,25 @@ $employeeName = $_SESSION['employeeName'];
                                 </div>
                         </div>
                           <div class="col-sm-3">
-                                <div class="form-group">
+                                <div class="form-group required">
                             <label class="control-label">Employee </label>
-                                <select class="form-control" id="setemployeeId" style="width:100%;">
+                                <select class="form-control" id="setemployeeId" style="width:100%;" required>
 
                                 </select>
                               </div>
                           </div>
                           <div class="col-sm-3">
-                                <div class="form-group">
+                                <div class="form-group required">
                             <label class="control-label">Slot Time</label>
-                                <select class="form-control"  id="settimeslot" style="width:100%;">
+                                <select class="form-control"  id="settimeslot" style="width:100%;" disabled="true">
 
                                 </select>
                               </div>
                           </div>
                           <div class="col-sm-3">
-                                <div class="form-group">
+                                <div class="form-group required">
                             <label class="control-label">Appointment Date</label>
-                              <input type="date" class="form-control" id="updateappointmentdate" />
+                              <input type="date" class="form-control" id="updateappointmentdate" required/>
                           </div>
                             </div>
                         </div>
@@ -205,7 +207,7 @@ $employeeName = $_SESSION['employeeName'];
                           <div class="col-sm-4">
                             <div class="form-group">
                               <button class="btn btn-success" onclick="updateAppointmentDetails()" >Update</button>
-                              <button class="btn btn-primary" id="reloadbtn" >Reload</button>
+                              <button class="btn btn-primary" id="reloadbtn">Back</button>
                             </div>
                           </div>
                         </div>
