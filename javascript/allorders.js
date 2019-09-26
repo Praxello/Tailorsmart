@@ -44,8 +44,8 @@
  }
 
  function getConfirmation() {
-     confirmationStatus.set('0', '<span class="badge badge-pill badge-success">Confirmed</span>');
-     confirmationStatus.set('1', '<span class="badge badge-pill badge-warning">Not confirmed</span>');
+     confirmationStatus.set('1', '<span class="badge badge-pill badge-success">Confirmed</span>');
+     confirmationStatus.set('0', '<span class="badge badge-pill badge-warning">Not confirmed</span>');
  }
 
  getMicellaneousData();
