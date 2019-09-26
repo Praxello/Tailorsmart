@@ -19,17 +19,13 @@ $employeeName = $_SESSION['employeeName'];
     <title>Smart - Tailor</title>
     <!-- Bootstrap Core CSS -->
     <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="css/lib/bootstrap/asterisks.css" rel="stylesheet">
     <link href="css/lib/sweetalert/sweetalert.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="css/helper.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="date/date.css" />
-    <style>
-    .form-group.required .control-label:after {
-      content:"*";
-      color:red;
-    }
-    </style>
+
 </head>
 
 <body class="fix-header fix-sidebar">

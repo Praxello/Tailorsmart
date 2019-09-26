@@ -169,6 +169,7 @@ $('#reloadbtn').on('click',function(event){
 
 // This function is created For Save Style Data
 $('#savebtncustomerstyle').on('click',function(event){
+    event.preventDefault();
   var firstname =$("#firstname").val();
   var lastname =$("#lastname").val();
   var userrole =$("#userrole").val();
@@ -184,7 +185,13 @@ $('#savebtncustomerstyle').on('click',function(event){
   if(stylestatus==""){
     stylestatus=0;
   }
-  event.preventDefault();
+  if(firstname===""||lastname===""||userrole===""||email===""||mobileno===""||city===""||state===""||address===""||password===""){
+    swal("Parameter Missing");
+  }
+  else{
+
+
+
   var obj = {
     address: address,
     adharId: adharid,
@@ -228,6 +235,7 @@ $('#savebtncustomerstyle').on('click',function(event){
           $(".preloader").hide();
         }
     });
+  }
 });
 
 // This function is created For Update Style Data
@@ -247,6 +255,10 @@ $('#updatebtncustomerstyle').on('click',function(event){
   var password =$("#password").val();
   var stylestatus =$("#stylestatus").val();
   event.preventDefault();
+  if(firstname===""||lastname===""||userrole===""||email===""||mobileno===""||city===""||state===""||address===""||password===""){
+    swal("Parameter Missing");
+  }
+  else{
   var obj = {
     employeeId:empId,
     address: address,
@@ -291,7 +303,7 @@ $('#updatebtncustomerstyle').on('click',function(event){
         $(".preloader").hide();
       }
   });
-
+}
 });
 
 // This function is created For Remove Button
