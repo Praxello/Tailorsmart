@@ -67,13 +67,13 @@ $employeeName = $_SESSION['employeeName'];
                                 <div class="col-sm-4">
                                   <div class="form-group">
                                   <label>From Date</label><font color='red' class="float-right">(MM/DD/YYYY)</font>
-                                  <input type="text" name="min" id="min" class="form-control" />
+                                  <input type="text" name="min" id="min" class="form-control" placeholder="MM/DD/YYYY"/>
                                   </div>
                                 </div>
                                 <div class="col-sm-4">
                                   <div class="form-group">
                                   <label>Upto Date</label><font color='red' class="float-right">(MM/DD/YYYY)</font>
-                                  <input type="text" name="max" id="max" class="form-control"  />
+                                  <input type="text" name="max" id="max" class="form-control" placeholder="MM/DD/YYYY" />
                                   </div>
                                 </div>
                                 <div class="col-sm-4">
@@ -88,6 +88,7 @@ $employeeName = $_SESSION['employeeName'];
 
                                                 <th>Customer Name</th>
                                                 <th>Appointment Date</th>
+                                                <th style='display:none;'>Date</th>
                                                 <th>Slot Time</th>
                                                 <th>Address</th>
                                                 <th>City</th>
