@@ -77,7 +77,7 @@ $employeeName = $_SESSION['employeeName'];
                                                 <th>Style</th>
                                                 <th>Sub Style</th>
                                                 <th>Is Group</th>
-                                                <th>Active</th>
+                                                <!-- <th>Active</th> -->
                                                 <th>Action </th>
                                             </tr>
                                         </thead>
@@ -121,7 +121,7 @@ $employeeName = $_SESSION['employeeName'];
                           </select>
                         </div>
                       </div>
-                        <div class="col-sm-4">
+                        <!-- <div class="col-sm-4">
                           <div class="form-group required">
                             <label class="control-label">Status</label>
                             <select  class="form-control" id="stylestatus" style="width:100%;">
@@ -131,7 +131,7 @@ $employeeName = $_SESSION['employeeName'];
                             </select>
 
                           </div>
-                        </div>
+                        </div> -->
                         <div class="col-sm-4">
 
                               <div class="form-group">

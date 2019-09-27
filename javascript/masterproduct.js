@@ -43,7 +43,7 @@ function settabledata(styleData){
         html +="<td>"+AllData.styleTitle+"</td>";
         html +="<td>"+AllData.subStyleTitle+"</td>";
         html +="<td>"+isGroup+"</td>";
-        html +="<td>"+isConfirmed+"</td>";
+        // html +="<td>"+isConfirmed+"</td>";
         html +='<td ><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod('+k+')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+k+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removemaster('+k+')"><i class="fa fa-remove"></i></button></div></td>';
         html +="</tr>";
   }
@@ -53,7 +53,7 @@ function settabledata(styleData){
   retrieve: true,
   bPaginate: $('tbody tr').length>10,
   order: [],
-  columnDefs: [ { orderable: false, targets: [0,1,2,3,4,5] } ],
+  columnDefs: [ { orderable: false, targets: [0,1,2,3,4] } ],
   dom: 'Bfrtip',
   buttons: [],
   destroy: true
@@ -149,7 +149,7 @@ function addStyle(){
   $("#masterstyle").val("").trigger('change');
   $("#mastersubstyle").val("").trigger('change');
   $("#masterisgroup").val("").trigger('change');
-  $("#stylestatus").val("").trigger('change');
+  // $("#stylestatus").val("1").trigger('change');
   $("#savebtncustomerstyle").show();
   $("#updatebtncustomerstyle").hide();
 }
@@ -161,7 +161,7 @@ $("#masterstyleid").val(AllData.parentId);
 $("#masterstyle").val(AllData.styleId).trigger('change');
 $("#mastersubstyle").val(AllData.subStyleId).trigger('change');
 $("#masterisgroup").val(AllData.isGroup).trigger('change');
-$("#stylestatus").val(AllData.isActive).trigger('change');
+// $("#stylestatus").val(AllData.isActive).trigger('change');
 
 $("#customerstyletable").hide();
 $("#customerstyletableform").show();
@@ -187,7 +187,8 @@ $('#savebtncustomerstyle').on('click',function(event){
   var masterstyle= $("#masterstyle").val();
   var mastersubstyle= $("#mastersubstyle").val();
   var masterisgroup= $("#masterisgroup").val();
-  var stylestatus= $("#stylestatus").val();
+  var stylestatus= 1;
+  // $("#stylestatus").val();
   var obj = {
     styleId:masterstyle,
     subStyleId:mastersubstyle,
@@ -238,7 +239,8 @@ $('#updatebtncustomerstyle').on('click',function(event){
   var masterstyle= $("#masterstyle").val();
   var mastersubstyle= $("#mastersubstyle").val();
   var masterisgroup= $("#masterisgroup").val();
-  var stylestatus= $("#stylestatus").val();
+  var stylestatus=1;
+   // $("#stylestatus").val();
   var obj = {
     parentId :masterstyleid,
     styleId:masterstyle,

@@ -25,7 +25,7 @@ function settabledata(styleData){
         let imageUrl = pic_url+'substyle/300x300/'+k+'.jpg';
         html +="<td><form id='custstyleform"+k+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+k+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' src='"+imageUrl+"'  style='cursor: pointer' onclick='imguplod("+k+")' alt='No Image'></img></form></td>";
         html +="<td>"+AllData.subStyleTitle+"</td>";
-        html +="<td>"+isConfirmed+"</td>";
+        // html +="<td>"+isConfirmed+"</td>";
         html +='<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod('+k+')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+k+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removesubstyle('+k+')"><i class="fa fa-remove"></i></button></div></td>';
         html +="</tr>";
   }
@@ -35,7 +35,7 @@ function settabledata(styleData){
   retrieve: true,
   bPaginate: $('tbody tr').length>10,
   order: [],
-  columnDefs: [ { orderable: false, targets: [0,1,2,3] } ],
+  columnDefs: [ { orderable: false, targets: [0,1,2] } ],
   dom: 'Bfrtip',
   buttons: [],
   destroy: true
@@ -94,7 +94,7 @@ function addStyle(){
   $("#customerstyletable").hide();
   $("#customerstyletableform").show();
   $("#styletitle").val("");
-  $("#stylestatus").val("").trigger('change');
+  // $("#stylestatus").val("1").trigger('change');
   $("#savebtncustomerstyle").show();
   $("#updatebtncustomerstyle").hide();
 }
@@ -127,7 +127,8 @@ $('#reloadbtn').on('click',function(event){
 $('#savebtncustomerstyle').on('click',function(event){
   event.preventDefault();
   var styletitle = $("#styletitle").val();
-  var stylestatus = $("#stylestatus").val();
+  var stylestatus =1;
+  // $("#stylestatus").val();
   if(styletitle==""||stylestatus==""){
       swal("Missing Parameter");
   }
@@ -172,7 +173,8 @@ $('#updatebtncustomerstyle').on('click',function(event){
   event.preventDefault();
   var styleid = $("#styleid").val();
   var styletitle = $("#styletitle").val();
-  var stylestatus = $("#stylestatus").val();
+  var stylestatus = 1;
+  // $("#stylestatus").val();
   if(styletitle==""||stylestatus==""||styleid==""){
       swal("Missing Parameter");
   }

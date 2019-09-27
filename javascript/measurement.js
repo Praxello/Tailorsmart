@@ -21,7 +21,7 @@ function settabledata(styleData){
         html +='<tr>';
         let isConfirmed = confirmationStatus.get(AllData.isActive);
         html +="<td>"+AllData.itemTitle+"</td>";
-        html +="<td>"+isConfirmed+"</td>";
+        // html +="<td>"+isConfirmed+"</td>";
         html +='<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+k+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeMeasurements('+k+')"><i class="fa fa-remove"></i></button></div></td>';
         html +="</tr>";
   }
@@ -31,7 +31,7 @@ function settabledata(styleData){
   retrieve: true,
   bPaginate: $('tbody tr').length>10,
   order: [],
-  columnDefs: [ { orderable: false, targets: [0,1,2] } ],
+  columnDefs: [ { orderable: false, targets: [0,1] } ],
   dom: 'Bfrtip',
   buttons: [],
   destroy: true
@@ -89,7 +89,7 @@ function addStyle(){
   $("#customerstyletable").hide();
   $("#customerstyletableform").show();
   $("#styletitle").val("");
-  $("#stylestatus").val("").trigger('change');
+  // $("#stylestatus").val("1").trigger('change');
   $("#savebtncustomerstyle").show();
   $("#updatebtncustomerstyle").hide();
 }
@@ -99,7 +99,7 @@ function editStyle(id){
 var AllData= styleData.get(id.toString());
 $("#styleid").val(AllData.measurementId);
 $("#styletitle").val(AllData.itemTitle);
-$("#stylestatus").val(AllData.isActive).trigger('change');
+// $("#stylestatus").val(AllData.isActive).trigger('change');
 $("#customerstyletable").hide();
 $("#customerstyletableform").show();
 $("#savebtncustomerstyle").hide();
@@ -121,7 +121,8 @@ $('#reloadbtn').on('click',function(event){
 $('#savebtncustomerstyle').on('click',function(event){
   event.preventDefault();
   var styletitle = $("#styletitle").val();
-  var stylestatus = $("#stylestatus").val();
+  var stylestatus =1;
+   // $("#stylestatus").val();
   if(styletitle==""||stylestatus==""){
       swal("Missing Parameter");
   }
@@ -168,7 +169,8 @@ $('#updatebtncustomerstyle').on('click',function(event){
   event.preventDefault();
   var styleid = $("#styleid").val();
   var styletitle = $("#styletitle").val();
-  var stylestatus = $("#stylestatus").val();
+  var stylestatus = 1;
+  // $("#stylestatus").val();
 
   if(styletitle==""||stylestatus==""||styleid==""){
       swal("Missing Parameter");

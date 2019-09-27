@@ -111,7 +111,7 @@ $employeeName = $_SESSION['employeeName'];
                                                 <th>Stitch Title</th>
                                                 <th>Stitch Style Type</th>
                                                 <th>Details</th>
-                                                <th>Status</th>
+                                                <!-- <th>Status</th> -->
                                                 <th>Action</th>
                                             </tr>
                                         </thead>

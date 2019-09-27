@@ -37,7 +37,7 @@ function settabledata(styleData){
         html +="<td>"+AllData.stitchStyleTitle+"</td>";
         html +="<td>"+AllData.stitchStyleDetails+"</td>";
         html +="<td>"+mapStitch+"</td>";
-        html +="<td>"+isConfirmed+"</td>";
+        // html +="<td>"+isConfirmed+"</td>";
         html +='<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod('+k+')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+k+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removestitchStyle('+k+')"><i class="fa fa-remove"></i></button></div></td>';
         html +="</tr>";
   }
@@ -132,7 +132,7 @@ function addStyle(){
   $("#styletitle").val("");
   $("#styledetail").val("");
   $("#styletype").val("").trigger('change');
-  $("#stylestatus").val("").trigger('change');
+  // $("#stylestatus").val("1").trigger('change');
   $("#savebtncustomerstyle").show();
   $("#updatebtncustomerstyle").hide();
 }
@@ -144,7 +144,7 @@ $("#styleid").val(AllData.stitchStyleId);
 $("#styletitle").val(AllData.stitchStyleTitle);
 $("#styledetail").val(AllData.stitchStyleDetails);
 $("#styletype").val(AllData.stitchStyleType).trigger('change');
-$("#stylestatus").val(AllData.isActive).trigger('change');
+// $("#stylestatus").val(AllData.isActive).trigger('change');
 $("#customerstyletable").hide();
 $("#customerstyletableform").show();
 $("#savebtncustomerstyle").hide();
@@ -167,7 +167,8 @@ $('#savebtncustomerstyle').on('click',function(event){
   var styletitle = $("#styletitle").val();
   var styledetail = $("#styledetail").val();
   var styletype = $("#styletype").val();
-  var stylestatus = $("#stylestatus").val();
+  var stylestatus = 1;
+  // $("#stylestatus").val();
   if(styletitle==""||stylestatus==""||styletype==""){
       swal("Missing Parameter");
   }
@@ -216,7 +217,8 @@ $('#updatebtncustomerstyle').on('click',function(event){
   var styletitle = $("#styletitle").val();
   var styledetail = $("#styledetail").val();
   var styletype = $("#styletype").val();
-  var stylestatus = $("#stylestatus").val();
+  var stylestatus =1;
+   // $("#stylestatus").val();
   if(styleid==""||styletitle==""||stylestatus==""||styletype==""||styledetail==""){
       swal("Missing Parameter");
   }

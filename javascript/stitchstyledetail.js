@@ -1,4 +1,4 @@
-var stitchstyleData = new Map(); // This variable globally declare save all Style Data in Array
+// var stitchstyleData = new Map(); // This variable globally declare save all Style Data in Array
 var styleData = new Map(); // This variable globally declare save all Style Data in Array
 let mapStitchStyle = new Map();
 mapstitchstyle();
@@ -66,7 +66,7 @@ function settabledata(styleData){
         html +="<td>"+AllData.stitchStyleTitle+"</td>";
         html +="<td>"+mapstatus+"</td>";
         html +="<td>"+AllData.stitchStyleDetails+"</td>";
-        html +="<td>"+isConfirmed+"</td>";
+        // html +="<td>"+isConfirmed+"</td>";
         html +='<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod('+k+')"><i class="fa fa-upload"></i></button> <button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+k+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removestitchStyleDetail('+k+')"><i class="fa fa-remove"></i></button></div></td>';
         html +="</tr>";
   }

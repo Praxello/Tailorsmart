@@ -20,7 +20,7 @@ $employeeName = $_SESSION['employeeName'];
     <!-- Bootstrap Core CSS -->
     <link href="css/lib/sweetalert/sweetalert.css" rel="stylesheet">
     <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
-        <link href="css/lib/bootstrap/asterisks.css" rel="stylesheet">
+    <link href="css/lib/bootstrap/asterisks.css" rel="stylesheet">
     <link href="css/helper.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <link href="dropzone/dropzone.css" rel="stylesheet">
@@ -72,7 +72,7 @@ $employeeName = $_SESSION['employeeName'];
                                                 <th>Title</th>
                                                 <th>Details</th>
                                                 <th>Stitch Styles Type</th>
-                                                <th>Status</th>
+                                                <!-- <th>Status</th> -->
                                                 <th>Action </th>
                                             </tr>
                                         </thead>
@@ -112,7 +112,7 @@ $employeeName = $_SESSION['employeeName'];
                           </select>
                         </div>
                       </div>
-                        <div class="col-sm-4">
+                        <!-- <div class="col-sm-4">
                           <div class="form-group required">
                             <label class="control-label">Status</label>
                             <select  class="form-control" id="stylestatus" style="width:100%;">
@@ -122,7 +122,7 @@ $employeeName = $_SESSION['employeeName'];
                             </select>
 
                           </div>
-                        </div>
+                        </div> -->
                         <div class="col-sm-4">
 
                               <div class="form-group">

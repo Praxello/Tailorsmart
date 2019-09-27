@@ -6,6 +6,7 @@ var FabricData = new Map();//from getfabrics.php names only
 var MeasurementData = new Map();//from getmeasurementitems.php for show active products styleTitle
 var StichStyleData =new Map();//from getstitchstyleitem.php for show active products category
 let confirmationStatus = new Map();
+var inactstyleData = new Map();
 getConfirmation();
 function getConfirmation() {
     confirmationStatus.set('0', '<span class="badge badge-pill badge-warning">InActive</span>');
@@ -39,7 +40,6 @@ $('#pricevariable').select2({
 });
 
 function getMicellaneousData(){
-  // console.log('getmis');
   var selectowner ='',selectparent='',selectcategory='';
   $.ajax({
       type: "GET",
@@ -123,41 +123,83 @@ function getStitchStyleData(){
       }
     });
 }
+var idshow =1;
+$('#actbtn').on('click',function(event){
+    idshow =1;
+  //settabledata(styleData);
+    $("#inactbtn").show();
+    $("#actbtn").hide();
+    settabledata(styleData);
+});
+$('#inactbtn').on('click',function(event){
+    idshow =0;
+    //settabledata(inactstyleData);
+    $("#inactbtn").hide();
+    $("#actbtn").show();
+    settabledata(styleData);
+});
 function settabledata(styleData){
-   //console.log(ParentProducts);
-   // console.log(styleData);
-  var html ='';
+
+  var shtml ='',unhtml='';
   $('#styletbl').dataTable().fnDestroy();
   $("#styletbldata").empty();
   for(let k of styleData.keys())
   {
         var AllData= styleData.get(k);
         let isConfirmed = confirmationStatus.get(AllData.isActive);
+        if(AllData.isActive==="1"){
+          shtml +='<tr>';
+          let imageUrl = pic_url+'product/300x300/'+k+'.jpg';
+          let parentname = ParentProducts.get(AllData.parentId);
+          shtml +="<td style='width:15%'><form id='custstyleform"+k+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+k+"' name='file' accept='image/*' style='display:none;' /> <img  accept='image/*' class='img-thumbnail' src='"+imageUrl+"' style='cursor: pointer' alt='No Image' onclick='imguplod("+k+")'></img></form></td>";
+          shtml +="<td>"+AllData.productTitle+"</td>";
+          shtml +="<td style='width:15%'>"+AllData.productSubTitle+"</td>";
 
-        html +='<tr>';
-        let imageUrl = pic_url+'product/300x300/'+k+'.jpg';
-        let parentname = ParentProducts.get(AllData.parentId);
-        html +="<td style='width:15%'><form id='custstyleform"+k+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+k+"' name='file' accept='image/*' style='display:none;' /> <img  accept='image/*' class='img-thumbnail' src='"+imageUrl+"' style='cursor: pointer' alt='No Image' onclick='imguplod("+k+")'></img></form></td>";
-        html +="<td>"+AllData.productTitle+"</td>";
-        html +="<td style='width:15%'>"+AllData.productSubTitle+"</td>";
+          shtml +="<td style='width:10%'>"+parentname.styleTitle+" "+parentname.subStyleTitle+"</td>";
+          shtml +="<td style='width:5%'>"+AllData.skuNo+"</td>";
+          shtml +="<td style='width:5%'>"+AllData.price+"</td>";
+          shtml +="<td style='width:5%'>"+AllData.releaseDate+"</td>";
 
-        html +="<td style='width:10%'>"+parentname.styleTitle+" "+parentname.subStyleTitle+"</td>";
-        html +="<td style='width:5%'>"+AllData.skuNo+"</td>";
-        html +="<td style='width:5%'>"+AllData.price+"</td>";
-        html +="<td style='width:5%'>"+AllData.releaseDate+"</td>";
+          shtml +="<td style='width:5%'>"+AllData.sequenceNo+"</td>";
+          // html +="<td>"+isConfirmed+"</td>";
+          shtml +='<td style="width:5%"><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod('+k+')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+k+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeProduct('+k+')"><i class="fa fa-remove"></i></button></div></td>';
+          shtml +="</tr>";
+        }
+        else {
+          unhtml +='<tr>';
+          let imageUrl = pic_url+'product/300x300/'+k+'.jpg';
+          let parentname = ParentProducts.get(AllData.parentId);
+          unhtml +="<td style='width:15%'><form id='custstyleform"+k+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+k+"' name='file' accept='image/*' style='display:none;' /> <img  accept='image/*' class='img-thumbnail' src='"+imageUrl+"' style='cursor: pointer' alt='No Image' onclick='imguplod("+k+")'></img></form></td>";
+          unhtml +="<td>"+AllData.productTitle+"</td>";
+          unhtml +="<td style='width:15%'>"+AllData.productSubTitle+"</td>";
 
-        html +="<td style='width:5%'>"+AllData.sequenceNo+"</td>";
-        html +="<td>"+isConfirmed+"</td>";
-        html +='<td style="width:5%"><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod('+k+')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+k+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeProduct('+k+')"><i class="fa fa-remove"></i></button></div></td>';
-        html +="</tr>";
+          unhtml +="<td style='width:10%'>"+parentname.styleTitle+" "+parentname.subStyleTitle+"</td>";
+          unhtml +="<td style='width:5%'>"+AllData.skuNo+"</td>";
+          unhtml +="<td style='width:5%'>"+AllData.price+"</td>";
+          unhtml +="<td style='width:5%'>"+AllData.releaseDate+"</td>";
+
+          unhtml +="<td style='width:5%'>"+AllData.sequenceNo+"</td>";
+          // html +="<td>"+isConfirmed+"</td>";
+          unhtml +='<td style="width:5%"><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod('+k+')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+k+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeProduct('+k+')"><i class="fa fa-remove"></i></button></div></td>';
+          unhtml +="</tr>";
+        }
+
   }
-  $("#styletbldata").html(html);
+  if(idshow===1)
+  {
+    $("#styletbldata").html(shtml);
+  }
+  else
+  {
+      $("#styletbldata").html(unhtml);
+  }
+
   $('#styletbl').DataTable({
   searching: true,
   retrieve: true,
   bPaginate: $('tbody tr').length>10,
   order: [],
-  columnDefs: [ { orderable: false, targets: [0,1,2,3,4,5,6,7,8,9] } ],
+  columnDefs: [ { orderable: false, targets: [0,1,2,3,4,5,6,7,8] } ],
   dom: 'Bfrtip',
   buttons: [],
   destroy: true
@@ -181,7 +223,13 @@ function getproductdata(){
             }
             for(var i=0;i<count;i++)
             {
-            styleData.set(response.Data[i].productId,response.Data[i]);
+            // if(response.Data[i].isActive==="1"){
+              styleData.set(response.Data[i].productId,response.Data[i]);
+            // }
+            // else
+            // {
+            //  inactstyleData.set(response.Data[i].productId,response.Data[i]);
+            // }
             }
             settabledata(styleData);
          }
@@ -223,12 +271,13 @@ function addStyle(){
   $("#owner").val("").trigger('change');
   $("#parent").val("").trigger('change');
   $("#category").val("").trigger('change');
-  $("#pricevariable").val("").trigger('change');
-  $("#stylestatus").val("").trigger('change');
+  $("#pricevariable").val("0").trigger('change');
+  // $("#stylestatus").val("1").trigger('change');
   $("#hidenavtab").hide();
   $("#savebtnproducts").show();
   $("#updatebtnproducts").hide();
 }
+
 
 
 
@@ -241,6 +290,7 @@ $('#reloadbtn').on('click',function(event){
   $("#customerstyletable").show();
   $("#savebtnproducts").show();
   $("#updatebtnproducts").hide();
+   settabledata(styleData);
 });
 
 // This function is created For Save Style Data
@@ -258,50 +308,56 @@ $('#savebtnproducts').on('click',function(event){
   var price = $("#price").val();
   var pricevariable = $("#pricevariable").val();
   var stylestatus= $("#stylestatus").val();
-  var obj = {
-      categoryId: category,
-      isActive: stylestatus,
-      isPriceVariable: pricevariable,
-      ownerId:owner,
-      parentId: parent,
-      price: price,
-      productDetails: productdetials,
-      productSubTitle:productsubtitle,
-      productTitle:producttitle,
-      releaseDate:releasedate,
-      sequenceNo: productsequenceno,
-      skuNo: skuno
-    };
-    $.ajax({
-        url:api_url+'createproduct.php',
-        type:'POST',
-        data:obj,
-        dataType:'json',
-        beforeSend: function() {
-              $(".preloader").show();
-              // console.log("before");
-        },
-        success:function(response){
-          if(response.Responsecode===200){
-            // getproductdata();
-            $("#customerstyletableform").hide();
-            $("#customerstyletable").show();
-            swal(response.Message);
-            obj.productId = response.RowId.toString();
-            styleData.set(response.RowId.toString(),obj);
-            // settabledata(styleData);
-          }
-          else {
-            swal(response.Message);
-          }
+  if(producttitle===""||owner===""||productsequenceno===""||parent===""||productsequenceno===""||parent===""||skuno===""||releasedate===""||category===""||price===""||pricevariable===""){
+    swal("Parameter Missing");
+   }
+    else{
+      var obj = {
+          categoryId: category,
+          isActive: stylestatus,
+          isPriceVariable: pricevariable,
+          ownerId:owner,
+          parentId: parent,
+          price: price,
+          productDetails: productdetials,
+          productSubTitle:productsubtitle,
+          productTitle:producttitle,
+          releaseDate:releasedate,
+          sequenceNo: productsequenceno,
+          skuNo: skuno
+        };
+        $.ajax({
+            url:api_url+'createproduct.php',
+            type:'POST',
+            data:obj,
+            dataType:'json',
+            beforeSend: function() {
+                  $(".preloader").show();
+                  // console.log("before");
+            },
+            success:function(response){
+              if(response.Responsecode===200){
+                // getproductdata();
+                // $("#customerstyletableform").hide();
+                // $("#customerstyletable").show();
+                swal(response.Message);
+                obj.productId = response.RowId.toString();
+                styleData.set(response.RowId.toString(),obj);
+                // settabledata(styleData);
+              }
+              else {
+                swal(response.Message);
+              }
 
-        },
-        complete:function(response){
+            },
+            complete:function(response){
 
-          // console.log("after");
-          $(".preloader").hide();
-        }
-    });
+              // console.log("after");
+              $(".preloader").hide();
+            }
+        });
+    }
+
 });
 
 // This function is created For Update Style Data
@@ -347,11 +403,10 @@ $('#updatebtnproducts').on('click',function(event){
       success:function(response){
         if(response.Responsecode===200){
           swal(response.Message);
-          $("#customerstyletableform").hide();
-          $("#customerstyletable").show();
+          // $("#customerstyletableform").hide();
+          // $("#customerstyletable").show();
           styleData.set(productId.toString(),obj);
-          settabledata(styleData);
-
+          // settabledata(styleData);
         }
         else
         {
@@ -359,8 +414,6 @@ $('#updatebtnproducts').on('click',function(event){
         }
       },
       complete:function(response){
-
-        // console.log("after");
         $(".preloader").hide();
       }
   });
@@ -425,32 +478,22 @@ fabricmapping();
 measurementmapping();
 stitchstylemapping();
 }
-// document.addEventListener('DOMContentLoaded', function () {
-//   var checkbox = document.querySelector('input[type="checkbox"]');
-//
-//   checkbox.addEventListener('change', function () {
-//     if (checkbox.checked) {
-//      $('#fabricmaptbl').find('input[name="fabricmapcheck"]:checked').each(function(row) {
-//        console.log($(this).val());
-//      });
-//
-//       console.log('Checked');
-//     } else {
-//       $('#fabricmaptbl').find('input[name="fabricmapcheck"]:not(:checked)').each(function(row) {
-//          console.log($(this).val());
-//       });
-//
-//       console.log('Not checked');
-//     }
-//   });
-// });
-function setfabrcmapping(temparray){
 
-  // $('#fabricmaptbl').dataTable().fnDestroy();
+var id=1;
+var temparray = [];
+$('#selectbtn').on('click',function(event){
+  id=1;
+  setfabrcmapping(temparray);
+});
+$('#unselectbtn').on('click',function(event){
+  id=0;
+  setfabrcmapping(temparray);
+});
+function setfabrcmapping(temparray){
+   // console.log("setmap"+temparray);
   $("#fabricmaptbldata").empty();
   let fabricDatacount =FabricData.size;
-  // console.log("Fabric Data"+FabricData);
-  // console.log("Fabric Data"+fabricDatacount);
+  let temparraycount = temparray.length;
   var selfabricmap='',unselfabricmap='',fabricmap='';
   for(let k of FabricData.keys())
       {
@@ -462,7 +505,6 @@ function setfabrcmapping(temparray){
             selfabricmap +="<td> <img class='img-thumbnail' src='"+pic_url+"fabric/300x300/"+fabricName.skuNo+".jpg' alt='No Image'></img></td>";
             selfabricmap +="<td>"+fabricName.fabricTitle+"</td>";
             selfabricmap +="<td>"+fabricName.skuNo+"</td></tr>";
-
         }
         else {
             unselfabricmap +='<tr  id='+fabricName.fabricId+'><td>';
@@ -473,23 +515,28 @@ function setfabrcmapping(temparray){
             unselfabricmap +="<td>"+fabricName.skuNo+"</td></tr>";
         }
     }
-    fabricmap +=selfabricmap;
-    fabricmap +=unselfabricmap;
+    if(id===1){
+        fabricmap +=selfabricmap;
+        $("#totselitem").html("<font style='font-weight: bolder;'>Selected Fabrics </font><span class = ' pull-right' style='font-weight: bolder;color: black;'>"+temparraycount+"</span>");
+    }
+    else {
+        fabricmap +=unselfabricmap;
+        fabricmap +=selfabricmap;
+        $("#totselitem").html("<font style='font-weight: bolder;'>UnSelected Fabrics </font><span class = ' pull-right' style='font-weight: bolder;color: black;'>"+(fabricDatacount-temparraycount)+"</span>");
+    }
     $("#fabricmaptbldata").html(fabricmap);
 }
 // This function Display Product Fabric Mapping Table Data
 function fabricmapping(){
       var productId= $("#productId").val();
-
       $.ajax({
           type: "GET",
           url: api_url+"getproductfabricmapping.php",
           beforeSend: function() {
                 $(".preloader").show();
-                // console.log("before");
           },
           success: function(response) {
-            var temparray = [];
+            temparray = [];
             if(response['Data']==null){
             }
             else
@@ -505,21 +552,25 @@ function fabricmapping(){
                 setfabrcmapping(temparray);
           },
           complete:function(response){
-
-            // console.log("after");
             $(".preloader").hide();
           }
         });
 }
-
+var mid=1;
+var tempmeasurementarray = [];
+$('#measureselectbtn').on('click',function(event){
+  mid=1;
+  setmeasuremapping(tempmeasurementarray);
+});
+$('#measureunselectbtn').on('click',function(event){
+  mid=0;
+  setmeasuremapping(tempmeasurementarray);
+});
 function setmeasuremapping(tempmeasurementarray){
-
-    // $('#measurementmaptbl').dataTable().fnDestroy();
     $("#measurementmaptbldata").empty();
-    // console.log("Fabric Data"+fabricDatacount);
     var selmeasurement='',unselmeasurement='',measurementhtml='';
     let MeasurementDatacount =MeasurementData.size;
-    // console.log("Measurment Data"+MeasurementData);
+    let measurementcount = tempmeasurementarray.length;
     for(let k of MeasurementData.keys())
         {
               let measureName = MeasurementData.get(k);
@@ -536,8 +587,15 @@ function setmeasuremapping(tempmeasurementarray){
                 unselmeasurement +="<td>"+measureName.itemTitle+"</td></tr>";
               }
       }
+      if(mid===1){
       measurementhtml += selmeasurement;
+      $("#measuretotselitem").html("<font style='font-weight: bolder;'>Selected Measurement </font><span class = ' pull-right' style='font-weight: bolder;color: black;'>"+measurementcount+"</span>");
+      }
+      else{
       measurementhtml += unselmeasurement;
+      measurementhtml += selmeasurement;
+      $("#measuretotselitem").html("<font style='font-weight: bolder;'>UnSelected Measurement </font><span class = ' pull-right' style='font-weight: bolder;color: black;'>"+(MeasurementDatacount-measurementcount)+"</span>");
+      }
       $("#measurementmaptbldata").html(measurementhtml);
 }
 // This function Display Product Measurement Mapping Table Data
@@ -570,19 +628,26 @@ function measurementmapping(){
               setmeasuremapping(tempmeasurementarray);
           },
           complete:function(response){
-
-            // console.log("after");
             $(".preloader").hide();
           }
         });
 }
-
+var sid=1;
+var tempstitcharray = [];
+$('#stitchselectbtn').on('click',function(event){
+  sid=1;
+  setstitchstylemapping(tempstitcharray);
+});
+$('#stitchunselectbtn').on('click',function(event){
+  sid=0;
+  setstitchstylemapping(tempstitcharray);
+});
 
 function setstitchstylemapping(tempstitcharray){
     $("#stitchstylemaptbldata").empty();
     var selstitchhtml='',unstitchhtml='',stitchhtml='';
     let StichStyleDatacount =StichStyleData.size;
-    // console.log("StichStyleData "+StichStyleData);
+    let countstitchstyle = tempstitcharray.length;
     for(let k of StichStyleData.keys())
         {
               let stitchName = StichStyleData.get(k);
@@ -600,8 +665,16 @@ function setstitchstylemapping(tempstitcharray){
                 unstitchhtml +="<td>"+stitchName.stitchStyleTitle+"</td></tr>";
               }
       }
-      stitchhtml += selstitchhtml;
-      stitchhtml += unstitchhtml;
+      if(sid===1){
+          stitchhtml += selstitchhtml;
+            $("#stitchtotselitem").html("<font style='font-weight: bolder;'>Selected Stitch Style </font><span class = ' pull-right' style='font-weight: bolder;color: black;'>"+countstitchstyle+"</span>");
+      }
+      else {
+          stitchhtml += unstitchhtml;
+          stitchhtml += selstitchhtml;
+          $("#stitchtotselitem").html("<font style='font-weight: bolder;'>UnSelected Stitch Style </font><span class = ' pull-right' style='font-weight: bolder;color: black;'>"+(StichStyleDatacount-countstitchstyle)+"</span>");
+      }
+
       $("#stitchstylemaptbldata").html(stitchhtml);
 }
 // This function Display Product Stitvh Style Mapping Table Data
@@ -613,10 +686,9 @@ function stitchstylemapping(){
           url: api_url+"getproductstitchstylemapping.php",
           beforeSend: function() {
                 $(".preloader").show();
-                // console.log("before");
           },
           success: function(response) {
-            var tempstitcharray = [];
+             tempstitcharray = [];
             if(response['Data']==null){
             }
             else
@@ -638,15 +710,19 @@ function stitchstylemapping(){
           }
         });
 }
+
 // This function is created for saved Product Fabric Mapping Function
 $('#savefabric').on('click',function(event){
   event.preventDefault();
   var TableData = new Array();
+  temparray = [];
   $('#fabricmaptbl').find('input[name="fabricmapcheck"]:checked').each(function(row) {
     TableData.push($(this).val());
   });
+  temparray = TableData;
   var productId= $("#productId").val();
   var fabricidarray = TableData.toString();
+  id=1;
   var obj = {
     productId : productId,
     fabricId:fabricidarray
@@ -671,12 +747,8 @@ $('#savefabric').on('click',function(event){
          else {
             swal(response.Message);
          }
-
-
       },
       complete:function(response){
-
-        // console.log("after");
         $(".preloader").hide();
       }
   });
@@ -686,11 +758,14 @@ $('#savefabric').on('click',function(event){
 $('#savemeasurement').on('click',function(event){
   event.preventDefault();
   var TableData = new Array();
+  tempmeasurementarray = [];
    $('#measurementmaptbl').find('input[name="measurementcheck"]:checked').each(function(row) {
      TableData.push($(this).val());
    });
+   tempmeasurementarray=TableData;
   var productId= $("#productId").val();
   var measurementidarray = TableData.toString();
+  mid=1;
   var obj = {
       productId : productId,
     measurementId:measurementidarray
@@ -725,9 +800,12 @@ $('#savemeasurement').on('click',function(event){
 $('#savestitchbtn').on('click',function(event){
   event.preventDefault();
   var TableData = new Array();
+    tempstitcharray = [];
    $('#stitchstylemaptbl').find('input[name="stitchstyleitemcheck"]:checked').each(function(row) {
      TableData.push($(this).val());
    });
+   tempstitcharray=TableData;
+   sid=1;
   var productId= $("#productId").val();
   var stitchstyleidarray = TableData.toString();
   var obj ={
@@ -746,7 +824,6 @@ $('#savestitchbtn').on('click',function(event){
       success:function(response){
         if(response.Responsecode===200){
           swal(response.Message);
-          // stitchstylemapping();
           setstitchstylemapping(TableData);
         }
         else {

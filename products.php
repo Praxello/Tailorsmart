@@ -14,96 +14,14 @@ $employeeName = $_SESSION['employeeName'];
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <!-- Favicon icon -->
-    <!-- <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png"> -->
     <title>Smart - Tailor</title>
-    <!-- Bootstrap Core CSS -->
     <link href="css/lib/sweetalert/sweetalert.css" rel="stylesheet">
     <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="css/lib/bootstrap/asterisks.css" rel="stylesheet">
     <link href="css/helper.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
       <!-- <link href="dropzone/dropzone.css" rel="stylesheet" type="text/css"> -->
-    <style media="screen">
-    .switch {
-position: relative;
-display: inline-block;
-width: 130px;
-height: 34px;
-}
 
-.switch input {display:none;}
-
-.slider {
-position: absolute;
-cursor: pointer;
-top: 0;
-left: 0;
-right: 0;
-bottom: 0;
-background-color: #ca2222;
--webkit-transition: .4s;
-transition: .4s;
-}
-
-.slider:before {
-position: absolute;
-content: "";
-height: 26px;
-width: 26px;
-left: 4px;
-bottom: 4px;
-background-color: white;
--webkit-transition: .4s;
-transition: .4s;
-}
-
-input:checked + .slider {
-background-color: #2ab934;
-}
-
-input:focus + .slider {
-box-shadow: 0 0 1px #2196F3;
-}
-
-input:checked + .slider:before {
--webkit-transform: translateX(55px);
--ms-transform: translateX(55px);
-transform: translateX(90px);
-}
-
-/*------ ADDED CSS ---------*/
-.on
-{
-display: none;
-}
-
-.on, .off
-{
-color: white;
-position: absolute;
-transform: translate(-50%,-50%);
-top: 50%;
-left: 50%;
-font-size: 10px;
-font-family: Verdana, sans-serif;
-}
-
-input:checked+ .slider .on
-{display: block;}
-
-input:checked + .slider .off
-{display: none;}
-
-/*--------- END --------*/
-
-/* Rounded sliders */
-.slider.round {
-border-radius: 34px;
-}
-
-.slider.round:before {
-border-radius: 50%;}
-</style>
 </head>
 
 <body class="fix-header fix-sidebar">
@@ -142,6 +60,8 @@ border-radius: 50%;}
                         <div class="card">
                           <div class="row">
                             <div class="col-md-12">
+                              <button type="button" id="inactbtn" class="btn btn-primary" style="float:left;">To Be Approved</button>
+                              <button type="button" id="actbtn" class="btn btn-primary" style="float:left;display:none;">Product Table</button>
                               <button type="button" id="button1" class="btn btn-success" onclick="addStyle()" style="float:right"> New Products</button>
                               <div id="data"></div>
 
@@ -162,7 +82,7 @@ border-radius: 50%;}
                                                 <th  style="width:5%">Price</th>
                                                 <th  style="width:5%">Release Date</th>
                                                 <th  style="width:5%">Sequence</th>
-                                                <th  style="width:5%">Status</th>
+                                                <!-- <th  style="width:5%">Status</th> -->
                                                 <th  style="width:5%">Action </th>
                                             </tr>
                                         </thead>
@@ -183,10 +103,10 @@ border-radius: 50%;}
                                   <div class="card-body">
                                       <h4 class="card-title">All Products</h4>
                                       <ul class="nav nav-pills m-t-30 m-b-30" id="hidenavtab">
-                                          <li class=" nav-item"> <a href="#navpills-1" class="nav-link active" data-toggle="tab" aria-expanded="false"><i class="fa fa-gift"></i>Product</a> </li>
-                                          <li class="nav-item"> <a href="#navpills-2" class="nav-link" data-toggle="tab" aria-expanded="false" ><i class="fa fa-image"></i>Fabric Mapping</a> </li>
-                                          <li class="nav-item"> <a href="#navpills-3" class="nav-link" data-toggle="tab" aria-expanded="true" ><i class="fa fa-image"></i>Measurement Mapping</a> </li>
-                                          <li class="nav-item"> <a href="#navpills-4" class="nav-link" data-toggle="tab" aria-expanded="true"><i class="fa fa-image"></i>Sticthing Style Mapping</a> </li>
+                                          <li class=" nav-item"> <a href="#navpills-1" class="nav-link active" data-toggle="tab" aria-expanded="false"><i class="fa fa-diamond"></i>Product</a> </li>
+                                          <li class="nav-item"> <a href="#navpills-2" class="nav-link" data-toggle="tab" aria-expanded="false" ><i class="fa fa-gift"></i>Fabric Mapping</a> </li>
+                                          <li class="nav-item"> <a href="#navpills-3" class="nav-link" data-toggle="tab" aria-expanded="true" ><i class="fa fa-balance-scale"></i>Measurement Mapping</a> </li>
+                                          <li class="nav-item"> <a href="#navpills-4" class="nav-link" data-toggle="tab" aria-expanded="true"><i class="fa fa-tags"></i>Sticthing Style Mapping</a> </li>
                                       </ul>
                                       <div class="tab-content br-n pn">
                                           <div id="navpills-1" class="tab-pane active">
@@ -194,7 +114,7 @@ border-radius: 50%;}
                                           <div class="row">
                                           <input type="hidden" id="productId"/>
                                           <div class="col-sm-4">
-                                            <div class="form-group">
+                                            <div class="form-group required">
                                               <label class="control-label">Product Title </label>
                                               <input type="text" class="form-control" id="producttitle"  title="Enter Product Title"/>
                                             </div>
@@ -212,7 +132,7 @@ border-radius: 50%;}
                                             </div>
                                           </div>
                                           <div class="col-sm-4">
-                                            <div class="form-group">
+                                            <div class="form-group required">
                                               <label class="control-label">Owner</label>
                                             <select  class="form-control" id="owner" style="width:100%;">
                                                <!-- <option value="">Select Owner</option> -->
@@ -220,14 +140,14 @@ border-radius: 50%;}
                                             </div>
                                           </div>
                                           <div class="col-sm-4">
-                                            <div class="form-group">
-                                              <!-- onkeypress="return isNumberKey(event)" -->
+                                            <div class="form-group required">
+
                                               <label class="control-label">Sequence No</label>
                                               <input type="number" class="form-control" id="productsequenceno"  title="Enter Sequence No" onkeypress="return isNumberKey(event)"  />
                                             </div>
                                           </div>
                                           <div class="col-sm-4">
-                                            <div class="form-group">
+                                            <div class="form-group required">
                                               <label class="control-label">Parent</label>
                                               <select  class="form-control" id="parent" style="width:100%;">
                                                 <!-- <option value="">Select Parent</option> -->
@@ -236,34 +156,33 @@ border-radius: 50%;}
                                           </div>
 
                                           <div class="col-sm-4">
-                                            <div class="form-group">
+                                            <div class="form-group required">
                                               <!--  onkeypress="return isNumberKey(event)"-->
                                               <label class="control-label">Sku Number</label>
                                               <input type="text" class="form-control" id="skuno"  title="Enter SKU No"  />
                                             </div>
                                           </div>
                                           <div class="col-sm-4">
-                                            <div class="form-group">
+                                            <div class="form-group required">
                                               <label class="control-label">Release Date</label>
                                               <input type="date" class="form-control" id="releasedate"  title="Enter Release Date"/>
                                             </div>
                                           </div>
                                           <div class="col-sm-4">
-                                            <div class="form-group">
+                                            <div class="form-group required">
                                               <label class="control-label">Category</label>
                                               <select  class="form-control" id="category" style="width:100%;">
-                                                <!-- <option value="">Select Parent</option> -->
                                               </select>
                                             </div>
                                           </div>
                                           <div class="col-sm-4">
-                                            <div class="form-group">
+                                            <div class="form-group required">
                                               <label class="control-label">Price</label>
                                               <input type="number" class="form-control" id="price"  title="Enter Product price"/>
                                             </div>
                                           </div>
                                           <div class="col-sm-4">
-                                            <div class="form-group">
+                                            <div class="form-group required">
                                               <label class="control-label">Price variable</label>
                                               <select  class="form-control" id="pricevariable" style="width:100%;">
                                                 <option value="">Select Status</option>
@@ -274,7 +193,7 @@ border-radius: 50%;}
                                             </div>
                                           </div>
                                             <div class="col-sm-4">
-                                              <div class="form-group">
+                                              <div class="form-group required">
                                                 <label class="control-label">Status</label>
                                                 <select  class="form-control" id="stylestatus" style="width:100%;">
                                                   <option value="">Select Status</option>
@@ -311,19 +230,23 @@ border-radius: 50%;}
                                                       <input id="fabricmaptblInput" type="text" placeholder="Search.." class="form-control form-control-sm">
                                                   </div>
                                                   </div>
-                                                  <div class="col-sm-4" >
+                                                  <div class="col-sm-2" >
                                                   <div class="form-group">
-                                                    <div style="padding-top:20px"></div>
-                                                    <label class="switch">
-                                                      <input type="checkbox" id="togBtn" >
-                                                      <div class="slider round">
-                                                      <span class="off">Unselected</span>
-                                                      <span class="on">Selected</span>
-
+                                                        <label>Filter</label>
+                                                        <div class="btn-group" role="group" aria-label="Basic Example">
+                                                      <button class="btn btn-success" id="selectbtn" >Selected</button>
+                                                      <button class="btn btn-warning" id="unselectbtn" >Unselected</button>
                                                     </div>
-                                                  </label>
                                                   </div>
                                                   </div>
+                                                  <div class="col-sm-2" >
+                                                  <div class="form-group">
+                                                    <label>Total</label><br/>
+                                                    <span id="totselitem"></span>
+                                                    <!-- <span id="totunselitem"></span> -->
+                                                  </div>
+                                                  </div>
+
                                             </div>
                                             <div class="row">
                                               <div class="col-sm-2" >
@@ -340,7 +263,7 @@ border-radius: 50%;}
                                                                 <thead>
                                                                     <tr>
                                                                         <th>Select</th>
-                                                                        <!-- <th><input name="fabricmapcheck" value="1" type="checkbox"></th> -->
+
                                                                         <th>Image Icon</th>
                                                                         <th>Fabric</th>
                                                                         <th>Sku No</th>
@@ -374,11 +297,34 @@ border-radius: 50%;}
                                                       <input id="measurementmaptblInput" type="text" placeholder="Search.." class="form-control form-control-sm">
                                                   </div>
                                                   </div>
+                                                  <div class="col-sm-2" >
+                                                  <div class="form-group">
+                                                        <label>Filter</label>
+                                                        <div class="btn-group" role="group" aria-label="Basic Example">
+                                                      <button class="btn btn-success" id="measureselectbtn" >Selected</button>
+                                                      <button class="btn btn-warning" id="measureunselectbtn" >Unselected</button>
+                                                    </div>
+                                                  </div>
+                                                  </div>
+                                                  <div class="col-sm-2" >
+                                                  <div class="form-group">
+                                                    <label>Total</label><br/>
+                                                    <span id="measuretotselitem"></span>
+                                                    <!-- <span id="totunselitem"></span> -->
+                                                  </div>
+                                                  </div>
+
                                             </div>
                                               <div class="row">
-                                                <div class="card-body" style="padding: 2%;">
+                                                <div class="col-sm-2" >
+                                                <div class="form-group">
+                                                </div>
+                                              </div>
+                                              <div class="col-sm-8" >
+                                              <div class="form-group">
+                                                <div class="card-body" >
 
-                                                    <div class="table-responsive m-t-40" style="overflow-y: scroll;max-height: 521px;">
+                                                    <div class="table-responsive m-t-40" style="overflow:auto;max-height: 521px;">
                                                         <table id="measurementmaptbl" class="display nowrap table table-hover  table-bordered" >
                                                             <thead>
                                                                 <tr>
@@ -393,6 +339,12 @@ border-radius: 50%;}
                                                         </table>
                                                     </div>
                                                 </div>
+                                              </div>
+                                              </div>
+                                                <div class="col-sm-2" >
+                                                <div class="form-group">
+                                                </div>
+                                              </div>
                                               </div>
                                           </div>
                                           <div id="navpills-4" class="tab-pane">
@@ -409,11 +361,33 @@ border-radius: 50%;}
                                                       <input id="stitchstylemaptblInput" type="text" placeholder="Search.." class="form-control form-control-sm">
                                                   </div>
                                                   </div>
+                                                  <div class="col-sm-2" >
+                                                  <div class="form-group">
+                                                        <label>Filter</label>
+                                                        <div class="btn-group" role="group" aria-label="Basic Example">
+                                                      <button class="btn btn-success" id="stitchselectbtn" >Selected</button>
+                                                      <button class="btn btn-warning" id="stitchunselectbtn" >Unselected</button>
+                                                    </div>
+                                                  </div>
+                                                  </div>
+                                                  <div class="col-sm-2" >
+                                                  <div class="form-group">
+                                                    <label>Total</label><br/>
+                                                    <span id="stitchtotselitem"></span>
+                                                    <!-- <span id="totunselitem"></span> -->
+                                                  </div>
+                                                  </div>
                                             </div>
                                               <div class="row">
-                                                <div class="card-body" style="padding: 2%;">
+                                                <div class="col-sm-2" >
+                                                <div class="form-group">
+                                                </div>
+                                              </div>
+                                              <div class="col-sm-8" >
+                                              <div class="form-group">
+                                                <div class="card-body" >
 
-                                                    <div class="table-responsive m-t-40" style="overflow-y: scroll;max-height: 521px;">
+                                                    <div class="table-responsive m-t-40" style="overflow:auto;max-height: 521px;">
                                                         <table id="stitchstylemaptbl" class="display nowrap table table-hover  table-bordered" >
                                                             <thead>
                                                                 <tr>
@@ -427,6 +401,12 @@ border-radius: 50%;}
                                                         </table>
                                                     </div>
                                                 </div>
+                                              </div>
+                                              </div>
+                                                <div class="col-sm-2" >
+                                                <div class="form-group">
+                                                </div>
+                                              </div>
                                               </div>
                                           </div>
                                       </div>

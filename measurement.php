@@ -74,7 +74,7 @@ $employeeName = $_SESSION['employeeName'];
                                             <tr>
                                                 <!-- <th>Id</th> -->
                                                 <th>Measurement Title</th>
-                                                <th>Status</th>
+                                                <!-- <th>Status</th> -->
                                                 <th>Action </th>
                                             </tr>
                                         </thead>
