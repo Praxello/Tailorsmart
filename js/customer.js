@@ -194,6 +194,7 @@
      $('#loadNewPage').empty();
      orderId = orderid;
      customerOrderDetails = customerOrders[rowId];
+     //  console.log(customerOrderDetails);
      indexRow = rowId;
      if (customerOrderDetails.OrderDetails != null) {
          OrderDetailsOfCustomer = customerOrderDetails.OrderDetails;
