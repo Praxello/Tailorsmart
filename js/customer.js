@@ -144,6 +144,7 @@
                      responseData += "<td>" + FinalDeliveryDate + "</td>";
                      responseData += "<td>" + EmpName + "</td>";
                      responseData += "<td><div class='btn-group' role='group' aria-label='Basic example'>";
+                     responseData +='<button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="PDF" onclick="showpdf(' + response.Data[i].OrderDetails.orderId + ',' + (i) + ')"><i class="fa fa-file-pdf-o"></i></button>';
                      responseData += '<button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="showData(' + response.Data[i].OrderDetails.orderId + ',' + (i) + ')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>';
                      responseData += "</div></td></tr>";
                  }
@@ -178,6 +179,15 @@
          output = d.toGMTString(); //outputs to "Thu, 28 May 2015 22:10:21 GMT"
      }
      return output;
+ }
+ function showpdf(orderid, rowId) {
+     $('#loadNewPage').empty();
+     orderId = orderid;
+     customerOrderDetails = JSON.stringify(customerOrders[rowId]);
+     // console.log(customerOrderDetails);
+     var order=api_url+'orderpdf.php?orderId='+orderId;
+     window.open(order, '_blank');
+     // window.location.href=order;
  }
  //load an particular order of a customer for edit/update purpose
  function showData(orderid, rowId) {

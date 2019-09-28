@@ -97,20 +97,25 @@ function getConfirmation() {
     confirmationStatus.set('1', '<span class="badge badge-pill badge-primary">Active</span>');
 }
 function settabledata(styleData){
+  // console.log(styleData);
   var roleid = $("#roleid").val();
+  // console.log(roleid);
   var empid =  parseInt($("#empid").val());
+  // console.log("Ep"+empid);
   var shtml ='',unhtml='';
   $('#styletbl').dataTable().fnDestroy();
   $("#styletbldata").empty();
   for(let k of styleData.keys())
   {
         var AllData= styleData.get(k);
-        if(roleid=="4")
+        let empId = parseInt(AllData.ownerid);
+        if(roleid==="4")
         {
-          let empId = parseInt(AllData.ownerId);
-          if(empId===empid){
+
+          if(empId===empid)
+          {
             let isConfirmed = confirmationStatus.get(AllData.isActive);
-            if(AllData.isActive==="1"){
+
             shtml +='<tr>';
             let imageUrl = pic_url+'fabric/300x300/'+AllData.skuNo+'.jpg';
             shtml +="<td><form id='custstyleform"+AllData.skuNo+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+AllData.skuNo+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' alt='No Image' src='"+imageUrl+"'  style='cursor: pointer' onclick='imguplod(\"" + AllData.skuNo + "\")'></img></form></td>";
@@ -123,7 +128,7 @@ function settabledata(styleData){
             shtml +="<td>"+isConfirmed+"</td>";
             shtml +='<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod(\'' + AllData.skuNo + '\')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+k+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeFabric('+k+')"><i class="fa fa-remove"></i></button></div></td>';
             shtml +="</tr>";
-          }
+
         }
       }
       else
@@ -143,7 +148,7 @@ function settabledata(styleData){
         shtml +="<td>"+isConfirmed+"</td>";
         shtml +='<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod(\'' + AllData.skuNo + '\')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+k+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeFabric('+k+')"><i class="fa fa-remove"></i></button></div></td>';
         shtml +="</tr>";
-      }
+       }
       else
       {
         let isConfirmed = confirmationStatus.get(AllData.isActive);
@@ -159,6 +164,7 @@ function settabledata(styleData){
         unhtml +="<td>"+isConfirmed+"</td>";
         unhtml +='<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod(\'' + AllData.skuNo + '\')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+k+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeFabric('+k+')"><i class="fa fa-remove"></i></button></div></td>';
         unhtml +="</tr>";
+
         }
       }
 
@@ -169,7 +175,7 @@ function settabledata(styleData){
   }
   else
   {
-      $("#styletbldata").html(unhtml);
+    $("#styletbldata").html(unhtml);
   }
   $('#styletbl').DataTable({
   searching: true,
@@ -282,6 +288,7 @@ $('#reloadbtn').on('click',function(event){
   $("#customerstyletableform").hide();
   $("#savebtncustomerstyle").show();
   $("#updatebtncustomerstyle").hide();
+     settabledata(styleData);
 });
 
 // This function is created For Save Style Data
@@ -300,6 +307,13 @@ $('#savebtncustomerstyle').on('click',function(event){
   var fabrictype = $("#fabrictype").val();
   var fabricPricevariable = $("#fabricPricevariable").val();
   var fabricactivestatus=  $("#fabricactivestatus").val();
+  var roleid = $("#roleid").val();
+  var empid =  $("#empid").val();
+  if(roleid=="4")
+  {
+    fabricactivestatus="0";
+    owner=empid;
+  }
    // if(fabrictitle==""||fabricbrand==""||fabricdetail==""||fabricprice==""||skuno==""||releasedate==""||hexcolor==""||fabriccategory==""||fabriccolorname==""||fabrictype==""||fabricPricevariable==""||fabricactivestatus==""){
    //   swal("Parameter missing");
    // }
@@ -369,6 +383,13 @@ $('#updatebtncustomerstyle').on('click',function(event){
   var fabrictype = $("#fabrictype").val();
   var fabricPricevariable = $("#fabricPricevariable").val();
   var fabricactivestatus= $("#fabricactivestatus").val();
+  var roleid = $("#roleid").val();
+  var empid =  $("#empid").val();
+  if(roleid=="4")
+  {
+    fabricactivestatus="0";
+    owner=empid;
+  }
   // if(fabricid==""||fabrictitle==""||fabricbrand==""||fabricdetail==""||fabricprice==""||skuno==""||releasedate==""||hexcolor==""||fabriccategory==""||fabriccolorname==""||fabrictype==""||fabricPricevariable==""||fabricactivestatus==""){
   //   swal("Parameter missing");
   // }

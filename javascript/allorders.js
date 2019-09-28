@@ -104,13 +104,14 @@
              // $("#customerId").html(createDropdownOptions);
          },
          complete: function() {
+           getallorders();
              // console.log('in complete');
              // $(".preloader").fadeOut();
          }
      })
  }
 
-getallorders();
+
 // This function is created for Get All Customer Orders
 function getallorders(){
   $('#customerordertbl').dataTable().fnDestroy();
