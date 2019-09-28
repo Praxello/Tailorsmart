@@ -6,11 +6,11 @@
         <ul id="sidebarnav">
                 <li class="nav-devider"></li>
                 <li class="nav-label">Home</li>
-            <?php 
+            <?php
             $roleId = $_SESSION['roleId'];
             switch($roleId){
                 case '1':?>
-               
+
                 <li> <a class="has-arrow" href="/" aria-expanded="false"><i class="fa fa-shopping-cart"></i>
                 <span class="hide-menu">Orders</span></a>
                   <ul aria-expanded="false" class="collapse">
@@ -38,7 +38,7 @@
                                             <li><a class=" " href="products.php" aria-expanded="false"><i class="fa fa-diamond"></i><span
                                                                     class="" style="padding: 20px;">Products</span></a></li>
                                             <li><a class="  " href="fabric.php" aria-expanded="false"><i class="fa fa-gift"></i><span
-                                                        class="" style="padding: 20px;">Fabric</span></a></li>                        
+                                                        class="" style="padding: 20px;">Fabric</span></a></li>
                                             <li><a class="  " href="measurement.php" aria-expanded="false"><i class="fa fa-balance-scale"></i><span
                                                         class="" style="padding: 20px;">Measurements</span></a></li>
 
@@ -71,7 +71,7 @@
                                             <li><a class=" " href="products.php" aria-expanded="false"><i class="fa fa-diamond"></i><span
                                                                     class="" style="padding: 20px;">Products</span></a></li>
                                             <li><a class="  " href="fabric.php" aria-expanded="false"><i class="fa fa-gift"></i><span
-                                                        class="" style="padding: 20px;">Fabric</span></a></li>                        
+                                                        class="" style="padding: 20px;">Fabric</span></a></li>
                                             <li><a class="  " href="measurement.php" aria-expanded="false"><i class="fa fa-balance-scale"></i><span
                                                         class="" style="padding: 20px;">Measurements</span></a></li>
 
@@ -105,12 +105,17 @@
                   <ul aria-expanded="false" class="collapse">
                         <li><a href="vendorOrders.php">My Orders</a></li>
                   </ul>
-              </li><?php
+              </li>
+              <li><a class=" " href="products.php" aria-expanded="false"><i class="fa fa-diamond"></i><span
+                                      class="" style="padding: 20px;">Products</span></a></li>
+              <li><a class="  " href="fabric.php" aria-expanded="false"><i class="fa fa-gift"></i><span
+                          class="" style="padding: 20px;">Fabric</span></a></li>
+              <?php
                 break;
 
             }
             ?>
-            
+
 
             </ul>
         </nav>

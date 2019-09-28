@@ -3,6 +3,7 @@ session_start();
 if(isset($_SESSION['employeeId'])){
 $employeeId = $_SESSION['employeeId'];
 $employeeName = $_SESSION['employeeName'];
+$roleId = $_SESSION['roleId'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -59,9 +60,14 @@ $employeeName = $_SESSION['employeeName'];
                     <div class="col-12">
                         <div class="card">
                           <div class="row">
+                            <input type="hidden" id="empid" value="<?php echo $employeeId;?>"/>
+                            <input type="hidden" id="roleid" value="<?php echo $roleId;?>"/>
                             <div class="col-md-12">
+                              <?php if($roleId!=4){?>
+
                               <button type="button" id="inactbtn" class="btn btn-primary" style="float:left;">To Be Approved</button>
                               <button type="button" id="actbtn" class="btn btn-primary" style="float:left;display:none;">Product Table</button>
+                              <?php } ?>
                               <button type="button" id="button1" class="btn btn-success" onclick="addStyle()" style="float:right"> New Products</button>
                               <div id="data"></div>
 
@@ -82,7 +88,7 @@ $employeeName = $_SESSION['employeeName'];
                                                 <th  style="width:5%">Price</th>
                                                 <th  style="width:5%">Release Date</th>
                                                 <th  style="width:5%">Sequence</th>
-                                                <!-- <th  style="width:5%">Status</th> -->
+                                                <th  style="width:5%">Status</th>
                                                 <th  style="width:5%">Action </th>
                                             </tr>
                                         </thead>
@@ -131,6 +137,7 @@ $employeeName = $_SESSION['employeeName'];
                                               <input type="text" class="form-control" id="productdetials"  title="Enter Product Details"/>
                                             </div>
                                           </div>
+                                          <?php if($roleId!=4){?>
                                           <div class="col-sm-4">
                                             <div class="form-group required">
                                               <label class="control-label">Owner</label>
@@ -139,6 +146,7 @@ $employeeName = $_SESSION['employeeName'];
                                             </select>
                                             </div>
                                           </div>
+                                          <?php } ?>
                                           <div class="col-sm-4">
                                             <div class="form-group required">
 
@@ -192,6 +200,7 @@ $employeeName = $_SESSION['employeeName'];
 
                                             </div>
                                           </div>
+                                            <?php if($roleId!=4){?>
                                             <div class="col-sm-4">
                                               <div class="form-group required">
                                                 <label class="control-label">Status</label>
@@ -203,6 +212,7 @@ $employeeName = $_SESSION['employeeName'];
 
                                               </div>
                                             </div>
+                                              <?php } ?>
                                             <div class="col-sm-4">
 
                                                   <div class="form-group">

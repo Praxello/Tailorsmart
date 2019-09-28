@@ -139,50 +139,84 @@ $('#inactbtn').on('click',function(event){
     settabledata(styleData);
 });
 function settabledata(styleData){
-
+  // console.log(styleData);
+  var roleid = $("#roleid").val(); // Se
+  var empid =  parseInt($("#empid").val());
+  // console.log("Role Id"+roleid);
+  // console.log("empid Id"+empid);
   var shtml ='',unhtml='';
   $('#styletbl').dataTable().fnDestroy();
   $("#styletbldata").empty();
   for(let k of styleData.keys())
   {
         var AllData= styleData.get(k);
-        let isConfirmed = confirmationStatus.get(AllData.isActive);
-        if(AllData.isActive==="1"){
-          shtml +='<tr>';
-          let imageUrl = pic_url+'product/300x300/'+k+'.jpg';
-          let parentname = ParentProducts.get(AllData.parentId);
-          shtml +="<td style='width:15%'><form id='custstyleform"+k+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+k+"' name='file' accept='image/*' style='display:none;' /> <img  accept='image/*' class='img-thumbnail' src='"+imageUrl+"' style='cursor: pointer' alt='No Image' onclick='imguplod("+k+")'></img></form></td>";
-          shtml +="<td>"+AllData.productTitle+"</td>";
-          shtml +="<td style='width:15%'>"+AllData.productSubTitle+"</td>";
 
-          shtml +="<td style='width:10%'>"+parentname.styleTitle+" "+parentname.subStyleTitle+"</td>";
-          shtml +="<td style='width:5%'>"+AllData.skuNo+"</td>";
-          shtml +="<td style='width:5%'>"+AllData.price+"</td>";
-          shtml +="<td style='width:5%'>"+AllData.releaseDate+"</td>";
+        if(roleid=="4")
+        {
+          let empId = parseInt(AllData.ownerId);
+          // console.log("Emp id"+empId);
+          if(empId===empid){
+            shtml +='<tr>';
+            let isConfirmed = confirmationStatus.get(AllData.isActive);
+            let imageUrl = pic_url+'product/300x300/'+k+'.jpg';
+            let parentname = ParentProducts.get(AllData.parentId);
+            shtml +="<td style='width:15%'><form id='custstyleform"+k+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+k+"' name='file' accept='image/*' style='display:none;' /> <img  accept='image/*' class='img-thumbnail' src='"+imageUrl+"' style='cursor: pointer' alt='No Image' onclick='imguplod("+k+")'></img></form></td>";
+            shtml +="<td>"+AllData.productTitle+"</td>";
+            shtml +="<td style='width:15%'>"+AllData.productSubTitle+"</td>";
 
-          shtml +="<td style='width:5%'>"+AllData.sequenceNo+"</td>";
-          // html +="<td>"+isConfirmed+"</td>";
-          shtml +='<td style="width:5%"><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod('+k+')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+k+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeProduct('+k+')"><i class="fa fa-remove"></i></button></div></td>';
-          shtml +="</tr>";
+            shtml +="<td style='width:10%'>"+parentname.styleTitle+" "+parentname.subStyleTitle+"</td>";
+            shtml +="<td style='width:5%'>"+AllData.skuNo+"</td>";
+            shtml +="<td style='width:5%'>"+AllData.price+"</td>";
+            shtml +="<td style='width:5%'>"+AllData.releaseDate+"</td>";
+
+            shtml +="<td style='width:5%'>"+AllData.sequenceNo+"</td>";
+            shtml +="<td>"+isConfirmed+"</td>";
+            shtml +='<td style="width:5%"><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod('+k+')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+k+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeProduct('+k+')"><i class="fa fa-remove"></i></button></div></td>';
+            shtml +="</tr>";
+          }
+
         }
         else {
-          unhtml +='<tr>';
-          let imageUrl = pic_url+'product/300x300/'+k+'.jpg';
-          let parentname = ParentProducts.get(AllData.parentId);
-          unhtml +="<td style='width:15%'><form id='custstyleform"+k+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+k+"' name='file' accept='image/*' style='display:none;' /> <img  accept='image/*' class='img-thumbnail' src='"+imageUrl+"' style='cursor: pointer' alt='No Image' onclick='imguplod("+k+")'></img></form></td>";
-          unhtml +="<td>"+AllData.productTitle+"</td>";
-          unhtml +="<td style='width:15%'>"+AllData.productSubTitle+"</td>";
+          if(AllData.isActive==="1"){
+            shtml +='<tr>';
+            let isConfirmed = confirmationStatus.get(AllData.isActive);
+            let imageUrl = pic_url+'product/300x300/'+k+'.jpg';
+            let parentname = ParentProducts.get(AllData.parentId);
+            shtml +="<td style='width:15%'><form id='custstyleform"+k+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+k+"' name='file' accept='image/*' style='display:none;' /> <img  accept='image/*' class='img-thumbnail' src='"+imageUrl+"' style='cursor: pointer' alt='No Image' onclick='imguplod("+k+")'></img></form></td>";
+            shtml +="<td>"+AllData.productTitle+"</td>";
+            shtml +="<td style='width:15%'>"+AllData.productSubTitle+"</td>";
 
-          unhtml +="<td style='width:10%'>"+parentname.styleTitle+" "+parentname.subStyleTitle+"</td>";
-          unhtml +="<td style='width:5%'>"+AllData.skuNo+"</td>";
-          unhtml +="<td style='width:5%'>"+AllData.price+"</td>";
-          unhtml +="<td style='width:5%'>"+AllData.releaseDate+"</td>";
+            shtml +="<td style='width:10%'>"+parentname.styleTitle+" "+parentname.subStyleTitle+"</td>";
+            shtml +="<td style='width:5%'>"+AllData.skuNo+"</td>";
+            shtml +="<td style='width:5%'>"+AllData.price+"</td>";
+            shtml +="<td style='width:5%'>"+AllData.releaseDate+"</td>";
 
-          unhtml +="<td style='width:5%'>"+AllData.sequenceNo+"</td>";
-          // html +="<td>"+isConfirmed+"</td>";
-          unhtml +='<td style="width:5%"><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod('+k+')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+k+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeProduct('+k+')"><i class="fa fa-remove"></i></button></div></td>';
-          unhtml +="</tr>";
+            shtml +="<td style='width:5%'>"+AllData.sequenceNo+"</td>";
+            shtml +="<td>"+isConfirmed+"</td>";
+            shtml +='<td style="width:5%"><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod('+k+')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+k+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeProduct('+k+')"><i class="fa fa-remove"></i></button></div></td>';
+            shtml +="</tr>";
+          }
+          else {
+            unhtml +='<tr>';
+            let isConfirmed = confirmationStatus.get(AllData.isActive);
+            let imageUrl = pic_url+'product/300x300/'+k+'.jpg';
+            let parentname = ParentProducts.get(AllData.parentId);
+            unhtml +="<td style='width:15%'><form id='custstyleform"+k+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+k+"' name='file' accept='image/*' style='display:none;' /> <img  accept='image/*' class='img-thumbnail' src='"+imageUrl+"' style='cursor: pointer' alt='No Image' onclick='imguplod("+k+")'></img></form></td>";
+            unhtml +="<td>"+AllData.productTitle+"</td>";
+            unhtml +="<td style='width:15%'>"+AllData.productSubTitle+"</td>";
+
+            unhtml +="<td style='width:10%'>"+parentname.styleTitle+" "+parentname.subStyleTitle+"</td>";
+            unhtml +="<td style='width:5%'>"+AllData.skuNo+"</td>";
+            unhtml +="<td style='width:5%'>"+AllData.price+"</td>";
+            unhtml +="<td style='width:5%'>"+AllData.releaseDate+"</td>";
+
+            unhtml +="<td style='width:5%'>"+AllData.sequenceNo+"</td>";
+            unhtml +="<td>"+isConfirmed+"</td>";
+            unhtml +='<td style="width:5%"><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod('+k+')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+k+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeProduct('+k+')"><i class="fa fa-remove"></i></button></div></td>';
+            unhtml +="</tr>";
+          }
         }
+
 
   }
   if(idshow===1)
@@ -217,19 +251,14 @@ function getproductdata(){
          url: api_url+"getallproducts.php",
          async : false,
          success: function(response) {
+            // console.log(response);
            var count;
             if(response['Data']!=null){
                count= response['Data'].length;
             }
             for(var i=0;i<count;i++)
             {
-            // if(response.Data[i].isActive==="1"){
               styleData.set(response.Data[i].productId,response.Data[i]);
-            // }
-            // else
-            // {
-            //  inactstyleData.set(response.Data[i].productId,response.Data[i]);
-            // }
             }
             settabledata(styleData);
          }
@@ -272,7 +301,7 @@ function addStyle(){
   $("#parent").val("").trigger('change');
   $("#category").val("").trigger('change');
   $("#pricevariable").val("0").trigger('change');
-  // $("#stylestatus").val("1").trigger('change');
+  $("#stylestatus").val("1").trigger('change');
   $("#hidenavtab").hide();
   $("#savebtnproducts").show();
   $("#updatebtnproducts").hide();
@@ -300,6 +329,7 @@ $('#savebtnproducts').on('click',function(event){
   var productsubtitle = $("#productsubtitle").val();
   var productdetials= $("#productdetials").val();
   var owner = $("#owner").val();
+
   var productsequenceno = $("#productsequenceno").val();
   var parent= $("#parent").val();
   var skuno = $("#skuno").val();
@@ -308,6 +338,13 @@ $('#savebtnproducts').on('click',function(event){
   var price = $("#price").val();
   var pricevariable = $("#pricevariable").val();
   var stylestatus= $("#stylestatus").val();
+  var roleid = $("#roleid").val();
+  var empid =  $("#empid").val();
+  if(roleid=="4")
+  {
+    stylestatus="0";
+    owner=empid;
+  }
   if(producttitle===""||owner===""||productsequenceno===""||parent===""||productsequenceno===""||parent===""||skuno===""||releasedate===""||category===""||price===""||pricevariable===""){
     swal("Parameter Missing");
    }
@@ -376,6 +413,13 @@ $('#updatebtnproducts').on('click',function(event){
   var price = $("#price").val();
   var pricevariable = $("#pricevariable").val();
   var stylestatus= $("#stylestatus").val();
+  var roleid = $("#roleid").val();
+  var empid =  $("#empid").val();
+  if(roleid=="4")
+  {
+    stylestatus="0";
+    owner=empid;
+  }
   var obj = {
       categoryId: category,
       isActive: stylestatus,

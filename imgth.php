@@ -20,10 +20,10 @@ function createThumbs( $pathToImages, $pathToThumbs, $thumbWidth )
      $img = $fname;
      array_push($response,$img);
      // echo "Creating thumbnail for {$fname} <br />";
-     createThumbnail($img, 70, 70, $pathToImages, $pathToThumbs);
+     createThumbnail($img, 200, 200, $pathToImages, $pathToThumbs);
    }
   }
   print(json_encode($response));
 }
-createThumbs("mobileimages/fabric/","300x300/",100);
+createThumbs("b/","a/",100);
 ?>
