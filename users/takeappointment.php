@@ -38,7 +38,7 @@ if (isset($_POST['customerid']) && isset($_POST['productids']) &&  isset($_POST[
       									{
       										$records[]=$academicResults;
       									}
-      							// $response = array('Message'=>"Appointment marked successfully".mysqli_error($conn),"Data"=>$records,'Responsecode'=>200);
+      							$response = array('Message'=>"Appointment marked successfully".mysqli_error($conn),"Data"=>$records,'Responsecode'=>200);
 
                     $academicQuery1 = mysqli_query($conn,"SELECT slot.slotTime,cam.appointmentId, cam.customerId,cm.email, cm.firstName as fn,cm.lastName as ln,cm.city,cm.state,cm.country,cm.mobile,cam.productIds, cam.fabricIds, cam.appointmentDate, cam.slotId, cam.servingEmployeeId, cam.appointmentStatus , em.firstName as employeename FROM  customer_appointment_master cam inner join appointment_slots slot on cam.slotid = slot.slotId inner join customer_master cm on cam.customerid = cm.customerid left outer join employee_master em on cam.servingEmployeeId = em.employeeId where cam.customerid=82  and cam.appointmentId=1 order by cam.appointmentDate desc");
                       if($academicQuery1!=null)
@@ -280,13 +280,9 @@ if (isset($_POST['customerid']) && isset($_POST['productids']) &&  isset($_POST[
                             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 
                             $headers .= 'From:admin@praxello.com' . "\r\n";
-                            if(mail($to, $subject, $message, $headers)){
-                                $response = array('Message'=>"Appointment marked successfully",'Responsecode'=>200);
-                            }
-                            else
-                            {
-                                $response = array('Message'=>"Mail Not sent",'Responsecode'=>403);
-                            }
+                            mail($to, $subject, $message, $headers);
+
+
                         }
                         else
                         {

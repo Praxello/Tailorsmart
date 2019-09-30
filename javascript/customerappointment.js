@@ -106,6 +106,7 @@ function retddmmyyyy(date){
 function settabledata(styleData) {
     var html = '',
         varhtml = '';
+    var cid = $("#cid").val();
     $('#appointmenttbl').dataTable().fnDestroy();
     $("#appointmenttbldata").empty();
     for (let k of styleData.keys()) {
@@ -117,19 +118,40 @@ function settabledata(styleData) {
         } else {
             varhtml = "<td></td>";
         }
-        let newdate =getDate(AllData.appointmentDate);
-        let orderStatus = confirmationStatus.get(AllData.appointmentStatus);
-        html += "<td>" + AllData.firstName + " " + AllData.lastname + "</td>";
-        html += "<td style='display:none;'>" + AllData.appointmentDate + "</td>";
-        html += "<td>" + newdate + "</td>";
-        html += "<td>" + AllData.slotTime + "</td>";
-        html += "<td>" + AllData.address + "</td>";
-        html += "<td>" + AllData.city + "</td>";
-        html += "<td>" + AllData.mobile + "</td>";
-        html += varhtml;
-        html += "<td>" + orderStatus + "</td>";
-        html += '<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editcustomerappointmentdata(' + k + ')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeAppointment(' + k + ')"><i class="fa fa-remove"></i></button></div></td>';
-        html += "</tr>";
+        if(cid==="1"){
+          if(AllData.appointmentStatus==="0"){
+            let newdate =getDate(AllData.appointmentDate);
+            let orderStatus = confirmationStatus.get(AllData.appointmentStatus);
+            html += "<td>" + AllData.firstName + " " + AllData.lastname + "</td>";
+            html += "<td style='display:none;'>" + AllData.appointmentDate + "</td>";
+            html += "<td>" + newdate + "</td>";
+            html += "<td>" + AllData.slotTime + "</td>";
+            html += "<td>" + AllData.address + "</td>";
+            html += "<td>" + AllData.city + "</td>";
+            html += "<td>" + AllData.mobile + "</td>";
+            html += varhtml;
+            html += "<td>" + orderStatus + "</td>";
+            html += '<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editcustomerappointmentdata(' + k + ')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeAppointment(' + k + ')"><i class="fa fa-remove"></i></button></div></td>';
+            html += "</tr>";
+          }
+
+        }
+        else {
+          let newdate =getDate(AllData.appointmentDate);
+          let orderStatus = confirmationStatus.get(AllData.appointmentStatus);
+          html += "<td>" + AllData.firstName + " " + AllData.lastname + "</td>";
+          html += "<td style='display:none;'>" + AllData.appointmentDate + "</td>";
+          html += "<td>" + newdate + "</td>";
+          html += "<td>" + AllData.slotTime + "</td>";
+          html += "<td>" + AllData.address + "</td>";
+          html += "<td>" + AllData.city + "</td>";
+          html += "<td>" + AllData.mobile + "</td>";
+          html += varhtml;
+          html += "<td>" + orderStatus + "</td>";
+          html += '<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editcustomerappointmentdata(' + k + ')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeAppointment(' + k + ')"><i class="fa fa-remove"></i></button></div></td>';
+          html += "</tr>";
+        }
+
     }
     $("#appointmenttbldata").html(html);
     table = $('#appointmenttbl').DataTable({
