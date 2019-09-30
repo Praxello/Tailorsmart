@@ -68,6 +68,7 @@ $employeeName = $_SESSION['employeeName'];
                                             <tr>
                                                 <th>Title</th>
                                                 <th>Date</th>
+                                                <th>Country Name</th>
                                                 <th style="width:10%">Action </th>
                                             </tr>
                                         </thead>
@@ -94,6 +95,14 @@ $employeeName = $_SESSION['employeeName'];
                           <div class="form-group required">
                             <label class="control-label">Date</label>
                              <input type="date" class="form-control" id="holidaydate"  title="Select Date"/>
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group required">
+                            <label class="control-label">Country Name</label>
+                            <select  class="form-control" id="countryname" style="width:100%;">
+
+                            </select>
                           </div>
                         </div>
                         <div class="col-sm-4">

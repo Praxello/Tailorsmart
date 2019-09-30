@@ -178,6 +178,7 @@ function settabledata(styleData){
   // console.log(styleData);
   var roleid = $("#roleid").val(); // Se
   var empid =  parseInt($("#empid").val());
+  var pid =  $("#pid").val();
   // console.log("Role Id"+roleid);
   // console.log("empid Id"+empid);
   var shtml ='',unhtml='';
@@ -255,14 +256,22 @@ function settabledata(styleData){
 
 
   }
-  if(idshow===1)
-  {
-    $("#styletbldata").html(shtml);
+  if(pid==="1"){
+    $("#inactbtn").hide();
+    $("#styletbldata").html(unhtml);
   }
   else
   {
-      $("#styletbldata").html(unhtml);
+    if(idshow===1)
+    {
+      $("#styletbldata").html(shtml);
+    }
+    else
+    {
+        $("#styletbldata").html(unhtml);
+    }
   }
+
 
   $('#styletbl').DataTable({
   searching: true,

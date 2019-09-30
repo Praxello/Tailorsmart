@@ -4,6 +4,11 @@ if(isset($_SESSION['employeeId'])){
 $employeeId = $_SESSION['employeeId'];
 $employeeName = $_SESSION['employeeName'];
 $roleId = $_SESSION['roleId'];
+$pid = 0;
+if(isset($_REQUEST['pid']))
+{
+  $pid = $_REQUEST['pid'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,6 +65,7 @@ $roleId = $_SESSION['roleId'];
                     <div class="col-12">
                         <div class="card">
                           <div class="row">
+                            <input type="hidden" id="pid" value="<?php echo $pid;?>"/>
                             <input type="hidden" id="empid" value="<?php echo $employeeId;?>"/>
                             <input type="hidden" id="roleid" value="<?php echo $roleId;?>"/>
                             <div class="col-md-12">

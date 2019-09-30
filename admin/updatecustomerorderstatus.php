@@ -8,15 +8,13 @@ $records = null;
 extract($_POST);
 
 date_default_timezone_set("Asia/Kolkata");
-if (isset($_POST['holidayId']) && isset($_POST['holidayTitle']) && isset($_POST['skipDate']) && isset($_POST['cityId'])) {
+if (isset($_POST['orderId']) && isset($_POST['statusOfOrder']) && isset($_POST['confirmationOfOrder']) && isset($_POST['dateOfExpected']) && isset($_POST['dateOfFinalDelivery']) ) {
 
-	$tempTitle = mysqli_real_escape_string($conn,$holidayTitle);
-
-				$query = mysqli_query($conn,"update holiday_master set holidayTitle = '$tempTitle' , skipDate='$skipDate' , cityId='$cityId' where holidayId = $holidayId");
+				  $query = mysqli_query($conn,"UPDATE customer_order_master SET orderStatus = $statusOfOrder,isConfirmed = $confirmationOfOrder,customerExpectedDate = '$dateOfExpected' ,FinalDeliveryDate = '$dateOfFinalDelivery' WHERE orderId =$orderId");
 					$rowsAffected=mysqli_affected_rows($conn);
 						if($rowsAffected > 0)
 						{
-					  			$response = array('Message'=>"Holiday updated successfully",'Responsecode'=>200);
+					  			$response = array('Message'=>"Order updated successfully",'Responsecode'=>200);
 						}
 					else
 					{

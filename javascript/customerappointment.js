@@ -86,7 +86,7 @@ $('#min, #max').change(function() {
     var max =$("#max").val();
   var min = $('#min').datepicker("getDate");
   var max = $('#max').datepicker("getDate");
-  
+
   table.draw();
 });
 

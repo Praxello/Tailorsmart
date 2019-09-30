@@ -21,7 +21,31 @@
                     <!-- User profile and search -->
                     <ul class="navbar-nav my-lg-0">
 
+                      <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle text-muted text-muted  "  href="customerappointment.php?cid=1"  title="Appointment Status" id="mheadappointment" > <i class="fa fa-bell"> 1</i>
+                      <div class="notify"> <span class="heartbit" ></span> <span class="point"></span> </div>
+                      </a>
+                      </li>
+                      <!-- End Comment -->
+                      <!-- Messages -->
+                      <li class="nav-item dropdown">
 
+                          <a class="nav-link dropdown-toggle text-muted  " href="products.php?pid=1"   title="Active Product" id="mheadactive"> <i class="fa fa-envelope">2</i>
+                          <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
+                        </a>
+                      </li>
+
+                      <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle text-muted text-muted  "  href="fabric.php?fid=1"  title="Active Fabric" id="mheadfabric"> <i class="fa fa-diamond">3</i>
+                      <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
+                      </a>
+                      </li>
+
+                      <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle text-muted text-muted  " href="#"  id="4"  title="Appointment Status4"> <i class="fa fa-tags">4</i>
+                      <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
+                      </a>
+                      </li>
 
 
                         <!-- Profile -->
@@ -42,3 +66,9 @@
                 </div>
             </nav>
         </div>
+<script type="text/javascript">
+// $('#mheadactive').on('click',function(event){
+//   // event.preventDefault();
+//   alert("active");
+//   });
+</script>

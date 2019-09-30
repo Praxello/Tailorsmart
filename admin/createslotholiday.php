@@ -8,11 +8,11 @@ $records = null;
 extract($_POST);
 
 date_default_timezone_set("Asia/Kolkata");
-if (isset($_POST['skipDate']) && isset($_POST['holidayTitle'])) {
+if (isset($_POST['skipDate']) && isset($_POST['holidayTitle']) && isset($_POST['cityId'])) {
 
 	      $tempTitle = mysqli_real_escape_string($conn,$holidayTitle);
 
-				$query = mysqli_query($conn,"insert into holiday_master(skipdate, holidaytitle) values('$skipDate','$tempTitle')");
+				$query = mysqli_query($conn,"insert into holiday_master(skipdate, holidaytitle,cityId) values('$skipDate','$tempTitle','$cityId')");
 					if($query==1)
 					{
 						     $last_id = mysqli_insert_id($conn);

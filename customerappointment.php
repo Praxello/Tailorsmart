@@ -3,6 +3,11 @@ session_start();
 if(isset($_SESSION['employeeId'])){
 $employeeId = $_SESSION['employeeId'];
 $employeeName = $_SESSION['employeeName'];
+$cid = 0;
+if(isset($_REQUEST['cid']))
+{
+  $cid = $_REQUEST['cid'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -65,6 +70,7 @@ $employeeName = $_SESSION['employeeName'];
                         <div class="card">
                             <div class="card-body">
                               <div class="row">
+                                <input type="hidden" id="cid" value="<?php echo $cid;?>"/>
                                 <div class="col-sm-4">
                                   <div class="form-group">
                                   <label>From Date</label><font color='red' class="float-right">(MM/DD/YYYY)</font>

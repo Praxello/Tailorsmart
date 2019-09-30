@@ -30,6 +30,10 @@ function getMicellaneousData(){
   $.ajax({
       type: "GET",
       url: api_url+'getmiscellaneousdata.php',
+      beforeSend: function() {
+            $(".preloader").show();
+            // console.log("before");
+      },
       success: function(response) {
         // console.log(response);
         // if (response.ParentProducts != null) {
@@ -60,10 +64,16 @@ function getMicellaneousData(){
         // }
          // getproductdata();
 
+      },
+      complete:function(response){
+    getfabrics();
+        // console.log("after");
+         $(".preloader").hide();
       }
+
     });
 }
-getfabrics();
+// getfabrics();
 $('#fabriccategory').select2({
   allowClear: true,
   placeholder: "Select Fabric Category"
@@ -98,6 +108,7 @@ function getConfirmation() {
 }
 function settabledata(styleData){
   // console.log(styleData);
+  var fid =  $("#fid").val();
   var roleid = $("#roleid").val();
   // console.log(roleid);
   var empid =  parseInt($("#empid").val());
@@ -169,13 +180,20 @@ function settabledata(styleData){
       }
 
   }
-  if(idshow===1)
-  {
-    $("#styletbldata").html(shtml);
+  if(fid==="1"){
+    $("#inactbtn").hide();
+    $("#styletbldata").html(unhtml);
   }
   else
   {
-    $("#styletbldata").html(unhtml);
+    if(idshow===1)
+    {
+      $("#styletbldata").html(shtml);
+    }
+    else
+    {
+      $("#styletbldata").html(unhtml);
+    }
   }
   $('#styletbl').DataTable({
   searching: true,
@@ -188,7 +206,7 @@ function settabledata(styleData){
   destroy: true
   });
 }
-getfabrics();
+// getfabrics();
 
 // This function is created for Get All Style Data.
 function getfabrics(){
