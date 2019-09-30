@@ -17,6 +17,8 @@
  let confirmationStatus = new Map();
  var OrderDetailsOfCustomer = []; //like orderId,expectedDeliveryDate,Amount
  var ActiveProductsList = new Map(); //stored price here
+ var TailorData = [];
+ var assignSalesData = new Map();
  getStatusMap();
  getConfirmation();
 
@@ -46,6 +48,10 @@
              if (response.Employee != null) {
                  var count_EmployeeData = response.Employee.length;
                  for (var i = 0; i < count_EmployeeData; i++) {
+                     if (response.Employee[i].roleId == '2') {
+                         TailorData.push(response.Employee[i]);
+
+                     }
                      EmployeeData.set(response.Employee[i].employeeId, response.Employee[i].firstName + ' ' + response.Employee[i].lastName);
                  }
              }
@@ -58,7 +64,7 @@
                      ParentProducts.set(response.ParentProducts[i].parentId, response.ParentProducts[i].styleTitle);
                  }
              }
-
+             //  console.log(TailorData);
          }
      });
  }
@@ -144,7 +150,7 @@
                      responseData += "<td>" + FinalDeliveryDate + "</td>";
                      responseData += "<td>" + EmpName + "</td>";
                      responseData += "<td><div class='btn-group' role='group' aria-label='Basic example'>";
-                     responseData +='<button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="PDF" onclick="showpdf(' + response.Data[i].OrderDetails.orderId + ',' + (i) + ')"><i class="fa fa-file-pdf-o"></i></button>';
+                     responseData += '<button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="PDF" onclick="showpdf(' + response.Data[i].OrderDetails.orderId + ',' + (i) + ')"><i class="fa fa-file-pdf-o"></i></button>';
                      responseData += '<button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="showData(' + response.Data[i].OrderDetails.orderId + ',' + (i) + ')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>';
                      responseData += "</div></td></tr>";
                  }
@@ -180,14 +186,12 @@
      }
      return output;
  }
+
  function showpdf(orderid, rowId) {
-     $('#loadNewPage').empty();
      orderId = orderid;
      customerOrderDetails = JSON.stringify(customerOrders[rowId]);
-     // console.log(customerOrderDetails);
-     var order=api_url+'orderpdf.php?orderId='+orderId;
+     var order = api_url + 'orderpdf.php?orderId=' + orderId;
      window.open(order, '_blank');
-     // window.location.href=order;
  }
  //load an particular order of a customer for edit/update purpose
  function showData(orderid, rowId) {
@@ -200,7 +204,7 @@
          OrderDetailsOfCustomer = customerOrderDetails.OrderDetails;
      }
      if (customerOrderDetails.orderItems != null) {
-         // console.log(customerOrderDetails.orderItems);
+
          var count = customerOrderDetails.orderItems.length;
          var markup = '';
          for (var i = 0; i < count; i++) {
@@ -211,6 +215,7 @@
              markup += "<tr id=" + customerOrderDetails.orderItems[i].OrderItem.orderItemId + "><td>" + customerOrderDetails.orderItems[i].OrderItem.productTitle + '-' + styleTitle + "</td>";
              markup += "<td>" + customerOrderDetails.orderItems[i].OrderItem.productSubTitle + "</td><td>" + customerOrderDetails.orderItems[i].OrderItem.orderItemPrice + "</td>";
              markup += "<td><input type='hidden' id='amt" + customerOrderDetails.orderItems[i].OrderItem.orderItemId + "' value='" + customerOrderDetails.orderItems[i].OrderItem.orderItemPrice + "'/><div class='btn-group' role='group' aria-label='Basic example'>";
+             markup += "<a class='btn btn-dark btn-sm' title='Assign Sales' data-toggle='tooltip' onclick='loadAssignModel(\"" + customerOrderDetails.orderItems[i].OrderItem.orderItemId + "\",\"" + customerOrderDetails.orderItems[i].OrderItem.employeeid + "\")' href='#'><i class='fa fa-tasks'></i></a>";
              markup += "<a class='btn btn-info btn-sm' title='Edit Price' data-toggle='tooltip' onclick='loadPriceModal(\"" + customerOrderDetails.orderItems[i].OrderItem.orderItemId + "\",\"" + customerOrderDetails.orderItems[i].OrderItem.productTitle + "\",\"" + (i + 1) + "\")' href='#'><i class='fa fa-inr'></i></a>";
              markup += "<a class='btn btn-success btn-sm' title='Add Measurment' data-toggle='tooltip' onclick='loadMeasurment(\"" + customerOrderDetails.orderItems[i].OrderItem.productId + "\",\"" + customerOrderDetails.orderItems[i].OrderItem.orderItemId + "\",\"" + (i) + "\")' href='#'><i class='fa fa-balance-scale'></i></a>";
              markup += "<a class='btn btn-primary btn-sm' title='add Style' data-toggle='tooltip' href='#' onclick='loadStyles(\"" + customerOrderDetails.orderItems[i].OrderItem.productId + "\",\"" + customerOrderDetails.orderItems[i].OrderItem.orderItemId + "\",\"" + (i) + "\")'><i class='fa fa-male'></i></a>";
