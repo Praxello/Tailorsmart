@@ -12,15 +12,14 @@
 <?php
 // header('Access-Control-Allow-Origin: *');
 // header('Content-Type: application/json');
-     include "../connection.php";
+   include "../connection.php";
 	 mysqli_set_charset($conn,'utf8');
 	 $response=null;
    $_POST['customerid']="7";
    $_POST['appointmentId']="14";
 	 extract($_POST);
-	  $records= null;
-	  $appointmentRecords = null;
-
+	 $records= null;
+	 $appointmentRecords = null;
 	  if (isset($_POST['customerid'])  && isset($_POST['appointmentId']))
 	  {
 

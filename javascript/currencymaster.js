@@ -1,63 +1,29 @@
-var SlotData = new Map();//from getallstaff.php names only
-$('#slotstatus').select2({
-  allowClear: true,
-  placeholder: "Select Slots"
-});
-$('#countryname').select2({
-  allowClear: true,
-  placeholder: "Select Country"
-});
-let confirmationStatus = new Map();
 var CurrencyData = new Map();//from getallstaff.php names only
-getcurrency();
-function getcurrency(){
-  var html ='';
-  $.ajax({
-      type: "GET",
-      url: api_url+"getallcurrency.php",
-      beforeSend: function() {
-            $(".preloader").show();
-            // console.log("before");
-      },
-      success: function(response) {
-        var count;
-        if(response['Data']!=null){
-           count= response['Data'].length;
-        }
-        html +='<option value="">Select Country</option>';
-        for(var i=0;i<count;i++)
-        {
-        CurrencyData.set(response.Data[i].cityId,response.Data[i]);
-        html +="<option value='"+response['Data'][i].cityId+"'>"+response['Data'][i].cityName+"</option>";
-        }
-        $("#countryname").html(html);
-      },
-      complete:function(response){
-        getslots();
-        $(".preloader").hide();
-      }
-    });
-}
-getConfirmation();
-
+// $('#slotstatus').select2({
+//   allowClear: true,
+//   placeholder: "Select Slots"
+// });
+let confirmationStatus = new Map();
+// getConfirmation();
+getslots();
 function getConfirmation() {
     confirmationStatus.set('0', '<span class="badge badge-pill badge-warning">InActive</span>');
     confirmationStatus.set('1', '<span class="badge badge-pill badge-primary">Active</span>');
 }
-function setslotmaster(SlotData){
-  // console.log(SlotData);
+function setslotmaster(CurrencyData){
+  // console.log(CurrencyData);
   var html ='';
   $('#slottbl').dataTable().fnDestroy();
   $("#slottbldata").empty();
-  for(let k of SlotData.keys())
+  for(let k of CurrencyData.keys())
   {
-        var HoliData= SlotData.get(k);
-        let isConfirmed = confirmationStatus.get(HoliData.isActive);
-        let cityData= CurrencyData.get(HoliData.cityId);
+        var HoliData= CurrencyData.get(k);
+        // let isConfirmed = confirmationStatus.get(HoliData.isActive);
         html +="<tr>";
-        html +="<td>"+HoliData.slotTime+"</td>";
-        html +="<td>"+cityData.cityName+"</td>";
-        html +="<td>"+isConfirmed+"</td>";
+        html +="<td>"+HoliData.cityName+"</td>";
+        html +="<td>"+HoliData.currencyMultiplier+"</td>";
+        html +="<td>"+HoliData.currencyCode+"</td>";
+        // html +="<td>"+isConfirmed+"</td>";
         html +='<td style="width:10%"><div class="btn-group" role="group" aria-label="Basic Example">';
         html +='<button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+k+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeStyle('+k+')"><i class="fa fa-remove"></i></button></div></td>';
         html +="</tr>";
@@ -80,8 +46,9 @@ function setslotmaster(SlotData){
 // This function is created for Get All Style Data.
 function getslots(){
      $.ajax({
+
          type: "GET",
-         url: api_url+"getAllSlots.php",
+         url: api_url+"getallcurrencymaster.php",
          beforeSend: function() {
                $(".preloader").show();
                // console.log("before");
@@ -93,9 +60,9 @@ function getslots(){
             }
             for(var i=0;i<count;i++)
             {
-            SlotData.set(response.Data[i].slotId,response.Data[i]);
+            CurrencyData.set(response.Data[i].cityId,response.Data[i]);
             }
-            setslotmaster(SlotData);
+            setslotmaster(CurrencyData);
          },
          complete:function(response){
 
@@ -109,19 +76,22 @@ function getslots(){
 function addStyle(){
   $("#customerstyletable").hide();
   $("#customerstyletableform").show();
-  $("#slottitle").val("");
-  $("#slotstatus").val("").trigger('change');
+  $("#cityname").val("");
+  $("#currencyval").val("");
+  $("#currencycode").val("");
+  // $("#slotstatus").val("").trigger('change');
   $("#savebtncustomerstyle").show();
   $("#updatebtncustomerstyle").hide();
 }
 
 // This function is created For Edit Button
 function editStyle(id){
-var HoliData=SlotData.get(id.toString());
-$("#slotid").val(HoliData.slotId);
-$("#slottitle").val(HoliData.slotTime);
-$("#countryname").val(HoliData.cityId).trigger('change');
-$("#slotstatus").val(HoliData.isActive).trigger('change');
+var HoliData=CurrencyData.get(id.toString());
+$("#cityid").val(HoliData.cityId);
+$("#cityname").val(HoliData.cityName);
+$("#currencyval").val(HoliData.currencyMultiplier);
+$("#currencycode").val(HoliData.currencyCode);
+// $("#slotstatus").val(HoliData.isActive).trigger('change');
 $("#customerstyletable").hide();
 $("#customerstyletableform").show();
 $("#savebtncustomerstyle").hide();
@@ -143,20 +113,20 @@ $('#reloadbtn').on('click',function(event){
 // This function is created For Save Style Data
 $('#savebtncustomerstyle').on('click',function(event){
   event.preventDefault();
-  var slottitle = $("#slottitle").val();
-  var slotstatus = $("#slotstatus").val();
-  var countryname = $("#countryname").val();
-  if(slottitle===""||slotstatus===""||countryname===""){
+  var cityname = $("#cityname").val();
+  var currencyval = $("#currencyval").val();
+  var currencycode = $("#currencycode").val();
+  if(cityname===""||currencyval===""||currencycode===""){
     swal("Parameter Missing");
   }
   else {
     var obj = {
-      slotTime:slottitle,
-      cityId:countryname,
-      isActive:slotstatus
+      cityName:cityname,
+      currencyMultiplier:currencyval,
+      currencyCode:currencycode
       };
       $.ajax({
-          url:api_url+'createslot.php',
+          url:api_url+'createcurrency.php',
           type:'POST',
           data:obj,
           dataType:'json',
@@ -170,9 +140,9 @@ $('#savebtncustomerstyle').on('click',function(event){
                 $("#customerstyletable").show();
                 $("#customerstyletableform").hide();
                 swal(response.Message);
-                obj.slotId = response.RowId;
-                SlotData.set(response.RowId.toString(),obj);
-                setslotmaster(SlotData);
+                obj.cityId = response.RowId;
+                CurrencyData.set(response.RowId.toString(),obj);
+                setslotmaster(CurrencyData);
               }
               else{
                 swal(response.Message);
@@ -190,22 +160,23 @@ $('#savebtncustomerstyle').on('click',function(event){
 //This function is created For Update Style Data
 $('#updatebtncustomerstyle').on('click',function(event){
   event.preventDefault();
-  var slotid = $("#slotid").val();
-  var slottitle = $("#slottitle").val();
-  var countryname = $("#countryname").val();
-  var slotstatus = $("#slotstatus").val();
-  var obj = {
-    slotId: slotid,
-    slotTime:slottitle,
-    cityId:countryname,
-    isActive:slotstatus
-    };
-    if(slottitle===""||slotstatus===""||countryname===""){
-      swal("Parameter Missing");
-    }
-    else {
+  var cityid = $("#cityid").val();
+  var cityname = $("#cityname").val();
+  var currencyval = $("#currencyval").val();
+  var currencycode = $("#currencycode").val();
+  if(cityid===""||cityname===""||currencyval===""||currencycode===""){
+    swal("Parameter Missing");
+  }
+  else {
+    var obj =
+      {
+      cityId : cityid,
+      cityName:cityname,
+      currencyMultiplier:currencyval,
+      currencyCode:currencycode
+      };
   $.ajax({
-      url:api_url+'editslot.php',
+      url:api_url+'editcurrency.php',
       type:'POST',
       data:obj,
       dataType:'json',
@@ -217,8 +188,8 @@ $('#updatebtncustomerstyle').on('click',function(event){
           if(response.Responsecode==200){
           $("#customerstyletable").show();
           $("#customerstyletableform").hide();
-           SlotData.set(slotid,obj);
-           setslotmaster(SlotData);
+           CurrencyData.set(cityid,obj);
+           setslotmaster(CurrencyData);
            swal(response.Message);
            }
            else{
@@ -231,16 +202,16 @@ $('#updatebtncustomerstyle').on('click',function(event){
         $(".preloader").hide();
       }
   });
-}
+  }
 });
 
 // This function is created For Remove Button
 function removeStyle(id){
   $.ajax({
-      url:api_url+'deleteslot.php',
+      url:api_url+'deletecurrency.php',
       type:'POST',
       data:{
-        slotId:id
+        cityId:id
       },
       dataType:'json',
       beforeSend: function() {
@@ -251,8 +222,8 @@ function removeStyle(id){
         if(response.Responsecode==200){
           $("#customerstyletable").show();
           $("#customerstyletableform").hide();
-          SlotData.delete(id.toString());
-          setslotmaster(SlotData);
+          CurrencyData.delete(id.toString());
+          setslotmaster(CurrencyData);
           swal(response.Message);
         }
         else{

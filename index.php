@@ -56,19 +56,19 @@ if(!isset($_SESSION['employeeId'])){
                                         <label>Password</label>
                                         <input type="password" class="form-control form-control-sm"  name="passwrd" id="passwrd" required>
                                     </div>
-                                    <div class="checkbox">
+                                    <!-- <div class="checkbox">
                                         <label>
-        										<input type="checkbox"> Remember Me
-        									</label>
+        										                        <input type="checkbox"> Remember Me
+        									            </label>
                                         <label class="pull-right">
-        										<a href="#">Forgotten Password?</a>
-        									</label>
+        										                        <a href="#">Forgotten Password?</a>
+        									             </label>
 
-                                    </div>
+                                    </div> -->
                                         <div id="wait" style="display: none;   border: 0px solid black; position: absolute; top: 50%; left: 45%;"><img src="images/spinner.gif" width="64" height="64" /><br>Loading..</div>
                                     <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Sign in</button>
                                     <div class="register-link m-t-15 text-center">
-                                        <p>Don't have account ? <a href="#"> Sign Up Here</a></p>
+                                        <!-- <p>Don't have account ? <a href="#"> Sign Up Here</a></p> -->
                                     </div>
                                 </form>
                             </div>

@@ -73,11 +73,12 @@ $employeeName = $_SESSION['employeeName'];
                                         <thead>
                                             <tr>
 
-                                                <th> Emp Name</th>
+                                                <th>Emp Name</th>
                                                 <th>Email</th>
                                                 <th>Mobile</th>
                                                 <th>User Role</th>
                                                 <th>Address</th>
+                                                <th>Password</th>
                                                 <th >Status</th>
                                                 <th >Action </th>
                                             </tr>

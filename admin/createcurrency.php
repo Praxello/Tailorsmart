@@ -8,16 +8,17 @@ $records = null;
 extract($_POST);
 
 date_default_timezone_set("Asia/Kolkata");
-if (isset($_POST['slotTime']) && isset($_POST['isActive']) && isset($_POST['cityId'])) {
+if (isset($_POST['cityName']) && isset($_POST['currencyMultiplier']) && isset($_POST['currencyCode'])) {
 
-	      $tempTitle = mysqli_real_escape_string($conn,$slotTime);
-
-				$query = mysqli_query($conn,"insert into appointment_slots(slotTime,cityId,isActive) values('$tempTitle','$cityId','$isActive')");
+	      $tempTitle = mysqli_real_escape_string($conn,$cityName);
+ // INSERT INTO `supported_cities_master`(`cityId`, `cityName`, `currencyMultiplier`, `currencyCode`)
+ // VALUES ([value-1],[value-2],[value-3],[value-4])
+				$query = mysqli_query($conn,"insert into supported_cities_master(cityName,currencyMultiplier,currencyCode) values('$tempTitle','$currencyMultiplier','$currencyCode')");
 					if($query==1)
 					{
 						     $last_id = mysqli_insert_id($conn);
 						      $s = strval($last_id);
-					  			$response = array('Message'=>"New Slot created successfully",'Responsecode'=>200,'RowId'=>$last_id);
+					  			$response = array('Message'=>"New Currency Added successfully",'Responsecode'=>200,'RowId'=>$last_id);
 					}
 					else
 					{

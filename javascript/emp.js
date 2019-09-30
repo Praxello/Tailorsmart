@@ -44,7 +44,7 @@ function getalluserrights(){
 }
 
 function  setemployeemaster(EmployeeData){
-  // console.log(EmployeeData);
+   // console.log(EmployeeData);
   var html ;
   $('#employeetbl').dataTable().fnDestroy();
   $("#employeetbldata").empty();
@@ -58,6 +58,8 @@ function  setemployeemaster(EmployeeData){
         html +="<td>"+EmpData.mobile+"</td>";
         html +="<td>"+RoleName.roleName+"</td>";
         html +="<td>"+EmpData.address+"</td>";
+        html +="<td>"+EmpData.password+"</td>";
+
         if(EmpData.isActive==1)
         {
               html +='<td style="width:10%" ><span class="badge badge-pill badge-primary">Active</span></td>';
@@ -78,7 +80,7 @@ function  setemployeemaster(EmployeeData){
  retrieve: true,
  bPaginate: $('tbody tr').length>10,
  order: [],
- columnDefs: [ { orderable: false, targets: [0,1,2,3,4,5,6] } ],
+ columnDefs: [ { orderable: false, targets: [0,1,2,3,4,5,6,7] } ],
  dom: 'Bfrtip',
  buttons: [],
  destroy: true

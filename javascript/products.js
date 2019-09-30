@@ -44,6 +44,10 @@ function getMicellaneousData(){
   $.ajax({
       type: "GET",
       url: api_url+'getmiscellaneousdata.php',
+      beforeSend: function() {
+            $(".preloader").show();
+            // console.log("before");
+      },
       success: function(response) {
         // console.log(response);
         if (response.ParentProducts != null) {
@@ -71,8 +75,13 @@ function getMicellaneousData(){
             }
             $("#category").html(selectcategory);
         }
-         getproductdata();
 
+
+      },
+      complete:function(response){
+      getproductdata();
+        // console.log("after");
+         $(".preloader").hide();
       }
     });
 }
@@ -82,6 +91,10 @@ function getFabricData(){
   $.ajax({
       type: "GET",
       url: api_url+"getfabrics.php",
+      beforeSend: function() {
+            // $(".preloader").show();
+            // console.log("before");
+      },
       success: function(response) {
         if (response.Data != null) {
             let count_fabricData = response.Data.length;
@@ -89,6 +102,11 @@ function getFabricData(){
                 FabricData.set(response.Data[i].fabricId,response.Data[i]);
             }
         }
+      },
+      complete:function(response){
+
+        // console.log("after");
+        // $(".preloader").hide();
       }
     });
 }
@@ -97,6 +115,10 @@ function getMeasurementData(){
   $.ajax({
       type: "GET",
       url: api_url+"getmeasurementitems.php",
+      beforeSend: function() {
+            // $(".preloader").show();
+            // console.log("before");
+      },
       success: function(response) {
         if (response.Data != null) {
             let count_measurementData = response.Data.length;
@@ -104,6 +126,11 @@ function getMeasurementData(){
                 MeasurementData.set(response.Data[i].measurementId,response.Data[i]);
             }
         }
+      },
+      complete:function(response){
+
+        // console.log("after");
+        // $(".preloader").hide();
       }
     });
 }
@@ -113,6 +140,10 @@ function getStitchStyleData(){
   $.ajax({
       type: "GET",
       url: api_url+"getstitchstyleitem.php",
+      beforeSend: function() {
+            // $(".preloader").show();
+            // console.log("before");
+      },
       success: function(response) {
         if (response.Data != null) {
             let count_stitchstyleData = response.Data.length;
@@ -120,6 +151,11 @@ function getStitchStyleData(){
                 StichStyleData.set(response.Data[i].stitchStyleId,response.Data[i]);
             }
         }
+      },
+      complete:function(response){
+
+        // console.log("after");
+        // $(".preloader").hide();
       }
     });
 }
@@ -250,6 +286,10 @@ function getproductdata(){
          type: "GET",
          url: api_url+"getallproducts.php",
          async : false,
+         beforeSend: function() {
+               $(".preloader").show();
+               // console.log("before");
+         },
          success: function(response) {
             // console.log(response);
            var count;
@@ -261,6 +301,11 @@ function getproductdata(){
               styleData.set(response.Data[i].productId,response.Data[i]);
             }
             settabledata(styleData);
+         },
+         complete:function(response){
+
+           // console.log("after");
+           $(".preloader").hide();
          }
      });
 }

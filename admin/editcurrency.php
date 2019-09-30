@@ -8,22 +8,21 @@ $records = null;
 extract($_POST);
 
 date_default_timezone_set("Asia/Kolkata");
-if (isset($_POST['slotTime']) && isset($_POST['isActive']) && isset($_POST['cityId'])) {
+if (isset($_POST['cityId']) && isset($_POST['cityName']) && isset($_POST['currencyMultiplier']) && isset($_POST['currencyCode'])) {
 
-	      $tempTitle = mysqli_real_escape_string($conn,$slotTime);
+	         $tempTitle = mysqli_real_escape_string($conn,$cityName);
 
-				$query = mysqli_query($conn,"insert into appointment_slots(slotTime,cityId,isActive) values('$tempTitle','$cityId','$isActive')");
-					if($query==1)
-					{
-						     $last_id = mysqli_insert_id($conn);
-						      $s = strval($last_id);
-					  			$response = array('Message'=>"New Slot created successfully",'Responsecode'=>200,'RowId'=>$last_id);
-					}
+				$query = mysqli_query($conn,"UPDATE supported_cities_master SET cityName='$tempTitle',currencyMultiplier='$currencyMultiplier',currencyCode='$currencyCode' WHERE  cityId = $cityId");
+					$rowsAffected=mysqli_affected_rows($conn);
+						if($rowsAffected > 0)
+						{
+					  			$response = array('Message'=>"Currency updated successfully",'Responsecode'=>200);
+						}
 					else
 					{
 						$a = mysqli_error($conn);
 						if (strpos($a, 'Duplicate') !== false) {
-								$response=array("Message"=> "Duplicate entry for this date","Responsecode"=>500);
+								$response=array("Message"=> "Duplicate entry","Responsecode"=>500);
 							}
 							else
 							{

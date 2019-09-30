@@ -45,11 +45,11 @@ $employeeName = $_SESSION['employeeName'];
             <!-- Bread crumb -->
             <div class="row page-titles">
                 <div class="col-md-5 align-self-center">
-                    <h3 class="text-primary">Slot Master</h3> </div>
+                    <h3 class="text-primary">Currency Master</h3> </div>
                 <div class="col-md-7 align-self-center">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item active">Slot Master</li>
+                        <li class="breadcrumb-item active">Currency Master</li>
                     </ol>
                 </div>
             </div>
@@ -77,10 +77,11 @@ $employeeName = $_SESSION['employeeName'];
                                     <table id="slottbl" class="display nowrap table table-hover  table-bordered">
                                         <thead>
                                             <tr>
-                                                <th> Slot Title</th>
-                                                <th> Country Name</th>
-                                                <th> Status</th>
-                                                <th> Action </th>
+                                                <th> City Name</th>
+                                                <th> Currency Value</th>
+                                                <th> Currency Code</th>
+                                                <!-- <th >Status</th> -->
+                                                <th >Action </th>
                                             </tr>
                                         </thead>
                                         <tbody id="slottbldata">
@@ -96,22 +97,26 @@ $employeeName = $_SESSION['employeeName'];
                   <div class="col-sm-12">
                     <div class="card">
                       <div class="row">
-                      <input type="hidden" id="slotid"/>
+                      <input type="hidden" id="cityid"/>
                       <div class="col-sm-4">
                         <div class="form-group required">
-                          <label class="control-label">Title</label>
-                          <input type="text" class="form-control" id="slottitle"  title="Enter Title"/>
+                          <label class="control-label">City Name</label>
+                          <input type="text" class="form-control" id="cityname"  title="Enter Title"/>
                         </div>
                       </div>
                       <div class="col-sm-4">
                         <div class="form-group required">
-                          <label class="control-label">Country Name</label>
-                          <select  class="form-control" id="countryname" style="width:100%;">
-
-                          </select>
+                          <label class="control-label">Currency Value</label>
+                          <input type="number" class="form-control" id="currencyval"  title="Enter Title"/>
                         </div>
                       </div>
-                        <div class="col-sm-4">
+                      <div class="col-sm-4">
+                        <div class="form-group required">
+                          <label class="control-label">Currency Code</label>
+                          <input type="text" class="form-control" id="currencycode"  title="Enter Title"/>
+                        </div>
+                      </div>
+                        <!-- <div class="col-sm-4">
                           <div class="form-group required">
                             <label class="control-label">Status</label>
                             <select  class="form-control" id="slotstatus" style="width:100%;">
@@ -121,7 +126,7 @@ $employeeName = $_SESSION['employeeName'];
                             </select>
 
                           </div>
-                        </div>
+                        </div> -->
                         <div class="col-sm-4">
 
                               <div class="form-group">
@@ -171,7 +176,7 @@ $employeeName = $_SESSION['employeeName'];
     <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
     <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
     <script src="js/lib/datatables/datatables-init.js"></script> -->
-    <script src="javascript/slotmaster.js"></script>
+    <script src="javascript/currencymaster.js"></script>
     <script src="js/lib/sweetalert/sweetalert.min.js"></script>
     <!-- <script src="js/lib/sweetalert/sweetalert.init.js"></script> -->
 
