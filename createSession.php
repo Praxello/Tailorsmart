@@ -12,6 +12,8 @@
     header('Location:products.php');
  }else if($roleId == 4){
     header('Location:vendorOrders.php');
+ }else{
+   echo "ok";
  }
  
 ?>
