@@ -17,29 +17,22 @@ header('Content-Type: application/json');
 								while($academicResults = mysqli_fetch_assoc($academicQuery))
 									{
 										$tempProductDetails = $academicResults;
-
-										$tempProductId = $academicResults['productId'];
-
+										
+										$temporderItemId = $academicResults['orderItemId'];
+										
 										$tempOrderItems = null;
 										$orderItemDetails = null;
-
+										
 										$tempOrderItemMeasurements = null ;
 										$tempOrderStyles = null;
-
-										$QueryOrderItem = mysqli_query($conn,"select * from customer_order_items_master oi inner join product_master pm on oi.productid = pm.productid INNER JOIN customer_order_master com ON com.orderId = oi.orderId where oi.productId= $tempProductId");
-										$academicAffected1=mysqli_num_rows($QueryOrderItem);
-										if($academicAffected1>0)
-										{
-											while($OrderItemResult = mysqli_fetch_assoc($QueryOrderItem))
-											{
-											//	print($OrderItemResult);
-												$orderItemDetails[] =  $OrderItemResult;
-												$tempOrderItemId = $OrderItemResult['orderItemId'];
+									
+										
+												
 												$tempOrderItemMeasurements = null;
 												$tempOrderStyles = null;
 												$tempOrderFabrics = null;
 												//now get mesausrements of this items
-												$QueryMeasurement = mysqli_query($conn,"select * from customer_order_items_measurement coim inner join measurement_item_master mim on coim.measurementid = mim.measurementid where coim.orderitemid=$tempOrderItemId");
+												$QueryMeasurement = mysqli_query($conn,"select * from customer_order_items_measurement coim inner join measurement_item_master mim on coim.measurementid = mim.measurementid where coim.orderitemid=$temporderItemId");
 												$academicAffected2=mysqli_num_rows($QueryMeasurement);
 												if($academicAffected2 > 0)
 												{
@@ -48,9 +41,9 @@ header('Content-Type: application/json');
 														$tempOrderItemMeasurements[] = $measurementResults;
 													}
 												}
-
+												
 												//now get Styles data of this items
-												$QueryStyles = mysqli_query($conn,"select * from   customer_order_item_style_master  coim inner join stitch_style_details_template_master details on coim.stitchSubStyleId = details.stitchSubStyleId inner join  stitch_style_template_master style  on style.stitchstyleid = coim.stitchstyleid where coim.orderitemid=$tempOrderItemId");
+												$QueryStyles = mysqli_query($conn,"select * from   customer_order_item_style_master  coim inner join stitch_style_details_template_master details on coim.stitchSubStyleId = details.stitchSubStyleId inner join  stitch_style_template_master style  on style.stitchstyleid = coim.stitchstyleid where coim.orderitemid=$temporderItemId");
 												$academicAffected3 = mysqli_num_rows($QueryStyles);
 												if($academicAffected3 > 0)
 												{
@@ -59,11 +52,11 @@ header('Content-Type: application/json');
 														$tempOrderStyles[] = $styleResults;
 													}
 												}
-
-
+												
+												
 												//now get fabrics for this
 												//QueryFabrics
-												$QueryFabrics = mysqli_query($conn,"select * from customer_order_item_fabric_master coim inner join product_fabric_master mim on coim.fabricid = mim.fabricid where coim.orderitemid=$tempOrderItemId");
+												$QueryFabrics = mysqli_query($conn,"select * from customer_order_item_fabric_master coim inner join product_fabric_master mim on coim.fabricid = mim.fabricid where coim.orderitemid=$temporderItemId");
 												$academicAffected4 = mysqli_num_rows($QueryFabrics);
 												if($academicAffected4 > 0)
 												{
@@ -71,22 +64,23 @@ header('Content-Type: application/json');
 													{
 														$tempOrderFabrics[] = $fabricResults;
 													}
-												}
-											$tempOrderItems[] = array('OrderItem'=>$orderItemDetails ,"Fabrics"=>$tempOrderFabrics,"Measurements"=> $tempOrderItemMeasurements,'Styles'=>$tempOrderStyles);
-											}
-										}
-								$records[] =  array('OrderDetails'=>$tempProductDetails ,"orderItems"=> $tempOrderItems);
-
+                                                }
+                                            
+											$tempOrderItems[] = array('OrderItem'=>$orderItemDetails ,"Fabrics"=>$tempOrderFabrics,"Measurements"=> $tempOrderItemMeasurements,'Styles'=>$tempOrderStyles);	
+                                    }
+										
+								$records[] =  array('OrderDetails'=>$tempProductDetails ,"orderItems"=> $tempOrderItems);	
+									
 									}
-							$response = array('Message'=>"All data fetched successfully".mysqli_error($conn),"Data"=>$records,'Responsecode'=>200);
+							$response = array('Message'=>"All data fetched successfully".mysqli_error($conn),"Data"=>$records,'Responsecode'=>200);	
 							}
 							else
 							{
-									$response = array('Message'=>"No data availalbe".mysqli_error($conn),"Data"=> $records,'Responsecode'=>403);
+									$response = array('Message'=>"No data availalbe".mysqli_error($conn),"Data"=> $records,'Responsecode'=>403);	
 							}
 						}
 						else{
-									$response = array('Message'=>"No data availalbe".mysqli_error($conn),"Data"=> $records,'Responsecode'=>403);
+									$response = array('Message'=>"No data availalbe".mysqli_error($conn),"Data"=> $records,'Responsecode'=>403);	
 							}
 	 }
 	 else

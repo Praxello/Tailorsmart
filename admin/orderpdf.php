@@ -185,7 +185,7 @@ function order_info()
 
 
 $dompdf->set_option('isHtml5ParserEnabled', false);
-$dompdf->setPaper('A4', 'portrait');
+$dompdf->setPaper('A5', 'portrait');
 $dompdf->loadHtml($html);
 $dompdf->render();
 $canvas = $dompdf->get_canvas();

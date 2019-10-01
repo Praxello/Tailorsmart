@@ -6,6 +6,7 @@
              <!-- Modal Header -->
              <div class="modal-header">
                  <h4 class="modal-title">Assign a product</h4>
+                 <h6 ><span id="assignedEmp"></span></h6>
              </div>
              <!-- Modal body -->
              <div class="modal-body">
