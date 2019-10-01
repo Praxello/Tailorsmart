@@ -9,19 +9,16 @@ getallbadgecount();
 function getallbadgecount(){
   $.ajax({
       type: "GET",
-      url: api_url+"getallstyle.php",
+      url: api_url+"getCountForBadges.php",
       success: function(response) {
-        console.log(response);
-        // var count;
-        //  if(response['Data']!=null){
-        //     count= response['Data'].length;
-        //
-        //  }
-        //  for(var i=0;i<count;i++)
-        //  {
-        //  styleData.set(response.Data[i].styleId,response.Data[i]);
-        //  }
-        //  settabledata(styleData);
+        var count;
+         if(response['Data']!=null){
+              count= response['Data'].length;
+             $("#b1").html(response['Data'][0].appointmentCount);
+             $("#b2").html(response['Data'][0].ordersCount);
+             $("#b3").html(response['Data'][0].productCount);
+             $("#b4").html(response['Data'][0].fabricCount);
+         }
       }
   });
 }

@@ -15,24 +15,24 @@ function order_info()
    if($academicAffected2>0)
    {
       $row1 = mysqli_fetch_array($customerinfo);
-       $person.='<table width="100%" cellspacing="0" cellpadding="0">';
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             $person.='<table width="100%" cellspacing="0" cellpadding="0">';
        $person.='<td>';
        $person.='<table width="50%" cellspacing="0" cellpadding="0">';
        $person.='<tr>';
-       $person.='<td style="height:25px;"><strong>Customer Name: </strong><br/>'.$row1['firstName'].' '.$row1['lastName'].'</td>';
+       $person.='<td style="height:25px;"><strong> Name: </strong><br/>'.$row1['firstName'].' '.$row1['lastName'].'</td>';
        $person.='</tr>';
        $person.='<tr>';
-       $person.='<td style="height:25px;"><strong>Customer Email: </strong>'.$row1['email'].'</td>';
+       $person.='<td style="height:25px;"><strong> Email: </strong>'.$row1['email'].'</td>';
        $person.='</tr>';
        $person.='</table>';
        $person.='</td>';
        $person.='<td>';
        $person.='<table width="50%" cellspacing="0" cellpadding="0" >';
        $person.='<tr>';
-       $person.='<td style="height:25px;"><strong>Customer Mobile No: </strong>'.$row1['mobile'].'</td>';
+       $person.='<td style="height:25px;"><strong> Mobile No: </strong>'.$row1['mobile'].'</td>';
        $person.='</tr>';
        $person.='<tr>';
-       $person.='<td style="height:25px;"><strong>Customer Address: </strong>'.$row1['address'].' '.$row1['city'].'</td>';
+       $person.='<td style="height:25px;"><strong> Address: </strong>'.$row1['address'].' '.$row1['city'].'</td>';
        $person.='</tr>';
        $person.='</table>';
        $person.='</td>';

@@ -1,14 +1,3 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-  </head>
-  <body>
-
-  </body>
-</html>
 <?php
 include "../connection.php";
 mysqli_set_charset($conn, 'utf8');
@@ -26,8 +15,7 @@ if (isset($_POST['customerid']) && isset($_POST['productids']) &&  isset($_POST[
  			$query = mysqli_query($conn,"insert into customer_appointment_master(customerId, productIds, fabricIds, appointmentDate, appointmentStatus,slotid) values ($customerid,'$productids','$fabricids', '$appointmentdate',0,$slotid)");
 					if($query==1)
 					{
-
-                  $last_id = mysqli_insert_id($conn);
+							$last_id = mysqli_insert_id($conn);
 									$academicQuery = mysqli_query($conn,"select * from customer_appointment_master where customerid=$customerid");
       						if($academicQuery!=null)
       						{
@@ -36,17 +24,20 @@ if (isset($_POST['customerid']) && isset($_POST['productids']) &&  isset($_POST[
       							{
       								while($academicResults = mysqli_fetch_assoc($academicQuery))
       									{
-      										$records[]=$academicResults;
+      										$records[]=$academicResults;//alll apointment records
       									}
       							$response = array('Message'=>"Appointment marked successfully".mysqli_error($conn),"Data"=>$records,'Responsecode'=>200);
 
-                    $academicQuery1 = mysqli_query($conn,"SELECT slot.slotTime,cam.appointmentId, cam.customerId,cm.email, cm.firstName as fn,cm.lastName as ln,cm.city,cm.state,cm.country,cm.mobile,cam.productIds, cam.fabricIds, cam.appointmentDate, cam.slotId, cam.servingEmployeeId, cam.appointmentStatus , em.firstName as employeename FROM  customer_appointment_master cam inner join appointment_slots slot on cam.slotid = slot.slotId inner join customer_master cm on cam.customerid = cm.customerid left outer join employee_master em on cam.servingEmployeeId = em.employeeId where cam.customerid=82  and cam.appointmentId=1 order by cam.appointmentDate desc");
+					//echo("1");
+                    $academicQuery1 = mysqli_query($conn,"SELECT slot.slotTime,cam.appointmentId, cam.customerId,cm.email, cm.firstName as fn,cm.lastName as ln,cm.city,cm.state,cm.country,cm.mobile,cam.productIds, cam.fabricIds, cam.appointmentDate, cam.slotId, cam.servingEmployeeId, cam.appointmentStatus , em.firstName as employeename FROM  customer_appointment_master cam inner join appointment_slots slot on cam.slotid = slot.slotId inner join customer_master cm on cam.customerid = cm.customerid left outer join employee_master em on cam.servingEmployeeId = em.employeeId where cam.customerid=$customerid  and cam.appointmentId=$last_id order by cam.appointmentDate desc");
                       if($academicQuery1!=null)
                       {
                         $academicAffected=mysqli_num_rows($academicQuery1);
                         if($academicAffected>0)
                         {
-                          while($academicResults = mysqli_fetch_assoc($academicQuery1))
+
+						//	echo($last_id);
+	                      while($academicResults = mysqli_fetch_assoc($academicQuery1))
                             {
                               $productids = $academicResults['productIds'];
                               // print($academicResults['appointmentId'] . "-");
@@ -104,28 +95,30 @@ if (isset($_POST['customerid']) && isset($_POST['productids']) &&  isset($_POST[
                                     }
                                   }
                                 }
-
                               }
 
+//	print_r($products);
                             $appointmentRecords [] =array("AppointmentDetails"=>$academicResults , "SelectedItems"=>$products);
                             // $response = array('Message'=>"All data fetched successfully".mysqli_error($conn),"Data"=>$appointmentRecords,'Responsecode'=>200);
                             $html ='';
                             $aptstatus='';
-                            $Allitemdata =$response['Data'][0]['SelectedItems'];
-                            switch ($response['Data'][0]['AppointmentDetails']['appointmentStatus']) {
-                                  case "0":
+                            $Allitemdata =$appointmentRecords[0]['SelectedItems'];
+							//print_r($appointmentRecords[0]['AppointmentDetails']);
+						//	echo($appointmentRecords[0]['AppointmentDetails']['appointmentStatus']);
+                            switch ($appointmentRecords[0]['AppointmentDetails']['appointmentStatus']) {
+                                  case 0:
                                     $aptstatus='<span class="badge badge-pill badge-primary">Idle</span>';
                                       break;
-                                  case "1":
+                                  case 1:
                                     $aptstatus='<span class="badge badge-pill badge-success">Confirmed</span>';
                                       break;
-                                  case "2":
+                                  case 2:
                                     $aptstatus='<span class="badge badge-pill badge-danger">Cancelled</span>';
                                       break;
-                                  case "3":
+                                  case 3:
                                     $aptstatus='<span class="badge badge-pill badge-warning"> Withdrawn by customer</span>';
                                       break;
-                                  case "5":
+                                  case 5:
                                     $aptstatus='<span class="badge badge-pill badge-dark">None</span>';
                                       break;
                               }
@@ -165,8 +158,8 @@ if (isset($_POST['customerid']) && isset($_POST['productids']) &&  isset($_POST[
 
                             }
                             // $to ="krkunal29@gmail.com";
-                            $to = $response['Data'][0]['AppointmentDetails']['email'];
-                            // $to      = $response['Data'][0]['AppointmentDetails']['email'];
+                            $to = $appointmentRecords[0]['AppointmentDetails']['email'];
+                            // $to      = $appointmentRecords[0]['AppointmentDetails']['email'];
                             $subject = 'Your Appointment is Book';
                             $message = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional
                             .dtd">
@@ -208,14 +201,14 @@ if (isset($_POST['customerid']) && isset($_POST['productids']) &&  isset($_POST[
                                         </tr>
                                 <tr>
                                     <td align="left" valign="top" style="padding-left:20px; padding-top:10px; color:#363636; padding-bottom:15px; line-height:12px; font-size:14px; padding-right:20px; font-family:Arial, Helvetica, sans-serif;">
-                                      Customer Name :'.$response['Data'][0]['AppointmentDetails']['fn']." ".$response['Data'][0]['AppointmentDetails']['ln'].'
+                                      Customer Name :'.$appointmentRecords[0]['AppointmentDetails']['fn']." ".$appointmentRecords[0]['AppointmentDetails']['ln'].'
 
                                     </td>
 
                                 </tr>
                                 <tr>
                                     <td align="left" valign="top" style="padding-left:20px; padding-top:10px; color:#363636; padding-bottom:15px; line-height:12px; font-size:14px; padding-right:20px; font-family:Arial, Helvetica, sans-serif;">
-                                      Appointment Date :'.$response['Data'][0]['AppointmentDetails']['appointmentDate'].'
+                                      Appointment Date :'.$appointmentRecords[0]['AppointmentDetails']['appointmentDate'].'
 
                                     </td>
 
@@ -229,33 +222,13 @@ if (isset($_POST['customerid']) && isset($_POST['productids']) &&  isset($_POST[
                                 </tr>
                                 <tr>
                                     <td align="left" valign="top" style="padding-left:20px; padding-top:10px; color:#363636; padding-bottom:15px; line-height:12px; font-size:14px; padding-right:20px; font-family:Arial, Helvetica, sans-serif;">
-                                      Appointment Slot : '.$response['Data'][0]['AppointmentDetails']['slotTime'].'
-
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <td align="left" valign="top" style="padding-left:20px; padding-top:10px; color:#363636; padding-bottom:15px; line-height:12px; font-size:14px; padding-right:20px; font-family:Arial, Helvetica, sans-serif;">
-                                      Employee Name : '. $response['Data'][0]['AppointmentDetails']['employeename'].'
-
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <td align="left" valign="top" style="padding-left:20px; padding-top:10px; color:#363636; padding-bottom:15px; line-height:12px; font-size:14px; padding-right:20px; font-family:Arial, Helvetica, sans-serif;">
-                                     Mobile : '.$response['Data'][0]['AppointmentDetails']['mobile'].'
+                                      Appointment Slot : '.$appointmentRecords[0]['AppointmentDetails']['slotTime'].'
 
                                     </td>
 
                                 </tr>
 
-                                <tr>
-                                    <td align="left" valign="top" style="padding-left:20px; padding-top:10px; color:#363636; padding-bottom:15px; line-height:12px; font-size:14px; padding-right:20px; font-family:Arial, Helvetica, sans-serif;">
-                                     Email :'.$response['Data'][0]['AppointmentDetails']['email'].'
 
-                                    </td>
-
-                                </tr>
 
                             </table>
                             <table border="0" align="center" cellpadding="0" cellspacing="0" style="border
@@ -274,7 +247,29 @@ if (isset($_POST['customerid']) && isset($_POST['productids']) &&  isset($_POST[
                             </table>
                             </body>
                             </html>';
+                            // <tr>
+                            //     <td align="left" valign="top" style="padding-left:20px; padding-top:10px; color:#363636; padding-bottom:15px; line-height:12px; font-size:14px; padding-right:20px; font-family:Arial, Helvetica, sans-serif;">
+                            //       Employee Name : '. $appointmentRecords[0]['AppointmentDetails']['employeename'].'
+                            //
+                            //     </td>
+                            //
+                            // </tr>
 
+                            // <tr>
+                            //     <td align="left" valign="top" style="padding-left:20px; padding-top:10px; color:#363636; padding-bottom:15px; line-height:12px; font-size:14px; padding-right:20px; font-family:Arial, Helvetica, sans-serif;">
+                            //      Mobile : '.$appointmentRecords[0]['AppointmentDetails']['mobile'].'
+                            //
+                            //     </td>
+                            //
+                            // </tr>
+                            //
+                            // <tr>
+                            //     <td align="left" valign="top" style="padding-left:20px; padding-top:10px; color:#363636; padding-bottom:15px; line-height:12px; font-size:14px; padding-right:20px; font-family:Arial, Helvetica, sans-serif;">
+                            //      Email :'.$appointmentRecords[0]['AppointmentDetails']['email'].'
+                            //
+                            //     </td>
+                            //
+                            // </tr>
                             // To send HTML mail, the Content-type header must be set
                             $headers  = 'MIME-Version: 1.0' . "\r\n";
                             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";

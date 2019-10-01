@@ -104,8 +104,11 @@ function retddmmyyyy(date){
 // }).trigger("change");
 
 function settabledata(styleData) {
+    // console.log(styleData);
     var xhtml = '',ihtml = '',varhtml = '';
     var cid = $("#cid").val();
+    // console.log(cid);
+    // console.log(typeof(cid));
     $('#appointmenttbl').dataTable().fnDestroy();
     $("#appointmenttbldata").empty();
     for (let k of styleData.keys())
@@ -121,25 +124,27 @@ function settabledata(styleData) {
         {
             varhtml = "<td></td>";
         }
+        if(cid=="1"){
+           if(AllData.appointmentStatus==="0")
+           {
+              // console.log(varhtml);
+             let newdate =getDate(AllData.appointmentDate);
+             let orderStatus = confirmationStatus.get(AllData.appointmentStatus);
+             xhtml += "<tr>";
+             xhtml += "<td>" + AllData.firstName + " " + AllData.lastname + "</td>";
+             xhtml += "<td style='display:none;'>" + AllData.appointmentDate + "</td>";
+             xhtml += "<td>" + newdate + "</td>";
+             xhtml += "<td>" + AllData.slotTime + "</td>";
+             xhtml += "<td>" + AllData.address + "</td>";
 
-          if(AllData.appointmentStatus=="0")
-          {
-            // console.log('ok');
-            let newdate =getDate(AllData.appointmentDate);
-            let orderStatus = confirmationStatus.get(AllData.appointmentStatus);
-            ihtml += "<tr>";
-            ihtml += "<td>" + AllData.firstName + " " + AllData.lastname + "</td>";
-            ihtml += "<td style='display:none;'>" + AllData.appointmentDate + "</td>";
-            ihtml += "<td>" + newdate + "</td>";
-            ihtml += "<td>" + AllData.slotTime + "</td>";
-            ihtml += "<td>" + AllData.address + "</td>";
-            ihtml += "<td>" + AllData.city + "</td>";
-            ihtml += "<td>" + AllData.mobile + "</td>";
-            ihtml += varhtml;
-            ihtml += "<td>" + orderStatus + "</td>";
-            ihtml += '<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editcustomerappointmentdata(' + k + ')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeAppointment(' + k + ')"><i class="fa fa-remove"></i></button></div></td>';
-            ihtml += "</tr>";
-          }
+             xhtml += "<td>" + AllData.city + "</td>";
+             xhtml += "<td>" + AllData.mobile + "</td>";
+             xhtml += varhtml;
+             xhtml += "<td>" + orderStatus + "</td>";
+             xhtml += '<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editcustomerappointmentdata(' + k + ')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeAppointment(' + k + ')"><i class="fa fa-remove"></i></button></div></td>';
+             xhtml += "</tr>";
+           }
+         }
         else
         {
           let newdate =getDate(AllData.appointmentDate);
@@ -159,14 +164,18 @@ function settabledata(styleData) {
         }
 
     }
-    if(cid==="1")
-    {
-    $("#appointmenttbldata").html(ihtml);
-    }
-    else
-    {
+    // console.log(xhtml);
+
+    // if(cid=="1")
+    // {
+      // console.log("if");
     $("#appointmenttbldata").html(xhtml);
-    }
+    // }
+    // else
+    // {
+    //      console.log("else");
+    // $("#appointmenttbldata").html(xhtml);
+    // }
     table=$('#appointmenttbl').DataTable({
         searching: true,
         retrieve: true,

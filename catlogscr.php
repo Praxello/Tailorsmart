@@ -23,8 +23,9 @@ $employeeName = $_SESSION['employeeName'];
     <link href="css/lib/bootstrap/asterisks.css" rel="stylesheet">
     <link href="css/helper.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+      <link href="css/lib/dropzone/dropzone.css" rel="stylesheet">
     <!-- <link href="dropzone/dropzone.css" rel="stylesheet"> -->
-    <link href="dropzone/dropzone.css" rel="stylesheet" type="text/css">
+
 </head>
 
 <body class="fix-header fix-sidebar">
@@ -51,7 +52,7 @@ $employeeName = $_SESSION['employeeName'];
             </div>
 
             <div class="container-fluid">
-               <!-- <div class="row" id="displayimg" style="display:block;">
+               <div class="row" id="displayimg" style="display:block;">
                 <div class="col-12">
 
                       <div class="row">
@@ -70,7 +71,7 @@ $employeeName = $_SESSION['employeeName'];
                       </div>
 
                   </div>
-                </div> -->
+                </div>
                 <!-- Start Page Content -->
            <div class="row" id="displayimgall" style="display:block;">
              <div class="col-12">
@@ -87,12 +88,19 @@ $employeeName = $_SESSION['employeeName'];
 
           <div class="row" id="insertproductimg" style="display:none;">
             <div class="col-sm-12">
-              <!-- <div class="card">
+              <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Product Dropzone</h4>
+                    <!-- <h6 class="card-subtitle">For multiple file upload put class <code>.dropzone</code> to form.</h6> -->
+                    <form action="#" class="dropzone">
+                        <div class="fallback">
+                            <input name="file" type="file" multiple />
+                        </div>
+                    </form>
+                </div>
+                  <!-- <form action="/file-upload" class="dropzone" id="a-form-element"></form> -->
 
-                  <form action="./src/uploadeventgallary.php" class="dropzone" id="myAwesomeDropzone" >
-                  <input type="hidden" id="eventgallery2" name="eventgallery2" />
-
-              </div> -->
+              </div>
               <!-- <div class='content'>
               <form action="./src/uploadeventgallary.php" class="dropzone" id="myAwesomeDropzone">
               <input type="hidden" id="eventgallery" name="eventgallery" />
@@ -101,16 +109,22 @@ $employeeName = $_SESSION['employeeName'];
             </div>
           </div>
 
-          <!-- <div class="row" id="insertfabricimg" style="display:none;">
+          <div class="row" id="insertfabricimg" style="display:none;">
             <div class="col-sm-12">
               <div class="card">
-
-                  <form action="./src/uploadeventgallary.php" class="dropzone1" id="myAwesomeDropzone1" >
-                  <input type="hidden" id="eventgallery" name="eventgallery" />
-                  </form>
+                <div class="card-body">
+                    <h4 class="card-title">Fabric Dropzone</h4>
+                    <!-- <h6 class="card-subtitle">For multiple file upload put class <code>.dropzone</code> to form.</h6> -->
+                    <form action="#" class="dropzone">
+                        <div class="fallback">
+                            <input name="file" type="file" multiple />
+                        </div>
+                    </form>
+                </div>
+                  <!-- <form action="/file-upload" class="dropzone" id="an-other-form-element"></form> -->
               </div>
             </div>
-          </div> -->
+          </div>
 
         </div>
         </div>
@@ -134,39 +148,19 @@ $employeeName = $_SESSION['employeeName'];
     <!--Custom JavaScript -->
     <script src="js/custom.min.js"></script>
     <script src="javascript/catlogscr.js"></script>
-    <script href="dropzone/dropzone.js"></script>
+    <!-- <script href="dropzone/dropzone.js"></script> -->
+    <script src="js/lib/dropzone/dropzone.js"></script>
     <script src="js/lib/datatables/datatables.min.js"></script>
 
     <script
-    src="mau_gallery/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-    crossorigin="anonymous"></script>
+       src="mau_gallery/bootstrap.min.js"  crossorigin="anonymous"></script>
     <script src="mau_gallery/docs/src/maugallery.js"></script>
     <script src="mau_gallery/docs/assets/scripts.js"></script>
     <!----mau gallery contents end------>
 
     <!-- <script src="javascript/stitchstyle.js"></script> -->
     <script src="js/lib/sweetalert/sweetalert.min.js"></script>
-    <!-- <script type='text/javascript'>
-    Dropzone.autoDiscover = false;
-    $(".dropzone").dropzone({
-        addRemoveLinks: true,
-        removedfile: function(file) {
-            var name = file.name;
-            var eventgallery = $("#eventgallery").val();
-            $.ajax({
-                type: 'POST',
-                url: './src/uploadeventgallary.php',
-                data: {name: name,eventgallery:eventgallery,request: 2},
-                sucess: function(data){
-                    console.log('success: ' + data);
-                }
-            });
-            var _ref;
-            return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
-        }
-    });
-    </script> -->
+  
 
 
 </body>

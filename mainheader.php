@@ -20,31 +20,34 @@
                     </ul>
                     <!-- User profile and search -->
                     <ul class="navbar-nav my-lg-0">
+                      <?php
+                      $roleId = $_SESSION['roleId'];
+                      if($roleId==="1"){ ?> 
                        <!-- This badge for list of all appointment Status which will be idel at the moment -->
                       <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle text-muted text-muted  "  href="customerappointment.php?cid=1"  title="Appointment Status" id="mheadappointment" ><i class="fa fa-bell"> 1</i>
+                      <a class="nav-link dropdown-toggle text-muted text-muted  "  href="customerappointment.php?cid=1"  title="Appointment Status" id="mheadappointment" ><i class="fa fa-bell"><span id='b1'></span></i>
                       <div class="notify"> <span class="heartbit" ></span> <span class="point"></span> </div>
                       </a>
                       </li>
                        <!-- This badge for list of all orders which status not be complete till now -->
                       <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle text-muted text-muted  " href="allorders.php?aid=1"   title="Orders Not Completed"> <i class="fa fa-tags">4</i>
+                      <a class="nav-link dropdown-toggle text-muted text-muted  " href="allorders.php?aid=1"   title="Orders Not Completed"> <i class="fa fa-tags"><span id='b2'></span></i>
                       <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
                       </a>
                       </li>
                       <!-- This badge for list of all orders which active product which will be not active yet -->
                       <li class="nav-item dropdown">
-                          <a class="nav-link dropdown-toggle text-muted  " href="products.php?pid=1"   title="Active Product" id="mheadactive"> <i class="fa fa-envelope">2</i>
+                          <a class="nav-link dropdown-toggle text-muted  " href="products.php?pid=1"   title="Active Product" id="mheadactive"> <i class="fa fa-envelope"><span id='b3'></span></i>
                           <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
                         </a>
                       </li>
                       <!-- This badge for list of all orders which fabric will be not active yet-->
                       <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle text-muted text-muted  "  href="fabric.php?fid=1"  title="Active Fabric" id="mheadfabric"> <i class="fa fa-diamond">3</i>
+                      <a class="nav-link dropdown-toggle text-muted text-muted  "  href="fabric.php?fid=1"  title="Active Fabric" id="mheadfabric"> <i class="fa fa-diamond"><span id='b4'></span></i>
                       <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
                       </a>
                       </li>
-
+                    <?php } ?>
 
 
 

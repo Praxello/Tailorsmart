@@ -125,6 +125,7 @@ function getallorders(){
 
          },
          success: function(response) {
+           // console.log(response);
            var count;
            var orderStatus = null,
                isConfirmed = null,
@@ -139,34 +140,38 @@ function getallorders(){
             var responseData = "";
             for (var i = 0; i < count; i++) {
                 orderStatus = statusMap.get(response.Data[i].OrderDetails.orderStatus);
-                if(response.Data[i].OrderDetails.orderStatus!=4 && aid ==1){
-                  isConfirmed = confirmationStatus.get(response.Data[i].OrderDetails.isConfirmed);
-                  if (response.Data[i].OrderDetails.promoCode == null) {
-                      response.Data[i].OrderDetails.promoCode = '-';
-                  }
-                  if (response.Data[i].OrderDetails.RecievedAmount == null) {
-                      response.Data[i].OrderDetails.RecievedAmount = '0';
-                  }
-                  CustomerName =customerData.get(response.Data[i].OrderDetails.customerId);
-                  EmpName = EmployeeData.get(response.Data[i].OrderDetails.employeeId);
-                  customerExpectedDate = getDate(response.Data[i].OrderDetails.customerExpectedDate);
-                  FinalDeliveryDate = getDate(response.Data[i].OrderDetails.FinalDeliveryDate);
-                  let now = new Date( response.Data[i].OrderDetails.purchaseDateTime );
-                  var dateString = moment(now).format('DD-MM-YYYY');
+                // console.log(response.Data[i].OrderDetails.orderStatus);
+                if(aid=="1"){
+                  if(response.Data[i].OrderDetails.orderStatus==0){
 
-                  recamt = parseInt(recamt) + parseInt(response.Data[i].OrderDetails.RecievedAmount);
-                  orderamt = parseInt(orderamt) + parseInt(response.Data[i].OrderDetails.amount);
+                    isConfirmed = confirmationStatus.get(response.Data[i].OrderDetails.isConfirmed);
+                    if (response.Data[i].OrderDetails.promoCode == null) {
+                        response.Data[i].OrderDetails.promoCode = '-';
+                    }
+                    if (response.Data[i].OrderDetails.RecievedAmount == null) {
+                        response.Data[i].OrderDetails.RecievedAmount = '0';
+                    }
+                    CustomerName =customerData.get(response.Data[i].OrderDetails.customerId);
+                    EmpName = EmployeeData.get(response.Data[i].OrderDetails.employeeId);
+                    customerExpectedDate = getDate(response.Data[i].OrderDetails.customerExpectedDate);
+                    FinalDeliveryDate = getDate(response.Data[i].OrderDetails.FinalDeliveryDate);
+                    let now = new Date( response.Data[i].OrderDetails.purchaseDateTime );
+                    var dateString = moment(now).format('DD-MM-YYYY');
 
-                  responseData += "<tr>";
-                  responseData += "<td>" + CustomerName.firstName +" "+CustomerName.lastName+"</td>";
-                  responseData += "<td>" + response.Data[i].OrderDetails.amount + "</td>";
-                  responseData += "<td>" + response.Data[i].OrderDetails.RecievedAmount + "</td>";
-                  responseData += "<td>" + response.Data[i].OrderDetails.purchaseDateTime + "</td>";
-                  responseData += "<td>" + orderStatus + "</td>";
-                  responseData += "<td>" + isConfirmed + "</td>";
-                  responseData += "<td>" + customerExpectedDate + "</td>";
-                  responseData += "<td>" + FinalDeliveryDate + "</td>";
-                  responseData += "<td>" + EmpName + "</td>";
+                    recamt = parseInt(recamt) + parseInt(response.Data[i].OrderDetails.RecievedAmount);
+                    orderamt = parseInt(orderamt) + parseInt(response.Data[i].OrderDetails.amount);
+
+                    responseData += "<tr>";
+                    responseData += "<td>" + CustomerName.firstName +" "+CustomerName.lastName+"</td>";
+                    responseData += "<td>" + response.Data[i].OrderDetails.amount + "</td>";
+                    responseData += "<td>" + response.Data[i].OrderDetails.RecievedAmount + "</td>";
+                    responseData += "<td>" + response.Data[i].OrderDetails.purchaseDateTime + "</td>";
+                    responseData += "<td>" + orderStatus + "</td>";
+                    responseData += "<td>" + isConfirmed + "</td>";
+                    responseData += "<td>" + customerExpectedDate + "</td>";
+                    responseData += "<td>" + FinalDeliveryDate + "</td>";
+                    responseData += "<td>" + EmpName + "</td>";
+                  }
                 }
                 else
                 {
