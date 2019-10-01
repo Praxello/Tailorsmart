@@ -3,6 +3,11 @@ session_start();
 if(isset($_SESSION['employeeId'])){
 $employeeId = $_SESSION['employeeId'];
 $employeeName = $_SESSION['employeeName'];
+$aid = 0;
+if(isset($_REQUEST['aid']))
+{
+  $aid = $_REQUEST['aid'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,7 +28,6 @@ $employeeName = $_SESSION['employeeName'];
     <link href="css/helper.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="date/date.css" />
-
 
 </head>
 
@@ -97,24 +101,13 @@ $employeeName = $_SESSION['employeeName'];
                           </div>
                       </div>
                   </div>
-                  <!-- <div class="col-md-3">
-                      <div class="card p-30">
-                          <div class="media">
-                              <div class="media-left meida media-middle">
-                                  <span><i class="fa fa-user f-s-40 color-danger"></i></span>
-                              </div>
-                              <div class="media-body media-text-right">
-                                  <h2>32</h2>
-                                  <p class="m-b-0">Orders</p>
-                              </div>
-                          </div>
-                      </div>
-                  </div> -->
+
               </div>
                 <!-- Start Page Content -->
                 <div class="row" id="customerstyletable" style="display:block;">
                     <div class="col-12">
                         <div class="card">
+                          <input type="hidden" id="aid" value="<?php echo $aid;?>"/>
                           <div class="row">
                             <div class="col-sm-4">
                               <div class="form-group">

@@ -104,66 +104,82 @@ function retddmmyyyy(date){
 // }).trigger("change");
 
 function settabledata(styleData) {
-    var html = '',
-        varhtml = '';
+    var xhtml = '',ihtml = '',varhtml = '';
     var cid = $("#cid").val();
     $('#appointmenttbl').dataTable().fnDestroy();
     $("#appointmenttbldata").empty();
-    for (let k of styleData.keys()) {
+    for (let k of styleData.keys())
+    {
         var AllData = styleData.get(k);
-        html += '<tr>';
-        if (EmployeeData.has(AllData.servingEmployeeId)) {
+        // html +='<tr>';
+        if (EmployeeData.has(AllData.servingEmployeeId))
+        {
             let EmpName = EmployeeData.get(AllData.servingEmployeeId);
             varhtml = "<td>" + EmpName.firstName + " " + EmpName.lastName + "</td>";
-        } else {
+        }
+        else
+        {
             varhtml = "<td></td>";
         }
-        if(cid==="1"){
-          if(AllData.appointmentStatus==="0"){
+
+          if(AllData.appointmentStatus=="0")
+          {
+            // console.log('ok');
             let newdate =getDate(AllData.appointmentDate);
             let orderStatus = confirmationStatus.get(AllData.appointmentStatus);
-            html += "<td>" + AllData.firstName + " " + AllData.lastname + "</td>";
-            html += "<td style='display:none;'>" + AllData.appointmentDate + "</td>";
-            html += "<td>" + newdate + "</td>";
-            html += "<td>" + AllData.slotTime + "</td>";
-            html += "<td>" + AllData.address + "</td>";
-            html += "<td>" + AllData.city + "</td>";
-            html += "<td>" + AllData.mobile + "</td>";
-            html += varhtml;
-            html += "<td>" + orderStatus + "</td>";
-            html += '<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editcustomerappointmentdata(' + k + ')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeAppointment(' + k + ')"><i class="fa fa-remove"></i></button></div></td>';
-            html += "</tr>";
+            ihtml += "<tr>";
+            ihtml += "<td>" + AllData.firstName + " " + AllData.lastname + "</td>";
+            ihtml += "<td style='display:none;'>" + AllData.appointmentDate + "</td>";
+            ihtml += "<td>" + newdate + "</td>";
+            ihtml += "<td>" + AllData.slotTime + "</td>";
+            ihtml += "<td>" + AllData.address + "</td>";
+            ihtml += "<td>" + AllData.city + "</td>";
+            ihtml += "<td>" + AllData.mobile + "</td>";
+            ihtml += varhtml;
+            ihtml += "<td>" + orderStatus + "</td>";
+            ihtml += '<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editcustomerappointmentdata(' + k + ')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeAppointment(' + k + ')"><i class="fa fa-remove"></i></button></div></td>';
+            ihtml += "</tr>";
           }
-
-        }
-        else {
+        else
+        {
           let newdate =getDate(AllData.appointmentDate);
           let orderStatus = confirmationStatus.get(AllData.appointmentStatus);
-          html += "<td>" + AllData.firstName + " " + AllData.lastname + "</td>";
-          html += "<td style='display:none;'>" + AllData.appointmentDate + "</td>";
-          html += "<td>" + newdate + "</td>";
-          html += "<td>" + AllData.slotTime + "</td>";
-          html += "<td>" + AllData.address + "</td>";
-          html += "<td>" + AllData.city + "</td>";
-          html += "<td>" + AllData.mobile + "</td>";
-          html += varhtml;
-          html += "<td>" + orderStatus + "</td>";
-          html += '<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editcustomerappointmentdata(' + k + ')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeAppointment(' + k + ')"><i class="fa fa-remove"></i></button></div></td>';
-          html += "</tr>";
+          xhtml += "<tr>";
+          xhtml += "<td>" + AllData.firstName + " " + AllData.lastname + "</td>";
+          xhtml += "<td style='display:none;'>" + AllData.appointmentDate + "</td>";
+          xhtml += "<td>" + newdate + "</td>";
+          xhtml += "<td>" + AllData.slotTime + "</td>";
+          xhtml += "<td>" + AllData.address + "</td>";
+          xhtml += "<td>" + AllData.city + "</td>";
+          xhtml += "<td>" + AllData.mobile + "</td>";
+          xhtml += varhtml;
+          xhtml += "<td>" + orderStatus + "</td>";
+          xhtml += '<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editcustomerappointmentdata(' + k + ')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeAppointment(' + k + ')"><i class="fa fa-remove"></i></button></div></td>';
+          xhtml += "</tr>";
         }
 
     }
-    $("#appointmenttbldata").html(html);
-    table = $('#appointmenttbl').DataTable({
+    if(cid==="1")
+    {
+    $("#appointmenttbldata").html(ihtml);
+    }
+    else
+    {
+    $("#appointmenttbldata").html(xhtml);
+    }
+    table=$('#appointmenttbl').DataTable({
         searching: true,
         retrieve: true,
         bPaginate: $('tbody tr').length > 10,
         order: [],
-        columnDefs: [{ orderable: false, targets: [0, 1, 2, 3, 4, 5, 6, 7, 8,9] }],
+        columnDefs: [{ orderable: false, targets: [0,1,2,3,4,5,6,7,8,9] }],
         dom: 'Bfrtip',
         buttons: ['copy', 'csv', 'excel', 'pdf'],
         destroy: true
     });
+
+
+
 }
 
 function getDate(date) {

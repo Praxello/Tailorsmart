@@ -44,7 +44,7 @@ function getalluserrights(){
 }
 
 function  setemployeemaster(EmployeeData){
-   // console.log(EmployeeData);
+  
   var html ;
   $('#employeetbl').dataTable().fnDestroy();
   $("#employeetbldata").empty();
@@ -68,8 +68,14 @@ function  setemployeemaster(EmployeeData){
         {
               html +='<td style="width:10%"><span class="badge badge-pill badge-warning">InActive</span></td>';
         }
-        html +='<td style="width:10%"><div class="btn-group" role="group" aria-label="Basic Example">';
-        html +='<button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+k+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeStyle('+k+')"><i class="fa fa-remove"></i></button></div></td>';
+        if(EmpData.employeeId!=1){
+          html +='<td style="width:10%"><div class="btn-group" role="group" aria-label="Basic Example">';
+          html +='<button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+k+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeStyle('+k+')"><i class="fa fa-remove"></i></button></div></td>';
+
+        }
+        else{
+          html +='<td></td>';
+        }
 
         html +="</tr>";
   }
