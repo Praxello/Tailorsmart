@@ -112,7 +112,6 @@ $('#refreshFabrics').on('click',function(e){
             var createDropdownOptions = '';
             if (response.Data != null) {
                 var count = response.Data.length;
-                console.log(count);
                 for (var i = 0; i < count; i++) {
                     
                     createDropdownOptions += "<tr><td><img class='img-thumbnail' src='http://praxello.com/tailorsmart/mobileimages/fabric/300x300/" + response['Data'][i].skuNo + ".jpg' alt='No Image Available'></img></td>";

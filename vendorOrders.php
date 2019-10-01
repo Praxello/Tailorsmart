@@ -58,7 +58,7 @@ $employeeName = $_SESSION['employeeName'];
             </div>
 
             <div class="container-fluid">
-              <div class="row">
+              <!-- <div class="row">
                   <div class="col-md-3">
                       <div class="card p-30">
                           <div class="media">
@@ -111,29 +111,12 @@ $employeeName = $_SESSION['employeeName'];
                           </div>
                       </div>
                   </div>
-              </div>
+              </div> -->
                 <!-- Start Page Content -->
                 <div class="row" id="customerstyletable" style="display:block;">
                     <div class="col-12">
                         <div class="card">
-                          <div class="row">
-                            <div class="col-sm-4">
-                              <div class="form-group">
-                              <label>From Date</label><font color='red' class="float-right">(MM/DD/YYYY)</font>
-                              <input type="text" name="min" id="min" class="form-control" />
-                              </div>
-                            </div>
-                            <div class="col-sm-4">
-                              <div class="form-group">
-                              <label>Upto Date</label><font color='red' class="float-right">(MM/DD/YYYY)</font>
-                              <input type="text" name="max" id="max" class="form-control"  />
-                              </div>
-                            </div>
-                            <div class="col-sm-4">
-                              <div class="form-group">
-                              </div>
-                            </div>
-                          </div>
+                          
                             <div class="card-body">
 
                                 <div class="table-responsive m-t-40">
@@ -142,7 +125,7 @@ $employeeName = $_SESSION['employeeName'];
                                             <tr>
                                               <th>Sr No</th>
                                               <th>Product</th>
-                                              <th>Order Status</th>
+                                              <!-- <th>Order Status</th> -->
                                               <th>Confirmation</th>
                                               <th>Expected Delivery</th>
                                               <th>Final Delivery Date</th>

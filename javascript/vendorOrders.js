@@ -64,7 +64,12 @@ function getallorders() {
                     assignEmp = '-';
                     orderStatus = null;
                     isConfirmed = null;
-                    orderStatus = statusMap.get(response.Data[i].OrderDetails.orderStatus);
+                    orderStatus = response.Data[i].OrderDetails.isAlterneeded;
+                    if (orderStatus == 1) {
+                        orderStatus = "<button class='btn btn-primary btn-sm' data-toggle='tooltip' data-placement='top' title='Edit'><i class='fa fa-scissors'></i></button>";
+                    } else {
+                        orderStatus = '';
+                    }
                     isConfirmed = confirmationStatus.get(response.Data[i].OrderDetails.isConfirmed);
                     if (EmployeeData.has(response.Data[i].OrderDetails.employeeId)) {
                         EmpName = EmployeeData.get(response.Data[i].OrderDetails.employeeId);
@@ -77,24 +82,25 @@ function getallorders() {
 
                     responseData += "<tr>";
                     responseData += "<td>" + (i + 1) + "</td>";
-                    responseData += "<td><strong>" + response.Data[i].OrderDetails.productTitle + '-' + response.Data[i].OrderDetails.styleTitle + "</strong></td>";
-                    responseData += "<td>" + orderStatus + "</td>";
+                    responseData += "<td style='width:20%;'><strong>" + response.Data[i].OrderDetails.productTitle + '-' + response.Data[i].OrderDetails.styleTitle + "</strong></td>";
                     responseData += "<td>" + isConfirmed + "</td>";
                     responseData += "<td>" + customerExpectedDate + "</td>";
                     responseData += "<td>" + FinalDeliveryDate + "</td>";
                     responseData += "<td>" + EmpName + "</td>";
                     responseData += "<td>" + assignEmp + "</td>";
-                    responseData += "<td><button class='btn btn-success btn-sm' data-toggle='tooltip' data-placement='top' title='Edit'><i class='fa fa-edit'></i></button></td>";
-                    responseData += "</tr>";
+                    responseData += "<td><div class='btn-group' role='group' aria-label='Basic example'>";
+                    responseData += orderStatus;
+                    responseData += "<button class='btn btn-success btn-sm' data-toggle='tooltip' data-placement='top' title='Edit' onclick='loadPdf(" + response.Data[i].OrderDetails.orderItemId + ")'><i class='fa fa-file-pdf-o'></i></button>";
+                    responseData += "</div></td></tr>";
                 }
             }
             $("#customerordertbldata").html(responseData);
-            table = $('#customerordertbl').DataTable({
+            $('#customerordertbl').DataTable({
                 searching: true,
                 retrieve: true,
                 bPaginate: $('tbody tr').length > 10,
                 order: [],
-                columnDefs: [{ orderable: false, targets: [0, 1, 2, 3, 4, 5, 6, 7, 8] }],
+                columnDefs: [{ orderable: false, targets: [0, 1, 2, 3, 4, 5, 6, 7] }],
                 dom: 'Bfrtip',
                 buttons: [],
                 destroy: true
@@ -116,4 +122,8 @@ function getDate(date) {
         //output = d.toGMTString(); //outputs to "Thu, 28 May 2015 22:10:21 GMT"
     }
     return output;
+}
+
+function loadPdf(orderItemId) {
+    console.log(orderItemId);
 }
