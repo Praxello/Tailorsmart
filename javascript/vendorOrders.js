@@ -1,18 +1,9 @@
-var statusMap = new Map(); //for static status
 var confirmationStatus = new Map();
 var EmployeeData = new Map();
-getStatusMap();
+
 getConfirmation();
 
-function getStatusMap() {
-    statusMap.set('0', '<span class="badge badge-pill badge-danger">Not completed</span>');
-    statusMap.set('1', '<span class="badge badge-pill badge-success">Confirmed/span>');
-    statusMap.set('2', '<span class="badge badge-pill badge-primary">Processing</span>');
-    statusMap.set('3', '<span class="badge badge-pill badge-secondary">Sent for Trial</span>');
-    statusMap.set('4', '<span class="badge badge-pill badge-warning">Completed</span>');
-    statusMap.set('5', '<span class="badge badge-pill badge-info">Cancelled</span>');
-    statusMap.set('6', '<span class="badge badge-pill badge-dark">For Alteration</span>');
-}
+
 
 function getConfirmation() {
     confirmationStatus.set('0', '<span class="badge badge-pill badge-warning">Not Confirmed</span>');
