@@ -20,37 +20,37 @@
                     </ul>
                     <!-- User profile and search -->
                     <ul class="navbar-nav my-lg-0">
-
+                       <!-- This badge for list of all appointment Status which will be idel at the moment -->
                       <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle text-muted text-muted  "  href="customerappointment.php?cid=1"  title="Appointment Status" id="mheadappointment" > <i class="fa fa-bell"> 1</i>
+                      <a class="nav-link dropdown-toggle text-muted text-muted  "  href="customerappointment.php?cid=1"  title="Appointment Status" id="mheadappointment" ><i class="fa fa-bell"> 1</i>
                       <div class="notify"> <span class="heartbit" ></span> <span class="point"></span> </div>
                       </a>
                       </li>
-                      <!-- End Comment -->
-                      <!-- Messages -->
+                       <!-- This badge for list of all orders which status not be complete till now -->
                       <li class="nav-item dropdown">
-
+                      <a class="nav-link dropdown-toggle text-muted text-muted  " href="allorders.php?aid=1"   title="Orders Not Completed"> <i class="fa fa-tags">4</i>
+                      <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
+                      </a>
+                      </li>
+                      <!-- This badge for list of all orders which active product which will be not active yet -->
+                      <li class="nav-item dropdown">
                           <a class="nav-link dropdown-toggle text-muted  " href="products.php?pid=1"   title="Active Product" id="mheadactive"> <i class="fa fa-envelope">2</i>
                           <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
                         </a>
                       </li>
-
+                      <!-- This badge for list of all orders which fabric will be not active yet-->
                       <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle text-muted text-muted  "  href="fabric.php?fid=1"  title="Active Fabric" id="mheadfabric"> <i class="fa fa-diamond">3</i>
                       <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
                       </a>
                       </li>
 
-                      <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle text-muted text-muted  " href="#"  id="4"  title="Appointment Status4"> <i class="fa fa-tags">4</i>
-                      <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
-                      </a>
-                      </li>
+
 
 
                         <!-- Profile -->
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="images/users/5.jpg" alt="user" class="profile-pic" /></a>
+                            <a class="nav-link dropdown-toggle text-muted" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-dashboard"></i></a>
                             <div class="dropdown-menu dropdown-menu-right animated zoomIn">
                                 <ul class="dropdown-user">
                                     <!-- <li><a href="#"><i class="ti-user"></i> Profile</a></li>
@@ -66,9 +66,3 @@
                 </div>
             </nav>
         </div>
-<script type="text/javascript">
-// $('#mheadactive').on('click',function(event){
-//   // event.preventDefault();
-//   alert("active");
-//   });
-</script>
