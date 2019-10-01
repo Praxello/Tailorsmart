@@ -143,8 +143,8 @@ if (isset($_POST['appointmentId']) && isset($_POST['servingEmployeeId']) && isse
 														}
 
 													}
-													 $to ="krkunal29@gmail.com";
-													// $to = $appointmentRecords[0]['AppointmentDetails']['email'];
+													 // $to ="krkunal29@gmail.com";
+													$to = $appointmentRecords[0]['AppointmentDetails']['email'];
 													// $to      = $appointmentRecords[0]['AppointmentDetails']['email'];
 													$subject = 'Your Appointment is Book';
 													$message = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional

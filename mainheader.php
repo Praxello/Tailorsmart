@@ -22,7 +22,7 @@
                     <ul class="navbar-nav my-lg-0">
                       <?php
                       $roleId = $_SESSION['roleId'];
-                      if($roleId==="1"){ ?> 
+                      if($roleId==="1"){ ?>
                        <!-- This badge for list of all appointment Status which will be idel at the moment -->
                       <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle text-muted text-muted  "  href="customerappointment.php?cid=1"  title="Appointment Status" id="mheadappointment" ><i class="fa fa-bell"><span id='b1'></span></i>
@@ -53,7 +53,7 @@
 
                         <!-- Profile -->
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-dashboard"></i></a>
+                            <a class="nav-link dropdown-toggle text-muted" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i></a>
                             <div class="dropdown-menu dropdown-menu-right animated zoomIn">
                                 <ul class="dropdown-user">
                                     <!-- <li><a href="#"><i class="ti-user"></i> Profile</a></li>
