@@ -346,7 +346,7 @@ function loadFabrics(productId, orderItemId, rowId) {
     //end for load data
 
     $.ajax({
-        url: api_url + 'getproductfabricmapping.php',
+        url: api_url + 'getfabrics.php',
         type: 'GET',
         dataType: 'json',
         beforeSend: function() {
@@ -357,29 +357,29 @@ function loadFabrics(productId, orderItemId, rowId) {
             if (response.Data != null) {
                 var count = response.Data.length;
                 for (var i = 0; i < count; i++) {
-                    if (response.Data[i].productId == productId) {
-                        //createDropdownOptions += "<td>" + response['Data'][i].fabricTitle + "</td>";
-                        createDropdownOptions += "<tr><td><img class='img-thumbnail' src='http://praxello.com/tailorsmart/mobileimages/fabric/300x300/" + response['Data'][i].skuNo + ".jpg' alt='No Image Available'></img></td>";
-                        createDropdownOptions += "<td>" + response['Data'][i].fabricTitle + "</td>";
-                        createDropdownOptions += "<td>" + response['Data'][i].skuNo + "</td>";
-                        createDropdownOptions += "<td>" + response['Data'][i].fabricPrice + "</td>";
-                        if (count_1 > 0) {
-                            flag = 0;
-                            for (var j = 0; j < count_1; j++) {
-                                if (response['Data'][i].fabricId == check_fabrics_exists[j].fabricId) {
-                                    createDropdownOptions += "<td><input type='checkbox' name='fabrics' value=" + response['Data'][i].fabricId + " checked></td>";
-                                    flag = 1;
-                                }
+                    // if (response.Data[i].productId == productId) {
+                    //createDropdownOptions += "<td>" + response['Data'][i].fabricTitle + "</td>";
+                    createDropdownOptions += "<tr><td><img class='img-thumbnail' src='http://praxello.com/tailorsmart/mobileimages/fabric/300x300/" + response['Data'][i].skuNo + ".jpg' alt='No Image Available'></img></td>";
+                    createDropdownOptions += "<td>" + response['Data'][i].fabricTitle + "</td>";
+                    createDropdownOptions += "<td>" + response['Data'][i].skuNo + "</td>";
+                    createDropdownOptions += "<td>" + response['Data'][i].fabricPrice + "</td>";
+                    if (count_1 > 0) {
+                        flag = 0;
+                        for (var j = 0; j < count_1; j++) {
+                            if (response['Data'][i].fabricId == check_fabrics_exists[j].fabricId) {
+                                createDropdownOptions += "<td><input type='checkbox' name='fabrics' value=" + response['Data'][i].fabricId + " checked></td>";
+                                flag = 1;
                             }
-                            if (flag == 0) {
-                                createDropdownOptions += "<td><input type='checkbox' name='fabrics' value=" + response['Data'][i].fabricId + "></td>";
-                            }
-
-                        } else {
+                        }
+                        if (flag == 0) {
                             createDropdownOptions += "<td><input type='checkbox' name='fabrics' value=" + response['Data'][i].fabricId + "></td>";
                         }
-                        createDropdownOptions += "</tr>";
+
+                    } else {
+                        createDropdownOptions += "<td><input type='checkbox' name='fabrics' value=" + response['Data'][i].fabricId + "></td>";
                     }
+                    createDropdownOptions += "</tr>";
+                    // }
                 }
 
                 $("#fabricsTable").html(createDropdownOptions);
@@ -535,6 +535,7 @@ $('#updateorderstatus').on('click', function() {
 
 function loadAssignModel(orderItemId, employeeid) {
     if (employeeid != null) {
+        // $('#assignedEmp').html('Allready Assigned Employee ' + EmployeeData.get(employeeid));
         $('#assignId').val(employeeid).trigger('change');
     }
     $('#orderItemIdforassign').val(orderItemId);
