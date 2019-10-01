@@ -141,11 +141,13 @@ $employeeName = $_SESSION['employeeName'];
                                         <thead>
                                             <tr>
                                               <th>Sr No</th>
+                                              <th>Product</th>
                                               <th>Order Status</th>
                                               <th>Confirmation</th>
                                               <th>Expected Delivery</th>
                                               <th>Final Delivery Date</th>
                                               <th>Created By</th>
+                                              <th>Assigned to</th>
                                               <th>Action</th>
                                             </tr>
                                         </thead>
