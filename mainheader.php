@@ -35,6 +35,13 @@
                       <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
                       </a>
                       </li>
+
+                      <!-- This badge for list of all orders which status not be complete till now -->
+                     <li class="nav-item dropdown">
+                     <a class="nav-link dropdown-toggle text-muted text-muted  " href="allorders.php?aid=2"   title="Request For Alteration"> <i class="fa fa-scissors"><span id='b5'></span></i>
+                     <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
+                     </a>
+                     </li>
                       <!-- This badge for list of all orders which active product which will be not active yet -->
                       <li class="nav-item dropdown">
                           <a class="nav-link dropdown-toggle text-muted  " href="products.php?pid=1"   title="Active Product" id="mheadactive"> <i class="fa fa-envelope"><span id='b3'></span></i>

@@ -18,6 +18,7 @@ function getallbadgecount() {
                 $("#b2").html(response['Data'][0].ordersCount);
                 $("#b3").html(response['Data'][0].productCount);
                 $("#b4").html(response['Data'][0].fabricCount);
+                $("#b5").html(response['Data'][0].alterCount);
             }
         }
     });

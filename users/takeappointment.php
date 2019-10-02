@@ -196,33 +196,27 @@ if (isset($_POST['customerid']) && isset($_POST['productids']) &&  isset($_POST[
                                 </tr>
                                 <tr>
                                             <td align="left" valign="top" style="padding-left:20px; padding-top:20px; color:#363636; padding-bottom:10px; line-height:12px; font-size:14px; padding-right:20px; font-family:Arial, Helvetica, sans-serif;">
-                                            Dear User
+                                            Dear User <br/><br/>'.$appointmentRecords[0]['AppointmentDetails']['fn']." ".$appointmentRecords[0]['AppointmentDetails']['ln'].'
                                             </td>
                                         </tr>
+
                                 <tr>
                                     <td align="left" valign="top" style="padding-left:20px; padding-top:10px; color:#363636; padding-bottom:15px; line-height:12px; font-size:14px; padding-right:20px; font-family:Arial, Helvetica, sans-serif;">
-                                      Customer Name :'.$appointmentRecords[0]['AppointmentDetails']['fn']." ".$appointmentRecords[0]['AppointmentDetails']['ln'].'
+                                      Appointment Date: '.$appointmentRecords[0]['AppointmentDetails']['appointmentDate'].'
 
                                     </td>
 
                                 </tr>
                                 <tr>
                                     <td align="left" valign="top" style="padding-left:20px; padding-top:10px; color:#363636; padding-bottom:15px; line-height:12px; font-size:14px; padding-right:20px; font-family:Arial, Helvetica, sans-serif;">
-                                      Appointment Date :'.$appointmentRecords[0]['AppointmentDetails']['appointmentDate'].'
+                                      Appointment Status: '.$aptstatus.'
 
                                     </td>
 
                                 </tr>
                                 <tr>
                                     <td align="left" valign="top" style="padding-left:20px; padding-top:10px; color:#363636; padding-bottom:15px; line-height:12px; font-size:14px; padding-right:20px; font-family:Arial, Helvetica, sans-serif;">
-                                      Appointment Status :'.$aptstatus.'
-
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <td align="left" valign="top" style="padding-left:20px; padding-top:10px; color:#363636; padding-bottom:15px; line-height:12px; font-size:14px; padding-right:20px; font-family:Arial, Helvetica, sans-serif;">
-                                      Appointment Slot : '.$appointmentRecords[0]['AppointmentDetails']['slotTime'].'
+                                      Appointment Slot: '.$appointmentRecords[0]['AppointmentDetails']['slotTime'].'
 
                                     </td>
 
@@ -231,8 +225,7 @@ if (isset($_POST['customerid']) && isset($_POST['productids']) &&  isset($_POST[
 
 
                             </table>
-                            <table border="0" align="center" cellpadding="0" cellspacing="0" style="border
-                        :solid 1px #ccc; width:600px;">
+                            <table border="1" align="center"  cellpadding="3" cellspacing="3" style="border:dotted 3px #d049c1; width:600px;">
                         <thead>
                             <tr>
 
@@ -245,39 +238,29 @@ if (isset($_POST['customerid']) && isset($_POST['productids']) &&  isset($_POST[
                               '.$html.'
                             </tbody>
                             </table>
+                            <table border="1" align="center"  cellpadding="3" cellspacing="3" style="border:solid 3px #000; width:600px;">
+  											     <thead>
+  													<tr>
+  															<th style="text-align:center">Thank You For Staying With Us.</th>
+  													</tr>
+  												 </thead>
+  													</table>
                             </body>
                             </html>';
-                            // <tr>
-                            //     <td align="left" valign="top" style="padding-left:20px; padding-top:10px; color:#363636; padding-bottom:15px; line-height:12px; font-size:14px; padding-right:20px; font-family:Arial, Helvetica, sans-serif;">
-                            //       Employee Name : '. $appointmentRecords[0]['AppointmentDetails']['employeename'].'
-                            //
-                            //     </td>
-                            //
-                            // </tr>
 
-                            // <tr>
-                            //     <td align="left" valign="top" style="padding-left:20px; padding-top:10px; color:#363636; padding-bottom:15px; line-height:12px; font-size:14px; padding-right:20px; font-family:Arial, Helvetica, sans-serif;">
-                            //      Mobile : '.$appointmentRecords[0]['AppointmentDetails']['mobile'].'
-                            //
-                            //     </td>
-                            //
-                            // </tr>
-                            //
-                            // <tr>
-                            //     <td align="left" valign="top" style="padding-left:20px; padding-top:10px; color:#363636; padding-bottom:15px; line-height:12px; font-size:14px; padding-right:20px; font-family:Arial, Helvetica, sans-serif;">
-                            //      Email :'.$appointmentRecords[0]['AppointmentDetails']['email'].'
-                            //
-                            //     </td>
-                            //
-                            // </tr>
-                            // To send HTML mail, the Content-type header must be set
                             $headers  = 'MIME-Version: 1.0' . "\r\n";
                             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 
                             $headers .= 'From:admin@praxello.com' . "\r\n";
                             mail($to, $subject, $message, $headers);
-
-
+                            //
+                            // <tr>
+                            //     <td align="left" valign="top" style="padding-left:20px; padding-top:10px; color:#363636; padding-bottom:15px; line-height:12px; font-size:14px; padding-right:20px; font-family:Arial, Helvetica, sans-serif;">
+                            //       Customer Name :'.$appointmentRecords[0]['AppointmentDetails']['fn']." ".$appointmentRecords[0]['AppointmentDetails']['ln'].'
+                            //
+                            //     </td>
+                            //
+                            // </tr>
                         }
                         else
                         {

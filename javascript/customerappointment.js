@@ -301,50 +301,58 @@ function editcustomerappointmentdata(id) {
 
 function updateAppointmentDetails() {
     var appointmentId = $('#appointmentdetailid').val();
-    var obj = {
-        appointmentId: appointmentId,
-        slotId: $('#settimeslot').val(),
-        servingEmployeeId: $('#setemployeeId').val(),
-        appointmentDate: $('#updateappointmentdate').val(),
-        appointmentStatus: $('#appointmentStatus').val()
-    };
-    $.ajax({
-        url: api_url + 'updatecustomerappointment.php',
-        type: 'POST',
-        data: obj,
-        dataType: 'json',
-        beforeSend: function() {
-            $(".preloader").show();
-            // console.log("before");
-        },
-        success: function(response) {
-            if (response['Responsecode'] === 200) {
-                swal(response['Message']);
-                $("#customerappointdetailtbl").hide();
-                $("#customerappointtbl").show();
-                var AllData = styleData.get(appointmentId.toString());
-                obj.address = AllData.address;
-                obj.city = AllData.city;
-                obj.customerId = AllData.customerId;
-                obj.email = AllData.email;
-                obj.employeename = AllData.employeename;
-                obj.fabricIds = AllData.fabricIds;
-                obj.firstName = AllData.firstName;
-                obj.lastname = AllData.lastname;
-                obj.mobile = AllData.mobile;
-                obj.productIds = AllData.productIds;
-                obj.slotTime = AllData.slotTime;
+    var empid = $('#setemployeeId').val();
+    var appdate = $('#updateappointmentdate').val();
+    if(appointmentId==""||empid==""||appdate==""){
+      swal("Missing Parameter");
+    }
+    else{
+      var obj = {
+          appointmentId: appointmentId,
+          slotId: $('#settimeslot').val(),
+          servingEmployeeId: $('#setemployeeId').val(),
+          appointmentDate: $('#updateappointmentdate').val(),
+          appointmentStatus: $('#appointmentStatus').val()
+      };
+      $.ajax({
+          url: api_url + 'updatecustomerappointment.php',
+          type: 'POST',
+          data: obj,
+          dataType: 'json',
+          beforeSend: function() {
+              $(".preloader").show();
+              // console.log("before");
+          },
+          success: function(response) {
+              if (response['Responsecode'] === 200) {
+                  swal(response['Message']);
+                  $("#customerappointdetailtbl").hide();
+                  $("#customerappointtbl").show();
+                  var AllData = styleData.get(appointmentId.toString());
+                  obj.address = AllData.address;
+                  obj.city = AllData.city;
+                  obj.customerId = AllData.customerId;
+                  obj.email = AllData.email;
+                  obj.employeename = AllData.employeename;
+                  obj.fabricIds = AllData.fabricIds;
+                  obj.firstName = AllData.firstName;
+                  obj.lastname = AllData.lastname;
+                  obj.mobile = AllData.mobile;
+                  obj.productIds = AllData.productIds;
+                  obj.slotTime = AllData.slotTime;
 
-                styleData.set(appointmentId.toString(), obj);
-                settabledata(styleData);
-            } else {
-                swal(response['Message']);
-            }
-        },
-        complete: function(response) {
-            $(".preloader").hide();
-        }
-    });
+                  styleData.set(appointmentId.toString(), obj);
+                  settabledata(styleData);
+              } else {
+                  swal(response['Message']);
+              }
+          },
+          complete: function(response) {
+              $(".preloader").hide();
+          }
+      });
+    }
+
 }
 
 // function removeAppointment(id){
