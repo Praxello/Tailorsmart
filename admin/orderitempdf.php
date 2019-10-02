@@ -8,7 +8,7 @@ function order_info()
 {
  $person='';
   include '../connection.php';
-  $tempOrderItemId = $_REQUEST['tempOrderItemId'];
+  $tempOrderItemId = $_REQUEST['orderitemid'];
      $tempOrderItemMeasurements = null;
      $tempOrderStyles = null;
      $tempOrderFabrics = null;
@@ -19,19 +19,14 @@ function order_info()
      $person.='       </td>';
      $person.='   </tr>';
      $person.='</table>';
-     $QueryCustomer = mysqli_query($conn,"SELECT * FROM customer_order_items_master com LEFT JOIN employee_master em ON em.employeeId = com.employeeid WHERE com.orderItemId = $tempOrderItemId");
+     $QueryCustomer = mysqli_query($conn,"SELECT * FROM customer_order_items_master com LEFT JOIN employee_master em ON em.employeeId = com.employeeid LEFT JOIN product_master pm ON pm.productId = com.productId WHERE com.orderItemId  = $tempOrderItemId");
      $academicAffected1=mysqli_num_rows($QueryCustomer);
      if($academicAffected1 > 0)
      {
-
         $customerResults = mysqli_fetch_array($QueryCustomer);
-
-       if($customerResults['employeeid']!=null){
-
-         $person.='<center><div style="font-size: 12px;font-weight: bolder;">Customer Name :'.$customerResults['firstName'].' '.$customerResults['lastName'].'</div></center>';
+         $person.='<center><div style="font-size: 12px;font-weight: bolder;">Master Name :'.$customerResults['firstName'].' '.$customerResults['lastName'].'</div></center>';
+         $person.='<center><div style="font-size: 12px;font-weight: bolder;">Product Name :'.$customerResults['productTitle'].'('.$customerResults['skuNo'].')</div></center>';
          $person.='<center><div style="font-size: 12px;font-weight: bolder;">Mobile No :'.$customerResults['mobile'].'</div></center>';
-       }
-
      }
 
 

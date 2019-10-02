@@ -20,6 +20,8 @@ if(isset($_REQUEST['pid']))
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+      <!-- Favicon icon -->
+      <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <title>Smart - Tailor</title>
     <link href="css/lib/sweetalert/sweetalert.css" rel="stylesheet">
     <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">

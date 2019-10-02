@@ -14,7 +14,23 @@ function getallbadgecount() {
             var count;
             if (response['Data'] != null) {
                 count = response['Data'].length;
-                $("#b1").html(response['Data'][0].appointmentCount);
+                if (response['Data'][0].appointmentCount == 0) {
+                    $('#ap1').removeClass('heartbit');
+                    $('#ap2').removeClass('point');
+                }
+                if (response['Data'][0].ordersCount == 0) {
+                    $('#ap3').removeClass('heartbit');
+                    $('#ap4').removeClass('point');
+                }
+                if (response['Data'][0].productCount == 0) {
+                    $('#ap5').removeClass('heartbit');
+                    $('#ap6').removeClass('point');
+                }
+                if (response['Data'][0].fabricCount == 0) {
+                    $('#ap7').removeClass('heartbit');
+                    $('#ap8').removeClass('point');
+                }
+                $("#b1").html('<strong>' + response['Data'][0].appointmentCount + '</strong>');
                 $("#b2").html(response['Data'][0].ordersCount);
                 $("#b3").html(response['Data'][0].productCount);
                 $("#b4").html(response['Data'][0].fabricCount);
