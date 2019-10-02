@@ -41,14 +41,19 @@ function setholidaymaster(HolidayData){
   $("#holidaytbldata").empty();
   for(let k of HolidayData.keys())
   {
+        let cityName ="-";
         var HoliData= HolidayData.get(k);
+        if(CurrencyData.has(HoliData.cityId)){
+          let cityData= CurrencyData.get(HoliData.cityId);
+           cityName = cityData.cityName;
+        }
 
         // var HoliName = HoliData.get(HoliData.holidayId);
-        let cityData= CurrencyData.get(HoliData.cityId);
+
         html +="<tr>";
         html +="<td>"+HoliData.holidayTitle+"</td>";
         html +="<td>"+HoliData.skipDate+"</td>";
-        html +="<td>"+cityData.cityName+"</td>";
+        html +="<td>"+cityName+"</td>";
         html +='<td style="width:10%"><div class="btn-group" role="group" aria-label="Basic Example">';
         html +='<button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+k+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeStyle('+k+')"><i class="fa fa-remove"></i></button></div></td>';
         html +="</tr>";

@@ -44,19 +44,24 @@ function getalluserrights(){
 }
 
 function  setemployeemaster(EmployeeData){
-  
+
   var html ;
   $('#employeetbl').dataTable().fnDestroy();
   $("#employeetbldata").empty();
   for(let k of EmployeeData.keys())
   {
+        let roleName1 ='-';
         var EmpData= EmployeeData.get(k);
-        var RoleName = RoleData.get(EmpData.roleId);
+        if(RoleData.has(EmpData.roleId)){
+          var RoleName = RoleData.get(EmpData.roleId);
+          roleName1=RoleName.roleName;
+        }
+
         html +="<tr>";
         html +="<td>"+EmpData.firstName+" "+EmpData.lastName+"</td>";
         html +="<td>"+EmpData.email+"</td>";
         html +="<td>"+EmpData.mobile+"</td>";
-        html +="<td>"+RoleName.roleName+"</td>";
+        html +="<td>"+roleName1+"</td>";
         html +="<td>"+EmpData.address+"</td>";
         html +="<td>"+EmpData.password+"</td>";
 
