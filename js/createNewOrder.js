@@ -37,7 +37,6 @@ $('.add-row').on('click', function(e) {
             var count = response.Data.length;
 
             getOrdersOfCustomer(customerId_g);
-            console.log(response);
             customerOrderDetails = [];
             customerOrderDetails = customerOrders[indexRow];
             $('#customerOrdersBlock').hide();
@@ -55,7 +54,9 @@ $('.add-row').on('click', function(e) {
                     markup += "<a class='btn btn-success btn-sm' title='Add Measurment' data-toggle='tooltip' onclick='loadMeasurment(\"" + response.Data[i].productId + "\",\"" + response.Data[i].orderItemId + "\",\"" + (i) + "\")' href='#'><i class='fa fa-balance-scale'></i></a>";
                     markup += "<a class='btn btn-primary btn-sm' title='add Style' data-toggle='tooltip' href='#' onclick='loadStyles(\"" + response.Data[i].productId + "\",\"" + response.Data[i].orderItemId + "\",\"" + (i) + "\")'><i class='fa fa-male'></i></a>";
                     markup += "<a class='btn btn-warning btn-sm' title='add Fabrics' data-toggle='tooltip' href='#' onclick='loadFabrics(\"" + response.Data[i].productId + "\",\"" + response.Data[i].orderItemId + "\",\"" + (i) + "\")'><i class='fa fa-gift'></i></a>";
-                    markup += "<a  class='btn btn-danger btn-sm' title='Remove Item' data-toggle='tooltip' href='#' onclick='removeItem(\"" + response.Data[i].orderItemId + "\",\"" + response.Data[i].orderItemPrice + "\")'><i class='fa fa-trash'></i></a></td></div></tr>";
+                    markup += "<a  class='btn btn-danger btn-sm' title='Remove Item' data-toggle='tooltip' href='#' onclick='removeItem(\"" + response.Data[i].orderItemId + "\",\"" + response.Data[i].orderItemPrice + "\")'><i class='fa fa-trash'></i></a>";
+                    markup += "<a class='btn btn-primary btn-sm' title='Download PDF' data-toggle='tooltip' href='#' onclick='loadPdf(" + response.Data[i].orderItemId + ")'><i class='fa fa-file-pdf-o'></i></a>";
+                    markup += "</td></div></tr>";
                     $("#productData").append(markup);
                 }
             }
@@ -540,4 +541,8 @@ function loadAssignModel(orderItemId, employeeid) {
     }
     $('#orderItemIdforassign').val(orderItemId);
     $('#assignWork').modal();
+}
+
+function loadPdf(orderItemId) {
+    window.open(api_url + 'orderitempdf.php?orderitemid=' + orderItemId);
 }

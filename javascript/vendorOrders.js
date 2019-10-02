@@ -3,8 +3,6 @@ var EmployeeData = new Map();
 
 getConfirmation();
 
-
-
 function getConfirmation() {
     confirmationStatus.set('0', '<span class="badge badge-pill badge-warning">Not Confirmed</span>');
     confirmationStatus.set('1', '<span class="badge badge-pill badge-success">Confirmed</span>');
@@ -57,7 +55,7 @@ function getallorders() {
                     isConfirmed = null;
                     orderStatus = response.Data[i].OrderDetails.isAlterneeded;
                     if (orderStatus == 1) {
-                        orderStatus = "<button class='btn btn-primary btn-sm' data-toggle='tooltip' data-placement='top' title='Edit'><i class='fa fa-scissors'></i></button>";
+                        orderStatus = "<button class='btn btn-primary btn-sm' data-toggle='tooltip' data-placement='top' title='For alteration'><i class='fa fa-scissors'></i></button>";
                     } else {
                         orderStatus = '';
                     }
@@ -81,7 +79,7 @@ function getallorders() {
                     responseData += "<td>" + assignEmp + "</td>";
                     responseData += "<td><div class='btn-group' role='group' aria-label='Basic example'>";
                     responseData += orderStatus;
-                    responseData += "<button class='btn btn-success btn-sm' data-toggle='tooltip' data-placement='top' title='Edit' onclick='loadPdf(" + response.Data[i].OrderDetails.orderItemId + ")'><i class='fa fa-file-pdf-o'></i></button>";
+                    responseData += "<button class='btn btn-success btn-sm' data-toggle='tooltip' data-placement='top' title='Download PDF' onclick='loadPdf(" + response.Data[i].OrderDetails.orderItemId + ")'><i class='fa fa-file-pdf-o'></i></button>";
                     responseData += "</div></td></tr>";
                 }
             }
@@ -116,5 +114,5 @@ function getDate(date) {
 }
 
 function loadPdf(orderItemId) {
-    console.log(orderItemId);
+    window.open(api_url + 'orderitempdf.php?orderitemid=' + orderItemId);
 }
