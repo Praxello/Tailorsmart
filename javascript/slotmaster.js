@@ -51,12 +51,17 @@ function setslotmaster(SlotData){
   $("#slottbldata").empty();
   for(let k of SlotData.keys())
   {
+        let cityName ="-";
         var HoliData= SlotData.get(k);
         let isConfirmed = confirmationStatus.get(HoliData.isActive);
+
+        if(CurrencyData.has(HoliData.cityId)){
         let cityData= CurrencyData.get(HoliData.cityId);
+           cityName = cityData.cityName;
+        }
         html +="<tr>";
         html +="<td>"+HoliData.slotTime+"</td>";
-        html +="<td>"+cityData.cityName+"</td>";
+        html +="<td>"+cityName+"</td>";
         html +="<td>"+isConfirmed+"</td>";
         html +='<td style="width:10%"><div class="btn-group" role="group" aria-label="Basic Example">';
         html +='<button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+k+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeStyle('+k+')"><i class="fa fa-remove"></i></button></div></td>';
