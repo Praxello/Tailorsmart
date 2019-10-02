@@ -89,23 +89,24 @@ if (isset($_POST['appointmentId']) && isset($_POST['servingEmployeeId']) && isse
 													$html ='';
 													$aptstatus='';
 													$Allitemdata =$appointmentRecords[0]['SelectedItems'];
+													$status = $appointmentRecords[0]['AppointmentDetails']['appointmentStatus'];
 						//print_r($appointmentRecords[0]['AppointmentDetails']);
 					//	echo($appointmentRecords[0]['AppointmentDetails']['appointmentStatus']);
-													switch ($appointmentRecords[0]['AppointmentDetails']['appointmentStatus']) {
+													switch ($status) {
 																case 0:
-																	$aptstatus='<span class="badge badge-pill badge-primary">Idle</span>';
+																	$aptstatus='your order Idle';
 																		break;
 																case 1:
-																	$aptstatus='<span class="badge badge-pill badge-success">Confirmed</span>';
+																	$aptstatus='your order is Confirmed';
 																		break;
 																case 2:
-																	$aptstatus='<span class="badge badge-pill badge-danger">Cancelled</span>';
+																	$aptstatus='your order is Cancelled';
 																		break;
 																case 3:
-																	$aptstatus='<span class="badge badge-pill badge-warning"> Withdrawn by customer</span>';
+																	$aptstatus='your order is Withdrawn';
 																		break;
 																case 5:
-																	$aptstatus='<span class="badge badge-pill badge-dark">None</span>';
+																	$aptstatus='None';
 																		break;
 														}
 														$count = count($Allitemdata);
@@ -147,7 +148,7 @@ if (isset($_POST['appointmentId']) && isset($_POST['servingEmployeeId']) && isse
 													 // $to ="krkunal29@gmail.com";
 													 $to = $appointmentRecords[0]['AppointmentDetails']['email'];
 													// $to      = $appointmentRecords[0]['AppointmentDetails']['email'];
-													$subject = 'Your Appointment is Book';
+													$subject = 'Tailor-Smart '.$aptstatus;
 													$message = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional
 													.dtd">
 													<html xmlns="http://www.w3.org/1999/xhtml">
@@ -183,7 +184,7 @@ if (isset($_POST['appointmentId']) && isset($_POST['servingEmployeeId']) && isse
 															</tr>
 															<tr>
 																					<td align="left" valign="top" style="padding-left:20px; padding-top:20px; color:#363636; padding-bottom:10px; line-height:12px; font-size:14px; padding-right:20px; font-family:Arial, Helvetica, sans-serif;">
-																					Dear User ,<br/><br/><font color="green">'.$appointmentRecords[0]['AppointmentDetails']['fn']." ".$appointmentRecords[0]['AppointmentDetails']['ln'].'</font>
+																					Dear <font color="green">'.$appointmentRecords[0]['AppointmentDetails']['fn']." ".$appointmentRecords[0]['AppointmentDetails']['ln'].'</font>,<br><br>
 																					</td>
 																			</tr>
 
@@ -234,7 +235,7 @@ if (isset($_POST['appointmentId']) && isset($_POST['servingEmployeeId']) && isse
 													<table border="1" align="center"  cellpadding="3" cellspacing="3" style="border:solid 3px #000; width:600px;">
 											     <thead>
 													<tr>
-															<th style="text-align:center">Thank You For Staying With Us.</th>
+															<th style="text-align:center">Thank you for staying with us !</th>
 													</tr>
 												 </thead>
 													</table>
@@ -266,8 +267,8 @@ if (isset($_POST['appointmentId']) && isset($_POST['servingEmployeeId']) && isse
 													$headers  = 'MIME-Version: 1.0' . "\r\n";
 													$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 
-													$headers .= 'From:admin@praxello.com' . "\r\n";
-													mail($to, $subject, $message, $headers);
+													$headers .= 'From:"Tailor-Smart"<admin@praxello.com>' . "\r\n";
+													if($status != 0){mail($to, $subject, $message, $headers)}
 
 
 											}
