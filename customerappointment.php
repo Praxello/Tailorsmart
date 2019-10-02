@@ -182,7 +182,7 @@ if(isset($_REQUEST['cid']))
                                     <option value="1">Confirmed</option>
                                     <option value="2">Cancelled</option>
                                     <option value="3">Withdrawn by customer</option>
-                                    <option value="5">None</option>
+                                    <!-- <option value="5">None</option> -->
                                   </select>
                                 </div>
                         </div>

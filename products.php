@@ -90,12 +90,13 @@ if(isset($_REQUEST['pid']))
                                                 <!-- <th>Id</th> -->
                                                 <th style="width:15%">Image Icon</th>
                                                 <th>Title</th>
-                                                <th  style="width:15%">Sub Title</th>
+
                                                 <th  style="width:5%">Parent</th>
                                                 <th  style="width:5%">Skuno</th>
                                                 <th  style="width:5%">Price</th>
                                                 <th  style="width:5%">Release Date</th>
                                                 <th  style="width:5%">Sequence</th>
+                                                <th  style="width:15%">Created At</th>
                                                 <th  style="width:5%">Status</th>
                                                 <th  style="width:5%">Action </th>
                                             </tr>

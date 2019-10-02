@@ -175,7 +175,7 @@ $('#inactbtn').on('click',function(event){
     settabledata(styleData);
 });
 function settabledata(styleData){
-  // console.log(styleData);
+  console.log(styleData);
   var roleid = $("#roleid").val(); // Se
   var empid =  parseInt($("#empid").val());
   var pid =  $("#pid").val();
@@ -199,7 +199,7 @@ function settabledata(styleData){
             let parentname = ParentProducts.get(AllData.parentId);
             shtml +="<td style='width:15%'><form id='custstyleform"+k+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+k+"' name='file' accept='image/*' style='display:none;' /> <img  accept='image/*' class='img-thumbnail' src='"+imageUrl+"' style='cursor: pointer' alt='No Image' onclick='imguplod("+k+")'></img></form></td>";
             shtml +="<td>"+AllData.productTitle+"</td>";
-            shtml +="<td style='width:15%'>"+AllData.productSubTitle+"</td>";
+
 
             shtml +="<td style='width:10%'>"+parentname.styleTitle+" "+parentname.subStyleTitle+"</td>";
             shtml +="<td style='width:5%'>"+AllData.skuNo+"</td>";
@@ -207,6 +207,7 @@ function settabledata(styleData){
             shtml +="<td style='width:5%'>"+AllData.releaseDate+"</td>";
 
             shtml +="<td style='width:5%'>"+AllData.sequenceNo+"</td>";
+            shtml +="<td style='width:15%'>"+AllData.productSubTitle+"</td>";
             shtml +="<td>"+isConfirmed+"</td>";
             shtml +='<td style="width:5%"><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod('+k+')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+k+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeProduct('+k+')"><i class="fa fa-remove"></i></button></div></td>';
             shtml +="</tr>";
@@ -221,7 +222,7 @@ function settabledata(styleData){
             let parentname = ParentProducts.get(AllData.parentId);
             shtml +="<td style='width:15%'><form id='custstyleform"+k+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+k+"' name='file' accept='image/*' style='display:none;' /> <img  accept='image/*' class='img-thumbnail' src='"+imageUrl+"' style='cursor: pointer' alt='No Image' onclick='imguplod("+k+")'></img></form></td>";
             shtml +="<td>"+AllData.productTitle+"</td>";
-            shtml +="<td style='width:15%'>"+AllData.productSubTitle+"</td>";
+
 
             shtml +="<td style='width:10%'>"+parentname.styleTitle+" "+parentname.subStyleTitle+"</td>";
             shtml +="<td style='width:5%'>"+AllData.skuNo+"</td>";
@@ -229,6 +230,7 @@ function settabledata(styleData){
             shtml +="<td style='width:5%'>"+AllData.releaseDate+"</td>";
 
             shtml +="<td style='width:5%'>"+AllData.sequenceNo+"</td>";
+            shtml +="<td style='width:15%'>"+AllData.productSubTitle+"</td>";
             shtml +="<td>"+isConfirmed+"</td>";
             shtml +='<td style="width:5%"><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod('+k+')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+k+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeProduct('+k+')"><i class="fa fa-remove"></i></button></div></td>';
             shtml +="</tr>";
@@ -240,7 +242,7 @@ function settabledata(styleData){
             let parentname = ParentProducts.get(AllData.parentId);
             unhtml +="<td style='width:15%'><form id='custstyleform"+k+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+k+"' name='file' accept='image/*' style='display:none;' /> <img  accept='image/*' class='img-thumbnail' src='"+imageUrl+"' style='cursor: pointer' alt='No Image' onclick='imguplod("+k+")'></img></form></td>";
             unhtml +="<td>"+AllData.productTitle+"</td>";
-            unhtml +="<td style='width:15%'>"+AllData.productSubTitle+"</td>";
+
 
             unhtml +="<td style='width:10%'>"+parentname.styleTitle+" "+parentname.subStyleTitle+"</td>";
             unhtml +="<td style='width:5%'>"+AllData.skuNo+"</td>";
@@ -248,6 +250,7 @@ function settabledata(styleData){
             unhtml +="<td style='width:5%'>"+AllData.releaseDate+"</td>";
 
             unhtml +="<td style='width:5%'>"+AllData.sequenceNo+"</td>";
+            unhtml +="<td style='width:15%'>"+AllData.productSubTitle+"</td>";
             unhtml +="<td>"+isConfirmed+"</td>";
             unhtml +='<td style="width:5%"><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod('+k+')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+k+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeProduct('+k+')"><i class="fa fa-remove"></i></button></div></td>';
             unhtml +="</tr>";
