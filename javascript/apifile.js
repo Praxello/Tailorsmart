@@ -30,6 +30,10 @@ function getallbadgecount() {
                     $('#ap7').removeClass('heartbit');
                     $('#ap8').removeClass('point');
                 }
+                if (response['Data'][0].alterCount == 0) {
+                    $('#ap9').removeClass('heartbit');
+                    $('#ap10').removeClass('point');
+                }
                 $("#b1").html('<strong>' + response['Data'][0].appointmentCount + '</strong>');
                 $("#b2").html(response['Data'][0].ordersCount);
                 $("#b3").html(response['Data'][0].productCount);

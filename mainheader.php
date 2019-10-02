@@ -39,7 +39,7 @@
                       <!-- This badge for list of all orders which status not be complete till now -->
                      <li class="nav-item dropdown">
                      <a class="nav-link dropdown-toggle text-muted text-muted  " href="allorders.php?aid=2"   title="Request For Alteration"> <i class="fa fa-scissors"><span id='b5'></span></i>
-                     <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
+                     <div class="notify"> <span class="heartbit" id="ap9"></span> <span class="point" id="ap10"></span> </div>
                      </a>
                      </li>
                       <!-- This badge for list of all orders which active product which will be not active yet -->
