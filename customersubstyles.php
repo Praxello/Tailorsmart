@@ -16,7 +16,7 @@ $employeeName = $_SESSION['employeeName'];
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <!-- <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png"> -->
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <title>Smart - Tailor</title>
     <!-- Bootstrap Core CSS -->
     <link href="css/lib/sweetalert/sweetalert.css" rel="stylesheet">
