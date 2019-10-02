@@ -53,9 +53,9 @@
                                             <li><a class=" " href="slotmaster.php" aria-expanded="false"><i
                                                         class="fa fa-clock-o"></i><span class="" style="padding: 20px;">Slot Master</span></a></li>
                                             <li><a class=" " href="currencymaster.php" aria-expanded="false"><i
-                                                          class="fa fa-clock-o"></i><span class="" style="padding: 20px;">Currency Master</span></a></li>
+                                                          class="fa fa-money"></i><span class="" style="padding: 20px;">Currency Master</span></a></li>
                                             <li><a class=" " href="catlogscr.php" aria-expanded="false"><i
-                                                          class="fa fa-clock-o"></i><span class="" style="padding: 20px;">Catlog Screen</span></a></li>
+                                                          class="fa fa-file-image-o "></i><span class="" style="padding: 20px;">Catlog Screen</span></a></li>
                                           </ul>
                           </li>
                           <?php
