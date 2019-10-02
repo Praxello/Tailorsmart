@@ -42,7 +42,7 @@ header('Content-Type: application/json');
 													}
 												}
 					
-					$response = array('Message'=>"Measurement saved successfully","Data"=>$tempOrderItemMeasurements,'Responsecode'=>200);	
+					$response = array('Message'=>"Fabrics saved successfully","Data"=>$tempOrderItemMeasurements,'Responsecode'=>200);	
 				}
 				else
 				{
