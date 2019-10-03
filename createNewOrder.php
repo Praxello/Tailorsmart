@@ -153,6 +153,7 @@
                                 <th>Product Title</th>
                                 <th>Product Sub Title</th>
                                 <th>Price</th>
+                                <th>Alteration</th>
                                 <th>Action</th>
                             </tr>
                         </thead>

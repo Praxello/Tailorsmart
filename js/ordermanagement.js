@@ -22,7 +22,7 @@ getConfirmation();
 
 function getStatusMap() {
     statusMap.set('0', '<span class="badge badge-pill badge-danger">Not completed</span>');
-    statusMap.set('1', '<span class="badge badge-pill badge-success">Confirmed/span>');
+    statusMap.set('1', '<span class="badge badge-pill badge-success">Confirmed</span>');
     statusMap.set('2', '<span class="badge badge-pill badge-primary">Processing</span>');
     statusMap.set('3', '<span class="badge badge-pill badge-secondary">Sent for Trial</span>');
     statusMap.set('4', '<span class="badge badge-pill badge-warning">Completed</span>');
@@ -146,7 +146,9 @@ function getOrdersOfCustomer() {
                     if (response.Data[i].OrderDetails.promoCode == null) {
                         response.Data[i].OrderDetails.promoCode = '-';
                     }
-                    EmpName = EmployeeData.get(response.Data[i].OrderDetails.employeeId);
+                    if (EmployeeData.has(response.Data[i].OrderDetails.employeeId)) {
+                        EmpName = EmployeeData.get(response.Data[i].OrderDetails.employeeId);
+                    }
                     customerExpectedDate = getDate(response.Data[i].OrderDetails.customerExpectedDate);
                     FinalDeliveryDate = getDate(response.Data[i].OrderDetails.FinalDeliveryDate);
                     responseData += "<tr>";
@@ -176,7 +178,7 @@ function getOrdersOfCustomer() {
                     retrieve: true,
                     bPaginate: $('tbody tr').length > 10,
                     order: [],
-                    columnDefs: [{ orderable: false, targets: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] }],
+                    columnDefs: [{ orderable: false, targets: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] }],
                     dom: 'Bfrtip',
                     buttons: ['copy', 'csv', 'excel', 'pdf'],
                     destroy: true
@@ -217,13 +219,19 @@ function showData(orderid, customerId, rowId) {
         var count = customerOrderDetails.orderItems.length;
         var markup = '';
         for (var i = 0; i < count; i++) {
-            let styleTitle = '';
+            let styleTitle = '',
+                alter = '';
             if (ParentProducts.has(customerOrderDetails.orderItems[i].OrderItem.parentId)) {
                 styleTitle = ParentProducts.get(customerOrderDetails.orderItems[i].OrderItem.parentId);
             }
+            if (customerOrderDetails.orderItems[i].OrderItem.isAlterNeeded == 1) {
+                alter = "required";
+            }
             markup += "<tr id=" + customerOrderDetails.orderItems[i].OrderItem.orderItemId + "><td>" + customerOrderDetails.orderItems[i].OrderItem.productTitle + '-' + styleTitle + "</td>";
             markup += "<td>" + customerOrderDetails.orderItems[i].OrderItem.productSubTitle + "</td><td>" + customerOrderDetails.orderItems[i].OrderItem.orderItemPrice + "</td>";
-            markup += "<td><input type='hidden' id='amt" + customerOrderDetails.orderItems[i].OrderItem.orderItemId + "' value='" + customerOrderDetails.orderItems[i].OrderItem.orderItemPrice + "'/><div class='btn-group' role='group' aria-label='Basic example'>";
+            markup += "<td><input type='hidden' id='amt" + customerOrderDetails.orderItems[i].OrderItem.orderItemId + "' value='" + customerOrderDetails.orderItems[i].OrderItem.orderItemPrice + "'/>";
+            markup += alter;
+            markup += "</td><td><div class='btn-group' role='group' aria-label='Basic example'>";
             markup += "<a class='btn btn-dark btn-sm' title='Assign Sales' data-toggle='tooltip' onclick='loadAssignModel(\"" + customerOrderDetails.orderItems[i].OrderItem.orderItemId + "\",\"" + customerOrderDetails.orderItems[i].OrderItem.employeeid + "\")' href='#'><i class='fa fa-tasks'></i></a>";
             markup += "<a class='btn btn-info btn-sm' title='Edit Price' data-toggle='tooltip' onclick='loadPriceModal(\"" + customerOrderDetails.orderItems[i].OrderItem.orderItemId + "\",\"" + customerOrderDetails.orderItems[i].OrderItem.productTitle + "\",\"" + (i + 1) + "\")' href='#'><i class='fa fa-inr'></i></a>";
             markup += "<a class='btn btn-success btn-sm' title='Add Measurment' data-toggle='tooltip' onclick='loadMeasurment(\"" + customerOrderDetails.orderItems[i].OrderItem.productId + "\",\"" + customerOrderDetails.orderItems[i].OrderItem.orderItemId + "\",\"" + (i) + "\")' href='#'><i class='fa fa-balance-scale'></i></a>";

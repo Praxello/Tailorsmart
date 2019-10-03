@@ -89,12 +89,12 @@ if (isset($_POST['appointmentId']) && isset($_POST['servingEmployeeId']) && isse
 													$html ='';
 													$aptstatus='';
 													$Allitemdata =$appointmentRecords[0]['SelectedItems'];
-													$status = $appointmentRecords[0]['AppointmentDetails']['appointmentStatus'];
+													$apointmentstat = $appointmentRecords[0]['AppointmentDetails']['appointmentStatus'];
 						//print_r($appointmentRecords[0]['AppointmentDetails']);
 					//	echo($appointmentRecords[0]['AppointmentDetails']['appointmentStatus']);
-													switch ($status) {
+													switch ($apointmentstat) {
 																case 0:
-																	$aptstatus='your order Idle';
+																	$aptstatus='your order is Idle';
 																		break;
 																case 1:
 																	$aptstatus='your order is Confirmed';
@@ -241,35 +241,13 @@ if (isset($_POST['appointmentId']) && isset($_POST['servingEmployeeId']) && isse
 													</table>
 													</body>
 													</html>';
-													// <tr>
-													// 		<td align="left" valign="top" style="padding-left:20px; padding-top:10px; color:#363636; padding-bottom:15px; line-height:12px; font-size:14px; padding-right:20px; font-family:Arial, Helvetica, sans-serif;">
-													// 		 Mobile : '.$appointmentRecords[0]['AppointmentDetails']['mobile'].'
-													//
-													// 		</td>
-													//
-													// </tr>
-													//
-													// <tr>
-													// 		<td align="left" valign="top" style="padding-left:20px; padding-top:10px; color:#363636; padding-bottom:15px; line-height:12px; font-size:14px; padding-right:20px; font-family:Arial, Helvetica, sans-serif;">
-													// 		 Email :'.$appointmentRecords[0]['AppointmentDetails']['email'].'
-													//
-													// 		</td>
-													//
-													// </tr>
-													// To send HTML mail, the Content-type header must be set
-													// <tr>
-													// 		<td align="left" valign="top" style="padding-left:20px; padding-top:10px; color:#363636; padding-bottom:15px; line-height:12px; font-size:14px; padding-right:20px; font-family:Arial, Helvetica, sans-serif;">
-													// 			Customer Name :'.$appointmentRecords[0]['AppointmentDetails']['fn']." ".$appointmentRecords[0]['AppointmentDetails']['ln'].'
-													//
-													// 		</td>
-													//
-													// </tr>
+													
 													$headers  = 'MIME-Version: 1.0' . "\r\n";
 													$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 
 													$headers .= 'From:"Tailor-Smart"<admin@praxello.com>' . "\r\n";
-													if($status != 0){
-														mail($to, $subject, $message, $headers)
+													if($apointmentstat != 0){
+														mail($to, $subject, $message, $headers);
 													}
 
 
