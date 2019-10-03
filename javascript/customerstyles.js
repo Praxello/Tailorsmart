@@ -12,7 +12,7 @@ function getConfirmation() {
     confirmationStatus.set('1', '<span class="badge badge-pill badge-primary">Active</span>');
 }
 function settabledata(styleData){
-  // console.log(styleData);
+
   var html ='';
   $('#styletbl').dataTable().fnDestroy();
   $("#styletbldata").empty();
@@ -47,7 +47,9 @@ function getcustomerstyles(){
      $.ajax({
          type: "GET",
          url: api_url+"getallstyle.php",
+         async:false,
          success: function(response) {
+           // console.log(response);
            var count;
             if(response['Data']!=null){
                count= response['Data'].length;
@@ -82,9 +84,11 @@ function imguplod(imgid){
                      processData:false,
                      data: fd,
                      dataType:'json',
+                     async:false,
                      success:function(response){
                        swal(response['Message']);
-                       getcustomerstyles();
+                        getcustomerstyles();
+                       // window.location.reload();
                      }
               });
    };

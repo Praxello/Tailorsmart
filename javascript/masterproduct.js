@@ -105,7 +105,8 @@ function imguplod(imgid){
                      dataType:'json',
                      success:function(response){
                        swal(response['Message']);
-                       getmasterproduct();
+                          // window.location.reload();
+                       // getmasterproduct();
                      }
               });
    };

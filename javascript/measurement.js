@@ -79,6 +79,8 @@ function imguplod(imgid){
                      },
                      success:function(response){
                        // alert(response);
+                       window.location.reload();
+
 
                      }
               });

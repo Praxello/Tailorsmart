@@ -34,6 +34,7 @@ if(!isset($_FILES["file"]["type"])){
     $target_file = $target_dir . basename($_FILES["file"]["name"]);
     $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
     $uploadOk = 1;
+    $imgcr =0;
     $check = getimagesize($_FILES['file']['tmp_name']);
     if($check !== false) {
         $uploadOk = 1;
@@ -60,43 +61,80 @@ if(!isset($_FILES["file"]["type"])){
       // move_uploaded_file($sourcePath,$targetPath) ;
       if (file_exists($targetPath))
       {
-         unlink($targetPath);
-         if(move_uploaded_file($sourcePath,$targetPath)){
-           if (file_exists($upload300x300_dir.$newimagename))
-           {
-              createThumbnail($newimagename, 70, 70, $target_dir, $upload300x300_dir);
+         if(unlink($targetPath)){
+           if(move_uploaded_file($sourcePath,$targetPath)){
+             if (file_exists($upload300x300_dir.$newimagename))
+             {
+               if(unlink($upload300x300_dir.$newimagename)){
+                  if(createThumbnail($newimagename, 70, 70, $target_dir, $upload300x300_dir)){
+                  $imgcr=1;
+                    // $response['Message'] = "Image Uploaded Successfully";
+                  }
+
+               }
+               else{
+                 if(createThumbnail($newimagename, 70, 70, $target_dir, $upload300x300_dir)){
+                   $imgcr=1;
+                   // $response['Message'] = "Image Uploaded Successfully";
+                 }
+               }
+
+             }
+             else{
+
+                 if(createThumbnail($newimagename, 70, 70, $target_dir, $upload300x300_dir)){
+                  $imgcr=1;
+                   // $response['Message'] = "Image Uploaded Successfully";
+                 }
+               }
+
+             }
            }
-           else{
-             createThumbnail($newimagename, 70, 70, $target_dir, $upload300x300_dir);
-           }
-         }
+
+
       }
-      else{
+      else
+      {
          if(move_uploaded_file($sourcePath,$targetPath)){
            if (file_exists($upload300x300_dir.$newimagename))
            {
-              unlink($upload300x300_dir.$newimagename);
-              createThumbnail($newimagename, 70, 70, $target_dir, $upload300x300_dir);
+              if(unlink($upload300x300_dir.$newimagename))
+              {
+                if(createThumbnail($newimagename, 70, 70, $target_dir, $upload300x300_dir)){
+                $imgcr=1;
+                  // $response['Message'] = "Image Uploaded Successfully";
+                }
+              }
+              else
+              {
+                if(createThumbnail($newimagename, 70, 70, $target_dir, $upload300x300_dir)){
+                  $imgcr=1;
+
+                }
+              }
+
            }
            else{
-             createThumbnail($newimagename, 70, 70, $target_dir, $upload300x300_dir);
+             if(createThumbnail($newimagename, 70, 70, $target_dir, $upload300x300_dir)){
+               $imgcr=1;
+               // $response['Message'] = "Image Uploaded Successfully";
+             }
            }
          }
 
       }
-        $response['Message'] = "Image Uploaded Successfully";
+
+
     }
 
+   if($imgcr==1){
+       $response['Message'] = "Image Uploaded Successfully";
+   }
+   else
+   {
+      $response['Message'] = "Image Uploaded Successfully";
+   }
 
-    //
-    //
-    // $targetPath = $target_dir.$ImageNameId.".jpg"; // Target path where file is to be stored
-
-
-
-
-    //echo "Msg Img"+$msg;
-    // createThumbnail($newimagename, 600, 600, $target_dir, $upload600x600_dir);
 
   }
 

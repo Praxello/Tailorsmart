@@ -88,7 +88,8 @@ function imguplod(imgid){
                      dataType:'json',
                      success:function(response){
                        swal(response['Message']);
-                        getcustomersubstyles();
+                        // getcustomersubstyles();
+                           // window.location.reload();
                      }
               });
    };

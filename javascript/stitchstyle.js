@@ -118,7 +118,7 @@ function imguplod(imgid){
                        getstitchstyles();
                      },
                      complete:function(response){
-
+                       // window.location.reload();
                        // console.log("after");
                        $(".preloader").hide();
                      }

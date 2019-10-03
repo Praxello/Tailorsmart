@@ -278,11 +278,13 @@ function addStyle(){
 // This function is created For Edit Button
 function editStyle(id){
 var AllData= styleData.get(id.toString());
+
 $("#fabricid").val(AllData.fabricId);
 $("#fabrictitle").val(AllData.fabricTitle);
 $("#fabricbrand").val(AllData.fabricBrand);
 $("#fabricdetail").val(AllData.fabricDetails);
 $("#fabricprice").val(AllData.fabricPrice);
+$("#owner").val(AllData.ownerid).trigger('change');
 $("#skuno").val(AllData.skuNo);
 $("#releasedate").val(AllData.releaseDate);
 $("#hexcolor").val(AllData.hexColor);

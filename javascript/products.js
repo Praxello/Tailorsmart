@@ -175,7 +175,7 @@ $('#inactbtn').on('click',function(event){
     settabledata(styleData);
 });
 function settabledata(styleData){
-  console.log(styleData);
+  // console.log(styleData);
   var roleid = $("#roleid").val(); // Se
   var empid =  parseInt($("#empid").val());
   var pid =  $("#pid").val();

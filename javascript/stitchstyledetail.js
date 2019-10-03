@@ -142,7 +142,7 @@ function imguplod(imgid){
                        getstitchstyledetailsitem();
                      },
                      complete:function(response){
-
+                          // window.location.reload();
                        // console.log("after");
                        $(".preloader").hide();
                      }
