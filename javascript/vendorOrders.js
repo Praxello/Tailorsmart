@@ -53,7 +53,7 @@ function getallorders() {
                     assignEmp = '-';
                     orderStatus = null;
                     isConfirmed = null;
-                    orderStatus = response.Data[i].OrderDetails.isAlterneeded;
+                    orderStatus = response.Data[i].OrderDetails.isAlterNeeded;
                     if (orderStatus == 1) {
                         orderStatus = "<button class='btn btn-primary btn-sm' data-toggle='tooltip' data-placement='top' title='For alteration'><i class='fa fa-scissors'></i></button>";
                     } else {
