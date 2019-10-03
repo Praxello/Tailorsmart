@@ -48,7 +48,8 @@ $('.add-row').on('click', function(e) {
                         styleTitle = ParentProducts.get(response.Data[i].parentId);
                     }
                     markup += "<tr id=" + response.Data[i].orderItemId + "><td>" + response.Data[i].productTitle + '-' + styleTitle + "</td><td>" + response.Data[i].productSubTitle + "</td><td>" + response.Data[i].orderItemPrice + "</td>";
-                    markup += "<td><input type='hidden' id='amt" + response.Data[i].orderItemId + "' value='" + response.Data[i].orderItemPrice + "'/><div class='btn-group' role='group' aria-label='Basic example'>";
+                    markup += "<td><input type='hidden' id='amt" + response.Data[i].orderItemId + "' value='" + response.Data[i].orderItemPrice + "'/>";
+                    markup += "</td><td><div class='btn-group' role='group' aria-label='Basic example'>";
                     markup += "<a class='btn btn-dark btn-sm' title='Assign Sales' data-toggle='tooltip' onclick='loadAssignModel(\"" + response.Data[i].orderItemId + "\",\"" + response.Data[i].employeeid + "\")' href='#'><i class='fa fa-tasks'></i></a>";
                     markup += "<a class='btn btn-info btn-sm' title='Edit Price' data-toggle='tooltip' onclick='loadPriceModal(\"" + response.Data[i].orderItemId + "\",\"" + response.Data[i].productTitle + "\",\"" + (i + 1) + "\")' href='#'><i class='fa fa-inr'></i></a>";
                     markup += "<a class='btn btn-success btn-sm' title='Add Measurment' data-toggle='tooltip' onclick='loadMeasurment(\"" + response.Data[i].productId + "\",\"" + response.Data[i].orderItemId + "\",\"" + (i) + "\")' href='#'><i class='fa fa-balance-scale'></i></a>";
@@ -526,10 +527,16 @@ $('#updateorderstatus').on('click', function() {
         type: 'POST',
         data: orderStatusData,
         dataType: 'json',
+        beforeSend: function() {
+            $(".preloader").show();
+        },
         success: function(response) {
             alert(response.Message);
             getOrdersOfCustomer(customerId_g);
             $('#customerOrdersBlock').hide();
+        },
+        complete: function(response) {
+            $(".preloader").hide();
         }
     });
 });

@@ -1,4 +1,4 @@
-<script src="js/createNewOrder.js"></script>
+<script src="js/ordermanagement_inner.js"></script>
 
 <body>
     <ul class="nav nav-tabs" role="tablist">

@@ -14,7 +14,7 @@
                 <li> <a class="has-arrow" href="/" aria-expanded="false"><i class="fa fa-shopping-cart"></i>
                 <span class="hide-menu">Orders</span></a>
                   <ul aria-expanded="false" class="collapse">
-                        <li><a href="allorders.php">All Orders</a></li>
+                        <li><a href="ordermanagement.php">All Orders</a></li>
                         <li><a href="customers.php">Order Management</a></li>
                   </ul>
               </li>
