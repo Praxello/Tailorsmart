@@ -1,26 +1,31 @@
-getallimagesfromfolder();
-function getallimagesfromfolder() {
-  // alert(response);
-    $.ajax({
-        type: "GET",
-        url: api_url + "getAllimages.php",
-        data:{
-          foldername:"images"
-        },
-        success: function(response) {
-          var count = response.length;
-           var html ="";
-           if(count>0){
-             let i=0;
-             for(i=0;i<count;i++){
-              html +='<img data-gallery-tag="Products" class="gallery-item" src="'+response[i]+'"/>';
-
-             }
-              $("#g1").html(html);
-           }
-        }
-      });
-}
+// getallimagesfromfolder();
+// function getallimagesfromfolder() {
+// console.log("images");
+//     $.ajax({
+//         type: "GET",
+//         url: api_url + "getAllimages.php",
+//         data:{
+//           foldername:"../mobileimages/product"
+//         },
+//         success: function(response) {
+//           console.log(response);
+//           if(response!=null){
+//               var count = response.length;
+//               var html ="";
+//               if(count>0){
+//                 let i=0;
+//                 for(i=0;i<count;i++){
+//                  html +='<img data-gallery-tag="Products" class="gallery-item" src="http://praxello.com/tailorsmart/mobileimages/product/'+response[i]+'"/>';
+//
+//                 }
+//                  $("#g1").html(html);
+//               }
+//           }
+//
+//
+//         }
+//       });
+// }
 
 //This function is useful for upload the image files
 // function imguplod(imgid){

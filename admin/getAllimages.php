@@ -7,7 +7,7 @@ header('Content-Type: application/json');
     $response=null;
         foreach($ffs as $ff){
             if($ff != '.' && $ff != '..'){
-                $response[]=$foldname.'/'.$ff;
+                $response[]=$ff;
             }
         };
     print json_encode($response);
