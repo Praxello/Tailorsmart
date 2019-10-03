@@ -52,60 +52,57 @@ $employeeName = $_SESSION['employeeName'];
             </div>
 
             <div class="container-fluid">
-               <div class="row" id="displayimg" style="display:block;">
-                <div class="col-12">
-
-                      <div class="row">
-                        <div class="col-md-2">
-                          <button type="button" class="btn btn-success" onclick="addimages()" > Main Page </button>
-
-                        </div>
-                        <div class="col-md-2">
-                          <button type="button"  class="btn btn-primary" onclick="addpimages()" > New Product Images</button>
-
-                        </div>
-                        <div class="col-md-2">
-                          <button type="button"  class="btn btn-warning" onclick="addfimages()" > New Fabrics Images</button>
-
-                        </div>
-                      </div>
-
-                  </div>
-                </div>
+              
                 <!-- Start Page Content -->
            <div class="row" id="displayimgall" style="display:block;">
              <div class="col-12">
                  <div class="card">
                   <div class="gallery" style="display:none;">
-                  <img data-gallery-tag="Products" class="gallery-item" src="images/big/img1.jpg"/>
-                  <img data-gallery-tag="Products" class="gallery-item" src="images/big/img2.jpg"/>
-                  <img data-gallery-tag="Fabrics"  class="gallery-item" src="images/big/img3.jpg"/>
-                  <img data-gallery-tag="Fabrics"  class="gallery-item" src="images/big/img4.jpg"/>
+                    <?php
+                       $foldname = "catlogimages/product/";
+                       $dir = $foldname;
+                       $ffs = preg_grep('~\.(jpeg|jpg|png)$~', scandir($dir));
+
+                           foreach($ffs as $ff){
+                               if($ff != '.' && $ff != '..'){ ?>
+                                     <img data-gallery-tag="Products" class="gallery-item" src="catlogimages/product/<?php echo $ff;?>"/>
+                                   <?php
+                               }
+                           };
+                    ?>
+
+                      <?php
+                         $foldname = "catlogimages/fabrics/";
+                         $dir = $foldname;
+                         $ffs = preg_grep('~\.(jpeg|jpg|png)$~', scandir($dir));
+
+                             foreach($ffs as $ff){
+                                 if($ff != '.' && $ff != '..'){ ?>
+                                       <img data-gallery-tag="fabrics" class="gallery-item" src="catlogimages/fabrics/<?php echo $ff;?>"/>
+                                     <?php
+                                 }
+                             };
+                      ?>
+                 <!-- <img data-gallery-tag="Fabrics"  class="gallery-item" src="images/big/img3.jpg"/>
+                  <img data-gallery-tag="Fabrics"  class="gallery-item" src="images/big/img4.jpg"/> -->
+
                  </div>
               </div>
             </div>
           </div>
 
-          <div class="row" id="insertproductimg" style="display:none;">
+          <!-- <div class="row" id="insertproductimg" style="display:none;">
             <div class="col-sm-12">
               <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Product Dropzone</h4>
-                    <!-- <h6 class="card-subtitle">For multiple file upload put class <code>.dropzone</code> to form.</h6> -->
                     <form action="#" class="dropzone">
                         <div class="fallback">
                             <input name="file" type="file" multiple />
                         </div>
                     </form>
                 </div>
-                  <!-- <form action="/file-upload" class="dropzone" id="a-form-element"></form> -->
-
               </div>
-              <!-- <div class='content'>
-              <form action="./src/uploadeventgallary.php" class="dropzone" id="myAwesomeDropzone">
-              <input type="hidden" id="eventgallery" name="eventgallery" />
-              </form>
-              </div> -->
             </div>
           </div>
 
@@ -114,17 +111,15 @@ $employeeName = $_SESSION['employeeName'];
               <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Fabric Dropzone</h4>
-                    <!-- <h6 class="card-subtitle">For multiple file upload put class <code>.dropzone</code> to form.</h6> -->
                     <form action="#" class="dropzone">
                         <div class="fallback">
                             <input name="file" type="file" multiple />
                         </div>
                     </form>
                 </div>
-                  <!-- <form action="/file-upload" class="dropzone" id="an-other-form-element"></form> -->
               </div>
             </div>
-          </div>
+          </div> -->
 
         </div>
         </div>
@@ -152,13 +147,9 @@ $employeeName = $_SESSION['employeeName'];
     <script src="js/lib/dropzone/dropzone.js"></script>
     <script src="js/lib/datatables/datatables.min.js"></script>
 
-    <script
-       src="mau_gallery/bootstrap.min.js"  crossorigin="anonymous"></script>
+    <script src="mau_gallery/bootstrap.min.js"  crossorigin="anonymous"></script>
     <script src="mau_gallery/docs/src/maugallery.js"></script>
     <script src="mau_gallery/docs/assets/scripts.js"></script>
-    <!----mau gallery contents end------>
-
-    <!-- <script src="javascript/stitchstyle.js"></script> -->
     <script src="js/lib/sweetalert/sweetalert.min.js"></script>
 
 

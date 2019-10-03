@@ -5,7 +5,7 @@ header('Content-Type: application/json');
      include "../connection.php";
 	 mysqli_set_charset($conn,'utf8');
 	 $response=null;
-
+ 
 	 extract($_POST);
 
 
