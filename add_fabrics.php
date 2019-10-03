@@ -75,7 +75,7 @@ $('#saveFabricsData').on('click', function(event) {
         success: function(response) {
             alert(response.Message);
             //  console.log(customerId_g);
-            getOrdersOfCustomer(customerId_g);
+            getOrdersOfCustomer();
             customerOrderDetails = customerOrders[indexRow];
             //  console.log(customerOrderDetails);
             $('#customerOrdersBlock').hide();

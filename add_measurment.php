@@ -64,7 +64,7 @@ $('#saveMeasurementsData').on('click', function(event) {
             },
             success: function(response) {
                 alert(response.Message);
-                getOrdersOfCustomer(customerId_g);
+                getOrdersOfCustomer();
                 customerOrderDetails = customerOrders[indexRow];
                 $('#customerOrdersBlock').hide();
                 //  console.log(customerOrderDetails);

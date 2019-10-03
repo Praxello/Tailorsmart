@@ -268,7 +268,9 @@ if (isset($_POST['appointmentId']) && isset($_POST['servingEmployeeId']) && isse
 													$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 
 													$headers .= 'From:"Tailor-Smart"<admin@praxello.com>' . "\r\n";
-													if($status != 0){mail($to, $subject, $message, $headers)}
+													if($status != 0){
+														mail($to, $subject, $message, $headers)
+													}
 
 
 											}
