@@ -525,10 +525,16 @@ $('#updateorderstatus').on('click', function() {
         type: 'POST',
         data: orderStatusData,
         dataType: 'json',
+        beforeSend: function() {
+            $(".preloader").show();
+        },
         success: function(response) {
             alert(response.Message);
             getOrdersOfCustomer();
             $('#customerOrdersBlock').hide();
+        },
+        complete: function(response) {
+            $(".preloader").hide();
         }
     });
 });

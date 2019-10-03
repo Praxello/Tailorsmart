@@ -7,7 +7,7 @@
  $_SESSION['employeeName'] =  $employeeName;
  $_SESSION['roleId'] = $roleId;
  if($roleId == 1 || $roleId == 3){
-    header('Location:allorders.php');
+    header('Location:ordermanagement.php');
  }else if($roleId == 2){
     header('Location:products.php');
  }else if($roleId == 4){
