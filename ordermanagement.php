@@ -71,7 +71,7 @@ $employeeName = $_SESSION['employeeName'];
                 <input type="hidden" id="empName" value="<?php echo $employeeName;?>" />
                <div id="loadNewPage"></div>
                <div class="row" id="showOrdersdiv">
-                  <div class="col-md-4">
+                  <div class="col-md-3">
                       <div class="card p-30">
                           <div class="media">
                               <div class="media-left meida media-middle">
@@ -84,7 +84,7 @@ $employeeName = $_SESSION['employeeName'];
                           </div>
                       </div>
                   </div>
-                  <div class="col-md-4">
+                  <div class="col-md-3">
                       <div class="card p-30">
                           <div class="media">
                               <div class="media-left meida media-middle">
@@ -97,8 +97,21 @@ $employeeName = $_SESSION['employeeName'];
                           </div>
                       </div>
                   </div>
+                  <div class="col-md-3">
+                      <div class="card p-30">
+                          <div class="media">
+                              <div class="media-left meida media-middle">
+                                  <span><i class="fa fa-inr f-s-40 color-success"></i></span>
+                              </div>
+                              <div class="media-body media-text-right">
+                                  <h2><div id="neft"></div></h2>
+                                  <p class="m-b-0">NEFT Recieved</p>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
                  
-                  <div class="col-md-4">
+                  <div class="col-md-3">
                       <div class="card p-30">
                           <div class="media">
                               <div class="media-left meida media-middle">
@@ -144,7 +157,7 @@ $employeeName = $_SESSION['employeeName'];
                                                 <th>Order Id</th>
                                                 <th>Order Amount</th>
                                                 <th>Recieved Amount</th>
-                                                <th>Promo code</th>
+                                                <!-- <th>Promo code</th> -->
                                                 <th>Order Date</th>
                                                 <th style="display:none;">Purchase</th>
                                                 <th>Order Status</th>
@@ -162,7 +175,7 @@ $employeeName = $_SESSION['employeeName'];
                                                 <th></th>
                                                 <th id="amt_total"></th>
                                                 <th id="recieved_total"></th>
-                                                <th></th>
+                                                <!-- <th></th> -->
                                                 <th></th>
                                                 <th style="display:none;"></th>
                                                 <th></th>

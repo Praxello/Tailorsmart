@@ -123,17 +123,26 @@ function getOrdersOfCustomer(customerId) {
                     isConfirmed = null,
                     customerExpectedDate = null,
                     FinalDeliveryDate = null,
+                    cash_amount = 0,
+                    NEFT_amount = 0,
                     EmpName = '-';
                 $('#customerOrdersBlock').show();
                 var responseData = "";
                 for (var i = 0; i < count; i++) {
+                    var cash = 0,
+                        neft = 0;
                     orderStatus = statusMap.get(response.Data[i].OrderDetails.orderStatus);
                     isConfirmed = confirmationStatus.get(response.Data[i].OrderDetails.isConfirmed);
-                    if (response.Data[i].OrderDetails.promoCode == null) {
-                        response.Data[i].OrderDetails.promoCode = '-';
+                    // if (response.Data[i].OrderDetails.promoCode == null) {
+                    //     response.Data[i].OrderDetails.promoCode = '-';
+                    // }
+                    if (response.Data[i].OrderDetails.Cash_amount != null) {
+                        cash_amount = cash_amount + parseFloat(response.Data[i].OrderDetails.Cash_amount);
+                        cash = parseFloat(response.Data[i].OrderDetails.Cash_amount);
                     }
-                    if (response.Data[i].OrderDetails.RecievedAmount == null) {
-                        response.Data[i].OrderDetails.RecievedAmount = '-';
+                    if (response.Data[i].OrderDetails.NEFT_amount != null) {
+                        NEFT_amount = NEFT_amount + parseFloat(response.Data[i].OrderDetails.NEFT_amount);
+                        neft = parseFloat(response.Data[i].OrderDetails.NEFT_amount);
                     }
                     if (EmployeeData.has(response.Data[i].OrderDetails.employeeId)) {
                         EmpName = EmployeeData.get(response.Data[i].OrderDetails.employeeId);
@@ -141,9 +150,9 @@ function getOrdersOfCustomer(customerId) {
                     customerExpectedDate = getDate(response.Data[i].OrderDetails.customerExpectedDate);
                     FinalDeliveryDate = getDate(response.Data[i].OrderDetails.FinalDeliveryDate);
                     responseData += "<tr>";
-                    responseData += "<td>" + response.Data[i].OrderDetails.amount + "</td>";
-                    responseData += "<td>" + response.Data[i].OrderDetails.RecievedAmount + "</td>";
-                    responseData += "<td>" + response.Data[i].OrderDetails.promoCode + "</td>";
+                    responseData += "<td>" + parseFloat(response.Data[i].OrderDetails.amount).toLocaleString() + "</td>";
+                    responseData += "<td>" + parseFloat(cash + neft).toLocaleString() + "</td>";
+                    // responseData += "<td>" + response.Data[i].OrderDetails.promoCode + "</td>";
                     responseData += "<td>" + orderStatus + "</td>";
                     responseData += "<td>" + isConfirmed + "</td>";
                     responseData += "<td>" + customerExpectedDate + "</td>";

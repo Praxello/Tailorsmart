@@ -129,23 +129,31 @@ function getOrdersOfCustomer() {
                     customerExpectedDate = null,
                     FinalDeliveryDate = null,
                     amount = 0,
-                    rec_amount = 0,
+                    cash_amount = 0,
+                    NEFT_amount = 0,
+                    total_recieved_amount = 0,
                     EmpName = '-';
                 $('#customerOrdersBlock').show();
                 var responseData = "";
                 for (var i = 0; i < count; i++) {
+                    var cash = 0,
+                        neft = 0,
+                        rec_amount = 0;
                     amount = amount + parseFloat(response.Data[i].OrderDetails.amount);
-                    if (response.Data[i].OrderDetails.RecievedAmount != null) {
-                        rec_amount = rec_amount + parseFloat(response.Data[i].OrderDetails.RecievedAmount);
-                    } else {
-                        response.Data[i].OrderDetails.RecievedAmount = '-';
+                    if (response.Data[i].OrderDetails.Cash_amount != null) {
+                        cash_amount = cash_amount + parseFloat(response.Data[i].OrderDetails.Cash_amount);
+                        cash = parseFloat(response.Data[i].OrderDetails.Cash_amount);
                     }
-
+                    if (response.Data[i].OrderDetails.NEFT_amount != null) {
+                        NEFT_amount = NEFT_amount + parseFloat(response.Data[i].OrderDetails.NEFT_amount);
+                        neft = parseFloat(response.Data[i].OrderDetails.NEFT_amount);
+                    }
+                    rec_amount = cash + neft;
                     orderStatus = statusMap.get(response.Data[i].OrderDetails.orderStatus);
                     isConfirmed = confirmationStatus.get(response.Data[i].OrderDetails.isConfirmed);
-                    if (response.Data[i].OrderDetails.promoCode == null) {
-                        response.Data[i].OrderDetails.promoCode = '-';
-                    }
+                    // if (response.Data[i].OrderDetails.promoCode == null) {
+                    //     response.Data[i].OrderDetails.promoCode = '-';
+                    // }
                     if (EmployeeData.has(response.Data[i].OrderDetails.employeeId)) {
                         EmpName = EmployeeData.get(response.Data[i].OrderDetails.employeeId);
                     }
@@ -153,9 +161,9 @@ function getOrdersOfCustomer() {
                     FinalDeliveryDate = getDate(response.Data[i].OrderDetails.FinalDeliveryDate);
                     responseData += "<tr>";
                     responseData += "<td>" + response.Data[i].OrderDetails.orderId + "</td>";
-                    responseData += "<td>" + response.Data[i].OrderDetails.amount + "</td>";
-                    responseData += "<td>" + response.Data[i].OrderDetails.RecievedAmount + "</td>";
-                    responseData += "<td>" + response.Data[i].OrderDetails.promoCode + "</td>";
+                    responseData += "<td>" + parseFloat(response.Data[i].OrderDetails.amount).toLocaleString() + "</td>";
+                    responseData += "<td>" + rec_amount.toLocaleString() + "</td>";
+                    // responseData += "<td>" + response.Data[i].OrderDetails.promoCode + "</td>";
                     responseData += "<td>" + getDate(response.Data[i].OrderDetails.purchaseDateTime) + "</td>";
                     responseData += "<td style='display:none;'>" + response.Data[i].OrderDetails.purchaseDateTime + "</td>";
                     responseData += "<td>" + orderStatus + "</td>";
@@ -170,15 +178,16 @@ function getOrdersOfCustomer() {
                 $("#customerOrdersData").html(responseData);
                 $('#amt_total').html(amount.toLocaleString());
                 $('#total_order_amount').html(amount.toLocaleString());
-                $('#recieved_total').html(rec_amount.toLocaleString());
-                $('#cash').html(rec_amount.toLocaleString());
+                $('#recieved_total').html((cash_amount + NEFT_amount).toLocaleString());
+                $('#cash').html(cash_amount.toLocaleString());
+                $('#neft').html(NEFT_amount.toLocaleString());
                 $('#orderscount').html(count);
                 table = $('#customerOrdersDataTable').DataTable({
                     searching: true,
                     retrieve: true,
                     bPaginate: $('tbody tr').length > 10,
                     order: [],
-                    columnDefs: [{ orderable: false, targets: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] }],
+                    columnDefs: [{ orderable: false, targets: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] }],
                     dom: 'Bfrtip',
                     buttons: ['copy', 'csv', 'excel', 'pdf'],
                     destroy: true
