@@ -12,7 +12,7 @@ function getConfirmation() {
     confirmationStatus.set('1', '<span class="badge badge-pill badge-primary">Active</span>');
 }
 function settabledata(styleData){
-  // console.log(styleData);
+
   var html ='';
   $('#styletbl').dataTable().fnDestroy();
   $("#styletbldata").empty();
@@ -23,7 +23,7 @@ function settabledata(styleData){
         html +='<tr>';
         let isConfirmed = confirmationStatus.get(AllData.isActive);
         let imageUrl = pic_url+'style/300x300/'+AllData.styleId+'.jpg';
-        html +="<td><form id='custstyleform"+AllData.styleId+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+AllData.styleId+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' src='"+imageUrl+"'  style='cursor: pointer'  alt ='No Image' onclick='imguplod("+AllData.styleId+")'></img></form></td>";
+        html +="<td><form id='custstyleform"+AllData.styleId+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+AllData.styleId+"' accept='image/*' style='display:none'/> <img class='img-thumbnail'  src='"+imageUrl+"'  style='cursor: pointer'  alt ='No Image' title='Upload Image' onclick='imguplod("+AllData.styleId+")' id='save"+AllData.styleId+"' width='70px' height='70px'></img></form></td>";
         html +="<td>"+AllData.styleTitle+"</td>";
         // html +="<td>"+isConfirmed+"</td>";
         html +='<td style="width:10%"><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod('+AllData.styleId+')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+AllData.styleId+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeStyle('+AllData.styleId+')"><i class="fa fa-remove"></i></button></div></td>';
@@ -42,12 +42,18 @@ function settabledata(styleData){
   });
 
 }
+
+var loadFile = function(event) {
+
+};
 // This function is created for Get All Style Data.
 function getcustomerstyles(){
      $.ajax({
          type: "GET",
          url: api_url+"getallstyle.php",
+         async:false,
          success: function(response) {
+           // console.log(response);
            var count;
             if(response['Data']!=null){
                count= response['Data'].length;
@@ -82,9 +88,21 @@ function imguplod(imgid){
                      processData:false,
                      data: fd,
                      dataType:'json',
+                     async:false,
                      success:function(response){
-                       swal(response['Message']);
-                       getcustomerstyles();
+
+                       if(response['Responsecode']==200){
+                         swal(response['Message']);
+                         // getcustomerstyles();
+                         var output = document.getElementById('save'+imgid);
+                          output.src = URL.createObjectURL(files);
+
+                       }
+                       else{
+                         swal(response['Message']);
+                       }
+
+
                      }
               });
    };

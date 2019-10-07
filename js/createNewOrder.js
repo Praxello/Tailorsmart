@@ -48,7 +48,12 @@ $('.add-row').on('click', function(e) {
                         styleTitle = ParentProducts.get(response.Data[i].parentId);
                     }
                     markup += "<tr id=" + response.Data[i].orderItemId + "><td>" + response.Data[i].productTitle + '-' + styleTitle + "</td><td>" + response.Data[i].productSubTitle + "</td><td>" + response.Data[i].orderItemPrice + "</td>";
-                    markup += "<td><input type='hidden' id='amt" + response.Data[i].orderItemId + "' value='" + response.Data[i].orderItemPrice + "'/><div class='btn-group' role='group' aria-label='Basic example'>";
+                    markup += "<td><input type='hidden' id='amt" + response.Data[i].orderItemId + "' value='" + response.Data[i].orderItemPrice + "'/>";
+                    markup += "</td>";
+                    markup += "<td>";
+                    markup += "<a  title='See Comment' data-toggle='tooltip' onclick='loadcomment(" + response.Data[i].orderItemId + ")' href='#'><code style='color: red;'>See Comment</code></a>";
+                    markup += "</td>";
+                    markup += "<td><div class='btn-group' role='group' aria-label='Basic example'>";
                     markup += "<a class='btn btn-dark btn-sm' title='Assign Sales' data-toggle='tooltip' onclick='loadAssignModel(\"" + response.Data[i].orderItemId + "\",\"" + response.Data[i].employeeid + "\")' href='#'><i class='fa fa-tasks'></i></a>";
                     markup += "<a class='btn btn-info btn-sm' title='Edit Price' data-toggle='tooltip' onclick='loadPriceModal(\"" + response.Data[i].orderItemId + "\",\"" + response.Data[i].productTitle + "\",\"" + (i + 1) + "\")' href='#'><i class='fa fa-inr'></i></a>";
                     markup += "<a class='btn btn-success btn-sm' title='Add Measurment' data-toggle='tooltip' onclick='loadMeasurment(\"" + response.Data[i].productId + "\",\"" + response.Data[i].orderItemId + "\",\"" + (i) + "\")' href='#'><i class='fa fa-balance-scale'></i></a>";
@@ -127,7 +132,7 @@ function loadMeasurment(productId, orderItemId, rowId) { //for mapping product i
     customer_orderItemId = orderItemId;
     // console.log(customer_orderItemId);
     var count_1 = 0;
-    // console.log(customerOrderDetails);
+    console.log(customerOrderDetails);
     var check_mesurment_exists = customerOrderDetails.orderItems[rowId].Measurements;
 
     if (check_mesurment_exists != null) {
@@ -526,10 +531,16 @@ $('#updateorderstatus').on('click', function() {
         type: 'POST',
         data: orderStatusData,
         dataType: 'json',
+        beforeSend: function() {
+            $(".preloader").show();
+        },
         success: function(response) {
             alert(response.Message);
             getOrdersOfCustomer(customerId_g);
             $('#customerOrdersBlock').hide();
+        },
+        complete: function(response) {
+            $(".preloader").hide();
         }
     });
 });
@@ -543,6 +554,42 @@ function loadAssignModel(orderItemId, employeeid) {
     $('#assignWork').modal();
 }
 
+function loadcomment(orderItemId){
+var html ='';
+  $.ajax({
+      url: api_url + 'getcommentorderItemId.php',
+      type: 'POST',
+      data: {
+        orderItemId :orderItemId
+      },
+      dataType: 'json',
+      beforeSend: function() {
+          // $(".preloader").show();
+      },
+      success: function(response) {
+         // console.log(response.Message);
+         if(response.Responsecode==200){
+           if(response['Data']!=null){
+              count= response['Data'].length;
+           }
+           for(var i=0;i<count;i++)
+           {
+             html +='<tr>';
+             html +='<td width="70%;">'+response.Data[i].remarks+'</td>';
+             html +='<td width="30%;">'+response.Data[i].requestDateTime+'</td>';
+             html +='</tr>';
+           }
+           $("#spancomment").html(html);
+           $('#openComment').modal();
+         }
+         else{
+           alert("No Comment is Available for this Item");
+         }
+      },
+      complete: function(response) {
+      }
+  });
+}
 function loadPdf(orderItemId) {
     window.open(api_url + 'orderitempdf.php?orderitemid=' + orderItemId);
 }

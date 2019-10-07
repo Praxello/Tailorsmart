@@ -107,7 +107,7 @@ function getConfirmation() {
     confirmationStatus.set('1', '<span class="badge badge-pill badge-primary">Active</span>');
 }
 function settabledata(styleData){
-  // console.log(styleData);
+
   var fid =  $("#fid").val();
   var roleid = $("#roleid").val();
   // console.log(roleid);
@@ -126,16 +126,24 @@ function settabledata(styleData){
           if(empId===empid)
           {
             let isConfirmed = confirmationStatus.get(AllData.isActive);
-
+            let empName = '';
+            if(EmployeeData.has(AllData.ownerid)){
+              let empData=  EmployeeData.get(AllData.ownerid);
+              empName = empData.firstName+" "+empData.lastName;
+            }
+            else{
+              empName  ='-';
+            }
             shtml +='<tr>';
             let imageUrl = pic_url+'fabric/300x300/'+AllData.skuNo+'.jpg';
-            shtml +="<td><form id='custstyleform"+AllData.skuNo+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+AllData.skuNo+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' alt='No Image' src='"+imageUrl+"'  style='cursor: pointer' onclick='imguplod(\"" + AllData.skuNo + "\")'></img></form></td>";
+            shtml +="<td><form id='custstyleform"+AllData.skuNo+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+AllData.skuNo+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' alt='No Image' src='"+imageUrl+"'  style='cursor: pointer' onclick='imguplod(\"" + AllData.skuNo + "\")' id='save"+AllData.skuNo+"' width='70px' height='70px' title='Upload Image'></img></form></td>";
             shtml +="<td>"+AllData.fabricTitle+"</td>";
             shtml +="<td>"+AllData.fabricBrand+"</td>";
             shtml +="<td>"+AllData.skuNo+"</td>";
-            shtml +="<td>"+AllData.fabricDetails+"</td>";
+
             shtml +="<td>"+AllData.fabricPrice+"</td>";
             shtml +="<td>"+AllData.releaseDate+"</td>";
+              shtml +="<td>"+empName+"</td>";
             shtml +="<td>"+isConfirmed+"</td>";
             shtml +='<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod(\'' + AllData.skuNo + '\')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+k+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeFabric('+k+')"><i class="fa fa-remove"></i></button></div></td>';
             shtml +="</tr>";
@@ -147,15 +155,24 @@ function settabledata(styleData){
         if(AllData.isActive==="1")
         {
           let isConfirmed = confirmationStatus.get(AllData.isActive);
+        let empName = '';
+        if(EmployeeData.has(AllData.ownerid)){
+          let empData=  EmployeeData.get(AllData.ownerid);
+          empName = empData.firstName+" "+empData.lastName;
+        }
+        else{
+          empName  ='-';
+        }
         shtml +='<tr>';
         let imageUrl = pic_url+'fabric/300x300/'+AllData.skuNo+'.jpg';
-        shtml +="<td><form id='custstyleform"+AllData.skuNo+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+AllData.skuNo+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' alt='No Image' src='"+imageUrl+"'  style='cursor: pointer' onclick='imguplod(\"" + AllData.skuNo + "\")'></img></form></td>";
+        shtml +="<td><form id='custstyleform"+AllData.skuNo+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+AllData.skuNo+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' alt='No Image' src='"+imageUrl+"'  style='cursor: pointer' onclick='imguplod(\"" + AllData.skuNo + "\")'  id='save"+AllData.skuNo+"' width='70px' height='70px' title='Upload Image'></img></form></td>";
         shtml +="<td>"+AllData.fabricTitle+"</td>";
         shtml +="<td>"+AllData.fabricBrand+"</td>";
         shtml +="<td>"+AllData.skuNo+"</td>";
-        shtml +="<td>"+AllData.fabricDetails+"</td>";
+
         shtml +="<td>"+AllData.fabricPrice+"</td>";
         shtml +="<td>"+AllData.releaseDate+"</td>";
+        shtml +="<td>"+empName+"</td>";
         shtml +="<td>"+isConfirmed+"</td>";
         shtml +='<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod(\'' + AllData.skuNo + '\')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+k+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeFabric('+k+')"><i class="fa fa-remove"></i></button></div></td>';
         shtml +="</tr>";
@@ -163,15 +180,26 @@ function settabledata(styleData){
       else
       {
         let isConfirmed = confirmationStatus.get(AllData.isActive);
+        let empName = '';
+
+        if(EmployeeData.has(AllData.ownerid)){
+
+           let empData=  EmployeeData.get(AllData.ownerid);
+           empName = empData.firstName+" "+empData.lastName;
+        }
+        else{
+          empName  ='-';
+        }
         unhtml +='<tr>';
         let imageUrl = pic_url+'fabric/300x300/'+AllData.skuNo+'.jpg';
-        unhtml +="<td><form id='custstyleform"+AllData.skuNo+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+AllData.skuNo+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' alt='No Image' src='"+imageUrl+"'  style='cursor: pointer' onclick='imguplod(\"" + AllData.skuNo + "\")'></img></form></td>";
+        unhtml +="<td><form id='custstyleform"+AllData.skuNo+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+AllData.skuNo+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' alt='No Image' src='"+imageUrl+"'  style='cursor: pointer' onclick='imguplod(\"" + AllData.skuNo + "\")'  id='save"+AllData.skuNo+"' width='70px' height='70px' title='Upload Image'></img></form></td>";
         unhtml +="<td>"+AllData.fabricTitle+"</td>";
         unhtml +="<td>"+AllData.fabricBrand+"</td>";
         unhtml +="<td>"+AllData.skuNo+"</td>";
-        unhtml +="<td>"+AllData.fabricDetails+"</td>";
+
         unhtml +="<td>"+AllData.fabricPrice+"</td>";
         unhtml +="<td>"+AllData.releaseDate+"</td>";
+        unhtml +="<td>"+empName+"</td>";
         unhtml +="<td>"+isConfirmed+"</td>";
         unhtml +='<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod(\'' + AllData.skuNo + '\')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+k+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeFabric('+k+')"><i class="fa fa-remove"></i></button></div></td>';
         unhtml +="</tr>";
@@ -215,6 +243,7 @@ function getfabrics(){
      $.ajax({
          type: "GET",
          url: api_url+"getfabrics.php",
+         async:false,
          beforeSend: function() {
                $(".preloader").show();
                // console.log("before");
@@ -257,8 +286,16 @@ function imguplod(imgid){
                      data: fd,
                      dataType:'json',
                      success:function(response){
-                       swal(response['Message']);
-                       getcustomerstyles();
+                       if(response['Responsecode']==200){
+                         swal(response['Message']);
+                         // getcustomersubstyles();
+                         var output = document.getElementById('save'+imgid);
+                          output.src = URL.createObjectURL(files);
+
+                       }
+                       else{
+                         swal(response['Message']);
+                       }
                      }
               });
    };
@@ -278,11 +315,13 @@ function addStyle(){
 // This function is created For Edit Button
 function editStyle(id){
 var AllData= styleData.get(id.toString());
+
 $("#fabricid").val(AllData.fabricId);
 $("#fabrictitle").val(AllData.fabricTitle);
 $("#fabricbrand").val(AllData.fabricBrand);
 $("#fabricdetail").val(AllData.fabricDetails);
 $("#fabricprice").val(AllData.fabricPrice);
+$("#owner").val(AllData.ownerid).trigger('change');
 $("#skuno").val(AllData.skuNo);
 $("#releasedate").val(AllData.releaseDate);
 $("#hexcolor").val(AllData.hexColor);

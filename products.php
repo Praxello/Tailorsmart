@@ -96,7 +96,7 @@ if(isset($_REQUEST['pid']))
                                                 <th  style="width:5%">Price</th>
                                                 <th  style="width:5%">Release Date</th>
                                                 <th  style="width:5%">Sequence</th>
-                                                <th  style="width:15%">Created At</th>
+                                                <th  style="width:15%">Created by</th>
                                                 <th  style="width:5%">Status</th>
                                                 <th  style="width:5%">Action </th>
                                             </tr>

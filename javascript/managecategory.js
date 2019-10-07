@@ -22,7 +22,7 @@ function settabledata(styleData){
         html +='<tr>';
         let isConfirmed = confirmationStatus.get(AllData.isActive);
         let imageUrl = pic_url+'category/300x300/'+k+'.jpg';
-        html +="<td><form id='custstyleform"+k+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+k+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' src='"+imageUrl+"'  style='cursor: pointer' onclick='imguplod("+k+")' alt='No Image'></img></form></td>";
+        html +="<td><form id='custstyleform"+k+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+k+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' src='"+imageUrl+"'  style='cursor: pointer' onclick='imguplod("+k+")' alt='No Image' id='save"+k+"' width='70px' height='70px' title='Upload Image'></img></form></td>";
         html +="<td>"+AllData.categoryTitle+"</td>";
         // html +="<td>"+isConfirmed+"</td>";
         if(AllData.categoryTitle!="All"){
@@ -53,6 +53,7 @@ function getcustomersubstyles(){
      $.ajax({
          type: "GET",
          url: api_url+"getallcategory.php",
+         async : false,
          success: function(response) {
            var count;
             if(response['Data']!=null){
@@ -87,8 +88,16 @@ function imguplod(imgid){
                      data: fd,
                      dataType:'json',
                      success:function(response){
-                       swal(response['Message']);
-                        getcustomersubstyles();
+                       if(response['Responsecode']==200){
+                         swal(response['Message']);
+                         // getcustomersubstyles();
+                         var output = document.getElementById('save'+imgid);
+                          output.src = URL.createObjectURL(files);
+
+                       }
+                       else{
+                         swal(response['Message']);
+                       }
                      }
               });
    };

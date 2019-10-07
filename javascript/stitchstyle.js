@@ -33,7 +33,7 @@ function settabledata(styleData){
         let isConfirmed = confirmationStatus.get(AllData.isActive);
         html +='<tr>';
         let imageUrl = pic_url+'stitchstyle/300x300/'+k+'.jpg';
-        html +="<td><form id='custstyleform"+k+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+k+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' src='"+imageUrl+"'  style='cursor: pointer' onclick='imguplod("+k+")' alt='No Image'></img></form></td>";
+        html +="<td><form id='custstyleform"+k+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+k+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' src='"+imageUrl+"'  style='cursor: pointer' onclick='imguplod("+k+")' alt='No Image' id='save"+k+"' width='70px' height='70px' title='Upload Image'></img></form></td>";
         html +="<td>"+AllData.stitchStyleTitle+"</td>";
         html +="<td>"+AllData.stitchStyleDetails+"</td>";
         html +="<td>"+mapStitch+"</td>";
@@ -114,11 +114,19 @@ function imguplod(imgid){
                            // console.log("before");
                      },
                      success:function(response){
-                       swal(response['Message']);
-                       getstitchstyles();
+                       if(response['Responsecode']==200){
+                         swal(response['Message']);
+                         // getcustomersubstyles();
+                         var output = document.getElementById('save'+imgid);
+                          output.src = URL.createObjectURL(files);
+
+                       }
+                       else{
+                         swal(response['Message']);
+                       }
                      },
                      complete:function(response){
-
+                       // window.location.reload();
                        // console.log("after");
                        $(".preloader").hide();
                      }

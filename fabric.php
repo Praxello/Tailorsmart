@@ -90,9 +90,10 @@ if(isset($_REQUEST['fid']))
                                                 <th>Fabric Title</th>
                                                 <th>Fabric Brand</th>
                                                 <th>SKU No</th>
-                                                <th>Fabric Details</th>
+
                                                 <th>Price</th>
                                                 <th>Release Date</th>
+                                                <th>Created by</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
                                             </tr>

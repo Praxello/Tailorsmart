@@ -18,7 +18,7 @@
                 <div class="col-sm-6">
                     <div class="card">
                         <div class="row">
-                           
+
                             <div class="col-sm-12">
                             <a href="#" class="text-primary" data-toggle="collapse" data-target="#demo" style="font-weight:bolder;"> Order Details<i
                                         class="fa fa-close float-right"></i></a>
@@ -59,7 +59,7 @@
                 <div class="col-sm-6">
                     <div class="card">
                         <div class="row">
-                           
+
                             <div class="col-sm-12">
                                 <a href="#" class="text-primary" data-toggle="collapse" data-target="#demo1" style="font-weight:bolder;" > Customer Details<i
                                         class="fa fa-close float-right"></i></a>
@@ -153,6 +153,8 @@
                                 <th>Product Title</th>
                                 <th>Product Sub Title</th>
                                 <th>Price</th>
+                                <th>Alteration</th>
+                                <th>Remark</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -249,25 +251,27 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-4">
-                              
+
                             </div>
                             <div class="col-sm-4">
                                 <button type="button" class="btn btn-success" id="updateorderstatus">Update Status</button>
                             </div>
                             <div class="col-sm-4">
-                              
+
                             </div>
                         </div>
                     </div>
                 </div>
         </div>
     </div>
+
     <?php include 'add_measurment.php'; ?>
     <?php include 'add_styles.php'; ?>
     <?php include 'add_fabrics.php'; ?>
     <?php include 'add_paymentLink.php'; ?>
     <?php include 'edit_orderItemPrice.php'; ?>
     <?php include 'add_assignwork.php'; ?>
+      <?php include 'add_comment.php'; ?>
 </body>
 
 </html>

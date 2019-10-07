@@ -8,9 +8,9 @@ $records = null;
 extract($_POST);
 
 date_default_timezone_set("Asia/Kolkata");
-if (isset($_POST['appointmentId']) && isset($_POST['servingEmployeeId']) && isset($_POST['appointmentStatus']) ) {
+if (isset($_POST['appointmentId']) && isset($_POST['servingEmployeeId']) && isset($_POST['appointmentStatus']) && isset($_POST['appointmentDate']) ) {
 
-				  $query = mysqli_query($conn,"UPDATE customer_appointment_master SET servingEmployeeId=$servingEmployeeId,appointmentStatus='$appointmentStatus' where appointmentId = $appointmentId");
+				  $query = mysqli_query($conn,"UPDATE customer_appointment_master SET servingEmployeeId=$servingEmployeeId,appointmentStatus='$appointmentStatus',appointmentDate='$appointmentDate' where appointmentId = $appointmentId");
 					$rowsAffected=mysqli_affected_rows($conn);
 						if($rowsAffected > 0)
 						{
@@ -31,57 +31,63 @@ if (isset($_POST['appointmentId']) && isset($_POST['servingEmployeeId']) && isse
 														$fabricIds = $academicResults['fabricIds'];
 
 														$itemsArray = explode(",", $productids);
-														$fabricArray = explode(";", $fabricIds);
+							              $fabricArray = explode(";", $fabricIds);
+							               $selectedFabric = null;
+							              $products = null;
+							              $index = 0;
+							              foreach($itemsArray as $singleItemId)
+							              {
 
-														$products = null;
-														$index = 0;
-														foreach($itemsArray as $singleItemId)
-														{
-														//	print($singleItemId . "*");
-															if($singleItemId > 0)
-															{
-																$productQuery = mysqli_query($conn,"select * from product_master where productId=$singleItemId");
-																if($productQuery!=null)
-																{
-																	$selectedFabric = null;
-																	$academicAffected=mysqli_num_rows($productQuery);
-																	if($academicAffected>0)
-																	{
-																		//now load fabrics for this
-																		if(count($fabricArray)>0)
-																		{
-																		$innerFabricArray = explode(",", $fabricArray[0]);
-																		$index = $index + 1;
-																			foreach($innerFabricArray as $singleFabric)
-																			{
-																				if($singleFabric > 0)
-																				{
+							                if($singleItemId > 0)
+							                {
 
-																					$fabricQuery = mysqli_query($conn,"select * from product_fabric_master where fabricid=$singleFabric");
-																					if($fabricQuery!=null)
-																					{
-																					$academicAffected=mysqli_num_rows($fabricQuery);
-																					if($academicAffected>0)
-																					{
-																						while($fabricResult = mysqli_fetch_assoc($fabricQuery))
-																						{
-																						$selectedFabric[] = $fabricResult;
-																						}
-																					}
-																					}
-																				}
-																			}
-																		}
+							                  $productQuery = mysqli_query($conn,"select * from product_master where productId=$singleItemId");
+							                  if($productQuery!=null)
+							                  {
 
-																		while($productResult = mysqli_fetch_assoc($productQuery))
-																		{
-																			$products[] = array("Product"=>$productResult, "Fabrics"=>$selectedFabric);
+							                    $academicAffected=mysqli_num_rows($productQuery);
+							                    if($academicAffected>0)
+							                    {
+							                      //now load fabrics for this
+							                      if(count($fabricArray)>0)
+							                      {
 
-																		}
-																	}
-																}
-															}
-														}
+							                      if($index <= count($fabricArray)-1){
+							                        $innerFabricArray = explode(",", $fabricArray[$index]);
+							                        $index = $index + 1;
+							                          foreach($innerFabricArray as $singleFabric)
+							                          {
+							                            if($singleFabric > 0)
+							                            {
+
+							                              $fabricQuery = mysqli_query($conn,"select * from product_fabric_master where fabricid=$singleFabric");
+							                              if($fabricQuery!=null)
+							                              {
+							                              $academicAffected=mysqli_num_rows($fabricQuery);
+							                              if($academicAffected>0)
+							                              {
+							                                while($fabricResult = mysqli_fetch_assoc($fabricQuery))
+							                                {
+							                                $selectedFabric[] = $fabricResult;
+							                                }
+							                              }
+							                              }
+							                            }
+							                          }
+							                      }
+
+							                      }
+
+							                      while($productResult = mysqli_fetch_assoc($productQuery))
+							                      {
+							                        $products[] = array("Product"=>$productResult, "Fabrics"=>$selectedFabric);
+							                        $selectedFabric = null;
+							                      }
+							                    }
+							                  }
+							                }
+
+							              }
 
 //	print_r($products);
 													$appointmentRecords [] =array("AppointmentDetails"=>$academicResults , "SelectedItems"=>$products);
@@ -89,24 +95,29 @@ if (isset($_POST['appointmentId']) && isset($_POST['servingEmployeeId']) && isse
 													$html ='';
 													$aptstatus='';
 													$Allitemdata =$appointmentRecords[0]['SelectedItems'];
-													$status = $appointmentRecords[0]['AppointmentDetails']['appointmentStatus'];
+													$apointmentstat = $appointmentRecords[0]['AppointmentDetails']['appointmentStatus'];
 						//print_r($appointmentRecords[0]['AppointmentDetails']);
 					//	echo($appointmentRecords[0]['AppointmentDetails']['appointmentStatus']);
-													switch ($status) {
+													switch ($apointmentstat) {
 																case 0:
-																	$aptstatus='your order Idle';
+																	$aptstatus='your appointment is Idle';
+																		$aptst='Idle';
 																		break;
 																case 1:
-																	$aptstatus='your order is Confirmed';
+																	$aptstatus='your appointment is Confirmed';
+																	$aptst='Confirmed';
 																		break;
 																case 2:
-																	$aptstatus='your order is Cancelled';
+																	$aptstatus='your appointment is Cancelled';
+																		$aptst='Cancelled';
 																		break;
 																case 3:
-																	$aptstatus='your order is Withdrawn';
+																	$aptstatus='your appointment is Withdrawn';
+																		$aptst='Withdrawn';
 																		break;
 																case 5:
 																	$aptstatus='None';
+																	$aptst='None';
 																		break;
 														}
 														$count = count($Allitemdata);
@@ -148,7 +159,7 @@ if (isset($_POST['appointmentId']) && isset($_POST['servingEmployeeId']) && isse
 													 // $to ="krkunal29@gmail.com";
 													 $to = $appointmentRecords[0]['AppointmentDetails']['email'];
 													// $to      = $appointmentRecords[0]['AppointmentDetails']['email'];
-													$subject = 'Tailor-Smart '.$aptstatus;
+													$subject = 'TailorSmart '.$aptstatus;
 													$message = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional
 													.dtd">
 													<html xmlns="http://www.w3.org/1999/xhtml">
@@ -197,7 +208,7 @@ if (isset($_POST['appointmentId']) && isset($_POST['servingEmployeeId']) && isse
 															</tr>
 															<tr>
 																	<td align="left" valign="top" style="padding-left:20px; padding-top:10px; color:#363636; padding-bottom:15px; line-height:12px; font-size:14px; padding-right:20px; font-family:Arial, Helvetica, sans-serif;">
-																		Appointment Status: '.$aptstatus.'
+																		Appointment Status: '.$aptst.'
 
 																	</td>
 
@@ -241,35 +252,13 @@ if (isset($_POST['appointmentId']) && isset($_POST['servingEmployeeId']) && isse
 													</table>
 													</body>
 													</html>';
-													// <tr>
-													// 		<td align="left" valign="top" style="padding-left:20px; padding-top:10px; color:#363636; padding-bottom:15px; line-height:12px; font-size:14px; padding-right:20px; font-family:Arial, Helvetica, sans-serif;">
-													// 		 Mobile : '.$appointmentRecords[0]['AppointmentDetails']['mobile'].'
-													//
-													// 		</td>
-													//
-													// </tr>
-													//
-													// <tr>
-													// 		<td align="left" valign="top" style="padding-left:20px; padding-top:10px; color:#363636; padding-bottom:15px; line-height:12px; font-size:14px; padding-right:20px; font-family:Arial, Helvetica, sans-serif;">
-													// 		 Email :'.$appointmentRecords[0]['AppointmentDetails']['email'].'
-													//
-													// 		</td>
-													//
-													// </tr>
-													// To send HTML mail, the Content-type header must be set
-													// <tr>
-													// 		<td align="left" valign="top" style="padding-left:20px; padding-top:10px; color:#363636; padding-bottom:15px; line-height:12px; font-size:14px; padding-right:20px; font-family:Arial, Helvetica, sans-serif;">
-													// 			Customer Name :'.$appointmentRecords[0]['AppointmentDetails']['fn']." ".$appointmentRecords[0]['AppointmentDetails']['ln'].'
-													//
-													// 		</td>
-													//
-													// </tr>
+
 													$headers  = 'MIME-Version: 1.0' . "\r\n";
 													$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 
 													$headers .= 'From:"Tailor-Smart"<admin@praxello.com>' . "\r\n";
-													if($status != 0){
-														mail($to, $subject, $message, $headers)
+													if($apointmentstat != 0){
+														mail($to, $subject, $message, $headers);
 													}
 
 

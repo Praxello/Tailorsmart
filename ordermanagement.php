@@ -3,6 +3,11 @@ session_start();
 if(isset($_SESSION['employeeId'])){
 $employeeId = $_SESSION['employeeId'];
 $employeeName = $_SESSION['employeeName'];
+$aid = 0;
+if(isset($_REQUEST['aid']))
+{
+  $aid = $_REQUEST['aid'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,13 +31,6 @@ $employeeName = $_SESSION['employeeName'];
     <link href="css/helper.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="date/date.css" />
-<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:** -->
-    <!--[if lt IE 9]>
-    <script src="https:**oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https:**oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
 </head>
 <body class="fix-header fix-sidebar">
     <!-- Preloader - style you can find in spinners.css -->
@@ -67,6 +65,7 @@ $employeeName = $_SESSION['employeeName'];
             <!-- Container fluid  -->
             <div class="container-fluid">
                 <!-- Start Page Content -->
+                  <input type="hidden" id="aid" value="<?php echo $aid;?>"/>
                 <input type="hidden" id="empId" value="<?php echo $employeeId;?>" />
                 <input type="hidden" id="empName" value="<?php echo $employeeName;?>" />
                <div id="loadNewPage"></div>
@@ -97,7 +96,7 @@ $employeeName = $_SESSION['employeeName'];
                           </div>
                       </div>
                   </div>
-                 
+
                   <div class="col-md-4">
                       <div class="card p-30">
                           <div class="media">
@@ -201,12 +200,12 @@ $employeeName = $_SESSION['employeeName'];
     <!--stickey kit -->
     <script src="js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
     <!--Custom JavaScript -->
-    
+
     <script src="js/custom.min.js"></script>
-    
+
     <script src="js/lib/datatables/datatables.min.js"></script>
     <script src="date/datepicker.js"></script>
-    <script src="date/moment.js"></script> 
+    <script src="date/moment.js"></script>
     <script src="js/ordermanagement.js"></script>
     <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
     <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>

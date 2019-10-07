@@ -79,10 +79,12 @@ function getholiday(){
          type: "GET",
 
          url: api_url+"getslotholidays.php",
+         async : false,
          beforeSend: function() {
                $(".preloader").show();
                // console.log("before");
          },
+
          success: function(response) {
            var count;
             if(response['Data']!=null){

@@ -13,17 +13,17 @@
                  <div class="col-sm-12">
                      <!-- <div class="card"> -->
                      <div class="row">
-                        
+
                          <input type="hidden" id="orderItemIdforassign"/>
                          <div class="col-sm-12">
                              <div class="form-group">
                                  <label for="assignId">Empolyee Name</label>
                                  <select class="form-control form-control-sm" id="assignId" name="assignId">
-                                    
+
                                  </select>
                              </div>
                          </div>
-                        
+
                      </div>
                  </div>
                  <!-- </div> -->
@@ -70,7 +70,7 @@
                 //  getOrdersOfCustomer(customerId_g);
                 // $('#customerOrdersBlock').hide();
                  $('#assignWork').modal('toggle');
-                
+
              },
              complete:function(response){
                $(".preloader").hide();
@@ -78,5 +78,5 @@
          })
         }
      });
-     
+
  </script>

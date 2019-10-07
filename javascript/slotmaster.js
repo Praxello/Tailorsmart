@@ -87,6 +87,7 @@ function getslots(){
      $.ajax({
          type: "GET",
          url: api_url+"getAllSlots.php",
+         async : false,
          beforeSend: function() {
                $(".preloader").show();
                // console.log("before");

@@ -61,7 +61,7 @@ function settabledata(styleData){
         let isConfirmed = confirmationStatus.get(AllData.isActive);
         let mapstatus = mapStitchStyle.get(AllData.stitchStyleType);
         let imageUrl = pic_url+'stitchsubstyle/300x300/'+k+'.jpg';
-        html +="<td><form id='custstyleform"+k+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+k+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' src='"+imageUrl+"'  style='cursor: pointer' onclick='imguplod("+k+")' alt='No Image'></img></form></td>";
+        html +="<td><form id='custstyleform"+k+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+k+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' src='"+imageUrl+"'  style='cursor: pointer' onclick='imguplod("+k+")' alt='No Image' id='save"+k+"' width='70px' height='70px' title='Upload Image'></img></form></td>";
         html +="<td>"+AllData.stitchSubStyleTitle+"</td>";
         html +="<td>"+AllData.stitchStyleTitle+"</td>";
         html +="<td>"+mapstatus+"</td>";
@@ -76,7 +76,7 @@ function settabledata(styleData){
   retrieve: true,
   bPaginate: $('tbody tr').length>10,
   order: [],
-  columnDefs: [ { orderable: false, targets: [0,1,2,3,4,5,6] } ],
+  columnDefs: [ { orderable: false, targets: [0,1,2,3,4,5] } ],
   dom: 'Bfrtip',
   buttons: [],
   destroy: true
@@ -88,6 +88,7 @@ function getstitchstyledetailsitem(){
      $.ajax({
          type: "GET",
          url: api_url+"getstitchstyledetailsitem.php",
+         async : false,
          beforeSend: function() {
                $(".preloader").show();
                // console.log("before");
@@ -138,11 +139,19 @@ function imguplod(imgid){
                            // console.log("before");
                      },
                      success:function(response){
-                       swal(response['Message']);
-                       getstitchstyledetailsitem();
+                       if(response['Responsecode']==200){
+                         swal(response['Message']);
+                         // getcustomersubstyles();
+                         var output = document.getElementById('save'+imgid);
+                          output.src = URL.createObjectURL(files);
+
+                       }
+                       else{
+                         swal(response['Message']);
+                       }
                      },
                      complete:function(response){
-
+                          // window.location.reload();
                        // console.log("after");
                        $(".preloader").hide();
                      }

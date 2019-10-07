@@ -18,7 +18,8 @@
                         <li><a href="customers.php">Order Management</a></li>
                   </ul>
               </li>
-
+              <li><a class=" " href="catlogscr.php" aria-expanded="false"><i
+                        class="fa fa-file-image-o "></i><span class="" >Product Catlog</span></a></li>
               <li><a   href="customerappointment.php" aria-expanded="false"><i
                           class="fa fa-calendar"></i><span class="hide-menu">Appointment Management</span></a></li>
 
@@ -54,8 +55,7 @@
                                                         class="fa fa-clock-o"></i><span class="" style="padding: 20px;">Slot Master</span></a></li>
                                             <li><a class=" " href="currencymaster.php" aria-expanded="false"><i
                                                           class="fa fa-money"></i><span class="" style="padding: 20px;">Currency Master</span></a></li>
-                                            <li><a class=" " href="catlogscr.php" aria-expanded="false"><i
-                                                          class="fa fa-file-image-o "></i><span class="" style="padding: 20px;">Catlog Screen</span></a></li>
+
                                           </ul>
                           </li>
                           <?php

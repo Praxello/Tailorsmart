@@ -35,6 +35,7 @@ function getallorders() {
         type: "POST",
         url: api_url + "getVendorOrderslist.php",
         data: { ownerId: empId },
+        async : false,
         beforeSend: function() {
             $(".preloader").show();
         },

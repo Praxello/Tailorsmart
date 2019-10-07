@@ -45,6 +45,7 @@ function getmeasurementitems(){
      $.ajax({
          type: "GET",
          url: api_url+"getmeasurementitems.php",
+         async : false,
          success: function(response) {
            var count;
             if(response['Data']!=null){
@@ -79,6 +80,8 @@ function imguplod(imgid){
                      },
                      success:function(response){
                        // alert(response);
+                       window.location.reload();
+
 
                      }
               });

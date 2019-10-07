@@ -39,7 +39,7 @@ function settabledata(styleData){
         html +='<tr>';
         let isGroup = confirmationStatus.get(AllData.isGroup);
         let isConfirmed = confirmationStatus.get(AllData.isActive);
-        html +="<td><form id='custstyleform"+k+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+k+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' src='"+imageUrl+"' style='cursor: pointer' onclick='imguplod("+k+")' alt='No Image'></img></form></td>";
+        html +="<td><form id='custstyleform"+k+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+k+"' accept='image/*' style='display:none'/> <img class='img-thumbnail' src='"+imageUrl+"' style='cursor: pointer' onclick='imguplod("+k+")' alt='No Image' id='save"+k+"' width='70px' height='70px' title='Upload Image'></img></form></td>";
         html +="<td>"+AllData.styleTitle+"</td>";
         html +="<td>"+AllData.subStyleTitle+"</td>";
         html +="<td>"+isGroup+"</td>";
@@ -67,6 +67,7 @@ function getmasterproduct(){
      $.ajax({
          type: "GET",
          url: api_url+"getparentproducts.php",
+         async : false,
          success: function(response) {
            var count;
            if(response['Data']!=null){
@@ -104,8 +105,15 @@ function imguplod(imgid){
                      data: fd,
                      dataType:'json',
                      success:function(response){
-                       swal(response['Message']);
-                       getmasterproduct();
+                       if(response['Responsecode']==200){
+                         swal(response['Message']);
+
+                         var output = document.getElementById('save'+imgid);
+                          output.src = URL.createObjectURL(files);
+                       }
+                       else{
+                         swal(response['Message']);
+                       }
                      }
               });
    };

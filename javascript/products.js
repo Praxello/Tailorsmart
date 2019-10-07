@@ -175,7 +175,7 @@ $('#inactbtn').on('click',function(event){
     settabledata(styleData);
 });
 function settabledata(styleData){
-  console.log(styleData);
+
   var roleid = $("#roleid").val(); // Se
   var empid =  parseInt($("#empid").val());
   var pid =  $("#pid").val();
@@ -187,17 +187,25 @@ function settabledata(styleData){
   for(let k of styleData.keys())
   {
         var AllData= styleData.get(k);
-
+        
         if(roleid=="4")
         {
           let empId = parseInt(AllData.ownerId);
-          // console.log("Emp id"+empId);
+         
           if(empId===empid){
             shtml +='<tr>';
+            let empName = '';
+            if(EmployeeData.has(AllData.ownerId)){
+              let empData=  EmployeeData.get(AllData.ownerId);
+              empName = empData.firstName+" "+empData.lastName;
+            }
+            else{
+              empName  ='-';
+            }
             let isConfirmed = confirmationStatus.get(AllData.isActive);
             let imageUrl = pic_url+'product/300x300/'+k+'.jpg';
             let parentname = ParentProducts.get(AllData.parentId);
-            shtml +="<td style='width:15%'><form id='custstyleform"+k+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+k+"' name='file' accept='image/*' style='display:none;' /> <img  accept='image/*' class='img-thumbnail' src='"+imageUrl+"' style='cursor: pointer' alt='No Image' onclick='imguplod("+k+")'></img></form></td>";
+            shtml +="<td style='width:15%'><form id='custstyleform"+k+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+k+"' name='file' accept='image/*' style='display:none;' /> <img  accept='image/*' class='img-thumbnail' src='"+imageUrl+"' style='cursor: pointer' alt='No Image' onclick='imguplod("+k+")'  id='save"+k+"' width='70px' height='70px' title='Upload Image'></img></form></td>";
             shtml +="<td>"+AllData.productTitle+"</td>";
 
 
@@ -207,20 +215,30 @@ function settabledata(styleData){
             shtml +="<td style='width:5%'>"+AllData.releaseDate+"</td>";
 
             shtml +="<td style='width:5%'>"+AllData.sequenceNo+"</td>";
-            shtml +="<td style='width:15%'>"+AllData.productSubTitle+"</td>";
+            shtml +="<td style='width:15%'>"+empName+"</td>";
             shtml +="<td>"+isConfirmed+"</td>";
             shtml +='<td style="width:5%"><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod('+k+')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+k+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeProduct('+k+')"><i class="fa fa-remove"></i></button></div></td>';
             shtml +="</tr>";
           }
+          
 
         }
-        else {
+        else
+        {
           if(AllData.isActive==="1"){
             shtml +='<tr>';
+            let empName = '';
+            if(EmployeeData.has(AllData.ownerId)){
+              let empData=  EmployeeData.get(AllData.ownerId);
+              empName = empData.firstName+" "+empData.lastName;
+            }
+            else{
+              empName  ='-';
+            }
             let isConfirmed = confirmationStatus.get(AllData.isActive);
             let imageUrl = pic_url+'product/300x300/'+k+'.jpg';
             let parentname = ParentProducts.get(AllData.parentId);
-            shtml +="<td style='width:15%'><form id='custstyleform"+k+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+k+"' name='file' accept='image/*' style='display:none;' /> <img  accept='image/*' class='img-thumbnail' src='"+imageUrl+"' style='cursor: pointer' alt='No Image' onclick='imguplod("+k+")'></img></form></td>";
+            shtml +="<td style='width:15%'><form id='custstyleform"+k+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+k+"' name='file' accept='image/*' style='display:none;' /> <img  accept='image/*' class='img-thumbnail' src='"+imageUrl+"' style='cursor: pointer' alt='No Image' onclick='imguplod("+k+")'  id='save"+k+"' width='70px' height='70px' title='Upload Image'></img></form></td>";
             shtml +="<td>"+AllData.productTitle+"</td>";
 
 
@@ -230,17 +248,25 @@ function settabledata(styleData){
             shtml +="<td style='width:5%'>"+AllData.releaseDate+"</td>";
 
             shtml +="<td style='width:5%'>"+AllData.sequenceNo+"</td>";
-            shtml +="<td style='width:15%'>"+AllData.productSubTitle+"</td>";
+            shtml +="<td style='width:15%'>"+empName+"</td>";
             shtml +="<td>"+isConfirmed+"</td>";
             shtml +='<td style="width:5%"><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod('+k+')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+k+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeProduct('+k+')"><i class="fa fa-remove"></i></button></div></td>';
             shtml +="</tr>";
           }
           else {
             unhtml +='<tr>';
+            let empName = '';
+            if(EmployeeData.has(AllData.ownerId)){
+              let empData=  EmployeeData.get(AllData.ownerId);
+              empName = empData.firstName+" "+empData.lastName;
+            }
+            else{
+              empName  ='-';
+            }
             let isConfirmed = confirmationStatus.get(AllData.isActive);
             let imageUrl = pic_url+'product/300x300/'+k+'.jpg';
             let parentname = ParentProducts.get(AllData.parentId);
-            unhtml +="<td style='width:15%'><form id='custstyleform"+k+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+k+"' name='file' accept='image/*' style='display:none;' /> <img  accept='image/*' class='img-thumbnail' src='"+imageUrl+"' style='cursor: pointer' alt='No Image' onclick='imguplod("+k+")'></img></form></td>";
+            unhtml +="<td style='width:15%'><form id='custstyleform"+k+"' method='post' enctype='multipart/form-data'><input type='file' id='customerstylepic"+k+"' name='file' accept='image/*' style='display:none;' /> <img  accept='image/*' class='img-thumbnail' src='"+imageUrl+"' style='cursor: pointer' alt='No Image' onclick='imguplod("+k+")'  id='save"+k+"' width='70px' height='70px' title='Upload Image'></img></form></td>";
             unhtml +="<td>"+AllData.productTitle+"</td>";
 
 
@@ -250,7 +276,7 @@ function settabledata(styleData){
             unhtml +="<td style='width:5%'>"+AllData.releaseDate+"</td>";
 
             unhtml +="<td style='width:5%'>"+AllData.sequenceNo+"</td>";
-            unhtml +="<td style='width:15%'>"+AllData.productSubTitle+"</td>";
+            unhtml +="<td style='width:15%'>"+empName+"</td>";
             unhtml +="<td>"+isConfirmed+"</td>";
             unhtml +='<td style="width:5%"><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod('+k+')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+k+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeProduct('+k+')"><i class="fa fa-remove"></i></button></div></td>';
             unhtml +="</tr>";
@@ -265,6 +291,7 @@ function settabledata(styleData){
   }
   else
   {
+    
     if(idshow===1)
     {
       $("#styletbldata").html(shtml);
@@ -343,8 +370,16 @@ function imguplod(imgid){
                      data: fd,
                      dataType:'json',
                      success:function(response){
-                        swal(response['Message']);
-                        getproductdata();
+                       if(response['Responsecode']==200){
+                         swal(response['Message']);
+                         // getcustomersubstyles();
+                         var output = document.getElementById('save'+imgid);
+                          output.src = URL.createObjectURL(files);
+
+                       }
+                       else{
+                         swal(response['Message']);
+                       }
                      }
               });
    };

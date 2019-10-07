@@ -31,14 +31,14 @@
                       </li>
                        <!-- This badge for list of all orders which status not be complete till now -->
                       <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle text-muted text-muted  " href="allorders.php?aid=1"   title="Orders Not Completed"> <i class="fa fa-tags" style="color:orange"><span id='b2'></span></i>
+                      <a class="nav-link dropdown-toggle text-muted text-muted  " href="ordermanagement.php?aid=1"   title="Orders Not Completed"> <i class="fa fa-tags" style="color:orange"><span id='b2'></span></i>
                       <div class="notify"> <span class="heartbit" id="ap3"></span> <span class="point" id="ap4"></span> </div>
                       </a>
                       </li>
 
                       <!-- This badge for list of all orders which status not be complete till now -->
                      <li class="nav-item dropdown">
-                     <a class="nav-link dropdown-toggle text-muted text-muted  " href="allorders.php?aid=2"   title="Request For Alteration"> <i class="fa fa-scissors"><span id='b5'></span></i>
+                     <a class="nav-link dropdown-toggle text-muted text-muted  " href="ordermanagement.php?aid=2"   title="Request For Alteration"> <i class="fa fa-scissors"><span id='b5'></span></i>
                      <div class="notify"> <span class="heartbit" id="ap9"></span> <span class="point" id="ap10"></span> </div>
                      </a>
                      </li>

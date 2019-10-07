@@ -84,6 +84,7 @@ function getAllCustomers() {
         url: api_url + 'allcustomers.php',
         type: 'GET',
         dataType: 'json',
+
         beforeSend: function() {
             // console.log('in before');
             // $(".preloader").fadeIn();
@@ -119,6 +120,7 @@ function getallorders() {
     $.ajax({
         type: "GET",
         url: api_url + "getallcustomerorders.php",
+        async : false,
         beforeSend: function() {
             $(".preloader").show();
 

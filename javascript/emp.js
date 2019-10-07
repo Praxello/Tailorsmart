@@ -105,6 +105,7 @@ function getcustomerstyles(){
      $.ajax({
          type: "GET",
          url: api_url+"getallstaff.php",
+         async : false,
          beforeSend: function() {
                $(".preloader").show();
                // console.log("before");

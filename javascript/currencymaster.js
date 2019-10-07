@@ -11,7 +11,7 @@ function getConfirmation() {
     confirmationStatus.set('1', '<span class="badge badge-pill badge-primary">Active</span>');
 }
 function setslotmaster(CurrencyData){
-  // console.log(CurrencyData);
+  
   var html ='';
   $('#slottbl').dataTable().fnDestroy();
   $("#slottbldata").empty();
@@ -49,6 +49,7 @@ function getslots(){
 
          type: "GET",
          url: api_url+"getallcurrencymaster.php",
+         async : false,
          beforeSend: function() {
                $(".preloader").show();
                // console.log("before");
@@ -60,7 +61,7 @@ function getslots(){
             }
             for(var i=0;i<count;i++)
             {
-            CurrencyData.set(response.Data[i].cityId,response.Data[i]);
+            CurrencyData.set(response.Data[i].cityid,response.Data[i]);
             }
             setslotmaster(CurrencyData);
          },
