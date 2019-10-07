@@ -130,7 +130,9 @@ function getOrdersOfCustomer() {
                     customerExpectedDate = null,
                     FinalDeliveryDate = null,
                     amount = 0,
-                    rec_amount = 0,
+                    cash_amount = 0,
+                    NEFT_amount = 0,
+                    total_recieved_amount = 0,
                     EmpName = '-';
                 $('#customerOrdersBlock').show();
                 var responseData = "";
@@ -249,8 +251,9 @@ function getOrdersOfCustomer() {
                 $("#customerOrdersData").html(responseData);
                 $('#amt_total').html(amount.toLocaleString());
                 $('#total_order_amount').html(amount.toLocaleString());
-                $('#recieved_total').html(rec_amount.toLocaleString());
-                $('#cash').html(rec_amount.toLocaleString());
+                $('#recieved_total').html((cash_amount + NEFT_amount).toLocaleString());
+                $('#cash').html(cash_amount.toLocaleString());
+                $('#neft').html(NEFT_amount.toLocaleString());
                 $('#orderscount').html(count);
                 table = $('#customerOrdersDataTable').DataTable({
                     searching: true,

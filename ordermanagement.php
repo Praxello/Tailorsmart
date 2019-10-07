@@ -70,7 +70,7 @@ if(isset($_REQUEST['aid']))
                 <input type="hidden" id="empName" value="<?php echo $employeeName;?>" />
                <div id="loadNewPage"></div>
                <div class="row" id="showOrdersdiv">
-                  <div class="col-md-4">
+                  <div class="col-md-3">
                       <div class="card p-30">
                           <div class="media">
                               <div class="media-left meida media-middle">
@@ -83,7 +83,7 @@ if(isset($_REQUEST['aid']))
                           </div>
                       </div>
                   </div>
-                  <div class="col-md-4">
+                  <div class="col-md-3">
                       <div class="card p-30">
                           <div class="media">
                               <div class="media-left meida media-middle">
@@ -143,7 +143,7 @@ if(isset($_REQUEST['aid']))
                                                 <th>Order Id</th>
                                                 <th>Order Amount</th>
                                                 <th>Recieved Amount</th>
-                                                <th>Promo code</th>
+                                                <!-- <th>Promo code</th> -->
                                                 <th>Order Date</th>
                                                 <th style="display:none;">Purchase</th>
                                                 <th>Order Status</th>
@@ -161,7 +161,7 @@ if(isset($_REQUEST['aid']))
                                                 <th></th>
                                                 <th id="amt_total"></th>
                                                 <th id="recieved_total"></th>
-                                                <th></th>
+                                                <!-- <th></th> -->
                                                 <th></th>
                                                 <th style="display:none;"></th>
                                                 <th></th>

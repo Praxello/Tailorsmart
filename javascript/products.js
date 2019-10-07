@@ -187,11 +187,11 @@ function settabledata(styleData){
   for(let k of styleData.keys())
   {
         var AllData= styleData.get(k);
-        
+
         if(roleid=="4")
         {
           let empId = parseInt(AllData.ownerId);
-         
+
           if(empId===empid){
             shtml +='<tr>';
             let empName = '';
@@ -220,7 +220,7 @@ function settabledata(styleData){
             shtml +='<td style="width:5%"><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod('+k+')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+k+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeProduct('+k+')"><i class="fa fa-remove"></i></button></div></td>';
             shtml +="</tr>";
           }
-          
+
 
         }
         else
@@ -291,7 +291,7 @@ function settabledata(styleData){
   }
   else
   {
-    
+
     if(idshow===1)
     {
       $("#styletbldata").html(shtml);

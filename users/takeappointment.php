@@ -103,9 +103,10 @@ if (isset($_POST['customerid']) && isset($_POST['productids']) &&  isset($_POST[
                             $html ='';
                             $aptstatus='';
                             $Allitemdata =$appointmentRecords[0]['SelectedItems'];
+                            $apointstat = $appointmentRecords[0]['AppointmentDetails']['appointmentStatus'];
 							//print_r($appointmentRecords[0]['AppointmentDetails']);
 						//	echo($appointmentRecords[0]['AppointmentDetails']['appointmentStatus']);
-                            switch ($appointmentRecords[0]['AppointmentDetails']['appointmentStatus']) {
+                            switch ( $apointstat) {
                                   case 0:
                                     $aptstatus='<span class="badge badge-pill badge-primary">Idle</span>';
                                       break;
@@ -251,16 +252,11 @@ if (isset($_POST['customerid']) && isset($_POST['productids']) &&  isset($_POST[
                             $headers  = 'MIME-Version: 1.0' . "\r\n";
                             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 
-                            $headers .= 'From:admin@praxello.com' . "\r\n";
-                            mail($to, $subject, $message, $headers);
-                            //
-                            // <tr>
-                            //     <td align="left" valign="top" style="padding-left:20px; padding-top:10px; color:#363636; padding-bottom:15px; line-height:12px; font-size:14px; padding-right:20px; font-family:Arial, Helvetica, sans-serif;">
-                            //       Customer Name :'.$appointmentRecords[0]['AppointmentDetails']['fn']." ".$appointmentRecords[0]['AppointmentDetails']['ln'].'
-                            //
-                            //     </td>
-                            //
-                            // </tr>
+                            $headers .= 'From:"Tailor-Smart"<admin@praxello.com>' . "\r\n";
+                            if($apointstat !=0){
+                              mail($to, $subject, $message, $headers);
+                            }
+                            
                         }
                         else
                         {
