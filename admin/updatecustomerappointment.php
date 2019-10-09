@@ -258,7 +258,7 @@ if (isset($_POST['appointmentId']) && isset($_POST['servingEmployeeId']) && isse
 													// $headers .= "Bcc:".$appointmentRecords[0]['AppointmentDetails']['employeeemail']."\r\n";
 													$headers .= 'Cc:'.$appointmentRecords[0]['AppointmentDetails']['employeeemail'].''."\r\n";
 													$headers .= 'From:"Tailor-Smart"<admin@praxello.com>' . "\r\n";
-													
+
 
 													//$headers .= 'Bcc: krkunal29@gmail.com\r\n';
 													if($apointmentstat != 0){
