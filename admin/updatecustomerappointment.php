@@ -15,7 +15,7 @@ if (isset($_POST['appointmentId']) && isset($_POST['servingEmployeeId']) && isse
 						if($rowsAffected > 0)
 						{
 					  			$response = array('Message'=>"Appointment updated successfully",'Responsecode'=>200);
-									$academicQuery1 = mysqli_query($conn,"SELECT slot.slotTime,cam.appointmentId, cam.customerId,cm.email, cm.firstName as fn,cm.lastName as ln,cm.city,cm.state,cm.country,cm.mobile,cam.productIds, cam.fabricIds, cam.appointmentDate, cam.slotId, cam.servingEmployeeId, cam.appointmentStatus , em.firstName as employeename FROM  customer_appointment_master cam inner join appointment_slots slot on cam.slotid = slot.slotId inner join customer_master cm on cam.customerid = cm.customerid left outer join employee_master em on cam.servingEmployeeId = em.employeeId where  cam.appointmentId=$appointmentId order by cam.appointmentDate desc");
+									$academicQuery1 = mysqli_query($conn,"SELECT slot.slotTime,cam.appointmentId, cam.customerId,cm.email, cm.firstName as fn,cm.lastName as ln,cm.city,cm.state,cm.country,cm.mobile,cam.productIds, cam.fabricIds, cam.appointmentDate, cam.slotId, cam.servingEmployeeId, cam.appointmentStatus , em.firstName as employeename , em.email as employeeemail FROM  customer_appointment_master cam inner join appointment_slots slot on cam.slotid = slot.slotId inner join customer_master cm on cam.customerid = cm.customerid left outer join employee_master em on cam.servingEmployeeId = em.employeeId where  cam.appointmentId=$appointmentId order by cam.appointmentDate desc");
 										if($academicQuery1!=null)
 										{
 											$academicAffected=mysqli_num_rows($academicQuery1);
@@ -156,7 +156,7 @@ if (isset($_POST['appointmentId']) && isset($_POST['servingEmployeeId']) && isse
 														}
 
 													}
-													 // $to ="krkunal29@gmail.com";
+													  //$to ="krkunal29@gmail.com";
 													 $to = $appointmentRecords[0]['AppointmentDetails']['email'];
 													// $to      = $appointmentRecords[0]['AppointmentDetails']['email'];
 													$subject = 'TailorSmart '.$aptstatus;
@@ -255,8 +255,12 @@ if (isset($_POST['appointmentId']) && isset($_POST['servingEmployeeId']) && isse
 
 													$headers  = 'MIME-Version: 1.0' . "\r\n";
 													$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-
+													// $headers .= "Bcc:".$appointmentRecords[0]['AppointmentDetails']['employeeemail']."\r\n";
+													$headers .= 'Cc:'.$appointmentRecords[0]['AppointmentDetails']['employeeemail'].''."\r\n";
 													$headers .= 'From:"Tailor-Smart"<admin@praxello.com>' . "\r\n";
+													
+
+													//$headers .= 'Bcc: krkunal29@gmail.com\r\n';
 													if($apointmentstat != 0){
 														mail($to, $subject, $message, $headers);
 													}
