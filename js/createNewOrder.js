@@ -40,9 +40,8 @@ $('.add-row').on('click', function(e) {
             customerOrderDetails = [];
             customerOrderDetails = customerOrders[indexRow];
             $('#customerOrdersBlock').hide();
+              var markup = '';
             for (var i = 0; i < count; i++) {
-                if (response.Data[i].orderItemId == response.OrderItemId) { //for add only current row data into html table
-                    var markup = '';
                     let styleTitle = '';
                     if (ParentProducts.has(response.Data[i].parentId)) {
                         styleTitle = ParentProducts.get(response.Data[i].parentId);
@@ -62,9 +61,8 @@ $('.add-row').on('click', function(e) {
                     markup += "<a  class='btn btn-danger btn-sm' title='Remove Item' data-toggle='tooltip' href='#' onclick='removeItem(\"" + response.Data[i].orderItemId + "\",\"" + response.Data[i].orderItemPrice + "\")'><i class='fa fa-trash'></i></a>";
                     markup += "<a class='btn btn-primary btn-sm' title='Download PDF' data-toggle='tooltip' href='#' onclick='loadPdf(" + response.Data[i].orderItemId + ")'><i class='fa fa-file-pdf-o'></i></a>";
                     markup += "</td></div></tr>";
-                    $("#productData").append(markup);
-                }
             }
+              $("#productData").html(markup);
             $('#OrderItemPrice').val('');
             $('#products').val('').trigger('change');
         },
@@ -132,7 +130,7 @@ function loadMeasurment(productId, orderItemId, rowId) { //for mapping product i
     customer_orderItemId = orderItemId;
     // console.log(customer_orderItemId);
     var count_1 = 0;
-    console.log(customerOrderDetails);
+  
     var check_mesurment_exists = customerOrderDetails.orderItems[rowId].Measurements;
 
     if (check_mesurment_exists != null) {
