@@ -16,36 +16,36 @@ function display_customerInfo() {
 
 $('.add-row').on('click', function(e) {
     var orderItemPrice = $('#OrderItemPrice').val();
-    var productid= $('#products').val();
+    var productid = $('#products').val();
 
     if (orderItemPrice == '') {
         orderItemPrice = 0;
     }
     e.preventDefault();
-    if(productid!=null){
+    if (productid != null) {
 
-    var createOrderData = {
-        orderid: orderId,
-        orderItemPrice: orderItemPrice,
-        productid: $('#products').val()
-    };
-    $.ajax({
-        url: api_url + 'createorderitem.php',
-        type: 'POST',
-        dataType: 'json',
-        data: createOrderData,
-        beforeSend: function() {
-            $(".preloader").show();
-        },
-        success: function(response) {
-            var count = response.Data.length;
+        var createOrderData = {
+            orderid: orderId,
+            orderItemPrice: orderItemPrice,
+            productid: $('#products').val()
+        };
+        $.ajax({
+            url: api_url + 'createorderitem.php',
+            type: 'POST',
+            dataType: 'json',
+            data: createOrderData,
+            beforeSend: function() {
+                $(".preloader").show();
+            },
+            success: function(response) {
+                var count = response.Data.length;
 
-            getOrdersOfCustomer();
-            customerOrderDetails = [];
-            customerOrderDetails = customerOrders[indexRow];
-            $('#customerOrdersBlock').hide();
+                getOrdersOfCustomer();
+                customerOrderDetails = [];
+                customerOrderDetails = customerOrders[indexRow];
+                $('#customerOrdersBlock').hide();
                 var markup = '';
-            for (var i = 0; i < count; i++) {
+                for (var i = 0; i < count; i++) {
                     let styleTitle = '';
                     if (ParentProducts.has(response.Data[i].parentId)) {
                         styleTitle = ParentProducts.get(response.Data[i].parentId);
@@ -67,16 +67,16 @@ $('.add-row').on('click', function(e) {
                     markup += "</td></div></tr>";
 
 
+                }
+                $("#productData").html(markup);
+                $('#OrderItemPrice').val('');
+                $('#products').val('').trigger('change');
+            },
+            complete: function(response) {
+                $(".preloader").hide();
             }
-            $("#productData").html(markup);
-            $('#OrderItemPrice').val('');
-            $('#products').val('').trigger('change');
-        },
-        complete: function(response) {
-            $(".preloader").hide();
-        }
-    });
-  }
+        });
+    }
 
 });
 
@@ -93,6 +93,10 @@ function removeItem(orderItemId, price) {
         dataType: 'json',
         success: function(response) {
             $('#' + orderItemId).remove();
+            getOrdersOfCustomer();
+            $('#customerOrdersBlock').hide();
+            customerOrderDetails = [];
+            customerOrderDetails = customerOrders[indexRow];
         }
     })
 }
@@ -122,7 +126,7 @@ function getActiveProductsList() {
                     styleTitle = ParentProducts.get(response.Data[i].parentId);
                 }
                 ActiveProductsList.set(response.Data[i].productId, response.Data[i].price);
-                createDropdownOptions += "<option value=" + response.Data[i].productId + ">" + response.Data[i].productTitle + '-' + styleTitle + "</option>";
+                createDropdownOptions += "<option value=" + response.Data[i].productId + ">" + response.Data[i].productTitle + '-' + styleTitle + '(' + response.Data[i].skuNo + ')' + "</option>";
             }
             $("#products").html(createDropdownOptions);
             $('#products').val('').trigger('change');
@@ -518,8 +522,11 @@ changeStatusOfOrder();
 
 function changeStatusOfOrder() {
     var OrderDetails = customerOrders[indexRow];
+    console.log(OrderDetails);
     $('#statusOfOrder').val(OrderDetails.OrderDetails.orderStatus).trigger('change');
     $('#confirmationOfOrder').val(OrderDetails.OrderDetails.isConfirmed).trigger('change');
+    $('#dateOfExpected').val(OrderDetails.OrderDetails.customerExpectedDate);
+    $('#dateOfFinalDelivery').val(OrderDetails.OrderDetails.FinalDeliveryDate);
 }
 $('#updateorderstatus').on('click', function() {
     orderStatusData = {
@@ -557,41 +564,38 @@ function loadAssignModel(orderItemId, employeeid) {
     $('#assignWork').modal();
 }
 
-function loadcomment(orderItemId){
-var html ='';
-  $.ajax({
-      url: api_url + 'getcommentorderItemId.php',
-      type: 'POST',
-      data: {
-        orderItemId :orderItemId
-      },
-      dataType: 'json',
-      beforeSend: function() {
-          // $(".preloader").show();
-      },
-      success: function(response) {
-         // console.log(response.Message);
-         if(response.Responsecode==200){
-           if(response['Data']!=null){
-              count= response['Data'].length;
-           }
-           for(var i=0;i<count;i++)
-           {
-             html +='<tr>';
-             html +='<td width="70%;">'+response.Data[i].remarks+'</td>';
-             html +='<td width="30%;">'+response.Data[i].requestDateTime+'</td>';
-             html +='</tr>';
-           }
-           $("#spancomment").html(html);
-           $('#openComment').modal();
-         }
-         else{
-           alert("No Comment is Available for this Item");
-         }
-      },
-      complete: function(response) {
-      }
-  });
+function loadcomment(orderItemId) {
+    var html = '';
+    $.ajax({
+        url: api_url + 'getcommentorderItemId.php',
+        type: 'POST',
+        data: {
+            orderItemId: orderItemId
+        },
+        dataType: 'json',
+        beforeSend: function() {
+            // $(".preloader").show();
+        },
+        success: function(response) {
+            // console.log(response.Message);
+            if (response.Responsecode == 200) {
+                if (response['Data'] != null) {
+                    count = response['Data'].length;
+                }
+                for (var i = 0; i < count; i++) {
+                    html += '<tr>';
+                    html += '<td width="70%;">' + response.Data[i].remarks + '</td>';
+                    html += '<td width="30%;">' + response.Data[i].requestDateTime + '</td>';
+                    html += '</tr>';
+                }
+                $("#spancomment").html(html);
+                $('#openComment').modal();
+            } else {
+                alert("No Comment is Available for this Item");
+            }
+        },
+        complete: function(response) {}
+    });
 }
 
 function loadPdf(orderItemId) {

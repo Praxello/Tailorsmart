@@ -40,29 +40,29 @@ $('.add-row').on('click', function(e) {
             customerOrderDetails = [];
             customerOrderDetails = customerOrders[indexRow];
             $('#customerOrdersBlock').hide();
-              var markup = '';
+            var markup = '';
             for (var i = 0; i < count; i++) {
-                    let styleTitle = '';
-                    if (ParentProducts.has(response.Data[i].parentId)) {
-                        styleTitle = ParentProducts.get(response.Data[i].parentId);
-                    }
-                    markup += "<tr id=" + response.Data[i].orderItemId + "><td>" + response.Data[i].productTitle + '-' + styleTitle + "</td><td>" + response.Data[i].productSubTitle + "</td><td>" + response.Data[i].orderItemPrice + "</td>";
-                    markup += "<td><input type='hidden' id='amt" + response.Data[i].orderItemId + "' value='" + response.Data[i].orderItemPrice + "'/>";
-                    markup += "</td>";
-                    markup += "<td>";
-                    markup += "<a  title='See Comment' data-toggle='tooltip' onclick='loadcomment(" + response.Data[i].orderItemId + ")' href='#'><code style='color: red;'>See Comment</code></a>";
-                    markup += "</td>";
-                    markup += "<td><div class='btn-group' role='group' aria-label='Basic example'>";
-                    markup += "<a class='btn btn-dark btn-sm' title='Assign Sales' data-toggle='tooltip' onclick='loadAssignModel(\"" + response.Data[i].orderItemId + "\",\"" + response.Data[i].employeeid + "\")' href='#'><i class='fa fa-tasks'></i></a>";
-                    markup += "<a class='btn btn-info btn-sm' title='Edit Price' data-toggle='tooltip' onclick='loadPriceModal(\"" + response.Data[i].orderItemId + "\",\"" + response.Data[i].productTitle + "\",\"" + (i + 1) + "\")' href='#'><i class='fa fa-inr'></i></a>";
-                    markup += "<a class='btn btn-success btn-sm' title='Add Measurment' data-toggle='tooltip' onclick='loadMeasurment(\"" + response.Data[i].productId + "\",\"" + response.Data[i].orderItemId + "\",\"" + (i) + "\")' href='#'><i class='fa fa-balance-scale'></i></a>";
-                    markup += "<a class='btn btn-primary btn-sm' title='add Style' data-toggle='tooltip' href='#' onclick='loadStyles(\"" + response.Data[i].productId + "\",\"" + response.Data[i].orderItemId + "\",\"" + (i) + "\")'><i class='fa fa-male'></i></a>";
-                    markup += "<a class='btn btn-warning btn-sm' title='add Fabrics' data-toggle='tooltip' href='#' onclick='loadFabrics(\"" + response.Data[i].productId + "\",\"" + response.Data[i].orderItemId + "\",\"" + (i) + "\")'><i class='fa fa-gift'></i></a>";
-                    markup += "<a  class='btn btn-danger btn-sm' title='Remove Item' data-toggle='tooltip' href='#' onclick='removeItem(\"" + response.Data[i].orderItemId + "\",\"" + response.Data[i].orderItemPrice + "\")'><i class='fa fa-trash'></i></a>";
-                    markup += "<a class='btn btn-primary btn-sm' title='Download PDF' data-toggle='tooltip' href='#' onclick='loadPdf(" + response.Data[i].orderItemId + ")'><i class='fa fa-file-pdf-o'></i></a>";
-                    markup += "</td></div></tr>";
+                let styleTitle = '';
+                if (ParentProducts.has(response.Data[i].parentId)) {
+                    styleTitle = ParentProducts.get(response.Data[i].parentId);
+                }
+                markup += "<tr id=" + response.Data[i].orderItemId + "><td>" + response.Data[i].productTitle + '-' + styleTitle + "</td><td>" + response.Data[i].productSubTitle + "</td><td>" + response.Data[i].orderItemPrice + "</td>";
+                markup += "<td><input type='hidden' id='amt" + response.Data[i].orderItemId + "' value='" + response.Data[i].orderItemPrice + "'/>";
+                markup += "</td>";
+                markup += "<td>";
+                markup += "<a  title='See Comment' data-toggle='tooltip' onclick='loadcomment(" + response.Data[i].orderItemId + ")' href='#'><code style='color: red;'>See Comment</code></a>";
+                markup += "</td>";
+                markup += "<td><div class='btn-group' role='group' aria-label='Basic example'>";
+                markup += "<a class='btn btn-dark btn-sm' title='Assign Sales' data-toggle='tooltip' onclick='loadAssignModel(\"" + response.Data[i].orderItemId + "\",\"" + response.Data[i].employeeid + "\")' href='#'><i class='fa fa-tasks'></i></a>";
+                markup += "<a class='btn btn-info btn-sm' title='Edit Price' data-toggle='tooltip' onclick='loadPriceModal(\"" + response.Data[i].orderItemId + "\",\"" + response.Data[i].productTitle + "\",\"" + (i + 1) + "\")' href='#'><i class='fa fa-inr'></i></a>";
+                markup += "<a class='btn btn-success btn-sm' title='Add Measurment' data-toggle='tooltip' onclick='loadMeasurment(\"" + response.Data[i].productId + "\",\"" + response.Data[i].orderItemId + "\",\"" + (i) + "\")' href='#'><i class='fa fa-balance-scale'></i></a>";
+                markup += "<a class='btn btn-primary btn-sm' title='add Style' data-toggle='tooltip' href='#' onclick='loadStyles(\"" + response.Data[i].productId + "\",\"" + response.Data[i].orderItemId + "\",\"" + (i) + "\")'><i class='fa fa-male'></i></a>";
+                markup += "<a class='btn btn-warning btn-sm' title='add Fabrics' data-toggle='tooltip' href='#' onclick='loadFabrics(\"" + response.Data[i].productId + "\",\"" + response.Data[i].orderItemId + "\",\"" + (i) + "\")'><i class='fa fa-gift'></i></a>";
+                markup += "<a  class='btn btn-danger btn-sm' title='Remove Item' data-toggle='tooltip' href='#' onclick='removeItem(\"" + response.Data[i].orderItemId + "\",\"" + response.Data[i].orderItemPrice + "\")'><i class='fa fa-trash'></i></a>";
+                markup += "<a class='btn btn-primary btn-sm' title='Download PDF' data-toggle='tooltip' href='#' onclick='loadPdf(" + response.Data[i].orderItemId + ")'><i class='fa fa-file-pdf-o'></i></a>";
+                markup += "</td></div></tr>";
             }
-              $("#productData").html(markup);
+            $("#productData").html(markup);
             $('#OrderItemPrice').val('');
             $('#products').val('').trigger('change');
         },
@@ -86,6 +86,10 @@ function removeItem(orderItemId, price) {
         dataType: 'json',
         success: function(response) {
             $('#' + orderItemId).remove();
+            getOrdersOfCustomer(customerId_g);
+            $('#customerOrdersBlock').hide();
+            customerOrderDetails = [];
+            customerOrderDetails = customerOrders[indexRow];
         }
     })
 }
@@ -115,7 +119,7 @@ function getActiveProductsList() {
                     styleTitle = ParentProducts.get(response.Data[i].parentId);
                 }
                 ActiveProductsList.set(response.Data[i].productId, response.Data[i].price);
-                createDropdownOptions += "<option value=" + response.Data[i].productId + ">" + response.Data[i].productTitle + '-' + styleTitle + "</option>";
+                createDropdownOptions += "<option value=" + response.Data[i].productId + ">" + response.Data[i].productTitle + '-' + styleTitle + '(' + response.Data[i].skuNo + ')' + "</option>";
             }
             $("#products").html(createDropdownOptions);
             $('#products').val('').trigger('change');
@@ -130,7 +134,7 @@ function loadMeasurment(productId, orderItemId, rowId) { //for mapping product i
     customer_orderItemId = orderItemId;
     // console.log(customer_orderItemId);
     var count_1 = 0;
-  
+
     var check_mesurment_exists = customerOrderDetails.orderItems[rowId].Measurements;
 
     if (check_mesurment_exists != null) {
@@ -420,7 +424,7 @@ function getPaymentList() {
                     if (response.Data.Payments[i].isSuceed == 1) {
                         isSuceed = "<td><span class='badge badge-pill badge-success'>completed</span></td>";
                         isDeleted = "<td><code></code></td>";
-                        deleteEntry ="<td><code></code></td>";
+                        deleteEntry = "<td><code></code></td>";
                     } else {
                         isSuceed = "<td><span class='badge badge-pill badge-danger'>pending</span></td>";
                         if (response.Data.Payments[i].isDeleted == 1) {
@@ -518,6 +522,8 @@ function changeStatusOfOrder() {
     var OrderDetails = customerOrders[indexRow];
     $('#statusOfOrder').val(OrderDetails.OrderDetails.orderStatus).trigger('change');
     $('#confirmationOfOrder').val(OrderDetails.OrderDetails.isConfirmed).trigger('change');
+    $('#dateOfExpected').val(OrderDetails.OrderDetails.customerExpectedDate);
+    $('#dateOfFinalDelivery').val(OrderDetails.OrderDetails.FinalDeliveryDate);
 }
 $('#updateorderstatus').on('click', function() {
     orderStatusData = {
@@ -555,42 +561,40 @@ function loadAssignModel(orderItemId, employeeid) {
     $('#assignWork').modal();
 }
 
-function loadcomment(orderItemId){
-var html ='';
-  $.ajax({
-      url: api_url + 'getcommentorderItemId.php',
-      type: 'POST',
-      data: {
-        orderItemId :orderItemId
-      },
-      dataType: 'json',
-      beforeSend: function() {
-          // $(".preloader").show();
-      },
-      success: function(response) {
-         // console.log(response.Message);
-         if(response.Responsecode==200){
-           if(response['Data']!=null){
-              count= response['Data'].length;
-           }
-           for(var i=0;i<count;i++)
-           {
-             html +='<tr>';
-             html +='<td width="70%;">'+response.Data[i].remarks+'</td>';
-             html +='<td width="30%;">'+response.Data[i].requestDateTime+'</td>';
-             html +='</tr>';
-           }
-           $("#spancomment").html(html);
-           $('#openComment').modal();
-         }
-         else{
-           alert("No Comment is Available for this Item");
-         }
-      },
-      complete: function(response) {
-      }
-  });
+function loadcomment(orderItemId) {
+    var html = '';
+    $.ajax({
+        url: api_url + 'getcommentorderItemId.php',
+        type: 'POST',
+        data: {
+            orderItemId: orderItemId
+        },
+        dataType: 'json',
+        beforeSend: function() {
+            // $(".preloader").show();
+        },
+        success: function(response) {
+            // console.log(response.Message);
+            if (response.Responsecode == 200) {
+                if (response['Data'] != null) {
+                    count = response['Data'].length;
+                }
+                for (var i = 0; i < count; i++) {
+                    html += '<tr>';
+                    html += '<td width="70%;">' + response.Data[i].remarks + '</td>';
+                    html += '<td width="30%;">' + response.Data[i].requestDateTime + '</td>';
+                    html += '</tr>';
+                }
+                $("#spancomment").html(html);
+                $('#openComment').modal();
+            } else {
+                alert("No Comment is Available for this Item");
+            }
+        },
+        complete: function(response) {}
+    });
 }
+
 function loadPdf(orderItemId) {
     window.open(api_url + 'orderitempdf.php?orderitemid=' + orderItemId);
 }
