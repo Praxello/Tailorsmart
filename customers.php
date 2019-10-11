@@ -119,7 +119,6 @@ $employeeName = $_SESSION['employeeName'];
                                             <tr>
                                                 <th>Order Amount</th>
                                                 <th>Recieved Amount</th>
-                                                <!-- <th>Promo code</th> -->
                                                 <th>Order Status</th>
                                                 <th>Confirmation</th>
                                                 <th>Expected Delivery</th>

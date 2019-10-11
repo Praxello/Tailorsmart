@@ -152,7 +152,6 @@ function getOrdersOfCustomer(customerId) {
                     responseData += "<tr>";
                     responseData += "<td>" + parseFloat(response.Data[i].OrderDetails.amount).toLocaleString() + "</td>";
                     responseData += "<td>" + parseFloat(cash + neft).toLocaleString() + "</td>";
-                    // responseData += "<td>" + response.Data[i].OrderDetails.promoCode + "</td>";
                     responseData += "<td>" + orderStatus + "</td>";
                     responseData += "<td>" + isConfirmed + "</td>";
                     responseData += "<td>" + customerExpectedDate + "</td>";

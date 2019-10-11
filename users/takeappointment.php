@@ -28,7 +28,6 @@ if (isset($_POST['customerid']) && isset($_POST['productids']) &&  isset($_POST[
       									}
       							$response = array('Message'=>"Appointment marked successfully".mysqli_error($conn),"Data"=>$records,'Responsecode'=>200);
 
-					//echo("1");
                     $academicQuery1 = mysqli_query($conn,"SELECT slot.slotTime,cam.appointmentId, cam.customerId,cm.email, cm.firstName as fn,cm.lastName as ln,cm.city,cm.state,cm.country,cm.mobile,cam.productIds, cam.fabricIds, cam.appointmentDate, cam.slotId, cam.servingEmployeeId, cam.appointmentStatus , em.firstName as employeename FROM  customer_appointment_master cam inner join appointment_slots slot on cam.slotid = slot.slotId inner join customer_master cm on cam.customerid = cm.customerid left outer join employee_master em on cam.servingEmployeeId = em.employeeId where cam.customerid=$customerid  and cam.appointmentId=$last_id order by cam.appointmentDate desc");
                       if($academicQuery1!=null)
                       {
@@ -104,8 +103,7 @@ if (isset($_POST['customerid']) && isset($_POST['productids']) &&  isset($_POST[
                             $aptstatus='';
                             $Allitemdata =$appointmentRecords[0]['SelectedItems'];
                             $apointstat = $appointmentRecords[0]['AppointmentDetails']['appointmentStatus'];
-							//print_r($appointmentRecords[0]['AppointmentDetails']);
-						//	echo($appointmentRecords[0]['AppointmentDetails']['appointmentStatus']);
+
                             switch ( $apointstat) {
                                   case 0:
                                     $aptstatus='<span class="badge badge-pill badge-primary">Idle</span>';
@@ -256,7 +254,7 @@ if (isset($_POST['customerid']) && isset($_POST['productids']) &&  isset($_POST[
                             if($apointstat !=0){
                               mail($to, $subject, $message, $headers);
                             }
-                            
+
                         }
                         else
                         {
