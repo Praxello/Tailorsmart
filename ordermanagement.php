@@ -96,8 +96,21 @@ if(isset($_REQUEST['aid']))
                           </div>
                       </div>
                   </div>
+                  <div class="col-md-3">
+                      <div class="card p-30">
+                          <div class="media">
+                              <div class="media-left meida media-middle">
+                                  <span><i class="fa fa-inr f-s-40 color-success"></i></span>
+                              </div>
+                              <div class="media-body media-text-right">
+                                  <h2><div id="neft"></div></h2>
+                                  <p class="m-b-0">NEFT Recieved</p>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
 
-                  <div class="col-md-4">
+                  <div class="col-md-3">
                       <div class="card p-30">
                           <div class="media">
                               <div class="media-left meida media-middle">

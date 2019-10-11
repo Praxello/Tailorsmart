@@ -423,8 +423,8 @@ function getPaymentList() {
                         deleteEntry = '';
                     if (response.Data.Payments[i].isSuceed == 1) {
                         isSuceed = "<td><span class='badge badge-pill badge-success'>completed</span></td>";
-                        isDeleted = "<td><code></code></td>";
-                        deleteEntry = "<td><code></code></td>";
+                        isDeleted = "<td></td>";
+                        deleteEntry = "";
                     } else {
                         isSuceed = "<td><span class='badge badge-pill badge-danger'>pending</span></td>";
                         if (response.Data.Payments[i].isDeleted == 1) {

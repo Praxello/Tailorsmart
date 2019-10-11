@@ -428,15 +428,17 @@ function getPaymentList() {
                         deleteEntry = '';
                     if (response.Data.Payments[i].isSuceed == 1) {
                         isSuceed = "<td><span class='badge badge-pill badge-success'>completed</span></td>";
+                        isDeleted = "<td></td>";
+                        deleteEntry = "";
                     } else {
                         isSuceed = "<td><span class='badge badge-pill badge-danger'>pending</span></td>";
-                    }
-                    if (response.Data.Payments[i].isDeleted == 1) {
-                        isDeleted = "<td><code>" + empName + "</code></td>";
-                        deleteEntry = "<a class='btn btn-primary btn-sm' title='Revert Payment' data-toggle='tooltip' href='#' onclick='updatePaymentFlag(\"" + response.Data.Payments[i].paymentId + "\",\"" + response.Data.OrderDetails.orderId + "\")'><i class='fa fa-info'></i></a>";
-                    } else {
-                        isDeleted = "<td><code></code></td>";
-                        deleteEntry = "<a class='btn btn-danger btn-sm' title='Remove Payment' data-toggle='tooltip' href='#' onclick='removePayment(\"" + response.Data.Payments[i].paymentId + "\",\"" + response.Data.OrderDetails.orderId + "\")'><i class='fa fa-trash'></i></a>";
+                        if (response.Data.Payments[i].isDeleted == 1) {
+                            isDeleted = "<td><code>" + empName + "</code></td>";
+                            deleteEntry = "<a class='btn btn-primary btn-sm' title='Revert Payment' data-toggle='tooltip' href='#' onclick='updatePaymentFlag(\"" + response.Data.Payments[i].paymentId + "\",\"" + response.Data.OrderDetails.orderId + "\")'><i class='fa fa-info'></i></a>";
+                        } else {
+                            isDeleted = "<td><code></code></td>";
+                            deleteEntry = "<a class='btn btn-danger btn-sm' title='Remove Payment' data-toggle='tooltip' href='#' onclick='removePayment(\"" + response.Data.Payments[i].paymentId + "\",\"" + response.Data.OrderDetails.orderId + "\")'><i class='fa fa-trash'></i></a>";
+                        }
                     }
                     paymentDateTime = getDate(response.Data.Payments[i].paymentDateTime);
                     markup += "<tr><td>" + (i + 1) + "</td><td>" + response.Data.Payments[i].paymentMode + "</td>";
