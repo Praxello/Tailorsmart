@@ -96,8 +96,7 @@ if (isset($_POST['appointmentId']) && isset($_POST['servingEmployeeId']) && isse
 													$aptstatus='';
 													$Allitemdata =$appointmentRecords[0]['SelectedItems'];
 													$apointmentstat = $appointmentRecords[0]['AppointmentDetails']['appointmentStatus'];
-						//print_r($appointmentRecords[0]['AppointmentDetails']);
-					//	echo($appointmentRecords[0]['AppointmentDetails']['appointmentStatus']);
+				
 													switch ($apointmentstat) {
 																case 0:
 																	$aptstatus='your appointment is Idle';
