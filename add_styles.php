@@ -113,7 +113,7 @@ $('#saveStyleData').on('click', function(event) {
         },
         success: function(response) {
             alert(response.Message);
-            getOrdersOfCustomer();
+            getOrdersOfCustomer(customerId_g);
             customerOrderDetails = customerOrders[indexRow];
             $('#customerOrdersBlock').hide();
             $('#cl').click();

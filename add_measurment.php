@@ -64,10 +64,9 @@ $('#saveMeasurementsData').on('click', function(event) {
             },
             success: function(response) {
                 alert(response.Message);
-                getOrdersOfCustomer();
+                getOrdersOfCustomer(customerId_g);
                 customerOrderDetails = customerOrders[indexRow];
                 $('#customerOrdersBlock').hide();
-                //  console.log(customerOrderDetails);
                 $('#myModal').modal('toggle');
             },
             complete:function(response){
