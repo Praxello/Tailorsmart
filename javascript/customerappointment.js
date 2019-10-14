@@ -326,7 +326,7 @@ function settabledata(styleData) {
              xhtml += "<td>" + AllData.mobile + "</td>";
              xhtml += varhtml;
              xhtml += "<td>" + orderStatus + "</td>";
-             xhtml += '<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editcustomerappointmentdata(' + k + ')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeAppointment(' + k + ')"><i class="fa fa-remove"></i></button></div></td>';
+             xhtml += '<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editcustomerappointmentdata(' + k + ')"><i class="fa fa-edit"></i></button></div></td>';
              xhtml += "</tr>";
            }
          }
@@ -359,7 +359,7 @@ function settabledata(styleData) {
           xhtml += "<td>" + AllData.mobile + "</td>";
           xhtml += varhtml;
           xhtml += "<td>" + orderStatus + "</td>";
-          xhtml += '<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editcustomerappointmentdata(' + k + ')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeAppointment(' + k + ')"><i class="fa fa-remove"></i></button></div></td>';
+          xhtml += '<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editcustomerappointmentdata(' + k + ')"><i class="fa fa-edit"></i></button></div></td>';
           xhtml += "</tr>";
         }
 
