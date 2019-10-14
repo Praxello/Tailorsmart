@@ -164,7 +164,7 @@ function getOrdersOfCustomer(customerId) {
                     responseData += "</div></td></tr>";
                 }
                 $("#customerOrdersData").html(responseData);
-                // hi
+
                 $('#customerOrdersDataTable').DataTable({
                     searching: true,
                     retrieve: true,
