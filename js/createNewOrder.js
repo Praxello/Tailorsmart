@@ -447,6 +447,7 @@ var totalpayment =0;
                     markup += deleteEntry;
                     markup += "</td></div></tr>";
                 }
+                
                 $("#totalpayment").val(totalpayment);
                 $("#paymentData").html(markup);
             }

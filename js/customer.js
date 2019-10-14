@@ -160,7 +160,7 @@ function getOrdersOfCustomer(customerId) {
                     responseData += "<td>" + FinalDeliveryDate + "</td>";
                     responseData += "<td>" + EmpName + "</td>";
                     responseData += "<td><div class='btn-group' role='group' aria-label='Basic example'>";
-                    responseData += '<button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="showData(' + response.Data[i].OrderDetails.orderId + ',' + (i) + ')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>';
+                    responseData += '<button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="showData(' + response.Data[i].OrderDetails.orderId + ',' + (i) + ')"><i class="fa fa-edit"></i></button>';
                     responseData += "</div></td></tr>";
                 }
                 $("#customerOrdersData").html(responseData);

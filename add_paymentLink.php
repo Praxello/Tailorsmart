@@ -84,7 +84,10 @@
          var amount = $('#amount').val();
          var Orderamount = $('#Orderamount').html();
          var totalpayment = $('#totalpayment').val();
-         
+         // console.log("totalpayment"+totalpayment);
+         // console.log("Amt"+amount);
+         // console.log("OrderAMT"+Orderamount);
+         // console.log(typeof(Orderamount));
          var currencyCode = $('#currency').val();
 
          if(amount == ''){
