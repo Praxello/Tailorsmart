@@ -158,9 +158,11 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
+
                         <tbody id="productData">
 
                         </tbody>
+
                     </table>
                 </div>
             </div>
@@ -172,8 +174,10 @@
                         data-target="#paymentLinkModal">Create Payment Link</button>
                 </div>
                 <div class="table-responsive m-t-40">
+                    <input type="hidden" id="totalpayment"/>
                     <table class="table table-bordered">
                         <thead>
+
                             <tr>
                                 <th>Sr no</th>
                                 <th>Payment Mode</th>

@@ -25,7 +25,8 @@ if(!isset($_FILES["file"]["type"])){
     // $imgname = '../Events/sponser.jpg';
     // echo $imgname;
   }
-  else {
+  else 
+  {
     $imgname = $_FILES["file"]["name"];
     // print_r($imgname);
     // $extension = end(explode(".", $imgname));
@@ -44,7 +45,7 @@ if(!isset($_FILES["file"]["type"])){
     if($imageFileType != "jpg" && $imageFileType != "jpeg"
     && $imageFileType != "gif" ) {
 
-          $response = array('Message' => "Sorry, only JPG, JPEG & GIF files are allowed.", 'Responsecode' => 402);
+        $response = array('Message' => "Sorry, only JPG, JPEG & GIF files are allowed.", 'Responsecode' => 402);
         $uploadOk = 0;
     }
     if ($uploadOk == 0)
@@ -132,7 +133,7 @@ if(!isset($_FILES["file"]["type"])){
    if($imgcr==1){
        // $response['Message'] = "Image Uploaded Successfully";
            $response = array('Message' => "Image Uploaded Successfully", 'Responsecode' => 200);
-   }
+    }
    else
    {
        $response = array('Message' => "Image Uploaded Successfully", 'Responsecode' => 200);

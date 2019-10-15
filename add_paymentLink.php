@@ -82,36 +82,51 @@
          }
          var paymenttype = $('#paymenttype').val();
          var amount = $('#amount').val();
+         var Orderamount = $('#Orderamount').html();
+         var totalpayment = $('#totalpayment').val();
+         // console.log("totalpayment"+totalpayment);
+         // console.log("Amt"+amount);
+         // console.log("OrderAMT"+Orderamount);
+         // console.log(typeof(Orderamount));
          var currencyCode = $('#currency').val();
-         //console.log(currencyCode);
+
          if(amount == ''){
              amount = 0;
          }
-         var paymentData = {
-             orderid: orderId,
-             mode: mode,
-             type: paymenttype,
-             employeeid: $('#empId').val(),
-             amount: amount,
-             currencyCode:currencyCode
-         };
-         //console.log(paymentData);
-         $.ajax({
-             url: api_url + 'createpaymentfororder.php',
-             type: 'POST',
-             data: paymentData,
-             beforeSend: function() {
-                   $(".preloader").show();
-             },
-             success: function(response) {
-                 alert(response.Message);
-                getPaymentList();
-                 $('#paymentLinkModal').modal('toggle');
-             },
-             complete:function(response){
-               $(".preloader").hide();
-             }
-         })
+         var calamt = parseFloat(totalpayment)+parseFloat(amount);
+         var totorderamt = parseFloat(Orderamount);
+         //    console.log("calamt"+calamt);
+         // console.log(typeof(calamt));
+         if(calamt<=totorderamt){
+           var paymentData = {
+               orderid: orderId,
+               mode: mode,
+               type: paymenttype,
+               employeeid: $('#empId').val(),
+               amount: amount,
+               currencyCode:currencyCode
+           };
+           $.ajax({
+               url: api_url + 'createpaymentfororder.php',
+               type: 'POST',
+               data: paymentData,
+               beforeSend: function() {
+                     $(".preloader").show();
+               },
+               success: function(response) {
+                   alert(response.Message);
+                  getPaymentList();
+                   $('#paymentLinkModal').modal('toggle');
+               },
+               complete:function(response){
+                 $(".preloader").hide();
+               }
+           });
+         }
+         else{
+            alert("Generated link amount exceeds order amount");
+         }
+
 
      });
  </script>

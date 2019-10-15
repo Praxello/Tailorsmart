@@ -17,6 +17,7 @@ var OrderDetailsOfCustomer = []; //like orderId,expectedDeliveryDate,Amount
 var ActiveProductsList = new Map(); //stored price here
 var TailorData = [];
 var assignSalesData = new Map();
+var totalorderamount =0;
 getStatusMap();
 getConfirmation();
 
@@ -114,6 +115,7 @@ function getOrdersOfCustomer(customerId) {
             $(".preloader").show();
         },
         success: function(response) {
+
             if (response.Data != null) {
                 var count = response.Data.length;
                 const orders = response.Data;
@@ -158,7 +160,7 @@ function getOrdersOfCustomer(customerId) {
                     responseData += "<td>" + FinalDeliveryDate + "</td>";
                     responseData += "<td>" + EmpName + "</td>";
                     responseData += "<td><div class='btn-group' role='group' aria-label='Basic example'>";
-                    responseData += '<button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="showData(' + response.Data[i].OrderDetails.orderId + ',' + (i) + ')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>';
+                    responseData += '<button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="showData(' + response.Data[i].OrderDetails.orderId + ',' + (i) + ')"><i class="fa fa-edit"></i></button>';
                     responseData += "</div></td></tr>";
                 }
                 $("#customerOrdersData").html(responseData);
@@ -204,7 +206,7 @@ function showData(orderid, rowId) {
     $('#loadNewPage').empty();
     orderId = orderid;
     customerOrderDetails = customerOrders[rowId];
-    //  console.log(customerOrderDetails);
+    totalorderamount =0;
     indexRow = rowId;
     if (customerOrderDetails.OrderDetails != null) {
         OrderDetailsOfCustomer = customerOrderDetails.OrderDetails;
@@ -225,6 +227,8 @@ function showData(orderid, rowId) {
             markup += "<tr id=" + customerOrderDetails.orderItems[i].OrderItem.orderItemId + "><td>" + customerOrderDetails.orderItems[i].OrderItem.productTitle + '-' + styleTitle + "</td>";
             markup += "<td>" + customerOrderDetails.orderItems[i].OrderItem.productSubTitle + "</td><td>" + customerOrderDetails.orderItems[i].OrderItem.orderItemPrice + "</td>";
             markup += "<td><input type='hidden' id='amt" + customerOrderDetails.orderItems[i].OrderItem.orderItemId + "' value='" + customerOrderDetails.orderItems[i].OrderItem.orderItemPrice + "'/>";
+            // console.log(customerOrderDetails.orderItems[i].OrderItem.orderItemPrice);
+            totalorderamount +=parseFloat(customerOrderDetails.orderItems[i].OrderItem.orderItemPrice);
             markup += alter;
             markup += "</td>";
             markup += "<td>";
@@ -240,6 +244,7 @@ function showData(orderid, rowId) {
             markup += "<a class='btn btn-primary btn-sm' title='Download PDF' data-toggle='tooltip' href='#' onclick='loadPdf(" + customerOrderDetails.orderItems[i].OrderItem.orderItemId + ")'><i class='fa fa-file-pdf-o'></i></a>";
             markup += "</td></div></tr>";
         }
+        // console.log("totalorderamount"+totalorderamount);
         mar = markup;
     }
     $('#customerSelectionBlock').hide();
