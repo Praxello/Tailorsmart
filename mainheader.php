@@ -25,32 +25,32 @@
                       if($roleId==="1"){ ?>
                        <!-- This badge for list of all appointment Status which will be idel at the moment -->
                       <li class="nav-item dropdown" >
-                      <a class="nav-link dropdown-toggle text-muted text-muted  "  href="customerappointment.php?cid=1"  title="Appointment Status" id="mheadappointment" ><i class="fa fa-bell" style="color:green"><span id='b1'></span></i>
+                      <a class="nav-link dropdown-toggle text-muted text-muted  "  href="customerappointment.php?cid=1"  title="Appointment Status" id="mheadappointment" ><img src="images/bell.png"><span id='b1'></span>
                       <div class="notify"><span class="heartbit" id="ap1"></span> <span class="point" id="ap2"></span> </div>
                       </a>
                       </li>
                        <!-- This badge for list of all orders which status not be complete till now -->
                       <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle text-muted text-muted  " href="ordermanagement.php?aid=1"   title="Orders Not Completed"> <i class="fa fa-tags" style="color:orange"><span id='b2'></span></i>
+                      <a class="nav-link dropdown-toggle text-muted text-muted  " href="ordermanagement.php?aid=1"   title="Orders Not Completed">  <img src="images/checklist.png"><span id='b2'></span>
                       <div class="notify"> <span class="heartbit" id="ap3"></span> <span class="point" id="ap4"></span> </div>
                       </a>
                       </li>
 
                       <!-- This badge for list of all orders which status not be complete till now -->
                      <li class="nav-item dropdown">
-                     <a class="nav-link dropdown-toggle text-muted text-muted  " href="ordermanagement.php?aid=2"   title="Request For Alteration"> <i class="fa fa-scissors"><span id='b5'></span></i>
+                     <a class="nav-link dropdown-toggle text-muted text-muted  " href="ordermanagement.php?aid=2"   title="Request For Alteration"> <img src="images/schere.png"><span id='b5'></span>
                      <div class="notify"> <span class="heartbit" id="ap9"></span> <span class="point" id="ap10"></span> </div>
                      </a>
                      </li>
                       <!-- This badge for list of all orders which active product which will be not active yet -->
                       <li class="nav-item dropdown">
-                          <a class="nav-link dropdown-toggle text-muted  " href="products.php?pid=1"   title="Active Product" id="mheadactive"> <i class="fa fa-envelope" style="color:purple"><span id='b3'></span></i>
+                          <a class="nav-link dropdown-toggle text-muted  " href="products.php?pid=1"   title="Active Product" id="mheadactive"> <img src="images/gift.png"><span id='b3'></span>
                           <div class="notify"> <span class="heartbit" id="ap5"></span> <span class="point" id="ap6"></span> </div>
                         </a>
                       </li>
                       <!-- This badge for list of all orders which fabric will be not active yet-->
                       <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle text-muted text-muted  "  href="fabric.php?fid=1"  title="Active Fabric" id="mheadfabric"> <i class="fa fa-diamond" style="color:aqua"><span id='b4'></span></i>
+                      <a class="nav-link dropdown-toggle text-muted text-muted  "  href="fabric.php?fid=1"  title="Active Fabric" id="mheadfabric"> <img src="images/sewing-machine.png"><span id='b4'></span>
                       <div class="notify"> <span class="heartbit" id="ap7"></span> <span class="point" id="ap8"></span> </div>
                       </a>
                       </li>
@@ -60,7 +60,7 @@
 
                         <!-- Profile -->
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i></a>
+                            <a class="nav-link dropdown-toggle text-muted" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="images/user.png"></a>
                             <div class="dropdown-menu dropdown-menu-right animated zoomIn">
                                 <ul class="dropdown-user">
                                     <!-- <li><a href="#"><i class="ti-user"></i> Profile</a></li>
