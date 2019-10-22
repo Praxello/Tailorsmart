@@ -138,13 +138,13 @@ function getOrdersOfCustomer(customerId) {
                     // if (response.Data[i].OrderDetails.promoCode == null) {
                     //     response.Data[i].OrderDetails.promoCode = '-';
                     // }
-                    if (response.Data[i].OrderDetails.Cash_amount != null) {
-                        cash_amount = cash_amount + parseFloat(response.Data[i].OrderDetails.Cash_amount);
-                        cash = parseFloat(response.Data[i].OrderDetails.Cash_amount);
-                    }
-                    if (response.Data[i].OrderDetails.NEFT_amount != null) {
-                        NEFT_amount = NEFT_amount + parseFloat(response.Data[i].OrderDetails.NEFT_amount);
-                        neft = parseFloat(response.Data[i].OrderDetails.NEFT_amount);
+                    // if (response.Data[i].OrderDetails.Cash_amount != null) {
+                    //     cash_amount = cash_amount + parseFloat(response.Data[i].OrderDetails.Cash_amount);
+                    //     cash = parseFloat(response.Data[i].OrderDetails.Cash_amount);
+                    // }
+                    if (response.Data[i].OrderDetails.RecievedAmount != null) {
+                        // NEFT_amount = NEFT_amount + parseFloat(response.Data[i].OrderDetails.NEFT_amount);
+                        cash_amount = parseFloat(response.Data[i].OrderDetails.RecievedAmount);
                     }
                     if (EmployeeData.has(response.Data[i].OrderDetails.employeeId)) {
                         EmpName = EmployeeData.get(response.Data[i].OrderDetails.employeeId);
@@ -153,7 +153,7 @@ function getOrdersOfCustomer(customerId) {
                     FinalDeliveryDate = getDate(response.Data[i].OrderDetails.FinalDeliveryDate);
                     responseData += "<tr>";
                     responseData += "<td>" + parseFloat(response.Data[i].OrderDetails.amount).toLocaleString() + "</td>";
-                    responseData += "<td>" + parseFloat(cash + neft).toLocaleString() + "</td>";
+                    responseData += "<td>" + cash_amount.toLocaleString() + "</td>";
                     responseData += "<td>" + orderStatus + "</td>";
                     responseData += "<td>" + isConfirmed + "</td>";
                     responseData += "<td>" + customerExpectedDate + "</td>";

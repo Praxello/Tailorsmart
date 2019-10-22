@@ -57,7 +57,6 @@ function getcustomerstyles(){
            var count;
             if(response['Data']!=null){
                count= response['Data'].length;
-
             }
             for(var i=0;i<count;i++)
             {

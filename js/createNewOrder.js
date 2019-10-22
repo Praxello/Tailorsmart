@@ -39,6 +39,9 @@ $('.add-row').on('click', function(e) {
             getOrdersOfCustomer(customerId_g);
             customerOrderDetails = [];
             customerOrderDetails = customerOrders[indexRow];
+
+            OrderDetailsOfCustomer = customerOrderDetails.OrderDetails;
+            displayOrderDetails(OrderDetailsOfCustomer);
             $('#customerOrdersBlock').hide();
             var markup = '';
             for (var i = 0; i < count; i++) {
@@ -132,7 +135,7 @@ function getActiveProductsList() {
 
 function loadMeasurment(productId, orderItemId, rowId) { //for mapping product id and measurment id
     customer_orderItemId = orderItemId;
-    // console.log(customer_orderItemId);
+
     var count_1 = 0;
 
     var check_mesurment_exists = customerOrderDetails.orderItems[rowId].Measurements;
@@ -291,7 +294,7 @@ function loadStyles(productId, orderItemId, rowId) {
                                 valThird = response.Data[i].StitchStyle.stitchStyleId;
                                 thirdList += "<tr><td colspan='3' style='text-align:center;'><strong>" + response.Data[i].StitchStyle.stitchStyleTitle + "</strong></td></tr>";
                                 for (var l = 0; l < StitchSubstyleCount; l++) {
-                                    //console.log('k count '+k);
+
                                     flag_2 = 0;
                                     thirdList += "<tr><td style='display:none;'>" + response.Data[i].StitchStyle.stitchStyleId + "</td><td style='display:none;'>" + response.Data[i].StitchSubstyle[l].stitchSubStyleId + "</td>";
                                     thirdList += "<td>" + response.Data[i].StitchSubstyle[l].stitchSubStyleTitle + "</td>";
@@ -301,7 +304,7 @@ function loadStyles(productId, orderItemId, rowId) {
                                                 thirdList += "<td><input type='text' class='form-control form-control-sm' value=" + check_styles_exists[a].value + "></td>";
                                                 m++;
                                                 flag_2 = 1;
-                                                // console.log('m in 2 '+m);
+
 
                                             }
                                         }
@@ -405,7 +408,8 @@ getPaymentList();
 // var totalpayment =0;
 function getPaymentList() {
     var empName = $('#empName').val();
-var totalpayment =0;
+    var totalpayment =0;
+    $("#totalpayment").val(totalpayment);
     $("#paymentData").empty();
     $.ajax({
         url: api_url + 'getorderpayments.php',
@@ -447,7 +451,7 @@ var totalpayment =0;
                     markup += deleteEntry;
                     markup += "</td></div></tr>";
                 }
-                
+
                 $("#totalpayment").val(totalpayment);
                 $("#paymentData").html(markup);
             }
@@ -577,7 +581,7 @@ function loadcomment(orderItemId) {
             // $(".preloader").show();
         },
         success: function(response) {
-            // console.log(response.Message);
+
             if (response.Responsecode == 200) {
                 if (response['Data'] != null) {
                     count = response['Data'].length;

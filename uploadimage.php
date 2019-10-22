@@ -25,13 +25,13 @@ if(!isset($_FILES["file"]["type"])){
     // $imgname = '../Events/sponser.jpg';
     // echo $imgname;
   }
-  else 
+  else
   {
     $imgname = $_FILES["file"]["name"];
     // print_r($imgname);
     // $extension = end(explode(".", $imgname));
     $sourcePath = $_FILES['file']['tmp_name']; // Storing source path of the file in a variable
-    // echo $sourcePath;
+
     $target_file = $target_dir . basename($_FILES["file"]["name"]);
     $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
     $uploadOk = 1;
@@ -130,7 +130,8 @@ if(!isset($_FILES["file"]["type"])){
 
     }
 
-   if($imgcr==1){
+    if($imgcr==1)
+    {
        // $response['Message'] = "Image Uploaded Successfully";
            $response = array('Message' => "Image Uploaded Successfully", 'Responsecode' => 200);
     }
@@ -138,8 +139,6 @@ if(!isset($_FILES["file"]["type"])){
    {
        $response = array('Message' => "Image Uploaded Successfully", 'Responsecode' => 200);
    }
-
-
   }
 
 exit(json_encode($response));

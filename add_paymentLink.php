@@ -84,10 +84,6 @@
          var amount = $('#amount').val();
          var Orderamount = $('#Orderamount').html();
          var totalpayment = $('#totalpayment').val();
-         // console.log("totalpayment"+totalpayment);
-         // console.log("Amt"+amount);
-         // console.log("OrderAMT"+Orderamount);
-         // console.log(typeof(Orderamount));
          var currencyCode = $('#currency').val();
 
          if(amount == ''){
@@ -95,9 +91,7 @@
          }
          var calamt = parseFloat(totalpayment)+parseFloat(amount);
          var totorderamt = parseFloat(Orderamount);
-         //    console.log("calamt"+calamt);
-         // console.log(typeof(calamt));
-         if(calamt<=totorderamt){
+         if(calamt<=totorderamt && (parseFloat(amount)>0) ){
            var paymentData = {
                orderid: orderId,
                mode: mode,

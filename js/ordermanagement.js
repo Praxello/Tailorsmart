@@ -120,7 +120,7 @@ function getOrdersOfCustomer() {
             $(".preloader").show();
         },
         success: function(response) {
-            console.log(response);
+            // console.log(response);
             if (response.Data != null) {
                 var count = response.Data.length;
                 const orders = response.Data;
