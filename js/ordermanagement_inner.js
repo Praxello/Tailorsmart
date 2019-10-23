@@ -455,7 +455,7 @@ function getPaymentList() {
                     markup += deleteEntry;
                     markup += "</td></div></tr>";
                 }
-                console.log(totalpayment);
+                
                 $("#totalpayment").val(totalpayment);
                 $("#paymentData").html(markup);
             }
