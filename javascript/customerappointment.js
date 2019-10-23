@@ -577,18 +577,19 @@ function editcustomerappointmentdata(id) {
                    html += '<tr>';
                    selectfabriclen = Allitemdata[i].Fabrics.length;
                    html += '<td style="color: orange;font-weight: bolder;">' + Allitemdata[i].Product.productTitle + '</td>';
-                   html += '<td>' + Allitemdata[i].Fabrics[0].fabricTitle + '</td>';
+                   html += '<td>' + Allitemdata[i].Fabrics[0].fabricTitle + ' <font color="green"><u>' + Allitemdata[i].Fabrics[0].colorName+'</u></font></td>';
                    for (var j = 1; j < selectfabriclen; j++)
                    {
+                     // console.log(Allitemdata[i].Fabrics[j]);
                        html += '<tr>';
                        html += '<td> </td>';
-                       html += '<td>' + Allitemdata[i].Fabrics[j].fabricTitle + '</td>';
+                       html += '<td>' + Allitemdata[i].Fabrics[j].fabricTitle + ' <font color="green"><u> '+Allitemdata[i].Fabrics[j].colorName+'</u></font></td>';
                        html += '</tr>';
                    }
                 }
                 else {
                     html += '<tr>';
-                    html += '<td style="color: orange;font-weight: bolder;">' + Allitemdata[i].Product.productTitle + '</td>';
+                    html += '<td style="color: orange;font-weight: bolder;">' + Allitemdata[i].Product.productTitle +'</td>';
                     html += '<td></td>';
                     html += '</tr>';
                 }

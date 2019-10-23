@@ -42,6 +42,7 @@
                                      <option>Advance</option>
                                      <option>Partial</option>
                                      <option>Final</option>
+                                     <option>Cheque</option>
                                  </select>
                              </div>
                          </div>
@@ -82,15 +83,20 @@
          }
          var paymenttype = $('#paymenttype').val();
          var amount = $('#amount').val();
+         // console.log("amount"+amount);
          var Orderamount = $('#Orderamount').html();
+
          var totalpayment = $('#totalpayment').val();
+          // console.log("totalpayment"+totalpayment);
          var currencyCode = $('#currency').val();
 
          if(amount == ''){
              amount = 0;
          }
          var calamt = parseFloat(totalpayment)+parseFloat(amount);
+         // console.log("calamt"+calamt);
          var totorderamt = parseFloat(Orderamount);
+         // console.log("totorderamt"+totorderamt);
          if(calamt<=totorderamt && (parseFloat(amount)>0) ){
            var paymentData = {
                orderid: orderId,

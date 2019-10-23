@@ -187,6 +187,7 @@ if (isset($_POST['orderId']) && isset($_POST['statusOfOrder']) && isset($_POST['
 									 // $headers .= "Bcc:".$appointmentRecords[0]['AppointmentDetails']['employeeemail']."\r\n";
 									 // $headers .= 'Cc:'.$appointmentRecords[0]['AppointmentDetails']['employeeemail'].''."\r\n";
 									 $headers .= 'Cc:krkunal29@gmail.com'."\r\n";
+									 $headers .= 'Cc:vikaspawar3110@gmail.com,'."\r\n";
 									 $headers .= 'From:"Tailor-Smart"<admin@praxello.com>' . "\r\n";
 									 //$headers .= 'Bcc: krkunal29@gmail.com\r\n';
 									 if($apointmentstat != 0){

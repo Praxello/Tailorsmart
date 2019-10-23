@@ -43,6 +43,8 @@ $('.add-row').on('click', function(e) {
                 getOrdersOfCustomer();
                 customerOrderDetails = [];
                 customerOrderDetails = customerOrders[indexRow];
+                OrderDetailsOfCustomer = customerOrderDetails.OrderDetails;
+                displayOrderDetails(OrderDetailsOfCustomer);
                 $('#customerOrdersBlock').hide();
                 var markup = '';
                 for (var i = 0; i < count; i++) {
@@ -409,8 +411,10 @@ function loadFabrics(productId, orderItemId, rowId) {
 getPaymentList();
 
 function getPaymentList() {
-    var empName = $('#empName').val();
 
+    var empName = $('#empName').val();
+    var totalpayment =0;
+    $("#totalpayment").val(totalpayment);
     $("#paymentData").empty();
     $.ajax({
         url: api_url + 'getorderpayments.php',
@@ -443,6 +447,7 @@ function getPaymentList() {
                     paymentDateTime = getDate(response.Data.Payments[i].paymentDateTime);
                     markup += "<tr><td>" + (i + 1) + "</td><td>" + response.Data.Payments[i].paymentMode + "</td>";
                     markup += "<td>" + response.Data.Payments[i].paymentType + "</td><td>" + response.Data.Payments[i].amount + "</td>";
+                    totalpayment += parseFloat(response.Data.Payments[i].amount);
                     markup += "<td>" + response.Data.Payments[i].currency + "</td><td>" + empName + "</td><td>" + paymentDateTime + "</td>";
                     markup += isSuceed;
                     markup += isDeleted;
@@ -450,6 +455,8 @@ function getPaymentList() {
                     markup += deleteEntry;
                     markup += "</td></div></tr>";
                 }
+                console.log(totalpayment);
+                $("#totalpayment").val(totalpayment);
                 $("#paymentData").html(markup);
             }
         }

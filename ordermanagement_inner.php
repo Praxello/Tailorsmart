@@ -172,6 +172,7 @@
                         data-target="#paymentLinkModal">Create Payment Link</button>
                 </div>
                 <div class="table-responsive m-t-40">
+                    <input type="hidden" id="totalpayment"/>
                     <table class="table table-bordered">
                         <thead>
                             <tr>

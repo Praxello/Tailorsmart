@@ -96,7 +96,7 @@ if (isset($_POST['appointmentId']) && isset($_POST['servingEmployeeId']) && isse
 													$aptstatus='';
 													$Allitemdata =$appointmentRecords[0]['SelectedItems'];
 													$apointmentstat = $appointmentRecords[0]['AppointmentDetails']['appointmentStatus'];
-				
+
 													switch ($apointmentstat) {
 																case 0:
 																	$aptstatus='your appointment is Idle';
@@ -129,12 +129,12 @@ if (isset($_POST['appointmentId']) && isset($_POST['servingEmployeeId']) && isse
 																		 $html .= '<tr>';
 																		 $selectfabriclen = count($Allitemdata[$i]['Fabrics']);
 																		 $html .= '<td style="">' . $Allitemdata[$i]['Product']['productTitle'] . '</td>';
-																		 $html .= '<td style="">' . $Allitemdata[$i]['Fabrics'][0]['fabricTitle'] . '</td>';
+																		 $html .= '<td style="">' . $Allitemdata[$i]['Fabrics'][0]['fabricTitle'] .'<font color="green"><u> '. $Allitemdata[$i]['Fabrics'][0]['colorName'] .  '</u></font></td>';
 																		 for ($j = 1; $j < $selectfabriclen; $j++)
 																		 {
 																				 $html .= '<tr>';
 																				 $html .= '<td> </td>';
-																				 $html .= '<td style="">' .$Allitemdata[$i]['Fabrics'][$j]['fabricTitle'] . '</td>';
+																				 $html .= '<td style="">' .$Allitemdata[$i]['Fabrics'][$j]['fabricTitle'] .'<font color="green"><u>'. $Allitemdata[$i]['Fabrics'][$j]['colorName'] .  '</u></font></td>';
 																				 $html .= '</tr>';
 																		 }
 																	}
@@ -255,7 +255,8 @@ if (isset($_POST['appointmentId']) && isset($_POST['servingEmployeeId']) && isse
 													$headers  = 'MIME-Version: 1.0' . "\r\n";
 													$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 													// $headers .= "Bcc:".$appointmentRecords[0]['AppointmentDetails']['employeeemail']."\r\n";
-													$headers .= 'Cc:'.$appointmentRecords[0]['AppointmentDetails']['employeeemail'].''."\r\n";
+													$headers .= 'Cc:'.$appointmentRecords[0]['AppointmentDetails']['employeeemail'].','."\r\n";
+													$headers .= 'Cc:vikaspawar3110@gmail.com,'."\r\n";
 													$headers .= 'From:"Tailor-Smart"<admin@praxello.com>' . "\r\n";
 
 
