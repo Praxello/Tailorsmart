@@ -1,5 +1,4 @@
 var HolidayData = new Map();//from getallstaff.php names only
-
 var CurrencyData = new Map();//from getallstaff.php names only
 getcurrency();
 $('#countryname').select2({
@@ -13,9 +12,9 @@ function getcurrency(){
       url: api_url+"getallcurrency.php",
       beforeSend: function() {
             $(".preloader").show();
-            // console.log("before");
       },
       success: function(response) {
+        // console.log(response);
         var count;
         if(response['Data']!=null){
            count= response['Data'].length;
@@ -23,8 +22,8 @@ function getcurrency(){
         html +='<option value="">Select Country</option>';
         for(var i=0;i<count;i++)
         {
-        CurrencyData.set(response.Data[i].cityId,response.Data[i]);
-        html +="<option value='"+response['Data'][i].cityId+"'>"+response['Data'][i].cityName+"</option>";
+        CurrencyData.set(response.Data[i].cityid,response.Data[i]);
+        html +="<option value='"+response['Data'][i].cityid+"'>"+response['Data'][i].cityName+"</option>";
         }
         $("#countryname").html(html);
       },
@@ -39,17 +38,16 @@ function setholidaymaster(HolidayData){
   var html ='';
   $('#holidaytbl').dataTable().fnDestroy();
   $("#holidaytbldata").empty();
+  
   for(let k of HolidayData.keys())
   {
         let cityName ="-";
         var HoliData= HolidayData.get(k);
+
         if(CurrencyData.has(HoliData.cityId)){
           let cityData= CurrencyData.get(HoliData.cityId);
            cityName = cityData.cityName;
         }
-
-        // var HoliName = HoliData.get(HoliData.holidayId);
-
         html +="<tr>";
         html +="<td>"+HoliData.holidayTitle+"</td>";
         html +="<td>"+HoliData.skipDate+"</td>";
@@ -64,7 +62,7 @@ function setholidaymaster(HolidayData){
   retrieve: true,
   bPaginate: $('tbody tr').length>10,
   order: [],
-  columnDefs: [{ orderable: false, targets: [0,1,2]}],
+  columnDefs: [{ orderable: false, targets: [2]}],
   dom: 'Bfrtip',
   buttons: [],
   destroy: true

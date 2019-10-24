@@ -27,8 +27,8 @@ function getcurrency(){
         html +='<option value="">Select Country</option>';
         for(var i=0;i<count;i++)
         {
-        CurrencyData.set(response.Data[i].cityId,response.Data[i]);
-        html +="<option value='"+response['Data'][i].cityId+"'>"+response['Data'][i].cityName+"</option>";
+        CurrencyData.set(response.Data[i].cityid,response.Data[i]);
+        html +="<option value='"+response['Data'][i].cityid+"'>"+response['Data'][i].cityName+"</option>";
         }
         $("#countryname").html(html);
       },
@@ -73,7 +73,7 @@ function setslotmaster(SlotData){
   retrieve: true,
   bPaginate: $('tbody tr').length>10,
   order: [],
-  columnDefs: [{ orderable: false, targets: [0,1,2,3]}],
+  columnDefs: [{ orderable: false, targets: [2,3]}],
   dom: 'Bfrtip',
   buttons: [],
   destroy: true

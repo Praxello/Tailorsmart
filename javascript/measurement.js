@@ -31,7 +31,7 @@ function settabledata(styleData){
   retrieve: true,
   bPaginate: $('tbody tr').length>10,
   order: [],
-  columnDefs: [ { orderable: false, targets: [0,1] } ],
+  columnDefs: [ { orderable: false, targets: [1] } ],
   dom: 'Bfrtip',
   buttons: [],
   destroy: true

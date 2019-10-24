@@ -17,19 +17,17 @@ header('Content-Type: application/json');
 								while($academicResults = mysqli_fetch_assoc($academicQuery))
 									{
 										$tempOrderDetails = $academicResults;
+										
+										
 										$tempOrderId = $academicResults['orderId'];
-										$sql = "SELECT (SELECT SUM(amount) FROM customer_order_payments WHERE orderId = $tempOrderId AND isSuceed = 1 AND paymentMode = 'Cash') AS cashSum, 
-										(SELECT SUM(amount) FROM customer_order_payments WHERE orderId = $tempOrderId AND isSuceed = 1 AND paymentMode = 'NEFT') AS neftsum FROM dual";
-										
-										
-										$QuerySumOfRecievedAmount = mysqli_query($conn,$sql);
+										$QuerySumOfRecievedAmount = mysqli_query($conn,"SELECT SUM(amount) FROM customer_order_payments WHERE orderId = $tempOrderId AND isSuceed = 1");
 										if($QuerySumOfRecievedAmount!=null){
 											$academicAffected6=mysqli_num_rows($QuerySumOfRecievedAmount);
 											if($academicAffected6 > 0)
 												{
 													$resultSum = mysqli_fetch_row($QuerySumOfRecievedAmount);
 												
-													$resultSumArray = array("Cash_amount" => $resultSum[0],"NEFT_amount" => $resultSum[1]);
+													$resultSumArray = array("RecievedAmount" => $resultSum[0]);
 													$tempOrderDetails = array_merge($tempOrderDetails, $resultSumArray);
 												}
 										}

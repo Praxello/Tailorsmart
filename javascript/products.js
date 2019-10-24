@@ -212,7 +212,7 @@ function settabledata(styleData){
             shtml +="<td style='width:10%'>"+parentname.styleTitle+" "+parentname.subStyleTitle+"</td>";
             shtml +="<td style='width:5%'>"+AllData.skuNo+"</td>";
             shtml +="<td style='width:5%'>"+AllData.price+"</td>";
-            shtml +="<td style='width:5%'>"+AllData.releaseDate+"</td>";
+            shtml +="<td style='width:5%'>"+getDate(AllData.releaseDate)+"</td>";
 
             shtml +="<td style='width:5%'>"+AllData.sequenceNo+"</td>";
             shtml +="<td style='width:15%'>"+empName+"</td>";
@@ -235,6 +235,9 @@ function settabledata(styleData){
             else{
               empName  ='-';
             }
+            var rdate ='';
+
+
             let isConfirmed = confirmationStatus.get(AllData.isActive);
             let imageUrl = pic_url+'product/300x300/'+k+'.jpg';
             let parentname = ParentProducts.get(AllData.parentId);
@@ -245,7 +248,7 @@ function settabledata(styleData){
             shtml +="<td style='width:10%'>"+parentname.styleTitle+" "+parentname.subStyleTitle+"</td>";
             shtml +="<td style='width:5%'>"+AllData.skuNo+"</td>";
             shtml +="<td style='width:5%'>"+AllData.price+"</td>";
-            shtml +="<td style='width:5%'>"+AllData.releaseDate+"</td>";
+            shtml +="<td style='width:5%'>"+getDate(AllData.releaseDate)+"</td>";
 
             shtml +="<td style='width:5%'>"+AllData.sequenceNo+"</td>";
             shtml +="<td style='width:15%'>"+empName+"</td>";
@@ -273,7 +276,7 @@ function settabledata(styleData){
             unhtml +="<td style='width:10%'>"+parentname.styleTitle+" "+parentname.subStyleTitle+"</td>";
             unhtml +="<td style='width:5%'>"+AllData.skuNo+"</td>";
             unhtml +="<td style='width:5%'>"+AllData.price+"</td>";
-            unhtml +="<td style='width:5%'>"+AllData.releaseDate+"</td>";
+            unhtml +="<td style='width:5%'>"+getDate(AllData.releaseDate)+"</td>";
 
             unhtml +="<td style='width:5%'>"+AllData.sequenceNo+"</td>";
             unhtml +="<td style='width:15%'>"+empName+"</td>";
@@ -308,7 +311,7 @@ function settabledata(styleData){
   retrieve: true,
   bPaginate: $('tbody tr').length>10,
   order: [],
-  columnDefs: [ { orderable: false, targets: [0,1,2,3,4,5,6,7,8] } ],
+  columnDefs: [ { orderable: false, targets: [0,3,4,5,6,7,8] } ],
   dom: 'Bfrtip',
   buttons: [],
   destroy: true
@@ -847,6 +850,28 @@ function stitchstylemapping(){
         });
 }
 
+function getDate(date) {
+    var output = '-';
+    if (date == null ) {
+        return output;
+    }
+    else
+    {
+        var d = new Date(date);
+
+        if(d!="Invalid Date"){
+          output = d.toDateString(); // outputs to "Thu May 28 2015"
+          let outarr = output.split(" ");
+          let datestr = outarr[0]+","+outarr[2]+" "+outarr[1]+" "+outarr[3];
+          output=datestr;
+        }
+        else{
+          output = '-'
+        }
+
+    }
+    return output;
+}
 // This function is created for saved Product Fabric Mapping Function
 $('#savefabric').on('click',function(event){
   event.preventDefault();

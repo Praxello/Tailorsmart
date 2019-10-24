@@ -280,7 +280,6 @@ function loadStyles(productId, orderItemId, rowId) {
                                         }
                                         if (flag_1 == 0) {
 
-
                                             secondList += "<td><input type='radio' name='" + response.Data[i].StitchStyle.stitchStyleId + "chek'   value=" + response.Data[i].StitchSubstyle[k].stitchSubStyleId + "></td>";
 
                                         }
@@ -411,7 +410,8 @@ function loadFabrics(productId, orderItemId, rowId) {
 getPaymentList();
 
 function getPaymentList() {
-
+    var Orderamount = parseFloat($('#Orderamount').html());
+    $("#spanperror").html("<strong>Remaining Amount</strong>  <span class='badge' style='background-color: aquamarine;font-weight: bolder;'>"+Orderamount+"</span></font>");
     var empName = $('#empName').val();
     var totalpayment =0;
     $("#totalpayment").val(totalpayment);
@@ -455,12 +455,15 @@ function getPaymentList() {
                     markup += deleteEntry;
                     markup += "</td></div></tr>";
                 }
-
+                 // console.log("totalpayment"+totalpayment);
+                 $("#spanperror").html("<strong>Remaining Amount</strong> <span class='badge' style='background-color: aquamarine;font-weight: bolder;'>"+(Orderamount-parseFloat(totalpayment))+"</span></font>");
                 $("#totalpayment").val(totalpayment);
                 $("#paymentData").html(markup);
             }
         }
+
     });
+
 }
 
 function removePayment(paymentid, orderid) {

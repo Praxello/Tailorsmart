@@ -142,7 +142,7 @@ function settabledata(styleData){
             shtml +="<td>"+AllData.skuNo+"</td>";
 
             shtml +="<td>"+AllData.fabricPrice+"</td>";
-            shtml +="<td>"+AllData.releaseDate+"</td>";
+            shtml +="<td>"+getDate(AllData.releaseDate)+"</td>";
               shtml +="<td>"+empName+"</td>";
             shtml +="<td>"+isConfirmed+"</td>";
             shtml +='<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod(\'' + AllData.skuNo + '\')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+k+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeFabric('+k+')"><i class="fa fa-remove"></i></button></div></td>';
@@ -171,7 +171,7 @@ function settabledata(styleData){
         shtml +="<td>"+AllData.skuNo+"</td>";
 
         shtml +="<td>"+AllData.fabricPrice+"</td>";
-        shtml +="<td>"+AllData.releaseDate+"</td>";
+        shtml +="<td>"+getDate(AllData.releaseDate)+"</td>";
         shtml +="<td>"+empName+"</td>";
         shtml +="<td>"+isConfirmed+"</td>";
         shtml +='<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod(\'' + AllData.skuNo + '\')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+k+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeFabric('+k+')"><i class="fa fa-remove"></i></button></div></td>';
@@ -198,7 +198,7 @@ function settabledata(styleData){
         unhtml +="<td>"+AllData.skuNo+"</td>";
 
         unhtml +="<td>"+AllData.fabricPrice+"</td>";
-        unhtml +="<td>"+AllData.releaseDate+"</td>";
+        unhtml +="<td>"+getDate(AllData.releaseDate)+"</td>";
         unhtml +="<td>"+empName+"</td>";
         unhtml +="<td>"+isConfirmed+"</td>";
         unhtml +='<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod(\'' + AllData.skuNo + '\')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+k+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeFabric('+k+')"><i class="fa fa-remove"></i></button></div></td>';
@@ -228,7 +228,7 @@ function settabledata(styleData){
   retrieve: true,
   bPaginate: $('tbody tr').length>10,
   order: [],
-  columnDefs: [ { orderable: false, targets: [0,1,2,3,4,5,6,7] } ],
+  columnDefs: [ { orderable: false, targets: [0,3,4,5,6,7] } ],
   dom: 'Bfrtip',
   buttons: [],
   destroy: true
@@ -532,4 +532,26 @@ function removeFabric(id){
         $(".preloader").hide();
       }
   });
+}
+function getDate(date) {
+    var output = '-';
+    if (date == null ) {
+        return output;
+    }
+    else
+    {
+        var d = new Date(date);
+
+        if(d!="Invalid Date"){
+          output = d.toDateString(); // outputs to "Thu May 28 2015"
+          let outarr = output.split(" ");
+          let datestr = outarr[0]+","+outarr[2]+" "+outarr[1]+" "+outarr[3];
+          output=datestr;
+        }
+        else{
+          output = '-'
+        }
+
+    }
+    return output;
 }

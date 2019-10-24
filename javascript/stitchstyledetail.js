@@ -1,4 +1,4 @@
-// var stitchstyleData = new Map(); // This variable globally declare save all Style Data in Array
+var stitchstyleData = new Map(); // This variable globally declare save all Style Data in Array
 var styleData = new Map(); // This variable globally declare save all Style Data in Array
 let mapStitchStyle = new Map();
 mapstitchstyle();
@@ -30,6 +30,7 @@ function getstitchstyleitem(){
             // console.log("before");
       },
       success: function(response) {
+        // console.log(response);
         var count;
         if(response['Data']!=null){
            count= response['Data'].length;
@@ -76,7 +77,7 @@ function settabledata(styleData){
   retrieve: true,
   bPaginate: $('tbody tr').length>10,
   order: [],
-  columnDefs: [ { orderable: false, targets: [0,1,2,3,4,5] } ],
+  columnDefs: [ { orderable: false, targets: [0,5] } ],
   dom: 'Bfrtip',
   buttons: [],
   destroy: true

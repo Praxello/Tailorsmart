@@ -70,46 +70,7 @@ if(isset($_REQUEST['cid']))
                         <div class="card">
                             <div class="card-body">
                                 <input type="hidden" id="cid" value="<?php echo $cid;?>"/>
-                              <!-- <div class="row">
 
-                                <div class="col-sm-2">
-                                  <div class="form-group">
-                                  <label>From Date</label><font color='red' class="float-right">(MM/DD/YYYY)</font>
-                                  <input type="text" name="min" id="min" class="form-control" placeholder="MM/DD/YYYY"/>
-                                  </div>
-                                </div>
-                                <div class="col-sm-2">
-                                  <div class="form-group">
-                                  <label>Upto Date</label><font color='red' class="float-right">(MM/DD/YYYY)</font>
-                                  <input type="text" name="max" id="max" class="form-control" placeholder="MM/DD/YYYY" />
-                                  </div>
-                                </div>
-                                <div class="col-sm-2">
-                                  <div class="form-group">
-                                    <label>Select City</label>
-                                    <select class="form-control" id="tblcity" style="width:100%;" required>
-
-                                    </select>
-                                  </div>
-                                </div>
-                                <div class="col-sm-2">
-                                  <div class="form-group">
-                                    <label>Select Appointment Status</label>
-                                    <select class="form-control" id="tblappointmentStatus" style="width:100%;" required>
-
-                                    </select>
-                                  </div>
-                                </div>
-
-                                <div class="col-sm-2">
-                                  <div class="form-group">
-                                  <label>Select Slots</label>
-                                  <select class="form-control" id="tblslot" style="width:100%;" required>
-
-                                  </select>
-                                  </div>
-                                </div>
-                              </div> -->
                                 <div class="table-responsive m-t-40">
                                     <table id="appointmenttbl" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                                         <thead>
@@ -141,7 +102,7 @@ if(isset($_REQUEST['cid']))
                       <div class="row">
                       <input type="hidden" id="appointmentdetailid" />
                       <div class="col-sm-4">
-                        <h4 class="card-title">Customer Name</h4>
+                        <h4 class="card-title">Customer Name/Mobile No</h4>
                         <h6 class="card-subtitle"><span id="customername"></span></h6>
                       </div>
                         <div class="col-sm-4">

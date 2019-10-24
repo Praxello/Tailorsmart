@@ -1,7 +1,7 @@
 var EmployeeData = new Map();//from getallstaff.php names only
 var RoleData = new Map();//from getmiscellaneousdata.php names only
 getalluserrights();
-getcustomerstyles();
+
 
 
 $('#userrole').select2({
@@ -20,7 +20,6 @@ function getalluserrights(){
          url: api_url+"getuserrights.php",
          beforeSend: function() {
                $(".preloader").show();
-               // console.log("before");
          },
          success: function(response) {
            var count=0;
@@ -32,19 +31,17 @@ function getalluserrights(){
                RoleData.set(response.Data[i].roleId,response.Data[i]);
                userrole +="<option value='"+response.Data[i].roleId+"'>"+response.Data[i].roleName+"</option>";
             }
-            // console.log(RoleData);
             $("#userrole").html(userrole);
          },
          complete:function(response){
-
-           // console.log("after");
+           getcustomerstyles();
            $(".preloader").hide();
          }
      });
 }
 
 function  setemployeemaster(EmployeeData){
-
+  // console.log(EmployeeData);
   var html ;
   $('#employeetbl').dataTable().fnDestroy();
   $("#employeetbldata").empty();
@@ -91,7 +88,7 @@ function  setemployeemaster(EmployeeData){
  retrieve: true,
  bPaginate: $('tbody tr').length>10,
  order: [],
- columnDefs: [ { orderable: false, targets: [0,1,2,3,4,5,6,7] } ],
+ columnDefs: [ { orderable: false, targets: [6,7] } ],
  dom: 'Bfrtip',
  buttons: [],
  destroy: true
@@ -108,7 +105,6 @@ function getcustomerstyles(){
          async : false,
          beforeSend: function() {
                $(".preloader").show();
-               // console.log("before");
          },
          success: function(response) {
            var count;

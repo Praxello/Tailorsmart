@@ -5,8 +5,8 @@ var mapstitchStyleData = new Map();
 getmiscellaneousdata();
 getConfirmation();
 function getConfirmation() {
-    confirmationStatus.set('0', '<span class="badge badge-pill badge-warning">InActive</span>');
-    confirmationStatus.set('1', '<span class="badge badge-pill badge-primary">Active</span>');
+    confirmationStatus.set('0', '<span class="badge badge-pill badge-warning">No</span>');
+    confirmationStatus.set('1', '<span class="badge badge-pill badge-primary">Yes</span>');
 }
 getmasterproduct();
 $('#masterstyle').select2({
@@ -53,7 +53,7 @@ function settabledata(styleData){
   retrieve: true,
   bPaginate: $('tbody tr').length>10,
   order: [],
-  columnDefs: [ { orderable: false, targets: [0,1,2,3,4] } ],
+  columnDefs: [ { orderable: false, targets: [0,3,4] } ],
   dom: 'Bfrtip',
   buttons: [],
   destroy: true

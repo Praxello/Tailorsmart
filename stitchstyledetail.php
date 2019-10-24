@@ -23,15 +23,6 @@ $employeeName = $_SESSION['employeeName'];
     <link href="css/lib/bootstrap/asterisks.css" rel="stylesheet">
     <link href="css/helper.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="javascript/lsb.css" />
-    <script src="javascript/jquery-2.2.3.min.js"></script>
-    <script src="javascript/lsb.js"></script>
-    <script>
-      $(window).load(function() {
-        $.fn.lightspeedBox();
-      });
-    </script>
-
 </head>
 
 <body class="fix-header fix-sidebar">
@@ -172,7 +163,7 @@ $employeeName = $_SESSION['employeeName'];
     <!-- End Wrapper -->
     <!-- All Jquery -->
     <!-- -->
-    <!-- <script src="js/lib/jquery/jquery.min.js"></script> -->
+    <script src="js/lib/jquery/jquery.min.js"></script> -->
     <script src="javascript/apifile.js"></script>
     <link href="select2/select4.css" rel="stylesheet" />
     <script src="select2/select4.js" type="text/javascript"></script>

@@ -274,7 +274,7 @@ function getOrdersOfCustomer() {
                     retrieve: true,
                     bPaginate: $('tbody tr').length > 10,
                     order: [],
-                    columnDefs: [{ orderable: false, targets: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] }],
+                    columnDefs: [{ orderable: false, targets: [0, 7, 8, 9, 10] }],
                     dom: 'Bfrtip',
                     buttons: ['copy', 'csv', 'excel', 'pdf'],
                     destroy: true

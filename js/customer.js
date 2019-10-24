@@ -170,7 +170,7 @@ function getOrdersOfCustomer(customerId) {
                     retrieve: true,
                     bPaginate: $('tbody tr').length > 10,
                     order: [],
-                    columnDefs: [{ orderable: false, targets: [0, 1, 2, 3, 4, 5, 6, 7] }],
+                    columnDefs: [{ orderable: false, targets: [] }],
                     dom: 'Bfrtip',
                     buttons: ['copy', 'csv', 'excel', 'pdf'],
                     destroy: true
@@ -183,6 +183,17 @@ function getOrdersOfCustomer(customerId) {
         }
     });
 }
+// function getDate(date) {
+//     var output = '-';
+//     if (date == null) {
+//         return output;
+//     } else {
+//         var d = new Date(date);
+//         output = d.toDateString(); // outputs to "Thu May 28 2015"
+//         //output = d.toGMTString(); //outputs to "Thu, 28 May 2015 22:10:21 GMT"
+//     }
+//     return output;
+// }
 function getDate(date) {
     var output = '-';
     if (date == null) {
@@ -190,11 +201,12 @@ function getDate(date) {
     } else {
         var d = new Date(date);
         output = d.toDateString(); // outputs to "Thu May 28 2015"
-        //output = d.toGMTString(); //outputs to "Thu, 28 May 2015 22:10:21 GMT"
+        let outarr = output.split(" ");
+        let datestr = outarr[0]+","+outarr[2]+" "+outarr[1]+" "+outarr[3];
+        output=datestr;
     }
     return output;
 }
-
 function showpdf(orderid, rowId) {
     orderId = orderid;
     customerOrderDetails = JSON.stringify(customerOrders[rowId]);

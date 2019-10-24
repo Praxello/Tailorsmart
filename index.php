@@ -8,6 +8,7 @@ if(!isset($_SESSION['employeeId'])){
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">  -->
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
@@ -77,7 +78,7 @@ if(!isset($_SESSION['employeeId'])){
     <!-- End Wrapper -->
     <!-- All Jquery -->
     <script src="js/lib/jquery/jquery.min.js"></script>
-     <script src="javascript/apifile.js"></script>
+     <script src="javascript/lapifile.js"></script>
      <script type="text/javascript" src="js/ajaxLoader.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
     <script src="js/lib/bootstrap/js/popper.min.js"></script>

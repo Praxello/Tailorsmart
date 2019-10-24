@@ -28,19 +28,6 @@ function getConfirmation() {
 $(document).ready(function() {
 
 });
-// $('#tblappointmentStatus').select2({
-//     allowClear: true,
-//     placeholder: "Appointment Status"
-// });
-// $('#tblcity').select2({
-//     allowClear: true,
-//     placeholder: "Select City Here"
-// });
-// $('#tblslot').select2({
-//     allowClear: true,
-//     placeholder: "Select Slots Here"
-// });
-
 $('#setemployeeId').select2({
     allowClear: true,
     placeholder: "Select Employee"
@@ -75,209 +62,19 @@ function getMicellaneousData() {
     });
 }
 var table;
-// var table=$('#appointmenttbl').DataTable({
-//     searching: true,
-//     retrieve: true,
-//     bPaginate: $('tbody tr').length > 10,
-//     order: [],
-//     columnDefs: [{ orderable: false, targets: [0, 1, 2, 3, 4, 5, 6, 7, 8,9] }],
-//     dom: 'Bfrtip',
-//     buttons: ['copy', 'csv', 'excel', 'pdf'],
-//     destroy: true
-// });
-// else
-// {
-//   if(bval==1)
-//   {
-//
-//     let filterVal = $("#tblcity").val();
-//     let cityData = data[5];
-//     if(filterVal !="")
-//     {
-//           if(cityData == filterVal){
-//             console.log("Exact match");
-//             return true;
-//           }
-//           else
-//           {
-//             return false;
-//           }
-//     }
-//     else
-//     {
-//       return true;
-//     }
-//   }
-//   else
-//   {
-//     console.log("bval"+bval);
-//     console.log("False");
-//     return false;
-//   }
-//
+
+// function retddmmyyyy(date){
+//   var nd = new Date(min);
+//   var ndate =(nd.getDate())+"/"+(parseInt(nd.getMonth())+ 1)+"/"+nd.getFullYear();
+//   return ndate;
 // }
-// $.fn.dataTable.ext.search.push(
-//     function(settings, data, dataIndex) {
-//        var min = $('#min').datepicker("getDate");
-//        var max = $('#max').datepicker("getDate");
-//
-//         if(aval==1)
-//         {
-//
-//           var startDate = new Date(data[1]);
-//           if (min == null && max == null) { return true; }
-//           if (min == null && startDate <= max) { return true; }
-//           if (max == null && startDate >= min) { return true; }
-//           if (startDate <= max && startDate >= min) {
-//             return true;
-//           }
-//           return false;
-//          }
-//         if(bval==1)
-//           {
-//              // console.log("bval"+bval);
-//             let filterVal = $("#tblcity").val();
-//             let  cityData = data[5];
-//             if(filterVal !="")
-//             {
-//                   if(cityData == filterVal){
-//                     // console.log("Exact match");
-//                     return true;
-//                   }
-//                   else
-//                   {
-//                     return false;
-//                   }
-//             }
-//             else
-//             {
-//               return true;
-//             }
-//           }
-//
-//           if(cval==1)
-//             {
-//                  // console.log("bval"+bval);
-//                 let filterVal = $("#tblappointmentStatus").val();
-//                 let  cityData = data[8];
-//
-//                 if(filterVal !="")
-//                 {
-//                       if(cityData == filterVal){
-//                         // console.log("Exact match");
-//                         return true;
-//                       }
-//                       else
-//                       {
-//                         return false;
-//                       }
-//                 }
-//                 else
-//                 {
-//                   return true;
-//                 }
-//           }
-//
-//           if(dval==1)
-//             {
-//                  // console.log("bval"+bval);
-//                 let filterVal = $("#tblslot").val();
-//                 let  cityData = data[3];
-//
-//                 if(filterVal !="")
-//                 {
-//                       if(cityData == filterVal){
-//
-//                         return true;
-//                       }
-//                       else
-//                       {
-//                         return false;
-//                       }
-//                 }
-//                 else
-//                 {
-//                   return true;
-//                 }
-//           }
-//          return true;
-//
-// });
 
-
-// Event listener to the two range filtering inputs to redraw on input
-// var aval=0,bval=0,cval=0,dval=0;
-// $('#min, #max,#tblcity,#tblappointmentStatus,#tblslot').change(function() {
-//    var min =$("#min").val();
-//    var max =$("#max").val();
-//    if(max==""||min==""){
-//      aval = 0;
-//    }
-//    else
-//    {
-//      aval = 1;
-//    }
-//    var filterVal = $("#tblcity").val();
-//    if(filterVal==""){
-//           bval = 0;
-//    }
-//    else
-//    {
-//           bval = 1;
-//    }
-//    var tblappointmentStatus = $("#tblappointmentStatus").val();
-//    // console.log(tblappointmentStatus);
-//    if(tblappointmentStatus==""){
-//      cval = 0;
-//    }
-//    else{
-//      cval = 1;
-//    }
-//    var tblslot = $("#tblslot").val();
-//    // console.log(tblappointmentStatus);
-//    if(tblslot==""){
-//      dval = 0;
-//    }
-//    else{
-//      dval = 1;
-//    }
-//    // console.log("Aval"+aval);
-//    // console.log("Bval"+bval);
-//    // console.log("Cval"+cval);
-//    // console.log("Dval"+dval);
-//   table.draw();
-// });
-// $('#tblcity').change(function() {
-//    var filterVal = $("#tblcity").val();
-//    if(filterVal==""){
-//      bval = 0;
-//    }
-//    else
-//    {
-//      bval = 1;
-//    }
-//    table.draw();
-// });
-function retddmmyyyy(date){
-  var nd = new Date(min);
-  var ndate =(nd.getDate())+"/"+(parseInt(nd.getMonth())+ 1)+"/"+nd.getFullYear();
-  return ndate;
-}
-// $("input").on("change", function() {
-//     this.setAttribute(
-//         "data-date",
-//         moment(this.value, "YYYY-MM-DD")
-//         .format( this.getAttribute("data-date-format") )
-//     )
-// }).trigger("change");
 
 function settabledata(styleData) {
     // console.log(styleData);
     var xhtml = '',ihtml = '',varhtml = '';
     var cid = $("#cid").val();
     var selectslot = '',selectstatus = '',selectcity='';
-    // console.log(cid);
-    // console.log(typeof(cid));
     $('#appointmenttbl').dataTable().fnDestroy();
     $("#appointmenttbldata").empty();
     for (let k of styleData.keys())
@@ -318,7 +115,7 @@ function settabledata(styleData) {
              xhtml += "<tr>";
              xhtml += "<td>" + AllData.firstName + " " + AllData.lastname + "</td>";
              xhtml += "<td style='display:none;'>" + AllData.appointmentDate + "</td>";
-             xhtml += "<td>" + newdate + "</td>";
+             xhtml += "<td>" + getDate(newdate) + "</td>";
              xhtml += "<td>" + AllData.slotTime + "</td>";
              xhtml += "<td>" + AllData.address + "</td>";
 
@@ -352,7 +149,7 @@ function settabledata(styleData) {
           xhtml += "<tr>";
           xhtml += "<td>" + AllData.firstName + " " + AllData.lastname + "</td>";
           xhtml += "<td style='display:none;'>" + AllData.appointmentDate + "</td>";
-          xhtml += "<td>" + newdate + "</td>";
+          xhtml += "<td>" + getDate(newdate) + "</td>";
           xhtml += "<td>" + AllData.slotTime + "</td>";
           xhtml += "<td>" + AllData.address + "</td>";
           xhtml += "<td>" + AllData.city + "</td>";
@@ -385,17 +182,6 @@ function settabledata(styleData) {
      }
     $("#tblappointmentStatus").html(selectstatus);
     $("#appointmenttbldata").html(xhtml);
-
-    // table=$('#appointmenttbl').DataTable({
-    //     searching: true,
-    //     retrieve: true,
-    //     bPaginate: $('tbody tr').length > 10,
-    //     order: [],
-    //     columnDefs: [{ orderable: false, targets: [0,1,2,3,4,5,6,7,8,9] }],
-    //     dom: 'Bfrtip',
-    //     buttons: ['copy', 'csv', 'excel', 'pdf'],
-    //     destroy: true
-    // });
   $('#appointmenttbl').DataTable({
    initComplete: function() {
     this.api().columns([1]).every(function() {
@@ -471,33 +257,19 @@ function settabledata(styleData) {
   dom: 'Bfrtip',
   buttons: [ 'copy', 'csv', 'excel', 'pdf', 'print' ]
 });
-// $('#appointmenttbl').DataTable({
-// 		"paging": true,
-//     //"stateSave": true,
-//
-// 		initComplete: function () {
-// 			this.api().columns([1,3,2,4]).every( function () {
-//       	var column = this;
-//         var select = $('<select><option value=""></option></select>')
-//           .appendTo( $(column.footer()).empty() )
-//           .on( 'change', function () {
-//            	var val = $.fn.dataTable.util.escapeRegex(
-//             	$(this).val()
-//             );
-// 					  column
-//               .search( val ? '^'+val+'$' : '', true, false )
-//               .draw();
-//         	});
-//
-//         column.data().unique().sort().each( function ( d, j ) {
-//          	var val = $('<div/>').html(d).text();
-//           select.append( '<option value="' + val + '">' + val + '</option>' );
-//       	});
-//       });
-//   	}
-// 	});
  }
 
+// function getDate(date) {
+//     var output = '-';
+//     if (date == null) {
+//         return output;
+//     } else {
+//         var d = new Date(date);
+//         output = d.toDateString(); // outputs to "Thu May 28 2015"
+//         // output = d.toGMTString(); //outputs to "Thu, 28 May 2015 22:10:21 GMT"
+//     }
+//     return output;
+// }
 function getDate(date) {
     var output = '-';
     if (date == null) {
@@ -505,7 +277,9 @@ function getDate(date) {
     } else {
         var d = new Date(date);
         output = d.toDateString(); // outputs to "Thu May 28 2015"
-        // output = d.toGMTString(); //outputs to "Thu, 28 May 2015 22:10:21 GMT"
+        let outarr = output.split(" ");
+        let datestr = outarr[0]+","+outarr[2]+" "+outarr[1]+" "+outarr[3];
+        output=datestr;
     }
     return output;
 }
@@ -550,14 +324,14 @@ function editcustomerappointmentdata(id) {
     // setEmployeeData();
     var AllData = styleData.get(id.toString());
     var Allitemdata = selectitemsdata.get(id.toString());
-
+    // console.log(AllData);
     $("#appointdetailtbldata").empty();
     $("#customerappointtbl").hide(); // Hide the content Customer Appointment Table.
     $("#customerappointdetailtbl").show(); //  Show the content Customer Appointment Detail
     $("#appointdetailtbldata").empty();
     $("#appointmentdetailaddr").html(AllData.address + "," + AllData.city);
-    $("#customername").html(AllData.firstName + " " + AllData.lastname);
-    $("#appointmentdate").html(AllData.appointmentDate);
+    $("#customername").html(AllData.firstName + " " + AllData.lastname +"<strong><font color='red'> "+AllData.mobile+" </font></strong>");
+    $("#appointmentdate").html(getDate(AllData.appointmentDate));
     $("#slottime").html(AllData.slotTime);
     $("#setemployeeId").val(AllData.servingEmployeeId).trigger('change');
     $("#appointmentStatus").val(AllData.appointmentStatus).trigger('change');

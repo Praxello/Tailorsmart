@@ -201,12 +201,12 @@
                         <div class="row">
                             <div class="col-sm-3">
                                 <div class="form-group">
-                                    <label class="control-label">Change status of order</label>
+                                    <label class="control-label">Order Status</label>
                                 </div>
                             </div>
                             <div class="col-sm-3">
                                 <div class="form-group">
-                                    <label class="control-label">Confirmation of order</label>
+                                    <label class="control-label">Order Conformation</label>
                                 </div>
                             </div>
                             <div class="col-sm-3">

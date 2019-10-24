@@ -407,6 +407,8 @@ function loadFabrics(productId, orderItemId, rowId) {
 getPaymentList();
 // var totalpayment =0;
 function getPaymentList() {
+  var Orderamount = parseFloat($('#Orderamount').html());
+  $("#spanperror").html("<strong>Remaining Amount</strong>  <span class='badge' style='background-color: aquamarine;font-weight: bolder;'>"+Orderamount+"</span></font>");
     var empName = $('#empName').val();
     var totalpayment =0;
     $("#totalpayment").val(totalpayment);
@@ -451,7 +453,7 @@ function getPaymentList() {
                     markup += deleteEntry;
                     markup += "</td></div></tr>";
                 }
-
+                $("#spanperror").html("<strong>Remaining Amount</strong> <span class='badge' style='background-color: aquamarine;font-weight: bolder;'>"+(Orderamount-parseFloat(totalpayment))+"</span></font>");
                 $("#totalpayment").val(totalpayment);
                 $("#paymentData").html(markup);
             }

@@ -29,8 +29,6 @@ function order_info()
          $person.='<center><div style="font-size: 12px;font-weight: bolder;">Mobile No :'.$customerResults['mobile'].'</div></center>';
      }
 
-
-
      $person.='<div><table cellspacing="2" cellpadding="2" width="100%">';
      $QueryMeasurement = mysqli_query($conn,"select * from customer_order_items_measurement coim inner join measurement_item_master mim on coim.measurementid = mim.measurementid where coim.orderitemid=$tempOrderItemId");
      $academicAffected2=mysqli_num_rows($QueryMeasurement);
@@ -38,7 +36,6 @@ function order_info()
      {
        $person.='<tr>';
        $person.='<td  colspan="3" style="border:1px solid black;height:25px;text-align:center;"><b >Product Measurement</b> </td>';
-       // $person.='<td style="border:1px solid black;height:25px;text-align:center;">Value </td>';
        $person.='</tr>';
        $i=0;
        while($measurementResults = mysqli_fetch_assoc($QueryMeasurement))
@@ -57,17 +54,13 @@ function order_info()
      $academicAffected3 = mysqli_num_rows($QueryStyles);
      if($academicAffected3 > 0)
      {
-
-
-        $person.='<tr>';
+       $person.='<tr>';
        $person.='<td colspan="3" style="border:1px solid black;height:25px;text-align:center; margin-top:10%;"><b>Stitch Style</b></td>';
-       // $person.='<td style="border:1px solid black;height:25px;text-align:center;margin-top:10%;">Value </td>';
        $person.='</tr>';
        $i=0;
        while($styleResults = mysqli_fetch_assoc($QueryStyles))
        {
             $i++;
-         // $tempOrderStyles[] = $styleResults;
          $person.='<tr>';
          $person.='<td style="border:1px solid black;width:10%;text-align:center;">'.$i.'</td>';
          $person.='<td style="border:1px solid black;width:70%;text-align:center;">'.$styleResults['stitchSubStyleTitle'].'</td>';
@@ -84,7 +77,6 @@ function order_info()
      {
        $person.='<tr>';
        $person.='<td  colspan="3" style="border:1px solid black;height:25px;text-align:center;"><b>Fabrics</b> </td>';
-       // $person.='<td style="border:1px solid black;height:25px;text-align:center;">Value </td>';
        $person.='</tr>';
        $i=0;
        while($fabricResults = mysqli_fetch_assoc($QueryFabrics))
@@ -129,7 +121,9 @@ function order_info()
       </style>
 	   <div id="page-wrap">
      <main>';
-    $html.=''.order_info().'';
+     // $html.='';
+
+  $html.=''.order_info().'';
 
 
 
