@@ -455,7 +455,7 @@ function getPaymentList() {
                     markup += deleteEntry;
                     markup += "</td></div></tr>";
                 }
-                
+
                 $("#totalpayment").val(totalpayment);
                 $("#paymentData").html(markup);
             }
@@ -531,7 +531,7 @@ changeStatusOfOrder();
 
 function changeStatusOfOrder() {
     var OrderDetails = customerOrders[indexRow];
-    console.log(OrderDetails);
+    // console.log(OrderDetails);
     $('#statusOfOrder').val(OrderDetails.OrderDetails.orderStatus).trigger('change');
     $('#confirmationOfOrder').val(OrderDetails.OrderDetails.isConfirmed).trigger('change');
     $('#dateOfExpected').val(OrderDetails.OrderDetails.customerExpectedDate);

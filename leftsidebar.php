@@ -10,21 +10,19 @@
             $roleId = $_SESSION['roleId'];
             switch($roleId){
                 case '1':?>
-
-                <li> <a class="has-arrow" href="/" aria-expanded="false"><i class="fa fa-shopping-cart"></i>
+                <li><a href="customerappointment.php" aria-expanded="false"><i
+                            class="fa fa-calendar"></i>
+                            <span class="hide-menu">Appointment Management</span>
+                          </a></li>
+                <li><a class="has-arrow" href="/" aria-expanded="false"><i class="fa fa-shopping-cart"></i>
                 <span class="hide-menu">Orders</span></a>
                   <ul aria-expanded="false" class="collapse">
                         <li><a href="ordermanagement.php">All Orders</a></li>
                         <li><a href="customers.php">Order Management</a></li>
                   </ul>
               </li>
-              <li><a class=" " href="catlogscr.php" aria-expanded="false"><i
-                        class="fa fa-file-image-o "></i><span class="" >Product Catlog</span></a></li>
-              <li><a   href="customerappointment.php" aria-expanded="false"><i
-                          class="fa fa-calendar"></i><span class="hide-menu">Appointment Management</span></a></li>
-
-
-
+              <li><a class="" href="catlogscr.php" aria-expanded="false"><i
+                        class="fa fa-file-image-o "></i><span class="">Product Catlog</span></a></li>
                           <li> <a class="has-arrow" href="/" aria-expanded="false"><i class="fa fa-shopping-cart"></i>
                                         <span class="hide-menu">Masters</span></a>
                                           <ul aria-expanded="false" class="collapse">
