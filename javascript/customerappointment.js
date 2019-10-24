@@ -253,7 +253,7 @@ function settabledata(styleData) {
       });
     });
   },
-  'pageLength': 40,
+  'pageLength': 10,
   dom: 'Bfrtip',
   buttons: [ 'copy', 'csv', 'excel', 'pdf', 'print' ]
 });
