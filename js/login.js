@@ -37,7 +37,7 @@ $('#login').on('submit', function(event) {
         passwrd: $('#passwrd').val()
     };
     $.ajax({
-        url: api_url + 'login.php',
+        url: '/admin/login.php',
         type: 'POST',
         data: loginData,
         dataType: 'json',
