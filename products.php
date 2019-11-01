@@ -348,7 +348,7 @@ if(isset($_REQUEST['pid']))
                                                             <thead>
                                                                 <tr>
                                                                     <th>Select</th>
-
+                                                          <th>Sequence Number</th>
                                                                     <th>Measurement</th>
 
                                                                 </tr>

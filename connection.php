@@ -2,6 +2,6 @@
 $serverName = 'localhost';
 $username   = 'root';
 $password   = '';
-$databaseName = 'Tailorsmartnew';
+$databaseName = 'Tailor';
 $conn = new mysqli($serverName,$username,$password,$databaseName)or die(mysqli_connect_error());
 ?>

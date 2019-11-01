@@ -8,7 +8,7 @@ header('Content-Type: application/json');
 	 extract($_POST);
 
 	        $records =null;
-		 			$academicQuery = mysqli_query($conn,"select * from product_catalog_measurement_master pcm inner join product_master pm on pcm.productid = pm.productid inner join measurement_item_master pim on pim.measurementid = pcm.measurementid");
+		 			$academicQuery = mysqli_query($conn,"select * from product_catalog_measurement_master pcm inner join product_master pm on pcm.productid = pm.productid inner join measurement_item_master pim on pim.measurementid = pcm.measurementid ORDER BY pcm.sequenceNumber");
 						if($academicQuery!=null)
 						{
 							$academicAffected=mysqli_num_rows($academicQuery);
