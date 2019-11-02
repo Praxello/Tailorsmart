@@ -8,10 +8,7 @@ extract($_POST);
 date_default_timezone_set("Asia/Kolkata");
 $currentDate=date('Y-m-d'); //Returns IST
 if (isset($_POST['customerid']) && isset($_POST['productids']) &&  isset($_POST['fabricids']) &&  isset($_POST['appointmentdate']) && isset($_POST['slotid'])) {
-
-
 	//employeeId, attendanceDate, latitude, longitude, address, deviceId, model
-
  			$query = mysqli_query($conn,"insert into customer_appointment_master(customerId, productIds, fabricIds, appointmentDate, appointmentStatus,slotid) values ($customerid,'$productids','$fabricids', '$appointmentdate',0,$slotid)");
 					if($query==1)
 					{
@@ -131,12 +128,12 @@ if (isset($_POST['customerid']) && isset($_POST['productids']) &&  isset($_POST[
                                        $html .= '<tr>';
                                        $selectfabriclen = count($Allitemdata[$i]['Fabrics']);
                                        $html .= '<td style="color: orange;padding-left:36px;  padding-bottom:10px; line-height:12px; font-size:14px; padding-right:20px; font-family:Arial, Helvetica, sans-serif;">' . $Allitemdata[$i]['Product']['productTitle'] . '</td>';
-                                       $html .= '<td style="color:#363636;  line-height:12px; font-size:14px; padding-right:35px; font-family:Arial, Helvetica, sans-serif;float: right;">' . $Allitemdata[$i]['Fabrics'][0]['fabricTitle'] . '</td>';
+                                       $html .= '<td style="color:#363636;  line-height:12px; font-size:14px; padding-right:35px; font-family:Arial, Helvetica, sans-serif;float: right;">' . $Allitemdata[$i]['Fabrics'][0]['fabricTitle'] .'<font color="green"><u> '. $Allitemdata[$i]['Fabrics'][0]['colorName'] .  '</u></font></td>';
                                        for ($j = 1; $j < $selectfabriclen; $j++)
                                        {
                                            $html .= '<tr>';
                                            $html .= '<td> </td>';
-                                           $html .= '<td style="color:#363636; padding-bottom:10px; line-height:12px; font-size:14px; padding-right:35px; font-family:Arial, Helvetica, sans-serif;float: right;">' .$Allitemdata[$i]['Fabrics'][$j]['fabricTitle'] . '</td>';
+                                           $html .= '<td style="color:#363636; padding-bottom:10px; line-height:12px; font-size:14px; padding-right:35px; font-family:Arial, Helvetica, sans-serif;float: right;">' .$Allitemdata[$i]['Fabrics'][$j]['fabricTitle'] . '<font color="green"><u> '. $Allitemdata[$i]['Fabrics'][$j]['colorName'] .  '</u></font></td>';
                                            $html .= '</tr>';
                                        }
                                     }
@@ -250,7 +247,7 @@ if (isset($_POST['customerid']) && isset($_POST['productids']) &&  isset($_POST[
                             $headers  = 'MIME-Version: 1.0' . "\r\n";
                             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
                             $headers .= 'Cc:krkunal29@gmail.com,'."\r\n";
-                            $headers .= 'Cc:vikaspawar3110@gmail.com,'."\r\n";
+
                             $headers .= 'Cc:pravin@tailorsmart.in,'."\r\n";
                             $headers .= 'Cc:joy@tailorsmart.in,'."\r\n";
                             $headers .= 'From:"Tailor-Smart"<tailorsmart.in>' . "\r\n";
