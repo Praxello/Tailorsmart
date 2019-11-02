@@ -27,6 +27,7 @@ function settabledata(styleData){
         html +="<td>"+AllData.styleTitle+"</td>";
         // html +="<td>"+isConfirmed+"</td>";
         html +='<td style="width:10%"><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod('+AllData.styleId+')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+AllData.styleId+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeStyle('+AllData.styleId+')"><i class="fa fa-remove"></i></button></div></td>';
+        html +="<td style='display:none;'>"+AllData.styleId+"</td>";
         html +="  </tr>";
   }
   $("#styletbldata").html(html);
@@ -35,7 +36,7 @@ function settabledata(styleData){
   retrieve: true,
   bPaginate: $('tbody tr').length>10,
   order: [],
-  columnDefs: [ { orderable: false, targets: [0,2] } ],
+  columnDefs: [ { orderable: false, targets: [0,2,3] } ],
   dom: 'Bfrtip',
   buttons: [],
   destroy: true
@@ -110,6 +111,7 @@ function imguplod(imgid){
 function addStyle(){
   $("#customerstyletable").hide();
   $("#customerstyletableform").show();
+  $("#styleid").val("0");
   $("#styletitle").val("");
   // $("#stylestatus").val("1").trigger('change');
   $("#savebtncustomerstyle").show();
@@ -139,6 +141,17 @@ $('#reloadbtn').on('click',function(event){
   $("#customerstyletableform").hide();
   $("#savebtncustomerstyle").show();
   $("#updatebtncustomerstyle").hide();
+  settabledata(styleData);
+  var productId = $("#styleid").val();
+  var table = $('#styletbl').DataTable();
+  var row = table.row(function ( idx, data, node ) {
+    return data[3] === productId;
+  } );
+  if (row.length > 0) {
+    row.select()
+    .show()
+    .draw(false);
+  }
 });
 
 // This function is created For Save Style Data
@@ -167,13 +180,14 @@ $('#savebtncustomerstyle').on('click',function(event){
         success:function(response){
 
             if(response.Responsecode==200){
-              $("#customerstyletable").show();
-              $("#customerstyletableform").hide();
+              // $("#customerstyletable").show();
+              // $("#customerstyletableform").hide();
 
               swal(response.Message);
               obj.styleId = response.RowId.toString();
               styleData.set(response.RowId.toString(),obj);
-              settabledata(styleData);
+              $("#styleid").val(response.RowId.toString());
+              // settabledata(styleData);
             }
             else{
               swal(response.Message);
@@ -217,8 +231,8 @@ $('#updatebtncustomerstyle').on('click',function(event){
       success:function(response){
 
           if(response.Responsecode==200){
-          $("#customerstyletable").show();
-          $("#customerstyletableform").hide();
+          // $("#customerstyletable").show();
+          // $("#customerstyletableform").hide();
           // styleData.delete(styleid.toString());
           styleData.set(styleid.toString(),obj);
           settabledata(styleData);
@@ -239,6 +253,8 @@ $('#updatebtncustomerstyle').on('click',function(event){
 
 // This function is created For Remove Button
 function removeStyle(id){
+  // console.log(typeof(id));
+  // console.log(id);
   $.ajax({
       url:api_url+'deletestyle.php',
       type:'POST',
@@ -252,11 +268,34 @@ function removeStyle(id){
       },
       success:function(response){
         if(response.Responsecode==200){
-          $("#customerstyletable").show();
           $("#customerstyletableform").hide();
+          $("#customerstyletable").show();
           styleData.delete(id.toString());
           settabledata(styleData);
           swal(response.Message);
+          let value =0;
+          var table = $('#styletbl').DataTable();
+          var tottablen = table.column( 0 ).data().length;
+          let i =0;
+          var row = table.row(function ( idx, data, node ) {
+            i++;
+            if(parseInt(data[3])<id){
+              value =data[3];
+              if(i===tottablen){
+                  return value;
+              }
+            }
+            else{
+
+              return value;
+            }
+            // return value;
+          } );
+          if (row.length > 0) {
+            row.select()
+            .show()
+            .draw(false);
+          }
         }
         else{
           swal(response.Message);

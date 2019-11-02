@@ -5,8 +5,8 @@ $response=null;
 $records = null;
 extract($_POST);
 //customerId, productIds, fabricIds, appointmentDateTime, servingEmployeeId, appointmentStatus
- date_default_timezone_set("Asia/Kolkata");
- $currentDate=date('Y-m-d'); //Returns IST
+date_default_timezone_set("Asia/Kolkata");
+$currentDate=date('Y-m-d'); //Returns IST
 if (isset($_POST['customerid']) && isset($_POST['productids']) &&  isset($_POST['fabricids']) &&  isset($_POST['appointmentdate']) && isset($_POST['slotid'])) {
 
 
@@ -240,7 +240,7 @@ if (isset($_POST['customerid']) && isset($_POST['productids']) &&  isset($_POST[
                             <table border="1" align="center"  cellpadding="3" cellspacing="3" style="border:solid 3px #000; width:600px;">
   											     <thead>
   													<tr>
-  															<th style="text-align:center">Thank You For Staying With Us.</th>
+  															<th style="text-align:center">Custom Made. Home Delivered.</th>
   													</tr>
   												 </thead>
   													</table>
@@ -249,11 +249,13 @@ if (isset($_POST['customerid']) && isset($_POST['productids']) &&  isset($_POST[
 
                             $headers  = 'MIME-Version: 1.0' . "\r\n";
                             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+                            $headers .= 'Cc:krkunal29@gmail.com,'."\r\n";
+                            $headers .= 'Cc:vikaspawar3110@gmail.com,'."\r\n";
+                            $headers .= 'Cc:pravin@tailorsmart.in,'."\r\n";
+                            $headers .= 'Cc:joy@tailorsmart.in,'."\r\n";
+                            $headers .= 'From:"Tailor-Smart"<tailorsmart.in>' . "\r\n";
+                            mail($to, $subject, $message, $headers);
 
-                            $headers .= 'From:"Tailor-Smart"<admin@praxello.com>' . "\r\n";
-                            if($apointstat !=0){
-                              mail($to, $subject, $message, $headers);
-                            }
 
                         }
                         else

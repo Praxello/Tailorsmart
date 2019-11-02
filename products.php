@@ -99,6 +99,7 @@ if(isset($_REQUEST['pid']))
                                                 <th  style="width:15%">Created by</th>
                                                 <th  style="width:5%">Status</th>
                                                 <th  style="width:5%">Action </th>
+                                                <th style="display:none;">Row ID</th>
                                             </tr>
                                         </thead>
                                         <tbody id="styletbldata">
@@ -466,9 +467,9 @@ if(isset($_REQUEST['pid']))
 
 
     <script src="js/lib/datatables/datatables.min.js"></script>
-    <!-- <script src="https://cdn.datatables.net/v/dt/dt-1.10.16/sl-1.2.5/datatables.min.js">
+    <script src="javascript/datatablesl.min.js"></script>
+    <script src="javascript/datatablerowshow.min.js"></script>
 
-    </script> -->
     <!-- <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
     <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
     <script src="js/lib/datatables/cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
@@ -480,32 +481,7 @@ if(isset($_REQUEST['pid']))
     <!-- <script src="dropzone/dropzone.js" type="text/javascript"></script> -->
     <script src="javascript/products.js"></script>
     <script src="js/lib/sweetalert/sweetalert.min.js"></script>
-    <!-- <script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.10/js/dataTables.checkboxes.min.js">
 
-    </script> -->
-    <!-- <script src="js/lib/sweetalert/sweetalert.init.js"></script> -->
-    <!-- <script type='text/javascript'>
-    Dropzone.autoDiscover = false;
-    $(".dropzone").dropzone({
-        addRemoveLinks: true,
-        removedfile: function(file) {
-            var name = file.name;
-            var eventgallery = $("#eventgallery").val();
-            alert(name);
-            alert(eventgallery);
-            $.ajax({
-                type: 'POST',
-                url: './src/uploadeventgallary.php',
-                data: {name: name,eventgallery:eventgallery,request: 2},
-                sucess: function(data){
-                    console.log('success: ' + data);
-                }
-            });
-            var _ref;
-            return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
-        }
-    });
-    </script> -->
 </body>
 
 </html>

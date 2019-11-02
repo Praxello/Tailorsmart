@@ -14,7 +14,7 @@
                             class="fa fa-calendar"></i>
                             <span class="hide-menu">Appointment Management</span>
                           </a></li>
-                <li><a class="has-arrow" href="/" aria-expanded="false"><i class="fa fa-shopping-cart"></i>
+                <li><a class="has-arrow" href="#" aria-expanded="false"><i class="fa fa-shopping-cart"></i>
                 <span class="hide-menu">Orders</span></a>
                   <ul aria-expanded="false" class="collapse">
                         <li><a href="ordermanagement.php">All Orders</a></li>
@@ -23,7 +23,7 @@
               </li>
               <li><a class="" href="catlogscr.php" aria-expanded="false"><i
                         class="fa fa-file-image-o "></i><span class="">Product Catlog</span></a></li>
-                          <li> <a class="has-arrow" href="/" aria-expanded="false"><i class="fa fa-shopping-cart"></i>
+                          <li> <a class="has-arrow" href="#" aria-expanded="false"><i class="fa fa-shopping-cart"></i>
                                         <span class="hide-menu">Masters</span></a>
                                           <ul aria-expanded="false" class="collapse">
                                             <li><a class="  " href="customerstyles.php" aria-expanded="false" ><i
@@ -59,7 +59,7 @@
                           <?php
                 break;
                 case '2':?>
-                 <li> <a class="has-arrow" href="/" aria-expanded="false"><i class="fa fa-shopping-cart"></i>
+                 <li> <a class="has-arrow" href="#" aria-expanded="false"><i class="fa fa-shopping-cart"></i>
                                         <span class="hide-menu">Masters</span></a>
                                           <ul aria-expanded="false" class="collapse">
                                             <li><a class="  " href="customerstyles.php" aria-expanded="false" ><i
@@ -92,7 +92,7 @@
                 <?php
                 break;
                 case '3':?>
-                <li> <a class="has-arrow" href="/" aria-expanded="false"><i class="fa fa-shopping-cart"></i>
+                <li> <a class="has-arrow" href="#" aria-expanded="false"><i class="fa fa-shopping-cart"></i>
                 <span class="hide-menu">Orders</span></a>
                   <ul aria-expanded="false" class="collapse">
                         <li><a href="allorders.php">All Orders</a></li>
@@ -102,7 +102,7 @@
                 break;
                 case '4':
                 ?>
-                <li> <a class="has-arrow" href="/" aria-expanded="false"><i class="fa fa-shopping-cart"></i>
+                <li> <a class="has-arrow" href="#" aria-expanded="false"><i class="fa fa-shopping-cart"></i>
                 <span class="hide-menu">Orders</span></a>
                   <ul aria-expanded="false" class="collapse">
                         <li><a href="vendorOrders.php">My Orders</a></li>
