@@ -310,6 +310,7 @@ function addStyle(){
    $("#fabricform").trigger("reset");
    $("#savebtncustomerstyle").show();
    $("#updatebtncustomerstyle").hide();
+   $("#owner").val("").trigger('change');
    $("#fabricid").val("0");
    $("#fabriccategory").val("").trigger('change');
    $("#fabricPricevariable").val("").trigger('change');

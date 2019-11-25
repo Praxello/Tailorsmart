@@ -21,6 +21,11 @@
                         <li><a href="customers.php">Order Management</a></li>
                   </ul>
               </li>
+              <li><a href="customerlist.php" aria-expanded="false"><i
+                          class="fa fa-users"></i>
+                          <span class="hide-menu">Customer List</span>
+                    </a>
+              </li>
               <li><a class="" href="catlogscr.php" aria-expanded="false"><i
                         class="fa fa-file-image-o "></i><span class="">Product Catlog</span></a></li>
                           <li> <a class="has-arrow" href="#" aria-expanded="false"><i class="fa fa-shopping-cart"></i>

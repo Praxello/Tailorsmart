@@ -59,6 +59,12 @@ if (isset($_POST['orderId']) && isset($_POST['statusOfOrder']) && isset($_POST['
 											}
 										$to = $academicResults['email'];
 									 // $to      = $appointmentRecords[0]['AppointmentDetails']['email'];
+									 $date1=$dateOfExpected;
+									 $date2=$dateOfFinalDelivery;
+									 $date = new DateTime($date1);
+									 $dateresult1 = $date->format('D, d M Y');
+									 $date2 = new DateTime($date2);
+									 $dateresult2 = $date2->format('D, d M Y');
 									 $subject = 'TailorSmart '.$aptstatus;
 									 $message = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional
 									 .dtd">
@@ -121,12 +127,12 @@ if (isset($_POST['orderId']) && isset($_POST['statusOfOrder']) && isset($_POST['
 											 </tr>
 											 <tr>
 													 <td align="left" valign="top" style="padding-left:20px; padding-top:10px; color:#363636; padding-bottom:15px; line-height:12px; font-size:14px; padding-right:20px; font-family:Arial, Helvetica, sans-serif;">
-														 Expected Date: '. $dateOfExpected.'
+														 Expected Date: '. $dateresult1.'
 													 </td>
 											 </tr>
 											 <tr>
 											 		<td align="left" valign="top" style="padding-left:20px; padding-top:10px; color:#363636; padding-bottom:15px; line-height:12px; font-size:14px; padding-right:20px; font-family:Arial, Helvetica, sans-serif;">
-											 			Final Date: '. $dateOfFinalDelivery.'
+											 			Final Date: '. $dateresult2.'
 											 		</td>
 											 </tr>
 									 </table>';

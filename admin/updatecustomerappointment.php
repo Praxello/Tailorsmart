@@ -89,7 +89,6 @@ if (isset($_POST['appointmentId']) && isset($_POST['servingEmployeeId']) && isse
 
 							              }
 
-//	print_r($products);
 													$appointmentRecords [] =array("AppointmentDetails"=>$academicResults , "SelectedItems"=>$products);
 													// $response = array('Message'=>"All data fetched successfully".mysqli_error($conn),"Data"=>$appointmentRecords,'Responsecode'=>200);
 													$html ='';
@@ -130,6 +129,7 @@ if (isset($_POST['appointmentId']) && isset($_POST['servingEmployeeId']) && isse
 																		 $selectfabriclen = count($Allitemdata[$i]['Fabrics']);
 																		 $html .= '<td style="">' . $Allitemdata[$i]['Product']['productTitle'] . '</td>';
 																		 $html .= '<td style="">' . $Allitemdata[$i]['Fabrics'][0]['fabricTitle'] .'<font color="green"><u> '. $Allitemdata[$i]['Fabrics'][0]['colorName'] .  '</u></font></td>';
+																		 $html .= '</tr>';
 																		 for ($j = 1; $j < $selectfabriclen; $j++)
 																		 {
 																				 $html .= '<tr>';
@@ -155,6 +155,9 @@ if (isset($_POST['appointmentId']) && isset($_POST['servingEmployeeId']) && isse
 														}
 
 													}
+													$date1=$appointmentRecords[0]['AppointmentDetails']['appointmentDate'];
+													$date = new DateTime($date1);
+													$dateresult1 = $date->format('D, d M Y');
 													  //$to ="krkunal29@gmail.com";
 													 $to = $appointmentRecords[0]['AppointmentDetails']['email'];
 													// $to      = $appointmentRecords[0]['AppointmentDetails']['email'];
@@ -200,7 +203,7 @@ if (isset($_POST['appointmentId']) && isset($_POST['servingEmployeeId']) && isse
 
 															<tr>
 																	<td align="left" valign="top" style="padding-left:20px; padding-top:10px; color:#363636; padding-bottom:15px; line-height:12px; font-size:14px; padding-right:20px; font-family:Arial, Helvetica, sans-serif;">
-																		Appointment Date: '.$appointmentRecords[0]['AppointmentDetails']['appointmentDate'].'
+																		Appointment Date: '.$dateresult1.'
 
 																	</td>
 

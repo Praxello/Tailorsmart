@@ -129,6 +129,7 @@ if (isset($_POST['customerid']) && isset($_POST['productids']) &&  isset($_POST[
                                        $selectfabriclen = count($Allitemdata[$i]['Fabrics']);
                                        $html .= '<td style="color: orange;padding-left:36px;  padding-bottom:10px; line-height:12px; font-size:14px; padding-right:20px; font-family:Arial, Helvetica, sans-serif;">' . $Allitemdata[$i]['Product']['productTitle'] . '</td>';
                                        $html .= '<td style="color:#363636;  line-height:12px; font-size:14px; padding-right:35px; font-family:Arial, Helvetica, sans-serif;float: right;">' . $Allitemdata[$i]['Fabrics'][0]['fabricTitle'] .'<font color="green"><u> '. $Allitemdata[$i]['Fabrics'][0]['colorName'] .  '</u></font></td>';
+                                       $html .= '</tr>';
                                        for ($j = 1; $j < $selectfabriclen; $j++)
                                        {
                                            $html .= '<tr>';
@@ -155,6 +156,9 @@ if (isset($_POST['customerid']) && isset($_POST['productids']) &&  isset($_POST[
                             }
                             // $to ="krkunal29@gmail.com";
                             $to = $appointmentRecords[0]['AppointmentDetails']['email'];
+                            $date1=$appointmentRecords[0]['AppointmentDetails']['appointmentDate'];
+                            $date = new DateTime($date1);
+                            $dateresult1 = $date->format('D, d M Y');
                             // $to      = $appointmentRecords[0]['AppointmentDetails']['email'];
                             $subject = 'Your Appointment is Book';
                             $message = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional
@@ -192,14 +196,13 @@ if (isset($_POST['customerid']) && isset($_POST['productids']) &&  isset($_POST[
                                 </tr>
                                 <tr>
                                             <td align="left" valign="top" style="padding-left:20px; padding-top:20px; color:#363636; padding-bottom:10px; line-height:12px; font-size:14px; padding-right:20px; font-family:Arial, Helvetica, sans-serif;">
-                                            Dear User <br/><br/>'.$appointmentRecords[0]['AppointmentDetails']['fn']." ".$appointmentRecords[0]['AppointmentDetails']['ln'].'
+                                            Dear '.$appointmentRecords[0]['AppointmentDetails']['fn']." ".$appointmentRecords[0]['AppointmentDetails']['ln'].'<br/><br/>
                                             </td>
                                         </tr>
 
                                 <tr>
                                     <td align="left" valign="top" style="padding-left:20px; padding-top:10px; color:#363636; padding-bottom:15px; line-height:12px; font-size:14px; padding-right:20px; font-family:Arial, Helvetica, sans-serif;">
-                                      Appointment Date: '.$appointmentRecords[0]['AppointmentDetails']['appointmentDate'].'
-
+                                      Appointment Date: '.$dateresult1.'
                                     </td>
 
                                 </tr>
