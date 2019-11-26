@@ -42,37 +42,44 @@
  </div>
  <script>
 var TableData;
+var abc =0;
 $('#saveMeasurementsData').on('click', function(event) {
     event.preventDefault();
     var rowCount = $("#sampleTbl td").closest("tr").length;
     if (rowCount > 0) {
         TableData = storeTblValues();
-        var postdata = {
-            "orderitemid": customer_orderItemId,
-            "measurements": TableData
-        };
-        postdata = JSON.stringify(postdata);
-        // console.log(postdata);
-        $.ajax({
-            url: api_url + 'createorderitemmeasurement.php',
-            type: 'POST',
-            data: {
-                postdata: postdata
-            },
-            beforeSend: function() {
-                  $(".preloader").show();
-            },
-            success: function(response) {
-                alert(response.Message);
-                getOrdersOfCustomer(customerId_g);
-                customerOrderDetails = customerOrders[indexRow];
-                $('#customerOrdersBlock').hide();
-                $('#myModal').modal('toggle');
-            },
-            complete:function(response){
-              $(".preloader").hide();
-            }
-        })
+        if(abc==0){
+          var postdata = {
+              "orderitemid": customer_orderItemId,
+              "measurements": TableData
+          };
+          postdata = JSON.stringify(postdata);
+          // console.log(postdata);
+          $.ajax({
+              url: api_url + 'createorderitemmeasurement.php',
+              type: 'POST',
+              data: {
+                  postdata: postdata
+              },
+              beforeSend: function() {
+                    $(".preloader").show();
+              },
+              success: function(response) {
+                  alert(response.Message);
+                  getOrdersOfCustomer(customerId_g);
+                  customerOrderDetails = customerOrders[indexRow];
+                  $('#customerOrdersBlock').hide();
+                  $('#myModal').modal('toggle');
+              },
+              complete:function(response){
+                $(".preloader").hide();
+              }
+          })
+        }
+        else{
+          alert("Missing Fields");
+        }
+
     } else {
         alert('Add Measurment First');
     }
@@ -80,11 +87,12 @@ $('#saveMeasurementsData').on('click', function(event) {
 
 function storeTblValues() {
     var TableData = new Array();
-
+     abc =0;
     $('#sampleTbl tr').each(function(row, tr) {
         var measurmentValue = $(tr).find('td:eq(2) input').val();
         if (measurmentValue == '') {
             measurmentValue = '-';
+            abc =1;
         }
         TableData[row] = {
             "measurementid": $(tr).find('td:eq(0)').text(),

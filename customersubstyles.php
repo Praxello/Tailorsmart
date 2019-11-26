@@ -78,6 +78,7 @@ $employeeName = $_SESSION['employeeName'];
                                                 <th>Title</th>
                                                 <!-- <th>Status</th> -->
                                                 <th>Action </th>
+                                                <th style="display:none;">Row ID</th>
                                             </tr>
                                         </thead>
                                         <tbody id="styletbldata">
@@ -150,6 +151,8 @@ $employeeName = $_SESSION['employeeName'];
 
 
     <script src="js/lib/datatables/datatables.min.js"></script>
+    <script src="javascript/datatablesl.min.js"></script>
+    <script src="javascript/datatablerowshow.min.js"></script>
     <!-- <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script> -->
     <!-- <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
     <script src="js/lib/datatables/cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>

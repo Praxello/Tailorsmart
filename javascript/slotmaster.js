@@ -228,7 +228,7 @@ $('#updatebtncustomerstyle').on('click',function(event){
            swal(response.Message);
            }
            else{
-             swal(response.Message);
+             // swal(response.Message);
            }
       },
       complete:function(response){
@@ -262,7 +262,7 @@ function removeStyle(id){
           swal(response.Message);
         }
         else{
-          swal(response.Message);
+          // swal(response.Message);
         }
       },
       complete:function(response){

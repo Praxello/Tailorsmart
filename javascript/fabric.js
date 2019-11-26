@@ -146,6 +146,7 @@ function settabledata(styleData){
               shtml +="<td>"+empName+"</td>";
             shtml +="<td>"+isConfirmed+"</td>";
             shtml +='<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod(\'' + AllData.skuNo + '\')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+k+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeFabric('+k+')"><i class="fa fa-remove"></i></button></div></td>';
+            shtml += "<td style='display:none;'>" + k + "</td>";
             shtml +="</tr>";
 
         }
@@ -175,6 +176,7 @@ function settabledata(styleData){
         shtml +="<td>"+empName+"</td>";
         shtml +="<td>"+isConfirmed+"</td>";
         shtml +='<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod(\'' + AllData.skuNo + '\')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+k+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeFabric('+k+')"><i class="fa fa-remove"></i></button></div></td>';
+        shtml += "<td style='display:none;'>" + k + "</td>";
         shtml +="</tr>";
        }
       else
@@ -202,6 +204,7 @@ function settabledata(styleData){
         unhtml +="<td>"+empName+"</td>";
         unhtml +="<td>"+isConfirmed+"</td>";
         unhtml +='<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod(\'' + AllData.skuNo + '\')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle('+k+')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeFabric('+k+')"><i class="fa fa-remove"></i></button></div></td>';
+        unhtml += "<td style='display:none;'>" + k + "</td>";
         unhtml +="</tr>";
 
         }
@@ -228,7 +231,7 @@ function settabledata(styleData){
   retrieve: true,
   bPaginate: $('tbody tr').length>10,
   order: [],
-  columnDefs: [ { orderable: false, targets: [0,3,4,5,6,7] } ],
+  columnDefs: [ { orderable: false, targets: [0,3,4,5,6,7,8,9] } ],
   dom: 'Bfrtip',
   buttons: [],
   destroy: true
@@ -238,8 +241,8 @@ function settabledata(styleData){
 
 // This function is created for Get All Style Data.
 function getfabrics(){
-  $('#styletbl').dataTable().fnDestroy();
-  $("#styletbldata").empty();
+  // $('#styletbl').dataTable().fnDestroy();
+  // $("#styletbldata").empty();
      $.ajax({
          type: "GET",
          url: api_url+"getfabrics.php",
@@ -307,6 +310,8 @@ function addStyle(){
    $("#fabricform").trigger("reset");
    $("#savebtncustomerstyle").show();
    $("#updatebtncustomerstyle").hide();
+   $("#owner").val("").trigger('change');
+   $("#fabricid").val("0");
    $("#fabriccategory").val("").trigger('change');
    $("#fabricPricevariable").val("").trigger('change');
    $("#fabricactivestatus").val("1").trigger('change');
@@ -346,6 +351,16 @@ $('#reloadbtn').on('click',function(event){
   $("#savebtncustomerstyle").show();
   $("#updatebtncustomerstyle").hide();
      settabledata(styleData);
+     var productId = $("#fabricid").val();
+     var table = $('#styletbl').DataTable();
+     var row = table.row(function ( idx, data, node ) {
+       return data[9] === productId;
+     } );
+     if (row.length > 0) {
+       row.select()
+       .show()
+       .draw(false);
+     }
 });
 
 // This function is created For Save Style Data
@@ -403,11 +418,12 @@ $('#savebtncustomerstyle').on('click',function(event){
            if(response.Responsecode===200){
                  swal(response.Message);
 
-                 $("#customerstyletable").show();
-                 $("#customerstyletableform").hide();
+                 // $("#customerstyletable").show();
+                 // $("#customerstyletableform").hide();
                  obj.fabricId = response.RowId.toString();
                  styleData.set(response.RowId.toString(),obj);
-                 settabledata(styleData);
+                 $("#fabricid").val(response.RowId.toString());
+                 // settabledata(styleData);
            }
            else {
              swal(response.Message);
@@ -480,8 +496,8 @@ $('#updatebtncustomerstyle').on('click',function(event){
         if(response.Responsecode===200){
               swal(response.Message);
 
-              $("#customerstyletable").show();
-              $("#customerstyletableform").hide();
+              // $("#customerstyletable").show();
+              // $("#customerstyletableform").hide();
               styleData.set(fabricid.toString(),obj);
               settabledata(styleData);
         }
@@ -520,6 +536,30 @@ function removeFabric(id){
                 $("#customerstyletableform").hide();
                 styleData.delete(id.toString());
                 settabledata(styleData);
+                var value =0;
+                var table = $('#styletbl').DataTable();
+                var tottablen = table.column( 0 ).data().length;
+                let i =0;
+                var row = table.row(function ( idx, data, node ) {
+                  i++;
+                  if(parseInt(data[9])<parseInt(id)){
+                    value =data[9];
+                    if(i===tottablen){
+                        return value;
+                    }
+                  }
+                  else{
+                    // console.log("value new"+value);
+                    return value;
+                  }
+
+                } );
+                // console.log(row.length);
+                if (row.length > 0) {
+                  row.select()
+                  .show()
+                  .draw(false);
+                }
           }
           else {
             swal(response.Message);

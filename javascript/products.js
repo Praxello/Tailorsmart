@@ -4,6 +4,7 @@ var ParentProducts = new Map(); //from getmiscellaneousdata.php for show active 
 var CategoryData = new Map(); //from getmiscellaneousdata.php for show active products category
 var FabricData = new Map(); //from getfabrics.php names only
 var MeasurementData = new Map(); //from getmeasurementitems.php for show active products styleTitle
+var ProductMeasurementData = new Map(); //from getmeasurementitems.php for show active products styleTitle
 var StichStyleData = new Map(); //from getstitchstyleitem.php for show active products category
 let confirmationStatus = new Map();
 var inactstyleData = new Map();
@@ -221,6 +222,7 @@ function settabledata(styleData) {
                 shtml += "<td style='width:15%'>" + empName + "</td>";
                 shtml += "<td>" + isConfirmed + "</td>";
                 shtml += '<td style="width:5%"><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod(' + k + ')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle(' + k + ')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeProduct(' + k + ')"><i class="fa fa-remove"></i></button></div></td>';
+                shtml += "<td style='display:none;'>" + k + "</td>";
                 shtml += "</tr>";
             }
 
@@ -254,6 +256,7 @@ function settabledata(styleData) {
                 shtml += "<td style='width:15%'>" + empName + "</td>";
                 shtml += "<td>" + isConfirmed + "</td>";
                 shtml += '<td style="width:5%"><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod(' + k + ')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle(' + k + ')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeProduct(' + k + ')"><i class="fa fa-remove"></i></button></div></td>';
+                shtml += "<td style='display:none;'>" + k + "</td>";
                 shtml += "</tr>";
             } else {
                 unhtml += '<tr>';
@@ -280,6 +283,7 @@ function settabledata(styleData) {
                 unhtml += "<td style='width:15%'>" + empName + "</td>";
                 unhtml += "<td>" + isConfirmed + "</td>";
                 unhtml += '<td style="width:5%"><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Upload Image" onclick="imguplod(' + k + ')"><i class="fa fa-upload"></i></button><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editStyle(' + k + ')"><i class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" onclick="removeProduct(' + k + ')"><i class="fa fa-remove"></i></button></div></td>';
+                unhtml += "<td style='display:none;'>" + k + "</td>";
                 unhtml += "</tr>";
             }
         }
@@ -304,7 +308,7 @@ function settabledata(styleData) {
         retrieve: true,
         bPaginate: $('tbody tr').length > 10,
         order: [],
-        columnDefs: [{ orderable: false, targets: [0, 3, 4, 5, 6, 7, 8] }],
+        columnDefs: [{ orderable: false, targets: [0, 3, 4, 5, 6, 7, 8,9] }],
         dom: 'Bfrtip',
         buttons: [],
         destroy: true
@@ -386,6 +390,7 @@ function addStyle() {
     $("#owner").val("").trigger('change');
     $("#parent").val("").trigger('change');
     $("#category").val("").trigger('change');
+    $("#productId").val("0");
     $("#pricevariable").val("0").trigger('change');
     $("#stylestatus").val("1").trigger('change');
     $("#hidenavtab").hide();
@@ -406,6 +411,16 @@ $('#reloadbtn').on('click', function(event) {
     $("#savebtnproducts").show();
     $("#updatebtnproducts").hide();
     settabledata(styleData);
+    var productId = $("#productId").val();
+    var table = $('#styletbl').DataTable();
+    var row = table.row(function ( idx, data, node ) {
+      return data[10] === productId;
+    } );
+    if (row.length > 0) {
+      row.select()
+      .show()
+      .draw(false);
+    }
 });
 
 // This function is created For Save Style Data
@@ -464,6 +479,7 @@ $('#savebtnproducts').on('click', function(event) {
                     swal(response.Message);
                     obj.productId = response.RowId.toString();
                     styleData.set(response.RowId.toString(), obj);
+                    $("#productId").val(response.RowId.toString());
                     // settabledata(styleData);
                 } else {
                     swal(response.Message);
@@ -564,14 +580,34 @@ function removeProduct(id) {
                 styleData.delete(id.toString());
                 settabledata(styleData);
                 swal(response.Message);
+                let value =0;
+                var table = $('#styletbl').DataTable();
+                var tottablen = table.column( 0 ).data().length;              
+                let i =0;
+                var row = table.row(function ( idx, data, node ) {
+                    i++;
+                  if(parseInt(data[10])<id){
+                    value =data[10];
+                    if(i===tottablen){
+                        return value;
+                    }
+                  }
+                  else{
+                    // console.log("value"+value);
+                    return value;
+                  }
+                } );
+                if (row.length > 0) {
+                  row.select()
+                  .show()
+                  .draw(false);
+                }
             } else {
                 swal(response.Message);
             }
 
         },
         complete: function(response) {
-
-            // console.log("after");
             $(".preloader").hide();
         }
     });
@@ -695,17 +731,21 @@ function setmeasuremapping(tempmeasurementarray) {
     let measurementcount = tempmeasurementarray.length;
     for (let k of MeasurementData.keys()) {
         let measureName = MeasurementData.get(k);
+
         if (tempmeasurementarray.includes(measureName.measurementId)) {
+          // console.log(MeasurementData.get(k));
+          let productMName = ProductMeasurementData.get(measureName.measurementId);
+          // console.log(productMName.sequenceNumber);
             selmeasurement += '<tr><td><label class="checkbox" >';
             selmeasurement += '<input id="check' + measureName.measurementId + '" type="checkbox"  name="measurementcheck" value="' + measureName.measurementId + '" checked>';
             selmeasurement += '</label></td>';
-            selmeasurement += "<td><input type='text' name='sequencenumber' class='form-control form-control-sm'></td>";
+            selmeasurement += "<td><input type='text' name='sequencenumber' class='form-control form-control-sm' value=" +productMName.sequenceNumber + " onkeypress='return isNumberKey(event)'></td>";
             selmeasurement += "<td>" + measureName.itemTitle + "</td></tr>";
         } else {
             unselmeasurement += '<tr><td><label class="checkbox" >';
             unselmeasurement += '<input id="check' + measureName.measurementId + '" type="checkbox" name="measurementcheck" value="' + measureName.measurementId + '">';
             unselmeasurement += '</label></td>';
-            unselmeasurement += "<td><input type='text' name='sequencenumber' class='form-control form-control-sm'></td>";
+            unselmeasurement += "<td><input type='text' name='sequencenumber' class='form-control form-control-sm' onkeypress='return isNumberKey(event)' ></td>";
             unselmeasurement += "<td>" + measureName.itemTitle + "</td></tr>";
         }
     }
@@ -721,7 +761,7 @@ function setmeasuremapping(tempmeasurementarray) {
 }
 // This function Display Product Measurement Mapping Table Data
 function measurementmapping() {
-    console.log('hello');
+    // console.log('hello');
     var productId = $("#productId").val();
 
     $.ajax({
@@ -732,13 +772,14 @@ function measurementmapping() {
             // console.log("before");
         },
         success: function(response) {
-
+            // console.log(response);
             var tempmeasurementarray = [];
             if (response['Data'] == null) {} else {
                 var count = response['Data'].length;
                 for (var i = 0; i < count; i++) {
                     if (response['Data'][i].productId === productId) {
                         tempmeasurementarray.push(response['Data'][i].measurementId);
+                        ProductMeasurementData.set(response['Data'][i].measurementId, response.Data[i]);
                     }
                 }
 
@@ -891,52 +932,56 @@ $('#savemeasurement').on('click', function(event) {
     event.preventDefault();
     var TableData = new Array();
     tempmeasurementarray = [];
+    var lengthtemparr = 0;
     $('#measurementmaptbl').find('input[name="measurementcheck"]:checked').each(function(row) {
         TableData.push($(this).val());
     });
+    lengthtemparr = TableData.length;
+    // console.log(lengthtemparr);
+    if(lengthtemparr>0)
+    {
+      tempmeasurementarray = TableData;
+      var productId = $("#productId").val();
+      var measurementidarray = TableData.toString();
+      mid = 1;
+      var load = getMeasure();
+      var postdata = {
+          productId: productId,
+          measurementId: load
+      };
+      postdata = JSON.stringify(postdata);
+      // console.log(postdata);
+      //end vikas
+      $.ajax({
+          url: api_url + 'createproductmeasurementmapping.php',
+          //url: api_url + 'demo1.php',
+          type: 'POST',
+          data: { postdata: postdata },
+          dataType: 'json',
+          beforeSend: function() {
+              $(".preloader").show();
+              // console.log("before");
+          },
+          success: function(response) {
+              if (response.Responsecode === 200) {
+                  swal(response.Message);
+                  setmeasuremapping(TableData);
+                  // measurementmapping();
+              } else {
+                  swal(response.Message);
+              }
+          },
+          complete: function(response) {
+
+              // console.log("after");
+              $(".preloader").hide();
+          }
+      });
+    }else{
+      swal("Please Select Checkbox");
+    }
 
 
-    tempmeasurementarray = TableData;
-    // console.log(TableData);
-    var productId = $("#productId").val();
-    var measurementidarray = TableData.toString();
-    mid = 1;
-
-    //vikas
-    var load = getMeasure();
-    console.log(load);
-    var postdata = {
-        productId: productId,
-        measurementId: load
-    };
-    postdata = JSON.stringify(postdata);
-    console.log(postdata);
-    //end vikas
-    $.ajax({
-        url: api_url + 'createproductmeasurementmapping.php',
-        //url: api_url + 'demo1.php',
-        type: 'POST',
-        data: { postdata: postdata },
-        dataType: 'json',
-        beforeSend: function() {
-            $(".preloader").show();
-            // console.log("before");
-        },
-        success: function(response) {
-            if (response.Responsecode === 200) {
-                swal(response.Message);
-                setmeasuremapping(TableData);
-                // measurementmapping();
-            } else {
-                swal(response.Message);
-            }
-        },
-        complete: function(response) {
-
-            // console.log("after");
-            $(".preloader").hide();
-        }
-    });
 });
 
 function getMeasure() {

@@ -10,8 +10,6 @@ $employeeName = $_SESSION['employeeName'];
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
-    <META HTTP-EQUIV="Expires" CONTENT="-1">
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
@@ -25,6 +23,7 @@ $employeeName = $_SESSION['employeeName'];
     <link href="css/lib/bootstrap/asterisks.css" rel="stylesheet">
     <link href="css/helper.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    <link href="dropzone/dropzone.css" rel="stylesheet">
 
 </head>
 
@@ -36,23 +35,17 @@ $employeeName = $_SESSION['employeeName'];
     </div>
     <!-- Main wrapper  -->
     <div id="main-wrapper">
-        <!-- header header  -->
-
-        <!-- End header header -->
-        <!-- Left Sidebar  -->
         <?php include "mainheader.php"; ?>
         <?php include "leftsidebar.php"; ?>
-        <!-- End Left Sidebar  -->
-        <!-- Page wrapper  -->
         <div class="page-wrapper">
             <!-- Bread crumb -->
             <div class="row page-titles">
                 <div class="col-md-5 align-self-center">
-                    <h3 class="text-primary">Styles</h3> </div>
+                    <h3 class="text-primary">Customer List</h3> </div>
                 <div class="col-md-7 align-self-center">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item active">Styles</li>
+                        <li class="breadcrumb-item active">Customer List</li>
                     </ol>
                 </div>
             </div>
@@ -64,7 +57,7 @@ $employeeName = $_SESSION['employeeName'];
                         <div class="card">
                           <div class="row">
                             <div class="col-md-12">
-                              <button type="button" id="button1" class="btn btn-success" onclick="addStyle()" style="float:right"> New Style</button>
+                              <!-- <button type="button" id="button1" class="btn btn-success" onclick="addStyle()" style="float:right"> New Stitch Style</button> -->
                               <div id="data"></div>
                           </div>
                           </div>
@@ -74,12 +67,14 @@ $employeeName = $_SESSION['employeeName'];
                                     <table id="styletbl" class="display nowrap table table-hover  table-bordered">
                                         <thead>
                                             <tr>
-                                                <!-- <th style="width:10%">Id</th> -->
-                                                <th style="width:20%">Image Icon</th>
-                                                <th>Title</th>
-                                                <!-- <th style="width:10%">Status</th> -->
-                                                <th style="width:10%">Action </th>
-                                                <th style="display:none;">Row ID</th>
+                                                <!-- <th>Id</th> -->
+                                                <th>Customer Name </th>
+                                                <!-- <th>Gender</th> -->
+                                                <th>Email</th>
+                                                <th>Mobile No</th>
+                                                <th>Address</th>
+                                                <!-- <th>Status</th> -->
+                                                <!-- <th>Action </th> -->
                                             </tr>
                                         </thead>
                                         <tbody id="styletbldata">
@@ -90,7 +85,7 @@ $employeeName = $_SESSION['employeeName'];
                         </div>
                     </div>
                 </div>
-                <div class="row" id="customerstyletableform" style="display:none;">
+                <!-- <div class="row" id="customerstyletableform" style="display:none;">
                   <div class="col-sm-12">
                     <div class="card">
                       <div class="row">
@@ -101,31 +96,38 @@ $employeeName = $_SESSION['employeeName'];
                           <input type="text" class="form-control" id="styletitle"  title="Enter Title"/>
                         </div>
                       </div>
-                        <!-- <div class="col-sm-4">
-                          <div class="form-group required">
-                            <label class="control-label">Status</label>
-                            <select  class="form-control" id="stylestatus" style="width:100%;">
-                              <option value="">Select Status</option>
-                              <option value="0">InActive</option>
-                              <option value="1">Active</option>
-                            </select>
+                      <div class="col-sm-4">
+                        <div class="form-group required">
+                          <label class="control-label">Detail</label>
+                          <input type="text" class="form-control" id="styledetail"  title="Enter Detail"/>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group required">
+                          <label class="control-label">Type</label>
+                          <select  class="form-control" id="styletype" style="width:100%;">
+                            <option value="">Select Stitch Type</option>
+                            <option value="0">Multiple selection</option>
+                            <option value="1">Single Selection</option>
+                            <option value="2">Input Field</option>
+                          </select>
+                        </div>
+                      </div>
 
-                          </div>
-                        </div> -->
                         <div class="col-sm-4">
 
                               <div class="form-group">
                               <div style="padding-top:32px"></div>
-                            <button class="btn btn-success" id="savebtncustomerstyle"  >Save</button>
+                            <button class="btn btn-success" id="savebtncustomerstyle">Save</button>
                             <button class="btn btn-success" id="updatebtncustomerstyle" style="display:none;">Update</button>
-                            <button class="btn btn-secondary" id="reloadbtn">Back</button>
+                            <button class="btn btn-secondary" id="reloadbtn" >Back</button>
                           </div>
                         </div>
 
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> -->
 
                 <!-- End PAge Content -->
             </div>
@@ -151,21 +153,18 @@ $employeeName = $_SESSION['employeeName'];
     <!--Custom JavaScript -->
     <script src="js/custom.min.js"></script>
 
-
+    <link href="dropzone/dropzone.js" rel="stylesheet">
     <script src="js/lib/datatables/datatables.min.js"></script>
-    <script src="javascript/datatablesl.min.js"></script>
-    <script src="javascript/datatablerowshow.min.js"></script>
-    <!-- <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+    <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
     <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
     <script src="js/lib/datatables/cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
     <script src="js/lib/datatables/cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
     <script src="js/lib/datatables/cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
     <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
     <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
-    <script src="js/lib/datatables/datatables-init.js"></script> -->
-    <script src="javascript/customerstyles.js"></script>
+    <script src="js/lib/datatables/datatables-init.js"></script>
+    <script src="javascript/customerlist.js"></script>
     <script src="js/lib/sweetalert/sweetalert.min.js"></script>
-    <!-- <script src="js/lib/sweetalert/sweetalert.init.js"></script> -->
 
 </body>
 

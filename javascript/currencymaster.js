@@ -11,7 +11,7 @@ function getConfirmation() {
     confirmationStatus.set('1', '<span class="badge badge-pill badge-primary">Active</span>');
 }
 function setslotmaster(CurrencyData){
-  
+
   var html ='';
   $('#slottbl').dataTable().fnDestroy();
   $("#slottbldata").empty();
@@ -146,7 +146,7 @@ $('#savebtncustomerstyle').on('click',function(event){
                 setslotmaster(CurrencyData);
               }
               else{
-                swal(response.Message);
+                 // swal(response.Message);
               }
           },
           complete:function(response){
@@ -194,7 +194,7 @@ $('#updatebtncustomerstyle').on('click',function(event){
            swal(response.Message);
            }
            else{
-             swal(response.Message);
+             // swal(response.Message);
            }
       },
       complete:function(response){
@@ -228,7 +228,7 @@ function removeStyle(id){
           swal(response.Message);
         }
         else{
-          swal(response.Message);
+          // swal(response.Message);
         }
       },
       complete:function(response){
