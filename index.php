@@ -44,13 +44,13 @@ if(!isset($_SESSION['employeeId'])){
 
                                 <form id="login" method="POST">
                                     <div class="form-group">
-                                        <label>Username</label>
-                                        <input type="text" class="form-control form-control-sm"  name="usrname" id="usrname" required>
+                                        <label>Username / Email </label>
+                                        <input type="email" class="form-control form-control-sm"  name="usrname" id="usrname" placeholder="Enter Your Email-ID" required>
                                     </div>
 
                                     <div class="form-group">
                                         <label>Password</label>
-                                        <input type="password" class="form-control form-control-sm"  name="passwrd" id="passwrd" required>
+                                        <input type="password" class="form-control form-control-sm"  name="passwrd" id="passwrd" placeholder="Enter Your Password" required>
                                     </div>
                                     <!-- <div class="checkbox">
                                         <label>

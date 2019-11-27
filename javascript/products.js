@@ -14,10 +14,11 @@ function getConfirmation() {
     confirmationStatus.set('0', '<span class="badge badge-pill badge-warning">InActive</span>');
     confirmationStatus.set('1', '<span class="badge badge-pill badge-primary">Active</span>');
 }
-getFabricData(); // For Mapping Propose Fabrics
+
 getMeasurementData(); // For Mapping Propose Measurement
 getStitchStyleData(); // For Mapping Propose Stitch Style
 getMicellaneousData(); // For Mapping Propose Category / Parent / Employee
+getFabricData(); // For Mapping Propose Fabrics
 
 $('#stylestatus').select2({
     allowClear: true,
@@ -582,7 +583,7 @@ function removeProduct(id) {
                 swal(response.Message);
                 let value =0;
                 var table = $('#styletbl').DataTable();
-                var tottablen = table.column( 0 ).data().length;              
+                var tottablen = table.column( 0 ).data().length;
                 let i =0;
                 var row = table.row(function ( idx, data, node ) {
                     i++;
@@ -633,6 +634,8 @@ function editStyle(id) {
     $("#customerstyletableform").show();
     $("#savebtnproducts").hide();
     $("#updatebtnproducts").show();
+    // temparray = [];
+    // tempmeasurementarray = [];
     fabricmapping();
     measurementmapping();
     stitchstylemapping();
@@ -723,6 +726,8 @@ $('#measureunselectbtn').on('click', function(event) {
 });
 
 function setmeasuremapping(tempmeasurementarray) {
+  //  console.log(tempmeasurementarray);
+  // console.log(MeasurementData);
     $("#measurementmaptbldata").empty();
     var selmeasurement = '',
         unselmeasurement = '',
@@ -733,7 +738,8 @@ function setmeasuremapping(tempmeasurementarray) {
         let measureName = MeasurementData.get(k);
 
         if (tempmeasurementarray.includes(measureName.measurementId)) {
-          // console.log(MeasurementData.get(k));
+           // console.log(ProductMeasurementData);
+          //
           let productMName = ProductMeasurementData.get(measureName.measurementId);
           // console.log(productMName.sequenceNumber);
             selmeasurement += '<tr><td><label class="checkbox" >';
@@ -759,6 +765,7 @@ function setmeasuremapping(tempmeasurementarray) {
     }
     $("#measurementmaptbldata").html(measurementhtml);
 }
+
 // This function Display Product Measurement Mapping Table Data
 function measurementmapping() {
     // console.log('hello');
@@ -772,15 +779,16 @@ function measurementmapping() {
             // console.log("before");
         },
         success: function(response) {
-            // console.log(response);
-            var tempmeasurementarray = [];
+             // console.log(response);
+            tempmeasurementarray = [];
             if (response['Data'] == null) {} else {
                 var count = response['Data'].length;
                 for (var i = 0; i < count; i++) {
                     if (response['Data'][i].productId === productId) {
                         tempmeasurementarray.push(response['Data'][i].measurementId);
-                        ProductMeasurementData.set(response['Data'][i].measurementId, response.Data[i]);
+
                     }
+                   ProductMeasurementData.set(response['Data'][i].measurementId, response.Data[i]);
                 }
 
             }
@@ -965,8 +973,8 @@ $('#savemeasurement').on('click', function(event) {
           success: function(response) {
               if (response.Responsecode === 200) {
                   swal(response.Message);
-                  setmeasuremapping(TableData);
-                  // measurementmapping();
+                  // setmeasuremapping(TableData);
+                  measurementmapping();
               } else {
                   swal(response.Message);
               }
