@@ -78,6 +78,8 @@ $('.add-row').on('click', function(e) {
                 $(".preloader").hide();
             }
         });
+    } else {
+        alert('Select Product from list');
     }
 
 });
@@ -360,7 +362,7 @@ function loadFabrics(productId, orderItemId, rowId) {
     //end for load data
 
     $.ajax({
-        url: api_url + 'getfabrics.php',
+        url: api_url + 'getproductfabricmapping.php',
         type: 'GET',
         dataType: 'json',
         beforeSend: function() {
@@ -371,29 +373,29 @@ function loadFabrics(productId, orderItemId, rowId) {
             if (response.Data != null) {
                 var count = response.Data.length;
                 for (var i = 0; i < count; i++) {
-                    // if (response.Data[i].productId == productId) {
-                    //createDropdownOptions += "<td>" + response['Data'][i].fabricTitle + "</td>";
-                    createDropdownOptions += "<tr><td><img class='img-thumbnail' src='http://praxello.com/tailorsmart/mobileimages/fabric/300x300/" + response['Data'][i].skuNo + ".jpg' alt='No Image Available'></img></td>";
-                    createDropdownOptions += "<td>" + response['Data'][i].fabricTitle + "</td>";
-                    createDropdownOptions += "<td>" + response['Data'][i].skuNo + "</td>";
-                    createDropdownOptions += "<td>" + response['Data'][i].fabricPrice + "</td>";
-                    if (count_1 > 0) {
-                        flag = 0;
-                        for (var j = 0; j < count_1; j++) {
-                            if (response['Data'][i].fabricId == check_fabrics_exists[j].fabricId) {
-                                createDropdownOptions += "<td><input type='checkbox' name='fabrics' value=" + response['Data'][i].fabricId + " checked></td>";
-                                flag = 1;
+                    if (response.Data[i].productId == productId) {
+                        //createDropdownOptions += "<td>" + response['Data'][i].fabricTitle + "</td>";
+                        createDropdownOptions += "<tr><td><img class='img-thumbnail' src='mobileimages/fabric/300x300/" + response['Data'][i].skuNo + ".jpg' alt='No Image Available'></img></td>";
+                        createDropdownOptions += "<td>" + response['Data'][i].fabricTitle + "</td>";
+                        createDropdownOptions += "<td>" + response['Data'][i].skuNo + "</td>";
+                        createDropdownOptions += "<td>" + response['Data'][i].fabricPrice + "</td>";
+                        if (count_1 > 0) {
+                            flag = 0;
+                            for (var j = 0; j < count_1; j++) {
+                                if (response['Data'][i].fabricId == check_fabrics_exists[j].fabricId) {
+                                    createDropdownOptions += "<td><input type='checkbox' name='fabrics' value=" + response['Data'][i].fabricId + " checked></td>";
+                                    flag = 1;
+                                }
                             }
-                        }
-                        if (flag == 0) {
+                            if (flag == 0) {
+                                createDropdownOptions += "<td><input type='checkbox' name='fabrics' value=" + response['Data'][i].fabricId + "></td>";
+                            }
+
+                        } else {
                             createDropdownOptions += "<td><input type='checkbox' name='fabrics' value=" + response['Data'][i].fabricId + "></td>";
                         }
-
-                    } else {
-                        createDropdownOptions += "<td><input type='checkbox' name='fabrics' value=" + response['Data'][i].fabricId + "></td>";
+                        createDropdownOptions += "</tr>";
                     }
-                    createDropdownOptions += "</tr>";
-                    // }
                 }
 
                 $("#fabricsTable").html(createDropdownOptions);
@@ -411,9 +413,9 @@ getPaymentList();
 
 function getPaymentList() {
     var Orderamount = parseFloat($('#Orderamount').html());
-    $("#spanperror").html("<strong>Remaining Amount</strong>  <span class='badge' style='background-color: aquamarine;font-weight: bolder;'>"+Orderamount+"</span></font>");
+    $("#spanperror").html("<strong>Remaining Amount</strong>  <span class='badge' style='background-color: aquamarine;font-weight: bolder;'>" + Orderamount + "</span></font>");
     var empName = $('#empName').val();
-    var totalpayment =0;
+    var totalpayment = 0;
     $("#totalpayment").val(totalpayment);
     $("#paymentData").empty();
     $.ajax({
@@ -455,8 +457,8 @@ function getPaymentList() {
                     markup += deleteEntry;
                     markup += "</td></div></tr>";
                 }
-                 // console.log("totalpayment"+totalpayment);
-                 $("#spanperror").html("<strong>Remaining Amount</strong> <span class='badge' style='background-color: aquamarine;font-weight: bolder;'>"+(Orderamount-parseFloat(totalpayment))+"</span></font>");
+                // console.log("totalpayment"+totalpayment);
+                $("#spanperror").html("<strong>Remaining Amount</strong> <span class='badge' style='background-color: aquamarine;font-weight: bolder;'>" + (Orderamount - parseFloat(totalpayment)) + "</span></font>");
                 $("#totalpayment").val(totalpayment);
                 $("#paymentData").html(markup);
             }

@@ -20,59 +20,63 @@ $('.add-row').on('click', function(e) {
         orderItemPrice = 0;
     }
     e.preventDefault();
-    var createOrderData = {
-        orderid: orderId,
-        orderItemPrice: orderItemPrice,
-        productid: $('#products').val()
-    };
-    $.ajax({
-        url: api_url + 'createorderitem.php',
-        type: 'POST',
-        dataType: 'json',
-        data: createOrderData,
-        beforeSend: function() {
-            $(".preloader").show();
-        },
-        success: function(response) {
-            var count = response.Data.length;
+    if ($('#products').val() != null) {
+        var createOrderData = {
+            orderid: orderId,
+            orderItemPrice: orderItemPrice,
+            productid: $('#products').val()
+        };
+        $.ajax({
+            url: api_url + 'createorderitem.php',
+            type: 'POST',
+            dataType: 'json',
+            data: createOrderData,
+            beforeSend: function() {
+                $(".preloader").show();
+            },
+            success: function(response) {
+                var count = response.Data.length;
 
-            getOrdersOfCustomer(customerId_g);
-            customerOrderDetails = [];
-            customerOrderDetails = customerOrders[indexRow];
+                getOrdersOfCustomer(customerId_g);
+                customerOrderDetails = [];
+                customerOrderDetails = customerOrders[indexRow];
 
-            OrderDetailsOfCustomer = customerOrderDetails.OrderDetails;
-            displayOrderDetails(OrderDetailsOfCustomer);
-            $('#customerOrdersBlock').hide();
-            var markup = '';
-            for (var i = 0; i < count; i++) {
-                let styleTitle = '';
-                if (ParentProducts.has(response.Data[i].parentId)) {
-                    styleTitle = ParentProducts.get(response.Data[i].parentId);
+                OrderDetailsOfCustomer = customerOrderDetails.OrderDetails;
+                displayOrderDetails(OrderDetailsOfCustomer);
+                $('#customerOrdersBlock').hide();
+                var markup = '';
+                for (var i = 0; i < count; i++) {
+                    let styleTitle = '';
+                    if (ParentProducts.has(response.Data[i].parentId)) {
+                        styleTitle = ParentProducts.get(response.Data[i].parentId);
+                    }
+                    markup += "<tr id=" + response.Data[i].orderItemId + "><td>" + response.Data[i].productTitle + '-' + styleTitle + "</td><td>" + response.Data[i].productSubTitle + "</td><td>" + response.Data[i].orderItemPrice + "</td>";
+                    markup += "<td><input type='hidden' id='amt" + response.Data[i].orderItemId + "' value='" + response.Data[i].orderItemPrice + "'/>";
+                    markup += "</td>";
+                    markup += "<td>";
+                    markup += "<a  title='See Comment' data-toggle='tooltip' onclick='loadcomment(" + response.Data[i].orderItemId + ")' href='#'><code style='color: red;'>See Comment</code></a>";
+                    markup += "</td>";
+                    markup += "<td><div class='btn-group' role='group' aria-label='Basic example'>";
+                    markup += "<a class='btn btn-dark btn-sm' title='Assign Sales' data-toggle='tooltip' onclick='loadAssignModel(\"" + response.Data[i].orderItemId + "\",\"" + response.Data[i].employeeid + "\")' href='#'><i class='fa fa-tasks'></i></a>";
+                    markup += "<a class='btn btn-info btn-sm' title='Edit Price' data-toggle='tooltip' onclick='loadPriceModal(\"" + response.Data[i].orderItemId + "\",\"" + response.Data[i].productTitle + "\",\"" + (i + 1) + "\")' href='#'><i class='fa fa-inr'></i></a>";
+                    markup += "<a class='btn btn-success btn-sm' title='Add Measurment' data-toggle='tooltip' onclick='loadMeasurment(\"" + response.Data[i].productId + "\",\"" + response.Data[i].orderItemId + "\",\"" + (i) + "\")' href='#'><i class='fa fa-balance-scale'></i></a>";
+                    markup += "<a class='btn btn-primary btn-sm' title='add Style' data-toggle='tooltip' href='#' onclick='loadStyles(\"" + response.Data[i].productId + "\",\"" + response.Data[i].orderItemId + "\",\"" + (i) + "\")'><i class='fa fa-male'></i></a>";
+                    markup += "<a class='btn btn-warning btn-sm' title='add Fabrics' data-toggle='tooltip' href='#' onclick='loadFabrics(\"" + response.Data[i].productId + "\",\"" + response.Data[i].orderItemId + "\",\"" + (i) + "\")'><i class='fa fa-gift'></i></a>";
+                    markup += "<a  class='btn btn-danger btn-sm' title='Remove Item' data-toggle='tooltip' href='#' onclick='removeItem(\"" + response.Data[i].orderItemId + "\",\"" + response.Data[i].orderItemPrice + "\")'><i class='fa fa-trash'></i></a>";
+                    markup += "<a class='btn btn-primary btn-sm' title='Download PDF' data-toggle='tooltip' href='#' onclick='loadPdf(" + response.Data[i].orderItemId + ")'><i class='fa fa-file-pdf-o'></i></a>";
+                    markup += "</td></div></tr>";
                 }
-                markup += "<tr id=" + response.Data[i].orderItemId + "><td>" + response.Data[i].productTitle + '-' + styleTitle + "</td><td>" + response.Data[i].productSubTitle + "</td><td>" + response.Data[i].orderItemPrice + "</td>";
-                markup += "<td><input type='hidden' id='amt" + response.Data[i].orderItemId + "' value='" + response.Data[i].orderItemPrice + "'/>";
-                markup += "</td>";
-                markup += "<td>";
-                markup += "<a  title='See Comment' data-toggle='tooltip' onclick='loadcomment(" + response.Data[i].orderItemId + ")' href='#'><code style='color: red;'>See Comment</code></a>";
-                markup += "</td>";
-                markup += "<td><div class='btn-group' role='group' aria-label='Basic example'>";
-                markup += "<a class='btn btn-dark btn-sm' title='Assign Sales' data-toggle='tooltip' onclick='loadAssignModel(\"" + response.Data[i].orderItemId + "\",\"" + response.Data[i].employeeid + "\")' href='#'><i class='fa fa-tasks'></i></a>";
-                markup += "<a class='btn btn-info btn-sm' title='Edit Price' data-toggle='tooltip' onclick='loadPriceModal(\"" + response.Data[i].orderItemId + "\",\"" + response.Data[i].productTitle + "\",\"" + (i + 1) + "\")' href='#'><i class='fa fa-inr'></i></a>";
-                markup += "<a class='btn btn-success btn-sm' title='Add Measurment' data-toggle='tooltip' onclick='loadMeasurment(\"" + response.Data[i].productId + "\",\"" + response.Data[i].orderItemId + "\",\"" + (i) + "\")' href='#'><i class='fa fa-balance-scale'></i></a>";
-                markup += "<a class='btn btn-primary btn-sm' title='add Style' data-toggle='tooltip' href='#' onclick='loadStyles(\"" + response.Data[i].productId + "\",\"" + response.Data[i].orderItemId + "\",\"" + (i) + "\")'><i class='fa fa-male'></i></a>";
-                markup += "<a class='btn btn-warning btn-sm' title='add Fabrics' data-toggle='tooltip' href='#' onclick='loadFabrics(\"" + response.Data[i].productId + "\",\"" + response.Data[i].orderItemId + "\",\"" + (i) + "\")'><i class='fa fa-gift'></i></a>";
-                markup += "<a  class='btn btn-danger btn-sm' title='Remove Item' data-toggle='tooltip' href='#' onclick='removeItem(\"" + response.Data[i].orderItemId + "\",\"" + response.Data[i].orderItemPrice + "\")'><i class='fa fa-trash'></i></a>";
-                markup += "<a class='btn btn-primary btn-sm' title='Download PDF' data-toggle='tooltip' href='#' onclick='loadPdf(" + response.Data[i].orderItemId + ")'><i class='fa fa-file-pdf-o'></i></a>";
-                markup += "</td></div></tr>";
+                $("#productData").html(markup);
+                $('#OrderItemPrice').val('');
+                $('#products').val('').trigger('change');
+            },
+            complete: function(response) {
+                $(".preloader").hide();
             }
-            $("#productData").html(markup);
-            $('#OrderItemPrice').val('');
-            $('#products').val('').trigger('change');
-        },
-        complete: function(response) {
-            $(".preloader").hide();
-        }
-    })
+        })
+    } else {
+        alert('Select product from list');
+    }
 
 });
 
@@ -357,7 +361,7 @@ function loadFabrics(productId, orderItemId, rowId) {
     //end for load data
 
     $.ajax({
-        url: api_url + 'getfabrics.php',
+        url: api_url + 'getproductfabricmapping.php',
         type: 'GET',
         dataType: 'json',
         beforeSend: function() {
@@ -368,29 +372,29 @@ function loadFabrics(productId, orderItemId, rowId) {
             if (response.Data != null) {
                 var count = response.Data.length;
                 for (var i = 0; i < count; i++) {
-                    // if (response.Data[i].productId == productId) {
-                    //createDropdownOptions += "<td>" + response['Data'][i].fabricTitle + "</td>";
-                    createDropdownOptions += "<tr><td><img class='img-thumbnail' src='http://praxello.com/tailorsmart/mobileimages/fabric/300x300/" + response['Data'][i].skuNo + ".jpg' alt='No Image Available'></img></td>";
-                    createDropdownOptions += "<td>" + response['Data'][i].fabricTitle + "</td>";
-                    createDropdownOptions += "<td>" + response['Data'][i].skuNo + "</td>";
-                    createDropdownOptions += "<td>" + response['Data'][i].fabricPrice + "</td>";
-                    if (count_1 > 0) {
-                        flag = 0;
-                        for (var j = 0; j < count_1; j++) {
-                            if (response['Data'][i].fabricId == check_fabrics_exists[j].fabricId) {
-                                createDropdownOptions += "<td><input type='checkbox' name='fabrics' value=" + response['Data'][i].fabricId + " checked></td>";
-                                flag = 1;
+                    if (response.Data[i].productId == productId) {
+                        //createDropdownOptions += "<td>" + response['Data'][i].fabricTitle + "</td>";
+                        createDropdownOptions += "<tr><td><img class='img-thumbnail' src='mobileimages/fabric/300x300/" + response['Data'][i].skuNo + ".jpg' alt='No Image Available'></img></td>";
+                        createDropdownOptions += "<td>" + response['Data'][i].fabricTitle + "</td>";
+                        createDropdownOptions += "<td>" + response['Data'][i].skuNo + "</td>";
+                        createDropdownOptions += "<td>" + response['Data'][i].fabricPrice + "</td>";
+                        if (count_1 > 0) {
+                            flag = 0;
+                            for (var j = 0; j < count_1; j++) {
+                                if (response['Data'][i].fabricId == check_fabrics_exists[j].fabricId) {
+                                    createDropdownOptions += "<td><input type='checkbox' name='fabrics' value=" + response['Data'][i].fabricId + " checked></td>";
+                                    flag = 1;
+                                }
                             }
-                        }
-                        if (flag == 0) {
+                            if (flag == 0) {
+                                createDropdownOptions += "<td><input type='checkbox' name='fabrics' value=" + response['Data'][i].fabricId + "></td>";
+                            }
+
+                        } else {
                             createDropdownOptions += "<td><input type='checkbox' name='fabrics' value=" + response['Data'][i].fabricId + "></td>";
                         }
-
-                    } else {
-                        createDropdownOptions += "<td><input type='checkbox' name='fabrics' value=" + response['Data'][i].fabricId + "></td>";
+                        createDropdownOptions += "</tr>";
                     }
-                    createDropdownOptions += "</tr>";
-                    // }
                 }
 
                 $("#fabricsTable").html(createDropdownOptions);
@@ -407,10 +411,10 @@ function loadFabrics(productId, orderItemId, rowId) {
 getPaymentList();
 // var totalpayment =0;
 function getPaymentList() {
-  var Orderamount = parseFloat($('#Orderamount').html());
-  $("#spanperror").html("<strong>Remaining Amount</strong>  <span class='badge' style='background-color: aquamarine;font-weight: bolder;'>"+Orderamount+"</span></font>");
+    var Orderamount = parseFloat($('#Orderamount').html());
+    $("#spanperror").html("<strong>Remaining Amount</strong>  <span class='badge' style='background-color: aquamarine;font-weight: bolder;'>" + Orderamount + "</span></font>");
     var empName = $('#empName').val();
-    var totalpayment =0;
+    var totalpayment = 0;
     $("#totalpayment").val(totalpayment);
     $("#paymentData").empty();
     $.ajax({
@@ -453,7 +457,7 @@ function getPaymentList() {
                     markup += deleteEntry;
                     markup += "</td></div></tr>";
                 }
-                $("#spanperror").html("<strong>Remaining Amount</strong> <span class='badge' style='background-color: aquamarine;font-weight: bolder;'>"+(Orderamount-parseFloat(totalpayment))+"</span></font>");
+                $("#spanperror").html("<strong>Remaining Amount</strong> <span class='badge' style='background-color: aquamarine;font-weight: bolder;'>" + (Orderamount - parseFloat(totalpayment)) + "</span></font>");
                 $("#totalpayment").val(totalpayment);
                 $("#paymentData").html(markup);
             }
