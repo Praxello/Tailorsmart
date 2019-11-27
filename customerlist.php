@@ -74,7 +74,7 @@ $employeeName = $_SESSION['employeeName'];
                                                 <th>Mobile No</th>
                                                 <th>Address</th>
                                                 <!-- <th>Status</th> -->
-                                                <!-- <th>Action </th> -->
+                                                <th>Action </th>
                                             </tr>
                                         </thead>
                                         <tbody id="styletbldata">
@@ -85,59 +85,79 @@ $employeeName = $_SESSION['employeeName'];
                         </div>
                     </div>
                 </div>
-                <!-- <div class="row" id="customerstyletableform" style="display:none;">
+                <div class="row" id="customerdata" style="display:none;">
                   <div class="col-sm-12">
                     <div class="card">
                       <div class="row">
-                      <input type="hidden" id="styleid"/>
-                      <div class="col-sm-4">
-                        <div class="form-group required">
-                          <label class="control-label">Title</label>
-                          <input type="text" class="form-control" id="styletitle"  title="Enter Title"/>
-                        </div>
+                      <input type="hidden" id="customerId" />
+                      <div class="col-sm-6">
+                        <h4 class="card-title">Customer Name/Mobile No</h4>
+                        <h6 class="card-subtitle"><span id="customername"></span></span></h6>
                       </div>
-                      <div class="col-sm-4">
-                        <div class="form-group required">
-                          <label class="control-label">Detail</label>
-                          <input type="text" class="form-control" id="styledetail"  title="Enter Detail"/>
-                        </div>
-                      </div>
-                      <div class="col-sm-4">
-                        <div class="form-group required">
-                          <label class="control-label">Type</label>
-                          <select  class="form-control" id="styletype" style="width:100%;">
-                            <option value="">Select Stitch Type</option>
-                            <option value="0">Multiple selection</option>
-                            <option value="1">Single Selection</option>
-                            <option value="2">Input Field</option>
-                          </select>
-                        </div>
-                      </div>
-
                         <div class="col-sm-4">
-
-                              <div class="form-group">
-                              <div style="padding-top:32px"></div>
-                            <button class="btn btn-success" id="savebtncustomerstyle">Save</button>
-                            <button class="btn btn-success" id="updatebtncustomerstyle" style="display:none;">Update</button>
-                            <button class="btn btn-secondary" id="reloadbtn" >Back</button>
-                          </div>
+                          <h4 class="card-title">Customer contact number</h4>
+                          <h6 class="card-subtitle"><span id="mobilenumber"></span></h6>
                         </div>
+                       
+                        <div class="col-sm-6">
+                          <h4 class="card-title">Address</h4>
+                          <h6 class="card-subtitle"><span id="custAddress"></span></h6>
+                        </div>
+                       
 
+                          <div class="col-sm-4">
+                            <h4 class="card-title">Email</h4>
+                            <h6 class="card-subtitle"><span id="custEmail"></span></h6>
+                          </div>
                       </div>
                     </div>
                   </div>
-                </div> -->
+                 
+                    <div class="col-sm-12">
+                    <div class="row" id="productsLoad">
+                    <div class="col-12">
+                        <div class="card">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <!-- <button type="button" id="button1" class="btn btn-success" onclick="addStyle()" style="float:right"> New Stitch Style</button> -->
+                             
+                          </div>
+                          </div>
+                            <div class="card-body">
 
-                <!-- End PAge Content -->
+                                <div class="table-responsive m-t-40">
+                                    <table id="productTable" class="display nowrap table table-hover  table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <!-- <th>Id</th> -->
+                                                <th>Product Image </th>
+                                                <!-- <th>Gender</th> -->
+                                                <th>Product Title</th>
+                                                <th>Price</th>
+                                                <th>Action </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="productlist">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    </div>
+
+                </div>
             </div>
 
         </div>
         <!-- End Page wrapper  -->
     </div>
+   
     <!-- End Wrapper -->
     <!-- All Jquery -->
     <script src="js/lib/jquery/jquery.min.js"></script>
+    <?php include 'add_customer_measurments.php';?>
     <script src="javascript/apifile.js"></script>
     <link href="select2/select4.css" rel="stylesheet" />
     <script src="select2/select4.js" type="text/javascript"></script>

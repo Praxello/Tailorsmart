@@ -29,6 +29,8 @@ if (isset($_POST['usrname']) && isset($_POST['passwrd'])) {
             $response = array('Message' => "No user present/ Invalid username or password", "Data" => $records, 'Responsecode' => 401);
         }
     }
+}else{
+    $response = array('Message' => "Parameter Missing",  'Responsecode' => 401);
 }
 print json_encode($response);
 ?>
