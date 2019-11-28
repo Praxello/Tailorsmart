@@ -114,7 +114,7 @@ $('#refreshFabrics').on('click',function(e){
                 var count = response.Data.length;
                 for (var i = 0; i < count; i++) {
                     
-                    createDropdownOptions += "<tr><td><img class='img-thumbnail' src='http://praxello.com/tailorsmart/mobileimages/fabric/300x300/" + response['Data'][i].skuNo + ".jpg' alt='No Image Available'></img></td>";
+                    createDropdownOptions += "<tr><td><img class='img-thumbnail' src='mobileimages/fabric/300x300/" + response['Data'][i].skuNo + ".jpg' alt='No Image Available'></img></td>";
                     createDropdownOptions += "<td>" + response['Data'][i].fabricTitle + "</td>";
                     createDropdownOptions += "<td>" + response['Data'][i].skuNo + "</td>";
                     createDropdownOptions += "<td>" + response['Data'][i].fabricPrice + "</td>";

@@ -60,6 +60,8 @@ $('#updatePrice').on('click', function(e) {
                 $('#editOrderItemPrice').modal('toggle');
                 $('#productTable tr:nth-child(' + rowId + ') td:nth-child(3)').html(amount);
                 $('#amt' + updateDetails.orderItemId).val(amount);
+                getOrdersOfCustomer(customerId_g);
+                $('#customerOrdersBlock').hide();
             }
         })
     }

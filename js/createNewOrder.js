@@ -2,6 +2,7 @@ $('#products').select2({
     allowClear: true,
     placeholder: "Select Product Name"
 });
+var customerMeasurments = new Map();
 display_customerInfo();
 displayOrderDetails(OrderDetailsOfCustomer);
 
@@ -12,6 +13,24 @@ function display_customerInfo() {
     $('#custAddress').html(cData.address);
     $('#custCity').html(cData.city);
     $('#custMobile').html(cData.mobile);
+    loadcustomerMeasurments(customerId_g);
+}
+
+function loadcustomerMeasurments(customerId) {
+    $.ajax({
+        url: api_url + 'getcustomerspecificmeasurement.php',
+        type: 'POST',
+        data: { customerId: customerId },
+        dataType: 'json',
+        success: function(response) {
+            if (response.Data != null) {
+                var count = response.Data.length;
+                for (var i = 0; i < count; i++) {
+                    customerMeasurments.set(response.Data[i].measurmentId, response.Data[i].value);
+                }
+            }
+        }
+    });
 }
 
 $('.add-row').on('click', function(e) {
@@ -81,24 +100,27 @@ $('.add-row').on('click', function(e) {
 });
 
 function removeItem(orderItemId, price) {
-    var removeData = {
-        orderitemid: orderItemId,
-        orderid: orderId,
-        price: price
-    };
-    $.ajax({
-        url: api_url + 'deleteorderitem.php',
-        type: 'POST',
-        data: removeData,
-        dataType: 'json',
-        success: function(response) {
-            $('#' + orderItemId).remove();
-            getOrdersOfCustomer(customerId_g);
-            $('#customerOrdersBlock').hide();
-            customerOrderDetails = [];
-            customerOrderDetails = customerOrders[indexRow];
-        }
-    })
+    var r = confirm("Are you sure to remove this item");
+    if (r === true) {
+        var removeData = {
+            orderitemid: orderItemId,
+            orderid: orderId,
+            price: price
+        };
+        $.ajax({
+            url: api_url + 'deleteorderitem.php',
+            type: 'POST',
+            data: removeData,
+            dataType: 'json',
+            success: function(response) {
+                $('#' + orderItemId).remove();
+                getOrdersOfCustomer(customerId_g);
+                $('#customerOrdersBlock').hide();
+                customerOrderDetails = [];
+                customerOrderDetails = customerOrders[indexRow];
+            }
+        });
+    }
 }
 
 getActiveProductsList();
@@ -175,7 +197,12 @@ function loadMeasurment(productId, orderItemId, rowId) { //for mapping product i
                             }
 
                         } else {
-                            createDropdownOptions += "<td><input type='text' name='measurmentValues[]'   class='form-control form-control-sm'></td>";
+                            if (customerMeasurments.has(response.Data[i].measurementId)) {
+                                createDropdownOptions += "<td><input type='text' name='measurmentValues[]' value=" + customerMeasurments.get(response.Data[i].measurementId) + "  class='form-control form-control-sm'></td>";
+                            } else {
+                                createDropdownOptions += "<td><input type='text' name='measurmentValues[]'   class='form-control form-control-sm'></td>";
+                            }
+
                         }
                         createDropdownOptions += "</tr>";
                     }
