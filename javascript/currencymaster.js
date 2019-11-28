@@ -88,7 +88,8 @@ function addStyle(){
 // This function is created For Edit Button
 function editStyle(id){
 var HoliData=CurrencyData.get(id.toString());
-$("#cityid").val(HoliData.cityId);
+// console.log(HoliData);
+$("#cityid").val(HoliData.cityid);
 $("#cityname").val(HoliData.cityName);
 $("#currencyval").val(HoliData.currencyMultiplier);
 $("#currencycode").val(HoliData.currencyCode);
