@@ -55,12 +55,7 @@ $employeeName = $_SESSION['employeeName'];
                 <div class="row" id="customerstyletable" style="display:block;">
                     <div class="col-12">
                         <div class="card">
-                          <div class="row">
-                            <div class="col-md-12">
-                              <!-- <button type="button" id="button1" class="btn btn-success" onclick="addStyle()" style="float:right"> New Stitch Style</button> -->
-                              <div id="data"></div>
-                          </div>
-                          </div>
+
                             <div class="card-body">
 
                                 <div class="table-responsive m-t-40">
@@ -90,37 +85,60 @@ $employeeName = $_SESSION['employeeName'];
                     <div class="card">
                       <div class="row">
                       <input type="hidden" id="customerId" />
-                      <div class="col-sm-6">
-                        <h4 class="card-title">Customer Name/Mobile No</h4>
-                        <h6 class="card-subtitle"><span id="customername"></span></span></h6>
+                      <div class="col-sm-4">
+                        <h4 class="card-title">Customer Name/ Email</h4>
+                        <h6 class="card-subtitle"><span id="customername"></span> &nbsp;&nbsp;&nbsp;<span id="custEmail"></span></h6>
                       </div>
                         <div class="col-sm-4">
                           <h4 class="card-title">Customer contact number</h4>
                           <h6 class="card-subtitle"><span id="mobilenumber"></span></h6>
                         </div>
-                       
-                        <div class="col-sm-6">
+
+                        <div class="col-sm-4">
                           <h4 class="card-title">Address</h4>
                           <h6 class="card-subtitle"><span id="custAddress"></span></h6>
                         </div>
-                       
 
-                          <div class="col-sm-4">
+
+                          <!-- <div class="col-sm-4">
                             <h4 class="card-title">Email</h4>
                             <h6 class="card-subtitle"><span id="custEmail"></span></h6>
-                          </div>
+                          </div> -->
                       </div>
                     </div>
                   </div>
-                 
+
                     <div class="col-sm-12">
-                    <div class="row" id="productsLoad">
+                    <div class="row" >
+                    <!-- <div class="col-12">
+                        <div class="card">
+
+                            <div class="card-body">
+
+                                <div class="table-responsive m-t-40">
+                                    <table id="productTable" class="display nowrap table table-hover  table-bordered">
+                                        <thead>
+                                            <tr>
+
+                                                <th>Product Image </th>
+                                                <th>Product Title</th>
+                                                <th>Price</th>
+                                                <th>Action </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="productlist">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
                     <div class="col-12">
                         <div class="card">
                           <div class="row">
                             <div class="col-md-12">
-                              <!-- <button type="button" id="button1" class="btn btn-success" onclick="addStyle()" style="float:right"> New Stitch Style</button> -->
-                             
+                              <button type="button" id="saveMeasurementsData1" class="btn btn-success" style="float:right"> SAVE MEASUREMENT</button>
+
                           </div>
                           </div>
                             <div class="card-body">
@@ -129,12 +147,12 @@ $employeeName = $_SESSION['employeeName'];
                                     <table id="productTable" class="display nowrap table table-hover  table-bordered">
                                         <thead>
                                             <tr>
-                                                <!-- <th>Id</th> -->
-                                                <th>Product Image </th>
-                                                <!-- <th>Gender</th> -->
-                                                <th>Product Title</th>
-                                                <th>Price</th>
-                                                <th>Action </th>
+                                                <th>Measurement ID</th>
+                                                <th>Measurement Name</th>
+                                                <th style="display:none;">Measurement ID</th>
+                                                <th>Value</th>
+
+                                                <!-- <th>Action </th> -->
                                             </tr>
                                         </thead>
                                         <tbody id="productlist">
@@ -153,7 +171,7 @@ $employeeName = $_SESSION['employeeName'];
         </div>
         <!-- End Page wrapper  -->
     </div>
-   
+
     <!-- End Wrapper -->
     <!-- All Jquery -->
     <script src="js/lib/jquery/jquery.min.js"></script>
