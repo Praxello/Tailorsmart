@@ -61,28 +61,47 @@ function getstitchstyles() {
 function editCustomers(customerId) {
     customerId_g = customerId;
     var AllData = styleData.get(customerId.toString());
+    $("#customerId").val(customerId);
     $('#customerstyletable').hide();
     $('#customerdata').show();
     $('#customername').html(AllData.firstName + ' ' + AllData.lastName);
     $('#mobilenumber').html(AllData.mobile);
     $('#custEmail').html(AllData.email);
     $('#custAddress').html(AllData.address);
-
+    getcustomerspecificmeasurement(customerId);
 }
 getproductdata();
-
 function getproductdata() {
     $.ajax({
         type: "GET",
-        url: api_url + "getallproducts.php",
+        url: api_url + "getcustomerspecificmeasurement.php",
         async: true,
         success: function(response) {
+          console.log(response);
             var count;
             if (response['Data'] != null) {
                 count = response['Data'].length;
             }
             for (var i = 0; i < count; i++) {
-                productData.set(response.Data[i].productId, response.Data[i]);
+                // productData.set(response.Data[i].measurementId, response.Data[i]);
+            }
+            // setProductData(productData);
+        }
+    });
+}
+function getproductdata() {
+    $.ajax({
+        type: "GET",
+        url: api_url + "getmeasurementitems.php",
+        async: true,
+        success: function(response) {
+          console.log(response);
+            var count;
+            if (response['Data'] != null) {
+                count = response['Data'].length;
+            }
+            for (var i = 0; i < count; i++) {
+                productData.set(response.Data[i].measurementId, response.Data[i]);
             }
             setProductData(productData);
         }
@@ -90,24 +109,86 @@ function getproductdata() {
 }
 
 function setProductData(productData) {
-    // console.log(styleData);
+    // console.log(productData);
     var shtml = '';
     $('#productTable').dataTable().fnDestroy();
     $("#productlist").empty();
+    var i=0;
     for (let k of productData.keys()) {
-        var AllData = productData.get(k);
-        let imageUrl = pic_url + 'product/300x300/' + k + '.jpg';
-        shtml += "<tr><td style='width:15%'><img class='img-thumbnail' src='" + imageUrl + "' style='cursor: pointer' alt='No Image'  width='70px' height='70px'></img></td>";
-        shtml += "<td>" + AllData.productTitle + "</td>";
-        shtml += "<td>" + AllData.price + "</td>";
-        shtml += '<td><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Add your measurments" onclick="addMeasurments(' + (k) + ');"><i class="fa fa-edit"></i></button></div></td>';
+       var AllData = productData.get(k);
+       // console.log(AllData.itemTitle);
+        // let imageUrl = pic_url + 'product/300x300/' + k + '.jpg';
+        // shtml += "<tr><td style='width:15%'><img class='img-thumbnail' src='" + imageUrl + "' style='cursor: pointer' alt='No Image'  width='70px' height='70px'></img></td>";
+        shtml += "<tr>";
+        shtml += "<td>" + (i+1) + "</td>";
+        shtml += "<td>" + AllData.itemTitle + "</td>";
+        shtml += "<td style='display:none;'>" + AllData.measurementId + "</td>";
+        shtml += "<td><input type='text' class='form-control' id='measurment"+k+ "'></input></td>";
+        // shtml += '<td><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Add your measurments" onclick="addMeasurments(' + (k) + ');"><i class="fa fa-edit"></i></button></div></td>';
         shtml += "</tr>";
+        i++;
     }
     $("#productlist").html(shtml);
-    $('#productTable').DataTable();
+    // $('#productTable').DataTable();
 }
 
+$('#saveMeasurementsData1').on('click', function(event) {
 
+    event.preventDefault();
+    var customerId =$("#customerId").val();
+    var rowCount = $("#productTable td").closest("tr").length;
+
+         TableData = storeTblValues();
+
+          var postdata = {
+              "customerId": customerId,
+              "measurements": TableData
+          };
+          postdata = JSON.stringify(postdata);
+          // console.log(postdata);
+          $.ajax({
+              url: api_url + 'createcustomermeasurement.php',
+              type: 'POST',
+              data: {
+                  postdata: postdata
+              },
+              beforeSend: function() {
+                    $(".preloader").show();
+              },
+              success: function(response) {
+                  alert(response.Message);
+                  // getOrdersOfCustomer(customerId_g);
+                  // customerOrderDetails = customerOrders[indexRow];
+                  // $('#customerOrdersBlock').hide();
+                  // $('#myModal').modal('toggle');
+              },
+              complete:function(response){
+                $(".preloader").hide();
+              }
+          });
+
+});
+
+function storeTblValues() {
+    var TableData = new Array();
+     // abc =0;
+    $('#productTable tr').each(function(row, tr) {
+        var measurmentValue = $(tr).find('td:eq(3) input').val();
+        if (measurmentValue == '') {
+            measurmentValue = '-';
+            // abc =1;
+        }
+        else{
+        TableData[row] = {
+            "measurementid": $(tr).find('td:eq(2)').text(),
+            "value": measurmentValue
+        }
+         }
+
+    });
+    TableData.shift(); // first row will be empty - so remove
+    return TableData;
+}
 function addMeasurments(productId) { //for mapping product id and measurment id
     cust_product = productId;
     loadMesurementData(productId, customerId_g);

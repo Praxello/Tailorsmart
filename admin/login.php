@@ -9,7 +9,7 @@ extract($_POST);
 
 if (isset($_POST['usrname']) && isset($_POST['passwrd'])) {
 
-    $jobQuery = mysqli_query($conn, "select * from  employee_master where mobile='$usrname' and password='$passwrd' and isactive=1");
+    $jobQuery = mysqli_query($conn, "select * from  employee_master where email='$usrname' and password='$passwrd' and isactive=1");
     if ($jobQuery != null) {
         $academicAffected = mysqli_num_rows($jobQuery);
         if ($academicAffected > 0) {

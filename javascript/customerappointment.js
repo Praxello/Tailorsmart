@@ -71,14 +71,16 @@ var table;
 
 
 function settabledata(styleData) {
-    // console.log(styleData);
+     // console.log(styleData);
     var xhtml = '',ihtml = '',varhtml = '';
     var cid = $("#cid").val();
     var selectslot = '',selectstatus = '',selectcity='';
     $('#appointmenttbl').dataTable().fnDestroy();
     $("#appointmenttbldata").empty();
+
     for (let k of styleData.keys())
     {
+      //  console.log(k);
         var AllData = styleData.get(k);
         setCity.add(AllData.city); // Set is add for filter City Search
         setSlot.add(AllData.slotTime); // Set is add for filter setSlot Search
@@ -123,6 +125,7 @@ function settabledata(styleData) {
              xhtml += "<td>" + AllData.mobile + "</td>";
              xhtml += varhtml;
              xhtml += "<td>" + orderStatus + "</td>";
+              xhtml += "<td style='display:none;'>" + AllData.appointmentId + "</td>";
              xhtml += '<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editcustomerappointmentdata(' + k + ')"><i class="fa fa-edit"></i></button></div></td>';
              xhtml += "</tr>";
            }
@@ -156,6 +159,7 @@ function settabledata(styleData) {
           xhtml += "<td>" + AllData.mobile + "</td>";
           xhtml += varhtml;
           xhtml += "<td>" + orderStatus + "</td>";
+           xhtml += "<td style='display:none;'>" + AllData.appointmentId + "</td>";
           xhtml += '<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editcustomerappointmentdata(' + k + ')"><i class="fa fa-edit"></i></button></div></td>';
           xhtml += "</tr>";
         }
@@ -181,7 +185,13 @@ function settabledata(styleData) {
             selectstatus += "<option value='" + item + "'>" +item + "</option>";
      }
     $("#tblappointmentStatus").html(selectstatus);
+    // console.log(xhtml);
     $("#appointmenttbldata").html(xhtml);
+    // $('#appointmenttbl').DataTable(
+    //   {
+    //
+    //   }
+    // );
   $('#appointmenttbl').DataTable({
    initComplete: function() {
     this.api().columns([1]).every(function() {
@@ -253,11 +263,12 @@ function settabledata(styleData) {
       });
     });
   },
+  "order":[[9,"desc"]],
   'pageLength': 10,
   dom: 'Bfrtip',
   buttons: [ 'copy', 'csv', 'excel', 'pdf', 'print' ]
 });
- }
+  }
 
 // function getDate(date) {
 //     var output = '-';
@@ -291,6 +302,7 @@ function getcustomerappointmentdata() {
         url: api_url + "getappointments.php",
         dataType: "json",
         success: function(response) {
+          // console.log(response);
             var slotcount = 0;
             if (response["Slots"] != null) {
                 slotcount = response["Slots"].length;
