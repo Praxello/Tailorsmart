@@ -248,7 +248,7 @@ if (isset($_POST['appointmentId']) && isset($_POST['servingEmployeeId']) && isse
 													<table border="1" align="center"  cellpadding="3" cellspacing="3" style="border:solid 3px #000; width:600px;">
 											     <thead>
 													<tr>
-															<th style="text-align:center">Thank you for staying with us !</th>
+															<th style="text-align:center">Thank you for choosing TailorSmart.!</th>
 													</tr>
 												 </thead>
 													</table>

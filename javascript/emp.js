@@ -199,9 +199,6 @@ $('#savebtncustomerstyle').on('click',function(event){
     swal("Parameter Missing");
   }
   else{
-
-
-
   var obj = {
     address: address,
     adharId: adharid,
@@ -236,7 +233,8 @@ $('#savebtncustomerstyle').on('click',function(event){
               setemployeemaster(EmployeeData);
             }
             else{
-              swal(response.Message);
+              // swal(response.Message);
+              swal("Please Retry Again");
             }
         },
         complete:function(response){
@@ -304,7 +302,8 @@ $('#updatebtncustomerstyle').on('click',function(event){
              swal(response.Message);
            }
            else{
-             swal(response.Message);
+             // swal(response.Message);
+             swal("Please Retry Again");
            }
       },
       complete:function(response){
@@ -338,7 +337,8 @@ function removeStyle(id){
           swal(response.Message);
         }
         else{
-          swal(response.Message);
+          // swal(response.Message);
+          swal("Employee Already Used Can't Delete");
         }
       },
       complete:function(response){

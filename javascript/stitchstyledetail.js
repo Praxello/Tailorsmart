@@ -236,7 +236,8 @@ $('#savebtncustomerstyle').on('click',function(event){
             settabledata(styleData);
           }
           else {
-            swal(response.Message);
+            // swal(response.Message);
+            swal("Please Retry Again");
           }
         },
         complete:function(response){
@@ -281,7 +282,8 @@ $('#updatebtncustomerstyle').on('click',function(event){
           settabledata(styleData);
         }
         else {
-          swal(response.Message);
+          // swal(response.Message);
+          swal("Please Retry Again");
         }
       },
       complete:function(response){
@@ -314,7 +316,8 @@ function removestitchStyleDetail(id){
           settabledata(styleData);
         }
         else {
-          swal(response.Message);
+          // swal(response.Message);
+          swal("Already Used Can't Delete");
         }
       },
       complete:function(response){

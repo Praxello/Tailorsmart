@@ -147,6 +147,7 @@ $('#savebtncustomerstyle').on('click',function(event){
               }
               else{
                  // swal(response.Message);
+                 swal("Please Retry Again");
               }
           },
           complete:function(response){
@@ -194,6 +195,7 @@ $('#updatebtncustomerstyle').on('click',function(event){
            swal(response.Message);
            }
            else{
+             swal("Please Retry Again");
              // swal(response.Message);
            }
       },
@@ -229,6 +231,7 @@ function removeStyle(id){
         }
         else{
           // swal(response.Message);
+          swal("Currency Already Used Can't Delete");
         }
       },
       complete:function(response){

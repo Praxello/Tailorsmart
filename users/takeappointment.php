@@ -242,6 +242,11 @@ if (isset($_POST['customerid']) && isset($_POST['productids']) &&  isset($_POST[
   													<tr>
   															<th style="text-align:center">Custom Made. Home Delivered.</th>
   													</tr>
+                            <tr>
+                            <th style="text-align:center">
+                            Thank you for choosing TailorSmart.
+                            </th>
+                            </tr>
   												 </thead>
   													</table>
                             </body>

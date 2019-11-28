@@ -229,7 +229,8 @@ $('#savebtncustomerstyle').on('click',function(event){
             settabledata(styleData);
           }
           else {
-            swal(response.Message);
+            // swal(response.Message);
+            swal("Please Retry Again");
           }
 
       },
@@ -278,7 +279,8 @@ $('#updatebtncustomerstyle').on('click',function(event){
           settabledata(styleData);
         }
         else {
-            swal(response.Message);
+            // swal(response.Message);
+            swal("Please Retry Again");
         }
       },
       complete:function(response){
@@ -311,7 +313,8 @@ function removemaster(id){
           settabledata(styleData);
         }
         else {
-            swal(response.Message);
+            // swal(response.Message);
+            swal(" Already Used Can't Delete");
         }
       },
       complete:function(response){

@@ -80,15 +80,13 @@ function getcustomerspecificmeasurement(customerId) {
         customerId:customerId
         },
         success: function(response) {
-          console.log(response);
             var count;
             if (response['Data'] != null) {
                 count = response['Data'].length;
             }
             for (var i = 0; i < count; i++) {
-                // productData.set(response.Data[i].measurementId, response.Data[i]);
+              $("#measurment"+response.Data[i].measurmentId).val(response.Data[i].value);
             }
-            // setProductData(productData);
         }
     });
 }

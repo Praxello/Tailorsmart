@@ -170,7 +170,8 @@ $('#savebtncustomerstyle').on('click',function(event){
             settabledata(styleData);
           }
           else {
-            swal(response.Message);
+            // swal(response.Message);
+             swal("Please Retry Again");
           }
         },
         complete:function(response){
@@ -217,7 +218,8 @@ $('#updatebtncustomerstyle').on('click',function(event){
           settabledata(styleData);
         }
         else {
-          swal(response.Message);
+          // swal(response.Message);
+           swal("Please Retry Again");
         }
 
       },
@@ -253,7 +255,8 @@ function removecategory(id){
           settabledata(styleData);
         }
         else {
-          swal(response.Message);
+          // swal(response.Message);
+            swal("Category Already Used Can't Delete");
         }
 
       },

@@ -426,7 +426,8 @@ $('#savebtncustomerstyle').on('click',function(event){
                  // settabledata(styleData);
            }
            else {
-             swal(response.Message);
+              swal("Please Retry Again");
+             // swal(response.Message);
            }
          },
          complete:function(response){
@@ -502,7 +503,8 @@ $('#updatebtncustomerstyle').on('click',function(event){
               settabledata(styleData);
         }
         else {
-          swal(response.Message);
+           swal("Please Retry Again");
+          // swal(response.Message);
         }
       },
       complete:function(response){
@@ -562,7 +564,8 @@ function removeFabric(id){
                 }
           }
           else {
-            swal(response.Message);
+            swal("Fabric Already Used Can't Delete");
+            // swal(response.Message);
           }
 
       },

@@ -483,7 +483,8 @@ $('#savebtnproducts').on('click', function(event) {
                     $("#productId").val(response.RowId.toString());
                     // settabledata(styleData);
                 } else {
-                    swal(response.Message);
+                    // swal(response.Message);
+                    swal("Please Retry Again");
                 }
 
             },
@@ -551,7 +552,8 @@ $('#updatebtnproducts').on('click', function(event) {
                 styleData.set(productId.toString(), obj);
                 // settabledata(styleData);
             } else {
-                swal(response.Message);
+                // swal(response.Message);
+                swal("Please Retry Again");
             }
         },
         complete: function(response) {
@@ -604,7 +606,8 @@ function removeProduct(id) {
                   .draw(false);
                 }
             } else {
-                swal(response.Message);
+                // swal(response.Message);
+                swal("Please Retry Again");
             }
 
         },
@@ -926,7 +929,8 @@ $('#savefabric').on('click', function(event) {
                 setfabrcmapping(TableData);
                 // fabricmapping();
             } else {
-                swal(response.Message);
+                // swal(response.Message);
+                swal("Please Retry Again");
             }
         },
         complete: function(response) {
@@ -976,7 +980,8 @@ $('#savemeasurement').on('click', function(event) {
                   // setmeasuremapping(TableData);
                   measurementmapping();
               } else {
-                  swal(response.Message);
+                  // swal(response.Message);
+                  swal("Please Retry Again");
               }
           },
           complete: function(response) {
@@ -1033,7 +1038,8 @@ $('#savestitchbtn').on('click', function(event) {
                 swal(response.Message);
                 setstitchstylemapping(TableData);
             } else {
-                swal(response.Message);
+                // swal(response.Message);
+                swal("Please Retry Again");
             }
         },
         complete: function(response) {

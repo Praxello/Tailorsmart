@@ -38,7 +38,7 @@ function setholidaymaster(HolidayData){
   var html ='';
   $('#holidaytbl').dataTable().fnDestroy();
   $("#holidaytbldata").empty();
-  
+
   for(let k of HolidayData.keys())
   {
         let cityName ="-";
@@ -173,7 +173,8 @@ $('#savebtncustomerstyle').on('click',function(event){
                 setholidaymaster(HolidayData);
               }
               else{
-                swal(response.Message);
+                // swal(response.Message);
+                swal("Please Retry Again");
               }
           },
           complete:function(response){
@@ -221,7 +222,8 @@ $('#updatebtncustomerstyle').on('click',function(event){
              swal(response.Message);
            }
            else{
-             swal(response.Message);
+             // swal(response.Message);
+             swal("Please Retry Again");
            }
       },
       complete:function(response){
@@ -255,7 +257,8 @@ function removeStyle(id){
           swal(response.Message);
         }
         else{
-          swal(response.Message);
+          // swal(response.Message);
+            swal("Holiday Can't Delete");
         }
       },
       complete:function(response){
