@@ -177,7 +177,8 @@ $('#savebtncustomerstyle').on('click',function(event){
             $("#styleid").val(response.RowId.toString());
           }
           else{
-            swal(response.Message);
+            // swal(response.Message);
+              swal("Please Retry Again");
           }
         },
         complete:function(response){
@@ -224,7 +225,8 @@ $('#updatebtncustomerstyle').on('click',function(event){
           settabledata(styleData);
         }
         else{
-          swal(response.Message);
+          // swal(response.Message);
+            swal("Please Retry Again");
         }
       },
       complete:function(response){
@@ -281,7 +283,8 @@ function removesubstyle(id){
             }
           }
           else {
-            swal(response.Message);
+            // swal(response.Message);
+            swal("Customer Style Already Used Can't Delete");
           }
 
         },

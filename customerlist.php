@@ -175,7 +175,8 @@ $employeeName = $_SESSION['employeeName'];
     <!-- End Wrapper -->
     <!-- All Jquery -->
     <script src="js/lib/jquery/jquery.min.js"></script>
-    <?php include 'add_customer_measurments.php';?>
+  
+    <!-- include 'add_customer_measurments.php'; -->
     <script src="javascript/apifile.js"></script>
     <link href="select2/select4.css" rel="stylesheet" />
     <script src="select2/select4.js" type="text/javascript"></script>

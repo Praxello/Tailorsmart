@@ -181,7 +181,8 @@ $('#savebtncustomerstyle').on('click',function(event){
                 setslotmaster(SlotData);
               }
               else{
-                swal(response.Message);
+                // swal(response.Message);
+                swal("Please Retry Again");
               }
           },
           complete:function(response){
@@ -229,6 +230,7 @@ $('#updatebtncustomerstyle').on('click',function(event){
            }
            else{
              // swal(response.Message);
+             swal("Please Retry Again");
            }
       },
       complete:function(response){
@@ -263,6 +265,7 @@ function removeStyle(id){
         }
         else{
           // swal(response.Message);
+            swal("Slot Already Used Can't Delete");
         }
       },
       complete:function(response){

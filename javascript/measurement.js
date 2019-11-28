@@ -154,7 +154,8 @@ $('#savebtncustomerstyle').on('click',function(event){
             settabledata(styleData);
           }
           else {
-              swal(response.Message);
+              // swal(response.Message);
+              swal("Please Retry Again");
           }
 
         },
@@ -203,7 +204,8 @@ $('#updatebtncustomerstyle').on('click',function(event){
           settabledata(styleData);
         }
         else {
-            swal(response.Message);
+            // swal(response.Message);
+            swal("Please Retry Again");
         }
 
       },
@@ -238,7 +240,8 @@ function removeMeasurements(id){
           settabledata(styleData);
         }
         else {
-            swal(response.Message);
+            // swal(response.Message);
+          swal("Measurement Already Used Can't Delete");
         }
 
       },

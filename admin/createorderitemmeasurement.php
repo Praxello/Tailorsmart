@@ -7,20 +7,20 @@ header('Content-Type: application/json');
 	 $records=null;
 	 $transactionId=null;
 	 extract($_POST);
-	  
+
 	 date_default_timezone_set("Asia/Kolkata");
-	 $currentDate=date('Y-m-d H:i:s'); //Returns IST	
+	 $currentDate=date('Y-m-d H:i:s'); //Returns IST
 	//: customer_order_measurement
 	  if(isset($_POST['postdata']))
 	 {
 		 $someArray = json_decode($postdata,true);
 	//	print_r($someArray);        // Dump all data of the Array
-  	
+
 	$orderItemId = $someArray["orderitemid"];
-	
+
 	//first delete mapping
 	$query = mysqli_query($conn,"delete from customer_order_items_measurement where orderitemid = $orderItemId");
-	
+
 	$measurmentItems = $someArray["measurements"];
  	foreach ($measurmentItems as $key => $value) {
 	//print($measurmentItems[$key]['id']);
@@ -32,8 +32,8 @@ header('Content-Type: application/json');
 				if($rowsAffected==1)
 				{
 					$tempOrderItemMeasurements = null;
-					//now return set of measurements 
-					
+					//now return set of measurements
+
 					//now get mesausrements of this items
 												$QueryMeasurement = mysqli_query($conn,"select * from customer_order_items_measurement coim inner join measurement_item_master mim on coim.measurementid = mim.measurementid where coim.orderitemid=$orderItemId");
 												$academicAffected2=mysqli_num_rows($QueryMeasurement);
@@ -44,15 +44,15 @@ header('Content-Type: application/json');
 														$tempOrderItemMeasurements[] = $measurementResults;
 													}
 												}
-					
-					$response = array('Message'=>"Measurement saved successfully","Data"=>$tempOrderItemMeasurements,'Responsecode'=>200);	
+
+					$response = array('Message'=>"Measurement saved successfully","Data"=>$tempOrderItemMeasurements,'Responsecode'=>200);
 				}
 				else
 				{
-					$response = array('Message'=>mysqli_error($conn)."Message failed",'Responsecode'=>403);	
+					$response = array('Message'=>mysqli_error($conn)."Message failed",'Responsecode'=>403);
 				}
   }
-		
+
 	 }
 	 else
 	 {
