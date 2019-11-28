@@ -178,7 +178,7 @@ if (isset($_POST['orderId']) && isset($_POST['statusOfOrder']) && isset($_POST['
 													<table border="1" align="center"  cellpadding="3" cellspacing="3" style="border:solid 3px #000; width:600px;">
 													 <thead>
 													<tr>
-															<th style="text-align:center">Thank You For Staying With Us.</th>
+															<th style="text-align:center">Thank you for choosing TailorSmart.</th>
 													</tr>
 												 </thead>
 													</table>';

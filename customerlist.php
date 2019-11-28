@@ -8,12 +8,7 @@ $employeeName = $_SESSION['employeeName'];
 <html lang="en">
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <?php include "metatag.php"; ?>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <title>Smart - Tailor</title>
@@ -175,7 +170,7 @@ $employeeName = $_SESSION['employeeName'];
     <!-- End Wrapper -->
     <!-- All Jquery -->
     <script src="js/lib/jquery/jquery.min.js"></script>
-  
+
     <!-- include 'add_customer_measurments.php'; -->
     <script src="javascript/apifile.js"></script>
     <link href="select2/select4.css" rel="stylesheet" />
