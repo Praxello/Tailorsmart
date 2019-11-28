@@ -70,12 +70,15 @@ function editCustomers(customerId) {
     $('#custAddress').html(AllData.address);
     getcustomerspecificmeasurement(customerId);
 }
-getproductdata();
-function getproductdata() {
+
+function getcustomerspecificmeasurement(customerId) {
     $.ajax({
-        type: "GET",
+        type: "POST",
         url: api_url + "getcustomerspecificmeasurement.php",
         async: true,
+        data:{
+        customerId:customerId
+        },
         success: function(response) {
           console.log(response);
             var count;
@@ -89,6 +92,7 @@ function getproductdata() {
         }
     });
 }
+getproductdata();
 function getproductdata() {
     $.ajax({
         type: "GET",
@@ -123,7 +127,7 @@ function setProductData(productData) {
         shtml += "<td>" + (i+1) + "</td>";
         shtml += "<td>" + AllData.itemTitle + "</td>";
         shtml += "<td style='display:none;'>" + AllData.measurementId + "</td>";
-        shtml += "<td><input type='text' class='form-control' id='measurment"+k+ "'></input></td>";
+        shtml += "<td><input type='text' class='form-control' id='measurment"+k+"'></input></td>";
         // shtml += '<td><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Add your measurments" onclick="addMeasurments(' + (k) + ');"><i class="fa fa-edit"></i></button></div></td>';
         shtml += "</tr>";
         i++;
