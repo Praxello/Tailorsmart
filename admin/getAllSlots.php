@@ -6,7 +6,7 @@ header('Content-Type: application/json');
 	 $response=null;
 
 	 extract($_POST);
-
+$records=null;
 
 		 			$academicQuery = mysqli_query($conn,"select * from appointment_slots");
 						if($academicQuery!=null)

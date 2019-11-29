@@ -69,8 +69,11 @@ $('.add-row').on('click', function(e) {
                     if (ParentProducts.has(response.Data[i].parentId)) {
                         styleTitle = ParentProducts.get(response.Data[i].parentId);
                     }
-                    markup += "<tr id=" + response.Data[i].orderItemId + "><td>" + response.Data[i].productTitle + '-' + styleTitle + "</td><td>" + response.Data[i].productSubTitle + "</td><td>" + response.Data[i].orderItemPrice + "</td>";
-                    markup += "<td><input type='hidden' id='amt" + response.Data[i].orderItemId + "' value='" + response.Data[i].orderItemPrice + "'/>";
+                    markup += "<tr id=" + response.Data[i].orderItemId + ">";
+                    markup += "<td>" + response.Data[i].productTitle + '-' + styleTitle + "</td>";
+                    markup += "<td>" + response.Data[i].productSubTitle + "</td>";
+                    markup += "<td>" + response.Data[i].orderItemPrice + "</td>";
+                    markup += "<td style='display:none'><input type='hidden' id='amt" + response.Data[i].orderItemId + "' value='" + response.Data[i].orderItemPrice + "'/>";
                     markup += "</td>";
                     markup += "<td>";
                     markup += "<a  title='See Comment' data-toggle='tooltip' onclick='loadcomment(" + response.Data[i].orderItemId + ")' href='#'><code style='color: red;'>See Comment</code></a>";
