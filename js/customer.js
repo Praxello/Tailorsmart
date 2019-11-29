@@ -17,7 +17,7 @@ var OrderDetailsOfCustomer = []; //like orderId,expectedDeliveryDate,Amount
 var ActiveProductsList = new Map(); //stored price here
 var TailorData = [];
 var assignSalesData = new Map();
-var totalorderamount =0;
+var totalorderamount = 0;
 getStatusMap();
 getConfirmation();
 
@@ -202,11 +202,12 @@ function getDate(date) {
         var d = new Date(date);
         output = d.toDateString(); // outputs to "Thu May 28 2015"
         let outarr = output.split(" ");
-        let datestr = outarr[0]+","+outarr[2]+" "+outarr[1]+" "+outarr[3];
-        output=datestr;
+        let datestr = outarr[0] + "," + outarr[2] + " " + outarr[1] + " " + outarr[3];
+        output = datestr;
     }
     return output;
 }
+
 function showpdf(orderid, rowId) {
     orderId = orderid;
     customerOrderDetails = JSON.stringify(customerOrders[rowId]);
@@ -218,7 +219,7 @@ function showData(orderid, rowId) {
     $('#loadNewPage').empty();
     orderId = orderid;
     customerOrderDetails = customerOrders[rowId];
-    totalorderamount =0;
+    totalorderamount = 0;
     indexRow = rowId;
     if (customerOrderDetails.OrderDetails != null) {
         OrderDetailsOfCustomer = customerOrderDetails.OrderDetails;
@@ -237,12 +238,28 @@ function showData(orderid, rowId) {
                 // alter = "required";
                 alter = "<a  title='See Comment' data-toggle='tooltip' onclick='loadcomment(" + customerOrderDetails.orderItems[i].OrderItem.orderItemId + ")' href='#'><code style='color: red;'>See Comment</code></a>";
             }
+            let fablength = 0,
+                fabarrhtml = '';
+            if (customerOrderDetails.orderItems[i].Fabrics != null) {
+                fablength += customerOrderDetails.orderItems[i].Fabrics.length;
+                console.log(customerOrderDetails.orderItems[i].Fabrics);
+                fabarrhtml = "<td >";
+                for (var j = 0; j < fablength; j++) {
+                    fabarrhtml += (j + 1) + " " + customerOrderDetails.orderItems[i].Fabrics[j].fabricTitle + "-" + customerOrderDetails.orderItems[i].Fabrics[j].colorName;
+                    fabarrhtml += " -" + customerOrderDetails.orderItems[i].Fabrics[j].fabricPrice;
+                    fabarrhtml += "</br >";
+                }
+                fabarrhtml += "</td >";
+            } else {
+                fabarrhtml = "<td></td>";
+            }
+
             markup += "<tr id=" + customerOrderDetails.orderItems[i].OrderItem.orderItemId + "><td>" + customerOrderDetails.orderItems[i].OrderItem.productTitle + '-' + styleTitle + "</td>";
-            markup += "<td>" + customerOrderDetails.orderItems[i].OrderItem.productSubTitle + "</td>";
+            markup += fabarrhtml;
             markup += "<td>" + customerOrderDetails.orderItems[i].OrderItem.orderItemPrice + "</td>";
             markup += "<td style='display:none'><input type='hidden' id='amt" + customerOrderDetails.orderItems[i].OrderItem.orderItemId + "' value='" + customerOrderDetails.orderItems[i].OrderItem.orderItemPrice + "'/>";
             // console.log(customerOrderDetails.orderItems[i].OrderItem.orderItemPrice);
-            totalorderamount +=parseFloat(customerOrderDetails.orderItems[i].OrderItem.orderItemPrice);
+            totalorderamount += parseFloat(customerOrderDetails.orderItems[i].OrderItem.orderItemPrice);
             // markup += alter;
             markup += "</td>";
             markup += "<td>";

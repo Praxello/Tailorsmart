@@ -380,6 +380,7 @@ function loadStyles(productId, orderItemId, rowId) {
 }
 
 function loadFabrics(productId, orderItemId, rowId) {
+    $('#fabric_row').val(parseInt(rowId) + 1);
     fabric_orderItemId = orderItemId;
     //load fabrics data if exists and checked associative checkboxes
     var count_1 = 0;

@@ -14,7 +14,7 @@ if (isset($_POST['customerId'])) {
    inner join appointment_slots slot on cam.slotid = slot.slotId 
    inner join customer_master cm on cam.customerid = cm.customerid 
    left outer join employee_master em on cam.servingEmployeeId = em.employeeId 
-   WHERE cam.customerId = 7 order by cam.appointmentId DESC,cam.appointmentDate DESC LIMIT 1";
+   WHERE cam.customerId = $customerId order by cam.appointmentId DESC,cam.appointmentDate DESC LIMIT 1";
     $academicQuery = mysqli_query($conn, $sql);
     // echo $sql;
     // cm.firstName,cm.lastname,cm.mobile,cm.address,cm.city,cm.email

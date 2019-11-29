@@ -13,6 +13,8 @@
                 </div>
              <!-- Modal body -->
              <div class="modal-body" style="overflow-x: hidden;max-height: 500px;">
+             <input type="hidden" id="fabric_row">
+             <input type="hidden" id="changeAmount_1"/>
                  <input id="myInput" type="text" placeholder="Search.." class="form-control form-control-sm">
                  <div class="card">
                      <div class="row">
@@ -56,13 +58,33 @@ $("#myInput").on("keyup", function() {
 var fabrics_TableData;
 $('#saveFabricsData').on('click', function(event) {
     event.preventDefault();
-    fabrics_TableData = store_fabricsTblValues();
+    fabrics_TableData = getMeasure();
+    var fabricPrice = 0;
+    var fabarrhtml="";
+    for(var i=0;i<fabrics_TableData.length;i++){
+        fabricPrice +=parseInt(fabrics_TableData[i].price);
+        fabarrhtml += (i + 1) + " " +fabrics_TableData[i].Title;
+        fabarrhtml += " -" + fabrics_TableData[i].price;
+        fabarrhtml += "</br >";
+    }
+    
     var postdata = {
         "orderitemid": fabric_orderItemId,
         "fabrics": fabrics_TableData
     };
+    var price = $('#amt' + fabric_orderItemId).val();
+    var updateDetails = {
+            orderid:orderId,
+            orderItemPrice: fabricPrice,
+            orderItemId: fabric_orderItemId,
+            changeAmount:price
+        };
     postdata = JSON.stringify(postdata);
-
+    var rowId =  $('#fabric_row').val();
+    console.log(rowId);
+    $('#productTable tr:nth-child(' + rowId + ') td:nth-child(3)').html(fabricPrice);
+    $('#productTable tr:nth-child(' + rowId + ') td:nth-child(2)').html(fabarrhtml);
+   addPrice(updateDetails);
     $.ajax({
         url: api_url + 'createorderitemfabric.php',
         type: 'POST',
@@ -85,7 +107,7 @@ $('#saveFabricsData').on('click', function(event) {
           $(".preloader").hide();
         }
 
-    })
+    });
 });
 
 function store_fabricsTblValues() {
@@ -93,6 +115,18 @@ function store_fabricsTblValues() {
     $('#fabricssampleTbl').find('input[name="fabrics"]:checked').each(function(row) {
         TableData[row] = {
             "fabricid": $(this).val()
+        }
+    });
+    return TableData;
+}
+function getMeasure() {
+    var TableData = new Array();
+    var tableControl = document.getElementById('fabricssampleTbl');
+    $('input[name="fabrics"]:checked', tableControl).each(function(row, tr) {
+        TableData[row] = {
+            "fabricid": $(this).val(),
+            "Title": $(this).closest('td').prev().prev().prev().text(),
+            "price": $(this).closest('td').prev().text()    
         }
     });
     return TableData;
@@ -128,4 +162,15 @@ $('#refreshFabrics').on('click',function(e){
         }
     })
 });
+function addPrice(updateDetails){
+    $.ajax({
+            url: api_url + 'editOrderItemPrice.php',
+            type: 'POST',
+            data: updateDetails,
+            dataType: 'json',
+            success: function(response) {
+                
+            }
+        });
+}
  </script>

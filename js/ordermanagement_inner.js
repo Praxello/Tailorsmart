@@ -163,6 +163,7 @@ function getActiveProductsList() {
 }
 
 function loadMeasurment(productId, orderItemId, rowId) { //for mapping product id and measurment id
+
     customer_orderItemId = orderItemId;
     var count_1 = 0;
     var check_mesurment_exists = customerOrderDetails.orderItems[rowId].Measurements;
@@ -376,6 +377,7 @@ function loadStyles(productId, orderItemId, rowId) {
 }
 
 function loadFabrics(productId, orderItemId, rowId) {
+    $('#fabric_row').val(parseInt(rowId) + 1);
     fabric_orderItemId = orderItemId;
     //load fabrics data if exists and checked associative checkboxes
     var count_1 = 0;

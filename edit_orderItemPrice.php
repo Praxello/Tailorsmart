@@ -41,7 +41,6 @@ $('#updatePrice').on('click', function(e) {
     e.preventDefault();
     var amount = $('#sendPrice').val();
     var rowId = $('#rowId').val();
-
     if (amount == '') {
         alert('Please Enter an amount');
     } else {

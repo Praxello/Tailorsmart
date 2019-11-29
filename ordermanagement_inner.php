@@ -151,7 +151,7 @@
                         <thead>
                             <tr>
                                 <th>Product Title</th>
-                                <th>Product Sub Title</th>
+                                <th>Fabrics Details</th>
                                 <th>Price</th>
                                 <th style="display:none;">Alteration</th>
                                 <th>Alteration</th>

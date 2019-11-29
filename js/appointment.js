@@ -10,7 +10,7 @@ function getConfirmation() {
     confirmationStatus1.set('5', 'None');
 }
 getConfirmation();
-getcustomerappointmentdata(7);
+getcustomerappointmentdata(customerId_g);
 
 function getcustomerappointmentdata(customerId) {
     $.ajax({
