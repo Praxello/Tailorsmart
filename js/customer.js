@@ -234,17 +234,19 @@ function showData(orderid, rowId) {
                 styleTitle = ParentProducts.get(customerOrderDetails.orderItems[i].OrderItem.parentId);
             }
             if (customerOrderDetails.orderItems[i].OrderItem.isAlterNeeded == 1) {
-                alter = "required";
+                // alter = "required";
+                alter = "<a  title='See Comment' data-toggle='tooltip' onclick='loadcomment(" + customerOrderDetails.orderItems[i].OrderItem.orderItemId + ")' href='#'><code style='color: red;'>See Comment</code></a>";
             }
             markup += "<tr id=" + customerOrderDetails.orderItems[i].OrderItem.orderItemId + "><td>" + customerOrderDetails.orderItems[i].OrderItem.productTitle + '-' + styleTitle + "</td>";
-            markup += "<td>" + customerOrderDetails.orderItems[i].OrderItem.productSubTitle + "</td><td>" + customerOrderDetails.orderItems[i].OrderItem.orderItemPrice + "</td>";
-            markup += "<td><input type='hidden' id='amt" + customerOrderDetails.orderItems[i].OrderItem.orderItemId + "' value='" + customerOrderDetails.orderItems[i].OrderItem.orderItemPrice + "'/>";
+            markup += "<td>" + customerOrderDetails.orderItems[i].OrderItem.productSubTitle + "</td>";
+            markup += "<td>" + customerOrderDetails.orderItems[i].OrderItem.orderItemPrice + "</td>";
+            markup += "<td style='display:none'><input type='hidden' id='amt" + customerOrderDetails.orderItems[i].OrderItem.orderItemId + "' value='" + customerOrderDetails.orderItems[i].OrderItem.orderItemPrice + "'/>";
             // console.log(customerOrderDetails.orderItems[i].OrderItem.orderItemPrice);
             totalorderamount +=parseFloat(customerOrderDetails.orderItems[i].OrderItem.orderItemPrice);
-            markup += alter;
+            // markup += alter;
             markup += "</td>";
             markup += "<td>";
-            markup += "<a  title='See Comment' data-toggle='tooltip' onclick='loadcomment(" + customerOrderDetails.orderItems[i].OrderItem.orderItemId + ")' href='#'><code style='color: red;'>See Comment</code></a>";
+            markup += alter;
             markup += "</td>";
             markup += "<td><div class='btn-group' role='group' aria-label='Basic example'>";
             markup += "<a class='btn btn-dark btn-sm' title='Assign Sales' data-toggle='tooltip' onclick='loadAssignModel(\"" + customerOrderDetails.orderItems[i].OrderItem.orderItemId + "\",\"" + customerOrderDetails.orderItems[i].OrderItem.employeeid + "\")' href='#'><i class='fa fa-tasks'></i></a>";
