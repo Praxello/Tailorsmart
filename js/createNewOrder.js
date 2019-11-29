@@ -34,6 +34,7 @@ function loadcustomerMeasurments(customerId) {
 }
 
 $('.add-row').on('click', function(e) {
+     console.log("ok1");
     var orderItemPrice = $('#OrderItemPrice').val();
     if (orderItemPrice == '') {
         orderItemPrice = 0;
@@ -65,9 +66,14 @@ $('.add-row').on('click', function(e) {
                 $('#customerOrdersBlock').hide();
                 var markup = '';
                 for (var i = 0; i < count; i++) {
-                    let styleTitle = '';
+                    let styleTitle = '',alter = '';
                     if (ParentProducts.has(response.Data[i].parentId)) {
                         styleTitle = ParentProducts.get(response.Data[i].parentId);
+                    }
+                    if (customerOrderDetails.orderItems[i].OrderItem.isAlterNeeded == 1) {
+                        // alter = "required";
+                        // console.log("ok1");
+                        alter = "<a  title='See Comment' data-toggle='tooltip' onclick='loadcomment(" + customerOrderDetails.orderItems[i].OrderItem.orderItemId + ")' href='#'><code style='color: red;'>See Comment</code></a>";
                     }
                     markup += "<tr id=" + response.Data[i].orderItemId + ">";
                     markup += "<td>" + response.Data[i].productTitle + '-' + styleTitle + "</td>";
@@ -76,7 +82,7 @@ $('.add-row').on('click', function(e) {
                     markup += "<td style='display:none'><input type='hidden' id='amt" + response.Data[i].orderItemId + "' value='" + response.Data[i].orderItemPrice + "'/>";
                     markup += "</td>";
                     markup += "<td>";
-                    markup += "<a  title='See Comment' data-toggle='tooltip' onclick='loadcomment(" + response.Data[i].orderItemId + ")' href='#'><code style='color: red;'>See Comment</code></a>";
+                    markup += alter;
                     markup += "</td>";
                     markup += "<td><div class='btn-group' role='group' aria-label='Basic example'>";
                     markup += "<a class='btn btn-dark btn-sm' title='Assign Sales' data-toggle='tooltip' onclick='loadAssignModel(\"" + response.Data[i].orderItemId + "\",\"" + response.Data[i].employeeid + "\")' href='#'><i class='fa fa-tasks'></i></a>";

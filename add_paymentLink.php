@@ -18,14 +18,14 @@
                              <div class="form-check-inline">
                                  <label for="radio">Select Payment Mode</label>
                              </div>
-                             <div class="form-check-inline">
+                             <!-- <div class="form-check-inline">
                                  <label class="form-check-label" for="radio1">
-                                     <input type="radio" class="form-check-input" id="radio1" name="modeofpayment" value="Cash" checked>Cash
+                                     <input type="radio" class="form-check-input" id="radio1" name="modeofpayment" value="Cash" >Cash
                                  </label>
-                             </div>
+                             </div> -->
                              <div class="form-check-inline">
                                  <label class="form-check-label" for="radio2">
-                                     <input type="radio" class="form-check-input" id="radio2" name="modeofpayment" value="NEFT">NEFT
+                                     <input type="radio" class="form-check-input" id="radio2" name="modeofpayment" value="NEFT" checked>NEFT
                                  </label>
                              </div>
                              <div class="form-check-inline">
@@ -48,18 +48,22 @@
                              <div class="form-group">
                                  <label for="paymenttype">Payment Type</label>
                                  <select class="form-control form-control-sm" id="paymenttype" name="paymenttype">
+                                   <option>Final</option>
                                      <option>Advance</option>
                                      <option>Partial</option>
-                                     <option>Final</option>
+
                                  </select>
                              </div>
                          </div>
                          <div class="col-sm-4">
                              <div class="form-group">
+                                 <label for="amount">Amount</label>
+                                 <input type="text" class="form-control form-control-sm" id="amount" name="amount">
                              </div>
                          </div>
+
                      </div>
-                     <div class="row">
+                     <div class="row" style="display:none;">
                        <div class="col-sm-4">
                             <div class="form-group">
                                 <label for="amount">Bank Name</label>
@@ -72,12 +76,10 @@
                                <input type="text" class="form-control form-control-sm" id="chequeno" name="chequeno">
                            </div>
                       </div>
-                     <div class="col-sm-4">
-                         <div class="form-group">
-                             <label for="amount">Amount</label>
-                             <input type="text" class="form-control form-control-sm" id="amount" name="amount">
-                         </div>
-                     </div>
+                      <div class="col-sm-4">
+                          <div class="form-group">
+                          </div>
+                      </div>
                      </div>
                  </div>
                  <!-- </div> -->
