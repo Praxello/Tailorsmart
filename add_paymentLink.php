@@ -25,12 +25,12 @@
                              </div> -->
                              <div class="form-check-inline">
                                  <label class="form-check-label" for="radio2">
-                                     <input type="radio" class="form-check-input" id="radio2" name="modeofpayment" value="NEFT" checked>NEFT
+                                     <input type="radio" class="form-check-input" id="radio2" name="modeofpayment" value="NEFT"  onclick="disppayment(this.value)" checked>NEFT
                                  </label>
                              </div>
                              <div class="form-check-inline">
                                  <label class="form-check-label" for="radio2">
-                                     <input type="radio" class="form-check-input" id="radio3" name="modeofpayment" value="Cheque">Cheque
+                                     <input type="radio" class="form-check-input" id="radio3" name="modeofpayment" value="Cheque" onclick="disppayment(this.value)">Cheque
                                  </label>
                              </div>
                          </div>
@@ -63,7 +63,7 @@
                          </div>
 
                      </div>
-                     <div class="row" style="display:none;">
+                     <div class="row" style="display:none;" id="dispbank">
                        <div class="col-sm-4">
                             <div class="form-group">
                                 <label for="amount">Bank Name</label>
@@ -96,6 +96,15 @@
  </div>
  <script>
      currencyCode();
+     function disppayment(value){
+       // console.log(value);
+       if(value==="Cheque"){
+         $("#dispbank").show();
+       }
+       else{
+         $("#dispbank").hide();
+       }
+     }
      // checkremainingamt();
      // function checkremainingamt(){
      //   var Orderamount = $('#Orderamount').html();
