@@ -441,6 +441,7 @@ getPaymentList();
 function getPaymentList() {
     var Orderamount = parseFloat($('#Orderamount').html());
     $("#spanperror").html("<strong>Remaining Amount</strong>  <span class='badge' style='background-color: aquamarine;font-weight: bolder;'>" + Orderamount + "</span></font>");
+    $("#amount").val(Orderamount);
     var empName = $('#empName').val();
     var totalpayment = 0;
     $("#totalpayment").val(totalpayment);
@@ -486,6 +487,7 @@ function getPaymentList() {
                 }
                 // console.log("totalpayment"+totalpayment);
                 $("#spanperror").html("<strong>Remaining Amount</strong> <span class='badge' style='background-color: aquamarine;font-weight: bolder;'>" + (Orderamount - parseFloat(totalpayment)) + "</span></font>");
+                $("#amount").val(Orderamount - parseFloat(totalpayment));
                 $("#totalpayment").val(totalpayment);
                 $("#paymentData").html(markup);
             }

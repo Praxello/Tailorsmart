@@ -15,7 +15,7 @@ if (isset($_POST['appointmentId']) && isset($_POST['servingEmployeeId']) && isse
 						if($rowsAffected > 0)
 						{
 					  			$response = array('Message'=>"Appointment updated successfully",'Responsecode'=>200);
-									$academicQuery1 = mysqli_query($conn,"SELECT slot.slotTime,cam.appointmentId, cam.customerId,cm.email, cm.firstName as fn,cm.lastName as ln,cm.city,cm.state,cm.country,cm.mobile,cam.productIds, cam.fabricIds, cam.appointmentDate, cam.slotId, cam.servingEmployeeId, cam.appointmentStatus , em.firstName as employeename , em.email as employeeemail FROM  customer_appointment_master cam inner join appointment_slots slot on cam.slotid = slot.slotId inner join customer_master cm on cam.customerid = cm.customerid left outer join employee_master em on cam.servingEmployeeId = em.employeeId where  cam.appointmentId=$appointmentId order by cam.appointmentDate desc");
+									$academicQuery1 = mysqli_query($conn,"SELECT slot.slotTime,cam.appointmentId, cam.customerId,cm.email, cm.firstName as fn,cm.lastName as ln,cm.address,cm.city,cm.state,cm.country,cm.mobile,cam.productIds, cam.fabricIds, cam.appointmentDate, cam.slotId, cam.servingEmployeeId, cam.appointmentStatus , em.firstName as employeename , em.email as employeeemail FROM  customer_appointment_master cam inner join appointment_slots slot on cam.slotid = slot.slotId inner join customer_master cm on cam.customerid = cm.customerid left outer join employee_master em on cam.servingEmployeeId = em.employeeId where  cam.appointmentId=$appointmentId order by cam.appointmentDate desc");
 										if($academicQuery1!=null)
 										{
 											$academicAffected=mysqli_num_rows($academicQuery1);
@@ -200,7 +200,21 @@ if (isset($_POST['appointmentId']) && isset($_POST['servingEmployeeId']) && isse
 																					Dear <font color="green">'.$appointmentRecords[0]['AppointmentDetails']['fn']." ".$appointmentRecords[0]['AppointmentDetails']['ln'].'</font>,<br><br>
 																					</td>
 																			</tr>
+																			<tr>
+																					<td align="left" valign="top" style="padding-left:20px; padding-top:10px; color:#363636; padding-bottom:15px; line-height:12px; font-size:14px; padding-right:20px; font-family:Arial, Helvetica, sans-serif;">
+																						Customer Contact No: '. $appointmentRecords[0]['AppointmentDetails']['mobile'].'
 
+																					</td>
+
+																			</tr>
+																			<tr>
+																					<td align="left" valign="top" style="padding-left:20px; padding-top:10px; color:#363636; padding-bottom:15px; line-height:12px; font-size:14px; padding-right:20px; font-family:Arial, Helvetica, sans-serif;">
+																						Customer Address: '. $appointmentRecords[0]['AppointmentDetails']['address'].' </br>'. $appointmentRecords[0]['AppointmentDetails']['city'].' </br>'. $appointmentRecords[0]['AppointmentDetails']['state'].'
+																						'. $appointmentRecords[0]['AppointmentDetails']['country'].'
+
+																					</td>
+
+																			</tr>
 															<tr>
 																	<td align="left" valign="top" style="padding-left:20px; padding-top:10px; color:#363636; padding-bottom:15px; line-height:12px; font-size:14px; padding-right:20px; font-family:Arial, Helvetica, sans-serif;">
 																		Appointment Date: '.$dateresult1.'

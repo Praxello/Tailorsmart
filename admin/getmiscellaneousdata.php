@@ -82,7 +82,7 @@ header('Content-Type: application/json');
 						}
 						}
 						$currencyRecords=null;
-						$academicQuery = mysqli_query($conn,"SELECT * FROM supported_cities_master");
+						$academicQuery = mysqli_query($conn,"SELECT * FROM `supported_cities_master` GROUP by currencyCode");
 						if($academicQuery!=null)
 						{
 							$academicAffected=mysqli_num_rows($academicQuery);

@@ -44,6 +44,7 @@ function getMicellaneousData() {
         type: 'GET',
         dataType: 'json',
         success: function(response) {
+          // console.log(response);
             if (response.Employee != null) {
                 var count_EmployeeData = response.Employee.length;
                 for (var i = 0; i < count_EmployeeData; i++) {
