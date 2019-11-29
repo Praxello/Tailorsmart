@@ -34,7 +34,7 @@ function loadcustomerMeasurments(customerId) {
 }
 
 $('.add-row').on('click', function(e) {
-     console.log("ok1");
+    // console.log("Hello");
     var orderItemPrice = $('#OrderItemPrice').val();
     if (orderItemPrice == '') {
         orderItemPrice = 0;
