@@ -60,24 +60,36 @@ $('.add-row').on('click', function(e) {
                 getOrdersOfCustomer(customerId_g);
                 customerOrderDetails = [];
                 customerOrderDetails = customerOrders[indexRow];
-
                 OrderDetailsOfCustomer = customerOrderDetails.OrderDetails;
                 displayOrderDetails(OrderDetailsOfCustomer);
                 $('#customerOrdersBlock').hide();
                 var markup = '';
                 for (var i = 0; i < count; i++) {
-                    let styleTitle = '',alter = '';
+                    let styleTitle = '',
+                        alter = '';
                     if (ParentProducts.has(response.Data[i].parentId)) {
                         styleTitle = ParentProducts.get(response.Data[i].parentId);
                     }
                     if (customerOrderDetails.orderItems[i].OrderItem.isAlterNeeded == 1) {
-                        // alter = "required";
-                        // console.log("ok1");
                         alter = "<a  title='See Comment' data-toggle='tooltip' onclick='loadcomment(" + customerOrderDetails.orderItems[i].OrderItem.orderItemId + ")' href='#'><code style='color: red;'>See Comment</code></a>";
+                    }
+                    let fablength = 0,
+                        fabarrhtml = '';
+                    if (customerOrderDetails.orderItems[i].Fabrics != null) {
+                        fablength += customerOrderDetails.orderItems[i].Fabrics.length;
+                        fabarrhtml = "<td >";
+                        for (var j = 0; j < fablength; j++) {
+                            fabarrhtml += (j + 1) + " " + customerOrderDetails.orderItems[i].Fabrics[j].fabricTitle + "-" + customerOrderDetails.orderItems[i].Fabrics[j].colorName;
+                            fabarrhtml += " -" + customerOrderDetails.orderItems[i].Fabrics[j].fabricPrice + "-" + customerOrderDetails.orderItems[i].Fabrics[j].skuNo;
+                            fabarrhtml += "</br >";
+                        }
+                        fabarrhtml += "</td >";
+                    } else {
+                        fabarrhtml = "<td></td>";
                     }
                     markup += "<tr id=" + response.Data[i].orderItemId + ">";
                     markup += "<td>" + response.Data[i].productTitle + '-' + styleTitle + "</td>";
-                    markup += "<td>" + response.Data[i].productSubTitle + "</td>";
+                    markup += fabarrhtml;
                     markup += "<td>" + response.Data[i].orderItemPrice + "</td>";
                     markup += "<td style='display:none'><input type='hidden' id='amt" + response.Data[i].orderItemId + "' value='" + response.Data[i].orderItemPrice + "'/>";
                     markup += "</td>";

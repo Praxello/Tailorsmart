@@ -44,7 +44,7 @@ function getMicellaneousData() {
         type: 'GET',
         dataType: 'json',
         success: function(response) {
-          // console.log(response);
+            // console.log(response);
             if (response.Employee != null) {
                 var count_EmployeeData = response.Employee.length;
                 for (var i = 0; i < count_EmployeeData; i++) {
@@ -243,11 +243,10 @@ function showData(orderid, rowId) {
                 fabarrhtml = '';
             if (customerOrderDetails.orderItems[i].Fabrics != null) {
                 fablength += customerOrderDetails.orderItems[i].Fabrics.length;
-                console.log(customerOrderDetails.orderItems[i].Fabrics);
                 fabarrhtml = "<td >";
                 for (var j = 0; j < fablength; j++) {
                     fabarrhtml += (j + 1) + " " + customerOrderDetails.orderItems[i].Fabrics[j].fabricTitle + "-" + customerOrderDetails.orderItems[i].Fabrics[j].colorName;
-                    fabarrhtml += " -" + customerOrderDetails.orderItems[i].Fabrics[j].fabricPrice;
+                    fabarrhtml += " -" + customerOrderDetails.orderItems[i].Fabrics[j].fabricPrice + "-" + customerOrderDetails.orderItems[i].Fabrics[j].skuNo;
                     fabarrhtml += "</br >";
                 }
                 fabarrhtml += "</td >";

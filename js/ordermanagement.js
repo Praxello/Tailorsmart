@@ -81,6 +81,7 @@ function getAllCustomers() {
                 for (var i = 0; i < count; i++) {
                     customerData.set(response.Data[i].customerId, response.Data[i]);
                 }
+
             }
         },
         complete: function() {
@@ -135,7 +136,8 @@ function getOrdersOfCustomer() {
                     cash_amount = 0,
                     NEFT_amount = 0,
                     total_recieved_amount = 0,
-                    EmpName = '-';
+                    EmpName = '-',
+                    custName = '-';
                 $('#customerOrdersBlock').show();
                 var responseData = "";
                 for (var i = 0; i < count; i++) {
@@ -162,10 +164,14 @@ function getOrdersOfCustomer() {
                             if (EmployeeData.has(response.Data[i].OrderDetails.employeeId)) {
                                 EmpName = EmployeeData.get(response.Data[i].OrderDetails.employeeId);
                             }
+                            if (customerData.has(response.Data[i].OrderDetails.customerId)) {
+                                custName = customerData.get(response.Data[i].OrderDetails.customerId);
+                            }
                             customerExpectedDate = getDate(response.Data[i].OrderDetails.customerExpectedDate);
                             FinalDeliveryDate = getDate(response.Data[i].OrderDetails.FinalDeliveryDate);
                             responseData += "<tr>";
                             responseData += "<td>" + response.Data[i].OrderDetails.orderId + "</td>";
+                            responseData += "<td>" + custName.firstName + ' ' + custName.lastName + "</td>";
                             responseData += "<td>" + parseFloat(response.Data[i].OrderDetails.amount).toLocaleString() + "</td>";
                             responseData += "<td>" + rec_amount.toLocaleString() + "</td>";
                             // responseData += "<td>" + response.Data[i].OrderDetails.promoCode + "</td>";
@@ -204,10 +210,14 @@ function getOrdersOfCustomer() {
                             if (EmployeeData.has(response.Data[i].OrderDetails.employeeId)) {
                                 EmpName = EmployeeData.get(response.Data[i].OrderDetails.employeeId);
                             }
+                            if (customerData.has(response.Data[i].OrderDetails.customerId)) {
+                                custName = customerData.get(response.Data[i].OrderDetails.customerId);
+                            }
                             customerExpectedDate = getDate(response.Data[i].OrderDetails.customerExpectedDate);
                             FinalDeliveryDate = getDate(response.Data[i].OrderDetails.FinalDeliveryDate);
                             responseData += "<tr>";
                             responseData += "<td>" + response.Data[i].OrderDetails.orderId + "</td>";
+                            responseData += "<td>" + custName.firstName + ' ' + custName.lastName + "</td>";
                             responseData += "<td>" + parseFloat(response.Data[i].OrderDetails.amount).toLocaleString() + "</td>";
                             responseData += "<td>" + rec_amount.toLocaleString() + "</td>";
                             // responseData += "<td>" + response.Data[i].OrderDetails.promoCode + "</td>";
@@ -244,10 +254,14 @@ function getOrdersOfCustomer() {
                         if (EmployeeData.has(response.Data[i].OrderDetails.employeeId)) {
                             EmpName = EmployeeData.get(response.Data[i].OrderDetails.employeeId);
                         }
+                        if (customerData.has(response.Data[i].OrderDetails.customerId)) {
+                            custName = customerData.get(response.Data[i].OrderDetails.customerId);
+                        }
                         customerExpectedDate = getDate(response.Data[i].OrderDetails.customerExpectedDate);
                         FinalDeliveryDate = getDate(response.Data[i].OrderDetails.FinalDeliveryDate);
                         responseData += "<tr>";
                         responseData += "<td>" + response.Data[i].OrderDetails.orderId + "</td>";
+                        responseData += "<td>" + custName.firstName + ' ' + custName.lastName + "</td>";
                         responseData += "<td>" + parseFloat(response.Data[i].OrderDetails.amount).toLocaleString() + "</td>";
                         responseData += "<td>" + rec_amount.toLocaleString() + "</td>";
                         // responseData += "<td>" + response.Data[i].OrderDetails.promoCode + "</td>";
