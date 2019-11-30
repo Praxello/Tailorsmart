@@ -81,6 +81,7 @@ if(isset($_REQUEST['cid']))
                                                 <th>Employee Name</th>
                                                 <th>Status</th>
                                                 <th style='display:none;'>Appointment ID</th>
+                                                <th>Created Date</th>
                                                 <th>Action </th>
                                             </tr>
                                         </thead>

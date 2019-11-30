@@ -7,7 +7,7 @@ header('Content-Type: application/json');
 	 extract($_POST);
 	 $records= null;
 	 $appointmentRecords = null;
-   $sql ="SELECT slot.slotTime,cam.appointmentId, cam.customerId,cm.firstName,cm.lastname,cm.mobile,cm.address,cm.city,cm.email, cam.productIds, cam.fabricIds, cam.appointmentDate, cam.slotId, cam.servingEmployeeId, cam.appointmentStatus , em.firstName as employeename FROM customer_appointment_master cam inner join appointment_slots slot on cam.slotid = slot.slotId inner join customer_master cm on cam.customerid = cm.customerid left outer join employee_master em on cam.servingEmployeeId = em.employeeId order by cam.appointmentId DESC,cam.appointmentDate DESC ";
+   $sql ="SELECT slot.slotTime,cam.appointmentId, cam.customerId,cm.firstName,cm.lastname,cm.mobile,cm.address,cm.city,cm.email, cam.productIds, cam.fabricIds, cam.appointmentDate, cam.slotId, cam.servingEmployeeId, cam.appointmentStatus ,cam.createdAT, em.firstName as employeename FROM customer_appointment_master cam inner join appointment_slots slot on cam.slotid = slot.slotId inner join customer_master cm on cam.customerid = cm.customerid left outer join employee_master em on cam.servingEmployeeId = em.employeeId order by cam.appointmentId DESC,cam.appointmentDate DESC ";
    $academicQuery = mysqli_query($conn,$sql);
    // echo $sql;
    // cm.firstName,cm.lastname,cm.mobile,cm.address,cm.city,cm.email

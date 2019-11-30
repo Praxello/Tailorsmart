@@ -749,13 +749,13 @@ function setmeasuremapping(tempmeasurementarray) {
             selmeasurement += '<input id="check' + measureName.measurementId + '" type="checkbox"  name="measurementcheck" value="' + measureName.measurementId + '" checked>';
             selmeasurement += '</label></td>';
             selmeasurement += "<td><input type='text' name='sequencenumber' class='form-control form-control-sm' value=" +productMName.sequenceNumber + " onkeypress='return isNumberKey(event)'></td>";
-            selmeasurement += "<td>" + measureName.itemTitle + "</td></tr>";
+            selmeasurement += "<td style='text-align: center;' >" + measureName.itemTitle + "</td></tr>";
         } else {
             unselmeasurement += '<tr><td><label class="checkbox" >';
             unselmeasurement += '<input id="check' + measureName.measurementId + '" type="checkbox" name="measurementcheck" value="' + measureName.measurementId + '">';
             unselmeasurement += '</label></td>';
             unselmeasurement += "<td><input type='text' name='sequencenumber' class='form-control form-control-sm' onkeypress='return isNumberKey(event)' ></td>";
-            unselmeasurement += "<td>" + measureName.itemTitle + "</td></tr>";
+            unselmeasurement += "<td style='text-align: center;'>" + measureName.itemTitle + "</td></tr>";
         }
     }
     if (mid === 1) {

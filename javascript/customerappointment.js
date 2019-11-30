@@ -71,7 +71,7 @@ var table;
 
 
 function settabledata(styleData) {
-     // console.log(styleData);
+      // console.log(styleData);
     var xhtml = '',ihtml = '',varhtml = '';
     var cid = $("#cid").val();
     var selectslot = '',selectstatus = '',selectcity='';
@@ -126,6 +126,7 @@ function settabledata(styleData) {
              xhtml += varhtml;
              xhtml += "<td>" + orderStatus + "</td>";
               xhtml += "<td style='display:none;'>" + AllData.appointmentId + "</td>";
+              xhtml += "<td>" + getDate(AllData.createdAT) + "</td>";
              xhtml += '<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editcustomerappointmentdata(' + k + ')"><i class="fa fa-edit"></i></button></div></td>';
              xhtml += "</tr>";
            }
@@ -160,6 +161,7 @@ function settabledata(styleData) {
           xhtml += varhtml;
           xhtml += "<td>" + orderStatus + "</td>";
            xhtml += "<td style='display:none;'>" + AllData.appointmentId + "</td>";
+             xhtml += "<td>" + getDate(AllData.createdAT) + "</td>";
           xhtml += '<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editcustomerappointmentdata(' + k + ')"><i class="fa fa-edit"></i></button></div></td>';
           xhtml += "</tr>";
         }
