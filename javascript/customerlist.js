@@ -4,7 +4,10 @@ var customerId_g = null;
 var cust_product = null;
 var records = [];
 getstitchstyles();
-
+$('#cgender').select2({
+  allowClear: true,
+  placeholder: "Select Gender"
+});
 function settabledata(styleData) {
     var html = '';
     $('#styletbl').dataTable().fnDestroy();
@@ -16,7 +19,17 @@ function settabledata(styleData) {
         html += "<td>" + AllData.email + "</td>";
         html += "<td>" + AllData.mobile + "</td>";
         html += "<td><address>" + AllData.address + " " + AllData.city + " " + AllData.country + "</address></td>";
-        html += '<td><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editCustomers(' + (k) + ');"><i class="fa fa-edit"></i></button></div></td></tr>';
+        html += '<td>';
+        html += '<div class="btn-group" role="group" aria-label="Basic Example">';
+        html += '<button class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Edit Measurement" onclick="editMeasurement(' + (k) + ');">';
+        html += '<i class="fa fa-balance-scale"></i></button>';
+        html += '<button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editCustomers(' + (k) + ');">';
+        html += '<i class="fa fa-edit"></i></button>';
+        html += '<button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="removeStyle(' + (k) + ');">';
+        html += '<i class="fa fa-trash"></i></button>';
+        html += '</div>';
+        html += '</td>';
+        html += '</tr>';
     }
     $("#styletbldata").html(html);
     $('#styletbl').DataTable({
@@ -57,20 +70,80 @@ function getstitchstyles() {
         }
     });
 }
-
+// This function is created For Add Button New Style
+function addStyle(){
+  $("#customerstyletable").hide();
+  $("#customerdata").show();
+  $("#customerId").val("");
+  $("#cfname").val("");
+  $("#clname").val("");
+  $("#cemail").val("");
+  $("#cdob").val("");
+  $("#cmobile").val("");
+  // $("#clandline").val("");
+  $("#ccity").val("");
+  $("#cstate").val("");
+  $("#ccountry").val("");
+  $("#caddress").val("");
+  $("#cgender").val("");
+  $("#cpassword").val("");
+  $("#savebtncustomerstyle").show();
+  $("#updatebtncustomerstyle").hide();
+}
+$('#reloadbtn').on('click',function(event){
+  event.preventDefault();
+  // window.location.reload();
+  $("#customerstyletable").show();
+  $("#customerdata").hide();
+  $("#savebtncustomerstyle").show();
+  $("#updatebtncustomerstyle").hide();
+  settabledata(styleData);
+});
+$('#reloadbtn1').on('click',function(event){
+  event.preventDefault();
+  // window.location.reload();
+  $("#customerstyletable").show();
+  $("#customerdata").hide();
+  // $("#savebtncustomerstyle").show();
+  // $("#updatebtncustomerstyle").hide();
+  // settabledata(styleData);
+});
 function editCustomers(customerId) {
     customerId_g = customerId;
     var AllData = styleData.get(customerId.toString());
+     console.log(AllData);
     $("#customerId").val(customerId);
     $('#customerstyletable').hide();
     $('#customerdata').show();
-    $('#customername').html(AllData.firstName + ' ' + AllData.lastName);
-    $('#mobilenumber').html(AllData.mobile);
-    $('#custEmail').html(AllData.email);
-    $('#custAddress').html(AllData.address);
-    getcustomerspecificmeasurement(customerId);
-}
+    $("#formcustomer").show();
+    $("#formmeasure").hide();
+    $("#cfname").val(AllData.firstName);
+    $("#clname").val(AllData.lastName);
+    $("#cemail").val(AllData.email);
+    $("#cdob").val(AllData.date_birth);
+    $("#cmobile").val(AllData.mobile);
+    // $("#clandline").val(AllData.landline);
+    $("#ccity").val(AllData.city);
+    $("#cstate").val(AllData.state);
+    $("#ccountry").val(AllData.country);
+    $("#caddress").val(AllData.address);
+    $("#cgender").val(AllData.isMale).trigger('change');
+    $("#cpassword").val(AllData.password);
+    $("#savebtncustomerstyle").hide();
+    $("#updatebtncustomerstyle").show();
 
+
+}
+function editMeasurement(customerId) {
+  var AllData = styleData.get(customerId.toString());
+  // console.log(AllData);
+  $("#customerId").val(customerId);
+  $('#customerstyletable').hide();
+  $('#customerdata').show();
+  $("#formcustomer").hide();
+  $("#formmeasure").show();
+  getcustomerspecificmeasurement(customerId);
+}
 function getcustomerspecificmeasurement(customerId) {
     $.ajax({
         type: "POST",
@@ -268,4 +341,182 @@ function loadMesurementData(productId, customerId) {
             $(".preloader").hide();
         }
     });
+}
+
+// This function is created For Save Style Data
+$('#savebtncustomerstyle').on('click',function(event){
+  event.preventDefault();
+  var cfname = $("#cfname").val();
+  var clname = $("#clname").val();
+  var cemail = $("#cemail").val();
+  var cdob = $("#cdob").val();
+  var cmobile = $("#cmobile").val();
+  // $("#clandline").val(AllData.landline);
+  var ccity = $("#ccity").val();
+  var cstate = $("#cstate").val();
+  var ccountry = $("#ccountry").val();
+  var caddress = $("#caddress").val();
+  var cgender = $("#cgender").val();
+  var cpassword = $("#cpassword").val();
+  if(cfname===""||clname===""||cemail===""||
+  cdob===""||cmobile===""||ccity===""||cstate===""||ccountry===""||caddress===""||cgender===""||cpassword===""){
+    swal("Parameter Missing");
+  }
+  else {
+    var obj = {
+      firstName:cfname,
+      lastName:clname,
+       email:cemail,
+       date_birth:cdob,
+        mobile:cmobile,
+         landline:'0',
+          city:ccity,
+           state:cstate,
+            country:ccountry,
+             address:caddress,
+              isMale:cgender,
+               password:cpassword,
+                latitude:'0',
+                 longitude:'0',
+                  landmark:'',
+                   isActive:'1',
+                    issocial:'1'
+      };
+      $.ajax({
+          url:api_url+'createcustomer.php',
+          type:'POST',
+          data:obj,
+          dataType:'json',
+          beforeSend: function() {
+                $(".preloader").show();
+                // console.log("before");
+          },
+          success:function(response){
+
+              if(response.Responsecode==200){
+                $("#customerstyletable").show();
+                $("#customerdata").hide();
+                swal(response.Message);
+                obj.customerId = response.RowId;
+                styleData.set(response.RowId.toString(),obj);
+                settabledata(styleData);
+              }
+              else{
+                // swal(response.Message);
+                swal("Please Retry Again");
+              }
+          },
+          complete:function(response){
+            $(".preloader").hide();
+            // console.log("after");
+          }
+      });
+  }
+
+});
+
+//This function is created For Update Style Data
+$('#updatebtncustomerstyle').on('click',function(event){
+  event.preventDefault();
+  var customerId = $("#customerId").val();
+  var cfname = $("#cfname").val();
+  var clname = $("#clname").val();
+  var cemail = $("#cemail").val();
+  var cdob = $("#cdob").val();
+  var cmobile = $("#cmobile").val();
+  // $("#clandline").val(AllData.landline);
+  var ccity = $("#ccity").val();
+  var cstate = $("#cstate").val();
+  var ccountry = $("#ccountry").val();
+  var caddress = $("#caddress").val();
+  var cgender = $("#cgender").val();
+  var cpassword = $("#cpassword").val();
+  if(cfname===""||clname===""||cemail===""||
+  cdob===""||cmobile===""||ccity===""||cstate===""||ccountry===""||caddress===""||cgender===""||cpassword===""){
+    swal("Parameter Missing");
+  }
+  else {
+  var obj = {
+    customerId: customerId,
+    firstName:cfname,
+    lastName:clname,
+     email:cemail,
+     date_birth:cdob,
+      mobile:cmobile,
+       landline:'0',
+        city:ccity,
+         state:cstate,
+          country:ccountry,
+           address:caddress,
+            isMale:cgender,
+             password:cpassword,
+              latitude:'0',
+               longitude:'0',
+                landmark:'',
+                 isActive:'1',
+                  issocial:'1'
+    };
+  $.ajax({
+      url:api_url+'editcustomer.php',
+      type:'POST',
+      data:obj,
+      dataType:'json',
+      beforeSend: function() {
+            $(".preloader").show();
+            // console.log("before");
+      },
+      success:function(response){
+          if(response.Responsecode==200){
+          $("#customerstyletable").show();
+          $("#customerdata").hide();
+           styleData.set(customerId,obj);
+           settabledata(styleData);
+            swal(response.Message);
+           }
+           else{
+             // swal(response.Message);
+             swal("Please Retry Again");
+           }
+      },
+      complete:function(response){
+
+        // console.log("after");
+        $(".preloader").hide();
+      }
+  });
+}
+});
+
+// This function is created For Remove Button
+function removeStyle(id){
+  $.ajax({
+      url:api_url+'deletecustomer.php',
+      type:'POST',
+      data:{
+        customerId:id
+      },
+      dataType:'json',
+      beforeSend: function() {
+            $(".preloader").show();
+            // console.log("before");
+      },
+      success:function(response){
+        if(response.Responsecode==200){
+          $("#customerstyletable").show();
+          $("#customerdata").hide();
+          styleData.delete(id.toString());
+          settabledata(styleData);
+          swal(response.Message);
+        }
+        else{
+          // swal(response.Message);
+            swal("Already Used Can't Delete");
+        }
+      },
+      complete:function(response){
+
+        // console.log("after");
+        $(".preloader").hide();
+      }
+  });
 }

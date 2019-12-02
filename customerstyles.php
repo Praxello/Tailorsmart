@@ -94,7 +94,7 @@ $employeeName = $_SESSION['employeeName'];
                           <input type="text" class="form-control" id="styletitle"  title="Enter Title"/>
                         </div>
                       </div>
-                        <!-- <div class="col-sm-4">
+                        <div class="col-sm-4">
                           <div class="form-group required">
                             <label class="control-label">Status</label>
                             <select  class="form-control" id="stylestatus" style="width:100%;">
@@ -104,7 +104,7 @@ $employeeName = $_SESSION['employeeName'];
                             </select>
 
                           </div>
-                        </div> -->
+                        </div>
                         <div class="col-sm-4">
 
                               <div class="form-group">

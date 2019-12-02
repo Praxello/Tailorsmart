@@ -50,7 +50,12 @@ $employeeName = $_SESSION['employeeName'];
                 <div class="row" id="customerstyletable" style="display:block;">
                     <div class="col-12">
                         <div class="card">
-
+                          <div class="row">
+                            <div class="col-md-12">
+                              <button type="button" id="button1" class="btn btn-success" onclick="addStyle()" style="float:right"> New Customer</button>
+                              <div id="data"></div>
+                          </div>
+                          </div>
                             <div class="card-body">
 
                                 <div class="table-responsive m-t-40">
@@ -75,63 +80,118 @@ $employeeName = $_SESSION['employeeName'];
                         </div>
                     </div>
                 </div>
+
                 <div class="row" id="customerdata" style="display:none;">
-                  <div class="col-sm-12">
+                              <input type="hidden" id="customerId" />
+                  <div class="col-sm-12" id="formcustomer" style="display:none;">
                     <div class="card">
+
                       <div class="row">
-                      <input type="hidden" id="customerId" />
-                      <div class="col-sm-4">
-                        <h4 class="card-title">Customer Name/ Email</h4>
-                        <h6 class="card-subtitle"><span id="customername"></span> &nbsp;&nbsp;&nbsp;<span id="custEmail"></span></h6>
+
+                        <div class="col-sm-4">
+                          <div class="form-group required">
+                            <label class="control-label">First Name</label>
+                            <input type="text" class="form-control" id="cfname"  title="Enter First Name"/>
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group required">
+                            <label class="control-label">Last Name</label>
+                            <input type="text" class="form-control" id="clname"  title="Enter Last Name"/>
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group required">
+                            <label class="control-label">Email</label>
+                            <input type="email" class="form-control" id="cemail"  title="Enter Email"/>
+                          </div>
+                        </div>
                       </div>
+                      <div class="row">
+
                         <div class="col-sm-4">
-                          <h4 class="card-title">Customer contact number</h4>
-                          <h6 class="card-subtitle"><span id="mobilenumber"></span></h6>
+                          <div class="form-group required">
+                            <label class="control-label">Birth Date</label>
+                            <input type="date" class="form-control" id="cdob"  title="Enter Birth Date"/>
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group required">
+                            <label class="control-label">Mobile</label>
+                            <input type="text" class="form-control" id="cmobile"  title="Enter Mobile"/>
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group required">
+                            <label class="control-label">Gender</label>
+
+                            <select  class="form-control" id="cgender" style="width:100%;">
+                              <option value="">Select Gender</option>
+                              <option value="0">Male</option>
+                              <option value="1">Female</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+
+                        <div class="col-sm-4">
+                          <div class="form-group required">
+                            <label class="control-label">City</label>
+                            <input type="text" class="form-control" id="ccity"  title="Enter City"/>
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group required">
+                            <label class="control-label">State</label>
+                            <input type="text" class="form-control" id="cstate"  title="Enter State"/>
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group required">
+                            <label class="control-label">Country</label>
+                            <input type="text" class="form-control" id="ccountry"  title="Enter Country"/>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+
+                        <div class="col-sm-8">
+                          <div class="form-group required">
+                            <label class="control-label">Address</label>
+                            <input type="text" class="form-control" id="caddress"  title="Enter Address"/>
+                          </div>
                         </div>
 
                         <div class="col-sm-4">
-                          <h4 class="card-title">Address</h4>
-                          <h6 class="card-subtitle"><span id="custAddress"></span></h6>
+                          <div class="form-group required">
+                            <label class="control-label">Password</label>
+                            <input type="text" class="form-control" id="cpassword"  title="Enter Password"/>
+                          </div>
                         </div>
+                      </div>
+                        <div class="row">
+                          <div class="col-sm-4">
 
-
-                          <!-- <div class="col-sm-4">
-                            <h4 class="card-title">Email</h4>
-                            <h6 class="card-subtitle"><span id="custEmail"></span></h6>
-                          </div> -->
+                                <div class="form-group">
+                                <div style="padding-top:32px"></div>
+                              <button class="btn btn-success" id="savebtncustomerstyle"  >Save</button>
+                              <button class="btn btn-success" id="updatebtncustomerstyle" style="display:none;">Update</button>
+                              <button class="btn btn-secondary" id="reloadbtn">Back</button>
+                            </div>
+                          </div>
                       </div>
                     </div>
                   </div>
 
-                    <div class="col-sm-12">
+                    <div class="col-sm-12" id="formmeasure" style="display:none;">
                     <div class="row" >
-                    <!-- <div class="col-12">
-                        <div class="card">
 
-                            <div class="card-body">
-
-                                <div class="table-responsive m-t-40">
-                                    <table id="productTable" class="display nowrap table table-hover  table-bordered">
-                                        <thead>
-                                            <tr>
-
-                                                <th>Product Image </th>
-                                                <th>Product Title</th>
-                                                <th>Price</th>
-                                                <th>Action </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="productlist">
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
                     <div class="col-12">
                         <div class="card">
                           <div class="row">
                             <div class="col-md-12">
+                              <button class="btn btn-secondary" id="reloadbtn1" style="float:left">Back</button>
                               <button type="button" id="saveMeasurementsData1" class="btn btn-success" style="float:right"> SAVE MEASUREMENT</button>
 
                           </div>
