@@ -64,7 +64,7 @@ $('#saveFabricsData').on('click', function(event) {
     for(var i=0;i<fabrics_TableData.length;i++){
         fabricPrice +=parseInt(fabrics_TableData[i].price);
         fabarrhtml += (i + 1) + " " +fabrics_TableData[i].Title;
-        fabarrhtml += " -" + fabrics_TableData[i].price;
+        fabarrhtml += " -" + fabrics_TableData[i].price+"-"+fabrics_TableData[i].skuno;
         fabarrhtml += "</br >";
     }
     
@@ -81,7 +81,6 @@ $('#saveFabricsData').on('click', function(event) {
         };
     postdata = JSON.stringify(postdata);
     var rowId =  $('#fabric_row').val();
-    console.log(rowId);
     $('#productTable tr:nth-child(' + rowId + ') td:nth-child(3)').html(fabricPrice);
     $('#productTable tr:nth-child(' + rowId + ') td:nth-child(2)').html(fabarrhtml);
    addPrice(updateDetails);
@@ -126,7 +125,8 @@ function getMeasure() {
         TableData[row] = {
             "fabricid": $(this).val(),
             "Title": $(this).closest('td').prev().prev().prev().text(),
-            "price": $(this).closest('td').prev().text()    
+            "price": $(this).closest('td').prev().text(),
+            "skuno": $(this).closest('td').prev().prev().text()    
         }
     });
     return TableData;

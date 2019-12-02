@@ -79,13 +79,14 @@ function editcustomerappointmentdata(id) {
                 if (Allitemdata[i].Fabrics != null) {
                     html += '<tr>';
                     selectfabriclen = Allitemdata[i].Fabrics.length;
+                    console.log(Allitemdata[i].Fabrics);
                     html += '<td style="color: orange;font-weight: bolder;">' + Allitemdata[i].Product.productTitle + '</td>';
-                    html += '<td>' + Allitemdata[i].Fabrics[0].fabricTitle + ' <font color="green"><u>' + Allitemdata[i].Fabrics[0].colorName + '</u></font></td>';
+                    html += '<td>' + Allitemdata[i].Fabrics[0].fabricTitle + '-' + Allitemdata[i].Fabrics[0].skuNo + ' <font color="green"><u>' + Allitemdata[i].Fabrics[0].colorName + '</u></font></td>';
                     for (var j = 1; j < selectfabriclen; j++) {
                         // console.log(Allitemdata[i].Fabrics[j]);
                         html += '<tr>';
                         html += '<td> </td>';
-                        html += '<td>' + Allitemdata[i].Fabrics[j].fabricTitle + ' <font color="green"><u> ' + Allitemdata[i].Fabrics[j].colorName + '</u></font></td>';
+                        html += '<td>' + Allitemdata[i].Fabrics[j].fabricTitle + '-' + Allitemdata[i].Fabrics[j].skuNo + ' <font color="green"><u> ' + Allitemdata[i].Fabrics[j].colorName + '</u></font></td>';
                         html += '</tr>';
                     }
                 } else {

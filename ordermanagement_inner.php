@@ -11,6 +11,9 @@
         <li class="nav-item">
             <a class="nav-link" data-toggle="tab" href="#OrderStatus"><i class="fa fa fa-rupee"></i>Order Status</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#appointments"><i class="fa fa fa-rupee"></i>Appointments</a>
+        </li>
     </ul>
     <div class="tab-content">
         <div id="productHome" class="tab-pane active"><br>
@@ -264,8 +267,62 @@
                     </div>
                 </div>
         </div>
-    </div>
+        <div id="appointments" class="tab-pane"><br>
+            <div class="card">
 
+                <div class="table-responsive m-t-40">
+
+                    <table class="table table-bordered appointTable">
+                        <thead>
+                            <tr>
+
+                                <th>Customer Name</th>
+                                <th>Appointment Date</th>
+                                <th style='display:none;'>Date</th>
+                                <th>Slot Time</th>
+                                <th>Address</th>
+                                <th>City</th>
+                                <th>Contact No</th>
+                                <th>Employee Name</th>
+                                <th>Status</th>
+                                <th style='display:none;'>Appointment ID</th>
+                                <th>Action </th>
+                            </tr>
+                        </thead>
+                        <tbody id="appointData">
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <div class="col-sm-3"></div>
+            <div class="col-6 app" style="display:none;">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Product Details</h4>
+
+                                <div class="table-responsive m-t-40">
+                                    <table id="appointdetailtbl" class="display nowrap table">
+                                        <thead>
+                                            <tr>
+                                              
+                                                <th>Product Title</th>
+                                                <th>Fabrics Title</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody id="appointdetailtbldata">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3"></div>
+        </div>
+    </div>
+    <?php include 'appointment_script.php';?>
     <?php include 'add_measurment.php'; ?>
     <?php include 'add_styles.php'; ?>
     <?php include 'add_fabrics.php'; ?>

@@ -149,9 +149,10 @@ if(isset($_REQUEST['aid']))
                                         <thead>
                                             <tr>
                                                 <th>Order Id</th>
+                                                  <th>Customer</th>
                                                 <th>Order Amount</th>
                                                 <th>Recieved Amount</th>
-                                                <!-- <th>Promo code</th> -->
+                                              
                                                 <th>Order Date</th>
                                                 <th style="display:none;">Purchase</th>
                                                 <th>Order Status</th>
