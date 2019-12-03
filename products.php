@@ -339,13 +339,13 @@ if(isset($_REQUEST['pid']))
                                               <div class="form-group">
                                                 <div class="card-body" >
 
-                                                    <div class="table-responsive m-t-40" style="overflow:auto;max-height: 521px;">
+                                                    <div class="table-responsive m-t-40" style="">
                                                         <table id="measurementmaptbl" class="display nowrap table table-hover  table-bordered" >
                                                             <thead>
                                                                 <tr>
                                                                     <th>Select</th>
-                                                          <th>Sequence Number</th>
-                                                                    <th>Measurement</th>
+                                                                    <th>Sequence Number</th>
+                                                                    <th style="text-align: center;">Measurement</th>
 
                                                                 </tr>
                                                             </thead>
