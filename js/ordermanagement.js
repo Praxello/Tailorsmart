@@ -169,7 +169,7 @@ function getOrdersOfCustomer() {
                             }
                             customerExpectedDate = getDate(response.Data[i].OrderDetails.customerExpectedDate);
                             FinalDeliveryDate = getDate(response.Data[i].OrderDetails.FinalDeliveryDate);
-                            responseData += "<tr>";
+                            responseData += "<tr id=" + response.Data[i].OrderDetails.orderId + ">";
                             responseData += "<td>" + response.Data[i].OrderDetails.orderId + "</td>";
                             responseData += "<td>" + custName.firstName + ' ' + custName.lastName + "</td>";
                             responseData += "<td>" + parseFloat(response.Data[i].OrderDetails.amount).toLocaleString() + "</td>";
@@ -184,6 +184,7 @@ function getOrdersOfCustomer() {
                             responseData += "<td>" + EmpName + "</td>";
                             responseData += "<td><div class='btn-group' role='group' aria-label='Basic example'>";
                             responseData += "<button class='btn btn-success btn-sm' data-toggle='tooltip' data-placement='top' title='Edit' onclick='showData(\"" + response.Data[i].OrderDetails.orderId + "\",\"" + response.Data[i].OrderDetails.customerId + "\",\"" + (i) + "\")'><i class='fa fa-edit'></i></button>";
+                            responseData += '<button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Remove Order" onclick="removeOrder(' + response.Data[i].OrderDetails.orderId + ')"><i class="fa fa-trash"></i></button>';
                             responseData += "</div></td></tr>";
                         }
                     } else if (aid == "2") {
@@ -215,7 +216,7 @@ function getOrdersOfCustomer() {
                             }
                             customerExpectedDate = getDate(response.Data[i].OrderDetails.customerExpectedDate);
                             FinalDeliveryDate = getDate(response.Data[i].OrderDetails.FinalDeliveryDate);
-                            responseData += "<tr>";
+                            responseData += "<tr id=" + response.Data[i].OrderDetails.orderId + ">";
                             responseData += "<td>" + response.Data[i].OrderDetails.orderId + "</td>";
                             responseData += "<td>" + custName.firstName + ' ' + custName.lastName + "</td>";
                             responseData += "<td>" + parseFloat(response.Data[i].OrderDetails.amount).toLocaleString() + "</td>";
@@ -230,6 +231,7 @@ function getOrdersOfCustomer() {
                             responseData += "<td>" + EmpName + "</td>";
                             responseData += "<td><div class='btn-group' role='group' aria-label='Basic example'>";
                             responseData += "<button class='btn btn-success btn-sm' data-toggle='tooltip' data-placement='top' title='Edit' onclick='showData(\"" + response.Data[i].OrderDetails.orderId + "\",\"" + response.Data[i].OrderDetails.customerId + "\",\"" + (i) + "\")'><i class='fa fa-edit'></i></button>";
+                            responseData += '<button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Remove Order" onclick="removeOrder(' + response.Data[i].OrderDetails.orderId + ')"><i class="fa fa-trash"></i></button>';
                             responseData += "</div></td></tr>";
                         }
                     } else {
@@ -259,7 +261,7 @@ function getOrdersOfCustomer() {
                         }
                         customerExpectedDate = getDate(response.Data[i].OrderDetails.customerExpectedDate);
                         FinalDeliveryDate = getDate(response.Data[i].OrderDetails.FinalDeliveryDate);
-                        responseData += "<tr>";
+                        responseData += "<tr id=" + response.Data[i].OrderDetails.orderId + ">";
                         responseData += "<td>" + response.Data[i].OrderDetails.orderId + "</td>";
                         responseData += "<td>" + custName.firstName + ' ' + custName.lastName + "</td>";
                         responseData += "<td>" + parseFloat(response.Data[i].OrderDetails.amount).toLocaleString() + "</td>";
@@ -274,6 +276,7 @@ function getOrdersOfCustomer() {
                         responseData += "<td>" + EmpName + "</td>";
                         responseData += "<td><div class='btn-group' role='group' aria-label='Basic example'>";
                         responseData += "<button class='btn btn-success btn-sm' data-toggle='tooltip' data-placement='top' title='Edit' onclick='showData(\"" + response.Data[i].OrderDetails.orderId + "\",\"" + response.Data[i].OrderDetails.customerId + "\",\"" + (i) + "\")'><i class='fa fa-edit'></i></button>";
+                        responseData += '<button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Remove Order" onclick="removeOrder(' + response.Data[i].OrderDetails.orderId + ')"><i class="fa fa-trash"></i></button>';
                         responseData += "</div></td></tr>";
                     }
                 }
@@ -302,170 +305,7 @@ function getOrdersOfCustomer() {
         }
     });
 }
-// function getOrdersOfCustomer() {
-//     var aid = $("#aid").val();
-//     $('#customerOrdersDataTable').dataTable().fnDestroy();
-//     $("#customerOrdersData").empty();
-//     $.ajax({
-//         url: api_url + 'getallcustomerorders.php',
-//         type: 'POST',
-//         async: false,
-//         dataType: 'json',
-//         beforeSend: function() {
-//             $(".preloader").show();
-//         },
-//         success: function(response) {
-//             if (response.Data != null) {
-//                 var count = response.Data.length;
-//                 const orders = response.Data;
-//                 customerOrders = [];
-//                 customerOrders = [...orders];
-//                 var orderStatus = null,
-//                     isConfirmed = null,
-//                     customerExpectedDate = null,
-//                     FinalDeliveryDate = null,
-//                     amount = 0,
-//                     rec_amount = 0,
-//                     EmpName = '-';
-//                 $('#customerOrdersBlock').show();
-//                 var responseData = "";
-//                 for (var i = 0; i < count; i++) {
-//
-//                     orderStatus = statusMap.get(response.Data[i].OrderDetails.orderStatus);
-//                     if (aid == "1")
-//                     {
-//
-//                         if (response.Data[i].OrderDetails.orderStatus == 0)
-//                         {
-//                             amount = amount + parseFloat(response.Data[i].OrderDetails.amount);
-//                             if (response.Data[i].OrderDetails.RecievedAmount != null) {
-//                                 rec_amount = rec_amount + parseFloat(response.Data[i].OrderDetails.RecievedAmount);
-//                             } else {
-//                                 response.Data[i].OrderDetails.RecievedAmount = '-';
-//                             }
-//
-//
-//                             isConfirmed = confirmationStatus.get(response.Data[i].OrderDetails.isConfirmed);
-//                             if (response.Data[i].OrderDetails.promoCode == null) {
-//                                 response.Data[i].OrderDetails.promoCode = '-';
-//                             }
-//                             if (EmployeeData.has(response.Data[i].OrderDetails.employeeId)) {
-//                                 EmpName = EmployeeData.get(response.Data[i].OrderDetails.employeeId);
-//                             }
-//                             customerExpectedDate = getDate(response.Data[i].OrderDetails.customerExpectedDate);
-//                             FinalDeliveryDate = getDate(response.Data[i].OrderDetails.FinalDeliveryDate);
-//                             responseData += "<tr>";
-//                             responseData += "<td>" + response.Data[i].OrderDetails.orderId + "</td>";
-//                             responseData += "<td>" + response.Data[i].OrderDetails.amount + "</td>";
-//                             responseData += "<td>" + response.Data[i].OrderDetails.RecievedAmount + "</td>";
-//                             responseData += "<td>" + response.Data[i].OrderDetails.promoCode + "</td>";
-//                             responseData += "<td>" + getDate(response.Data[i].OrderDetails.purchaseDateTime) + "</td>";
-//                             responseData += "<td style='display:none;'>" + response.Data[i].OrderDetails.purchaseDateTime + "</td>";
-//                             responseData += "<td>" + orderStatus + "</td>";
-//                             responseData += "<td>" + isConfirmed + "</td>";
-//                             responseData += "<td>" + customerExpectedDate + "</td>";
-//                             responseData += "<td>" + FinalDeliveryDate + "</td>";
-//                             responseData += "<td>" + EmpName + "</td>";
-//                             responseData += "<td><div class='btn-group' role='group' aria-label='Basic example'>";
-//                             responseData += "<button class='btn btn-success btn-sm' data-toggle='tooltip' data-placement='top' title='Edit' onclick='showData(\"" + response.Data[i].OrderDetails.orderId + "\",\"" + response.Data[i].OrderDetails.customerId + "\",\"" + (i) + "\")'><i class='fa fa-edit'></i></button>";
-//                             responseData += "</div></td></tr>";
-//                         }
-//                    }
-//                    else if (aid == "2") {
-//                        if (response.Data[i].OrderDetails.orderStatus == 6) {
-//
-//                          amount = amount + parseFloat(response.Data[i].OrderDetails.amount);
-//                          if (response.Data[i].OrderDetails.RecievedAmount != null) {
-//                              rec_amount = rec_amount + parseFloat(response.Data[i].OrderDetails.RecievedAmount);
-//                          } else {
-//                              response.Data[i].OrderDetails.RecievedAmount = '-';
-//                          }
-//
-//
-//                          isConfirmed = confirmationStatus.get(response.Data[i].OrderDetails.isConfirmed);
-//                          if (response.Data[i].OrderDetails.promoCode == null) {
-//                              response.Data[i].OrderDetails.promoCode = '-';
-//                          }
-//                          if (EmployeeData.has(response.Data[i].OrderDetails.employeeId)) {
-//                              EmpName = EmployeeData.get(response.Data[i].OrderDetails.employeeId);
-//                          }
-//                          customerExpectedDate = getDate(response.Data[i].OrderDetails.customerExpectedDate);
-//                          FinalDeliveryDate = getDate(response.Data[i].OrderDetails.FinalDeliveryDate);
-//                          responseData += "<tr>";
-//                          responseData += "<td>" + response.Data[i].OrderDetails.orderId + "</td>";
-//                          responseData += "<td>" + response.Data[i].OrderDetails.amount + "</td>";
-//                          responseData += "<td>" + response.Data[i].OrderDetails.RecievedAmount + "</td>";
-//                          responseData += "<td>" + response.Data[i].OrderDetails.promoCode + "</td>";
-//                          responseData += "<td>" + getDate(response.Data[i].OrderDetails.purchaseDateTime) + "</td>";
-//                          responseData += "<td style='display:none;'>" + response.Data[i].OrderDetails.purchaseDateTime + "</td>";
-//                          responseData += "<td>" + orderStatus + "</td>";
-//                          responseData += "<td>" + isConfirmed + "</td>";
-//                          responseData += "<td>" + customerExpectedDate + "</td>";
-//                          responseData += "<td>" + FinalDeliveryDate + "</td>";
-//                          responseData += "<td>" + EmpName + "</td>";
-//                          responseData += "<td><div class='btn-group' role='group' aria-label='Basic example'>";
-//                          responseData += "<button class='btn btn-success btn-sm' data-toggle='tooltip' data-placement='top' title='Edit' onclick='showData(\"" + response.Data[i].OrderDetails.orderId + "\",\"" + response.Data[i].OrderDetails.customerId + "\",\"" + (i) + "\")'><i class='fa fa-edit'></i></button>";
-//                          responseData += "</div></td></tr>";
-//                        }
-//                    } else {
-//                      amount = amount + parseFloat(response.Data[i].OrderDetails.amount);
-//                      if (response.Data[i].OrderDetails.RecievedAmount != null) {
-//                          rec_amount = rec_amount + parseFloat(response.Data[i].OrderDetails.RecievedAmount);
-//                      } else {
-//                          response.Data[i].OrderDetails.RecievedAmount = '-';
-//                      }
-//
-//
-//                      isConfirmed = confirmationStatus.get(response.Data[i].OrderDetails.isConfirmed);
-//                      if (response.Data[i].OrderDetails.promoCode == null) {
-//                          response.Data[i].OrderDetails.promoCode = '-';
-//                      }
-//                      if (EmployeeData.has(response.Data[i].OrderDetails.employeeId)) {
-//                          EmpName = EmployeeData.get(response.Data[i].OrderDetails.employeeId);
-//                      }
-//                      customerExpectedDate = getDate(response.Data[i].OrderDetails.customerExpectedDate);
-//                      FinalDeliveryDate = getDate(response.Data[i].OrderDetails.FinalDeliveryDate);
-//                      responseData += "<tr>";
-//                      responseData += "<td>" + response.Data[i].OrderDetails.orderId + "</td>";
-//                      responseData += "<td>" + response.Data[i].OrderDetails.amount + "</td>";
-//                      responseData += "<td>" + response.Data[i].OrderDetails.RecievedAmount + "</td>";
-//                      responseData += "<td>" + response.Data[i].OrderDetails.promoCode + "</td>";
-//                      responseData += "<td>" + getDate(response.Data[i].OrderDetails.purchaseDateTime) + "</td>";
-//                      responseData += "<td style='display:none;'>" + response.Data[i].OrderDetails.purchaseDateTime + "</td>";
-//                      responseData += "<td>" + orderStatus + "</td>";
-//                      responseData += "<td>" + isConfirmed + "</td>";
-//                      responseData += "<td>" + customerExpectedDate + "</td>";
-//                      responseData += "<td>" + FinalDeliveryDate + "</td>";
-//                      responseData += "<td>" + EmpName + "</td>";
-//                      responseData += "<td><div class='btn-group' role='group' aria-label='Basic example'>";
-//                      responseData += "<button class='btn btn-success btn-sm' data-toggle='tooltip' data-placement='top' title='Edit' onclick='showData(\"" + response.Data[i].OrderDetails.orderId + "\",\"" + response.Data[i].OrderDetails.customerId + "\",\"" + (i) + "\")'><i class='fa fa-edit'></i></button>";
-//                      responseData += "</div></td></tr>";
-//                    }
-//                 }
-//                 $("#customerOrdersData").html(responseData);
-//                 $('#amt_total').html(amount.toLocaleString());
-//                 $('#total_order_amount').html(amount.toLocaleString());
-//                 $('#recieved_total').html(rec_amount.toLocaleString());
-//                 $('#cash').html(rec_amount.toLocaleString());
-//                 $('#orderscount').html(count);
-//                 table = $('#customerOrdersDataTable').DataTable({
-//                     searching: true,
-//                     retrieve: true,
-//                     bPaginate: $('tbody tr').length > 10,
-//                     order: [],
-//                     columnDefs: [{ orderable: false, targets: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] }],
-//                     dom: 'Bfrtip',
-//                     buttons: ['copy', 'csv', 'excel', 'pdf'],
-//                     destroy: true
-//                 });
-//             }
-//
-//         },
-//         complete: function(response) {
-//             $(".preloader").hide();
-//         }
-//     });
-// }
+
 
 function getDate(date) {
     var output = '-';
@@ -549,4 +389,27 @@ function showData(orderid, customerId, rowId) {
     $('#loadNewPage').load('ordermanagement_inner.php');
     $("#productData").empty();
 
+}
+
+function removeOrder(orderId) {
+    var r = confirm("Are you sure to remove this Order");
+    if (r === true) {
+        $.ajax({
+            url: api_url + 'deleteorder.php',
+            type: 'POST',
+            dataType: 'json',
+            data: { orderId: orderId },
+            beforeSend: function() {
+                $(".preloader").show();
+            },
+            success: function(response) {
+                alert(response.Message);
+                $('#' + orderId).remove();
+                getOrdersOfCustomer();
+            },
+            complete: function(response) {
+                $(".preloader").hide();
+            }
+        })
+    }
 }

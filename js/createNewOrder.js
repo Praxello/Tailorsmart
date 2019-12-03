@@ -134,6 +134,7 @@ function removeItem(orderItemId, price) {
             data: removeData,
             dataType: 'json',
             success: function(response) {
+                alert(response.Message);
                 $('#' + orderItemId).remove();
                 getOrdersOfCustomer(customerId_g);
                 $('#customerOrdersBlock').hide();

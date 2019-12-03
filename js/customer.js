@@ -152,7 +152,7 @@ function getOrdersOfCustomer(customerId) {
                     }
                     customerExpectedDate = getDate(response.Data[i].OrderDetails.customerExpectedDate);
                     FinalDeliveryDate = getDate(response.Data[i].OrderDetails.FinalDeliveryDate);
-                    responseData += "<tr>";
+                    responseData += "<tr id=" + response.Data[i].OrderDetails.orderId + ">";
                     responseData += "<td>" + parseFloat(response.Data[i].OrderDetails.amount).toLocaleString() + "</td>";
                     responseData += "<td>" + cash_amount.toLocaleString() + "</td>";
                     responseData += "<td>" + orderStatus + "</td>";
@@ -162,6 +162,7 @@ function getOrdersOfCustomer(customerId) {
                     responseData += "<td>" + EmpName + "</td>";
                     responseData += "<td><div class='btn-group' role='group' aria-label='Basic example'>";
                     responseData += '<button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="showData(' + response.Data[i].OrderDetails.orderId + ',' + (i) + ')"><i class="fa fa-edit"></i></button>';
+                    responseData += '<button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Remove Order" onclick="removeOrder(' + response.Data[i].OrderDetails.orderId + ')"><i class="fa fa-trash"></i></button>';
                     responseData += "</div></td></tr>";
                 }
                 $("#customerOrdersData").html(responseData);
@@ -327,3 +328,26 @@ $('#createOrder').on('click', function(event) {
         })
     }
 });
+
+function removeOrder(orderId) {
+    var r = confirm("Are you sure to remove this Order");
+    if (r === true) {
+        $.ajax({
+            url: api_url + 'deleteorder.php',
+            type: 'POST',
+            dataType: 'json',
+            data: { orderId: orderId },
+            beforeSend: function() {
+                $(".preloader").show();
+            },
+            success: function(response) {
+                alert(response.Message);
+                $('#' + orderId).remove();
+                getOrdersOfCustomer(customerId_g);
+            },
+            complete: function(response) {
+                $(".preloader").hide();
+            }
+        })
+    }
+}
