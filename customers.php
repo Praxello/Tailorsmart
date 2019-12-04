@@ -155,6 +155,7 @@ if (isset($_SESSION['employeeId'])) {
         <!--Custom JavaScript -->
         <script src="js/custom.min.js"></script>
         <script src="js/customer.js"></script>
+        <script src="js/getpushnotification.js"></script>
         <script src="js/lib/datatables/datatables.min.js"></script>
         <!-- <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
     <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
