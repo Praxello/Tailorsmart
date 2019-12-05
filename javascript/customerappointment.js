@@ -425,6 +425,7 @@ function updateAppointmentDetails() {
                   $("#customerappointdetailtbl").hide();
                   $("#customerappointtbl").show();
                   var AllData = styleData.get(appointmentId.toString());
+                  // console.log(AllData);
                   obj.address = AllData.address;
                   obj.city = AllData.city;
                   obj.customerId = AllData.customerId;
@@ -436,7 +437,9 @@ function updateAppointmentDetails() {
                   obj.mobile = AllData.mobile;
                   obj.productIds = AllData.productIds;
                   obj.slotTime = AllData.slotTime;
-
+                  obj.createdAT =AllData.createdAT;
+                  var msg = "Dear "+AllData.firstName+" "+AllData.lastname+", your appointment is confirmed. "+AllData.employeename+" will visit your place";
+                  getpushnotification(AllData.customerId,msg);
                   styleData.set(appointmentId.toString(), obj);
                   settabledata(styleData);
               } else {

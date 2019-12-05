@@ -45,13 +45,13 @@ $post = array(
 
         $headers = array(
 
-            'Authorization: key='.'AAAA88gBrOU:APA91bHyWneAMe0taiv9ekzoqm0COt3-vvaskxZIvF3mde2SkyI1VD6UAJ1BQZQ5TY-NtYcDo6NGAhU2IxAvEbaqCGcdK9MDgVUGdHE0p-6-wyGRdvoCgdeG3paF_ShAu0Ul20wvkAC_',
+            'Authorization: key='.'AAAAS83s1G0:APA91bFFqtfJPrE0JRh-v-xfjpDtJXbfFPnmrBsqqoxtcxrLnT0Sth_QQLjV-tCAsL5hZS8nKe3YBeTouDd1I4BMVinWC8MC2g9oP_2WVRiXAMgVmod2RAu9gIyVXY5RLOnDFuEb6jha',
 
             'Content-Type: application/json'
 
         );
 
-
+		
 
         // Open connection
 
@@ -98,19 +98,19 @@ $post = array(
 
 			   }
 
-			}
+			}	
 
 
 
 // The recipient registration tokens for this notification
 
-// https://developer.android.com/google/gcm/
+// https://developer.android.com/google/gcm/    
 
 //	$ids = array('APA91bEp8jep-nelsho_hNt0I891uF93TqVsl083lr9LJqcLG9x-OT3jFJKjm-Xtc9itvWtQJy4aNSLn4ELM0R0Z-q_LkUvct1132Hvv2NfMZrqTYC8LuBePgJnwc8v_sMw1cD0dcJs_');
 
 
 
-
+			
 
 
 
@@ -118,7 +118,7 @@ $post = array(
 
         curl_close($ch);
 
-
+      
 
 
 

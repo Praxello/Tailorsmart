@@ -158,9 +158,17 @@
                      $(".preloader").show();
                },
                success: function(response) {
+                 if(response.Responsecode===200){
                    alert(response.Message);
-                  getPaymentList();
+                   getPaymentList();
                    $('#paymentLinkModal').modal('toggle');
+                   var customername=$("#custName").text();
+                   var msg = "Dear "+customername+", your payment link is created. Please check in 'My order'";
+                   // console.log(customername);
+                   // console.log(msg);
+                   getpushnotification(customerId_g,msg);
+                 }
+
                },
                complete:function(response){
                  $(".preloader").hide();
@@ -170,7 +178,7 @@
          else{
             alert("Generated link amount exceeds order amount");
          }
-
-
      });
+
+     
  </script>

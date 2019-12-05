@@ -610,6 +610,8 @@ $('#updateorderstatus').on('click', function() {
             alert(response.Message);
             getOrdersOfCustomer(customerId_g);
             $('#customerOrdersBlock').hide();
+            // var msg = "Dear <FIrstname>, your appointment is confirmed. <Sales person name> will visit your place";
+            // getpushnotification(customerId_g,msg);
         },
         complete: function(response) {
             $(".preloader").hide();
