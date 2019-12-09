@@ -119,6 +119,7 @@
         currencyCode += "<option value=" + currencyData[i].currencyCode + ">" + currencyData[i].currencyCode +"</option>";
        }
        $('#currency').html(currencyCode);
+       $('#currency').val("INR").trigger('change');
      }
      $('#savePaymentLinkData').on('click', function(event) {
          event.preventDefault();

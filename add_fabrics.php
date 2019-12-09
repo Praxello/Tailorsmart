@@ -95,10 +95,13 @@ $('#saveFabricsData').on('click', function(event) {
         },
         success: function(response) {
             alert(response.Message);
-            //  console.log(customerId_g);
-            getOrdersOfCustomer(customerId_g);
-            customerOrderDetails = customerOrders[indexRow];
-            //  console.log(customerOrderDetails);
+
+                getOrdersOfCustomer(customerId_g);
+                customerOrderDetails = [];
+                customerOrderDetails = customerOrders[indexRow];
+                OrderDetailsOfCustomer = customerOrderDetails.OrderDetails;
+                displayOrderDetails(OrderDetailsOfCustomer);
+                getPaymentList();
             $('#customerOrdersBlock').hide();
             $('#FabricsModal').modal('toggle');
         },

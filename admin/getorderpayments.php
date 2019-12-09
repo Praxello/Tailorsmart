@@ -9,7 +9,7 @@ extract($_POST);
 //customer_order_payments
 if (isset($_POST['orderid'])) {
 
-    $jobQuery = mysqli_query($conn, "select * from  customer_order_master where orderid=$orderid");
+    $jobQuery = mysqli_query($conn, "select * from  customer_order_master where orderid=$orderid ");
     if ($jobQuery != null) {
         $academicAffected = mysqli_num_rows($jobQuery);
         if ($academicAffected > 0) {
@@ -17,7 +17,7 @@ if (isset($_POST['orderid'])) {
                
 			   //now get all payment records
 			   $payments = null;
-			    $paymentQuery = mysqli_query($conn, "select * from  customer_order_payments where orderid=$orderid");
+			    $paymentQuery = mysqli_query($conn, "select * from  customer_order_payments where orderid=$orderid AND isDeleted = 0");
 				if ($paymentQuery != null) {
 					 if ($academicAffected > 0) {
 						while ($results = mysqli_fetch_assoc($paymentQuery)) {

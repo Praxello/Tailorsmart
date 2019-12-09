@@ -133,13 +133,22 @@ function removeItem(orderItemId, price) {
             type: 'POST',
             data: removeData,
             dataType: 'json',
+            beforeSend: function() {
+                $(".preloader").show();
+            },
             success: function(response) {
                 alert(response.Message);
                 $('#' + orderItemId).remove();
                 getOrdersOfCustomer(customerId_g);
-                $('#customerOrdersBlock').hide();
                 customerOrderDetails = [];
                 customerOrderDetails = customerOrders[indexRow];
+                OrderDetailsOfCustomer = customerOrderDetails.OrderDetails;
+                displayOrderDetails(OrderDetailsOfCustomer);
+                $('#customerOrdersBlock').hide();
+                getPaymentList();
+            },
+            complete: function(response) {
+                $(".preloader").hide();
             }
         });
     }
@@ -461,7 +470,7 @@ function loadFabrics(productId, orderItemId, rowId) {
 getPaymentList();
 // var totalpayment =0;
 function getPaymentList() {
-    var Orderamount = parseFloat($('#Orderamount').html());
+    var Orderamount = parseFloat(totalorderamount);
     $("#spanperror").html("<strong>Remaining Amount</strong>  <span class='badge' style='background-color: aquamarine;font-weight: bolder;'>" + Orderamount + "</span></font>");
     $("#amount").val(Orderamount);
     var empName = $('#empName').val();
@@ -473,7 +482,7 @@ function getPaymentList() {
         type: 'POST',
         data: { orderid: orderId },
         success: function(response) {
-
+            var deletedPayment = 0;
             var paymentDateTime = null;
             if (response.Data.Payments != null) {
                 var count = response.Data.Payments.length;
@@ -489,8 +498,10 @@ function getPaymentList() {
                     } else {
                         isSuceed = "<td><span class='badge badge-pill badge-danger'>pending</span></td>";
                         if (response.Data.Payments[i].isDeleted == 1) {
+                            deletedPayment += parseFloat(response.Data.Payments[i].amount);
+                            console.log(deletedPayment);
                             isDeleted = "<td><code>" + empName + "</code></td>";
-                            deleteEntry = "<a class='btn btn-primary btn-sm' title='Revert Payment' data-toggle='tooltip' href='#' onclick='updatePaymentFlag(\"" + response.Data.Payments[i].paymentId + "\",\"" + response.Data.OrderDetails.orderId + "\")'><i class='fa fa-info'></i></a>";
+                            //deleteEntry = "<a class='btn btn-primary btn-sm' title='Revert Payment' data-toggle='tooltip' href='#' onclick='updatePaymentFlag(\"" + response.Data.Payments[i].paymentId + "\",\"" + response.Data.OrderDetails.orderId + "\")'><i class='fa fa-info'></i></a>";
                         } else {
                             isDeleted = "<td><code></code></td>";
                             deleteEntry = "<a class='btn btn-danger btn-sm' title='Remove Payment' data-toggle='tooltip' href='#' onclick='removePayment(\"" + response.Data.Payments[i].paymentId + "\",\"" + response.Data.OrderDetails.orderId + "\")'><i class='fa fa-trash'></i></a>";
@@ -507,6 +518,7 @@ function getPaymentList() {
                     markup += "<td><div class='btn-group' role='group' aria-label='Basic example'>";
                     markup += deleteEntry;
                     markup += "</td></div></tr>";
+
                 }
                 $("#spanperror").html("<strong>Remaining Amount</strong> <span class='badge' style='background-color: aquamarine;font-weight: bolder;'>" + (Orderamount - parseFloat(totalpayment)) + "</span></font>");
                 $("#amount").val(Orderamount - parseFloat(totalpayment));
@@ -557,6 +569,7 @@ $('#loadfirstpage').on('click', function(e) {
 });
 
 function displayOrderDetails(orderDetails) {
+    totalorderamount = orderDetails.amount;
     $('#orderId').html(orderDetails.orderId);
     $('#Orderamount').html(orderDetails.amount);
     $('#orderStatus').html(statusMap.get(orderDetails.orderStatus));
