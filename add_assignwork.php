@@ -5,7 +5,7 @@
 
              <!-- Modal Header -->
              <div class="modal-header">
-                 <h4 class="modal-title">Assign a product</h4>
+                 <h4 class="modal-title">Assign a Sales Person</h4>
                  <h6 ><span id="assignedEmp"></span></h6>
              </div>
              <!-- Modal body -->
@@ -67,8 +67,7 @@
              },
              success: function(response) {
                  alert(response.Message);
-                //  getOrdersOfCustomer(customerId_g);
-                // $('#customerOrdersBlock').hide();
+                 $('#assignId').val(employeeid).trigger('change');
                  $('#assignWork').modal('toggle');
 
              },

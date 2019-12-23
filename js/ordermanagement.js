@@ -185,6 +185,7 @@ function getOrdersOfCustomer() {
                             responseData += "<td><div class='btn-group' role='group' aria-label='Basic example'>";
                             responseData += "<button class='btn btn-success btn-sm' data-toggle='tooltip' data-placement='top' title='Edit' onclick='showData(\"" + response.Data[i].OrderDetails.orderId + "\",\"" + response.Data[i].OrderDetails.customerId + "\",\"" + (i) + "\")'><i class='fa fa-edit'></i></button>";
                             responseData += '<button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Remove Order" onclick="removeOrder(' + response.Data[i].OrderDetails.orderId + ')"><i class="fa fa-trash"></i></button>';
+                            responseData += '<button class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Print Order" onclick="downloadPdf(' + response.Data[i].OrderDetails.orderId + ')"><i class="fa fa-file-pdf-o"></i></button>';
                             responseData += "</div></td></tr>";
                         }
                     } else if (aid == "2") {
@@ -232,6 +233,7 @@ function getOrdersOfCustomer() {
                             responseData += "<td><div class='btn-group' role='group' aria-label='Basic example'>";
                             responseData += "<button class='btn btn-success btn-sm' data-toggle='tooltip' data-placement='top' title='Edit' onclick='showData(\"" + response.Data[i].OrderDetails.orderId + "\",\"" + response.Data[i].OrderDetails.customerId + "\",\"" + (i) + "\")'><i class='fa fa-edit'></i></button>";
                             responseData += '<button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Remove Order" onclick="removeOrder(' + response.Data[i].OrderDetails.orderId + ')"><i class="fa fa-trash"></i></button>';
+                            responseData += '<button class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Print Order" onclick="downloadPdf(' + response.Data[i].OrderDetails.orderId + ')"><i class="fa fa-file-pdf-o"></i></button>';
                             responseData += "</div></td></tr>";
                         }
                     } else {
@@ -277,6 +279,7 @@ function getOrdersOfCustomer() {
                         responseData += "<td><div class='btn-group' role='group' aria-label='Basic example'>";
                         responseData += "<button class='btn btn-success btn-sm' data-toggle='tooltip' data-placement='top' title='Edit' onclick='showData(\"" + response.Data[i].OrderDetails.orderId + "\",\"" + response.Data[i].OrderDetails.customerId + "\",\"" + (i) + "\")'><i class='fa fa-edit'></i></button>";
                         responseData += '<button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Remove Order" onclick="removeOrder(' + response.Data[i].OrderDetails.orderId + ')"><i class="fa fa-trash"></i></button>';
+                        responseData += '<button class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Print Order" onclick="downloadPdf(' + response.Data[i].OrderDetails.orderId + ')"><i class="fa fa-file-pdf-o"></i></button>';
                         responseData += "</div></td></tr>";
                     }
                 }
@@ -306,6 +309,9 @@ function getOrdersOfCustomer() {
     });
 }
 
+function downloadPdf(orderId) {
+    window.open(api_url + 'generateReciept.php?orderId=' + orderId);
+}
 
 function getDate(date) {
     var output = '-';

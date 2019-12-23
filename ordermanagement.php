@@ -168,6 +168,7 @@ if(isset($_REQUEST['aid']))
                                         <tfoot>
                                         <tr>
                                                 <th></th>
+                                                <th></th>
                                                 <th id="amt_total"></th>
                                                 <th id="recieved_total"></th>
                                                 <!-- <th></th> -->
@@ -178,7 +179,7 @@ if(isset($_REQUEST['aid']))
                                                 <th> </th>
                                                 <th>  </th>
                                                 <th> </th>
-                                                <th></th>
+                                              
                                             </tr>
                                         </tfoot>
                                     </table>
