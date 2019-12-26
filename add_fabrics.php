@@ -60,14 +60,21 @@ $('#saveFabricsData').on('click', function(event) {
     event.preventDefault();
     fabrics_TableData = getMeasure();
     var fabricPrice = 0;
-    var fabarrhtml="";
-    for(var i=0;i<fabrics_TableData.length;i++){
+    var fabarrhtml="<td><table>";
+    // for(var i=0;i<fabrics_TableData.length;i++){
+    //     fabricPrice +=parseInt(fabrics_TableData[i].price);
+    //     fabarrhtml += (i + 1) + " " +fabrics_TableData[i].Title;
+    //     fabarrhtml += " -" + fabrics_TableData[i].price+"-"+fabrics_TableData[i].skuno;
+    //     fabarrhtml += "</br >";
+    // }
+    for (var i=0;i<fabrics_TableData.length;i++) {
         fabricPrice +=parseInt(fabrics_TableData[i].price);
-        fabarrhtml += (i + 1) + " " +fabrics_TableData[i].Title;
-        fabarrhtml += " -" + fabrics_TableData[i].price+"-"+fabrics_TableData[i].skuno;
-        fabarrhtml += "</br >";
-    }
-    
+                    fabarrhtml += '<tr><td><img class="img-fluid img-thumbnail mb-10" src="mobileimages/fabric/300x300/' + fabrics_TableData[i].skuno + '.jpg" alt="" height="30px" width="30px"></img></td>';
+                    fabarrhtml += "<td>" + fabrics_TableData[i].Title + "</td><td>";
+                    fabarrhtml += "</td><td>" + fabrics_TableData[i].price + "</td><td>" + fabrics_TableData[i].skuno;
+                    fabarrhtml += "</td></tr>";
+                }
+                fabarrhtml += "</td></table>"
     var postdata = {
         "orderitemid": fabric_orderItemId,
         "fabrics": fabrics_TableData

@@ -18,8 +18,8 @@ $employeeName = $_SESSION['employeeName'];
     <link href="css/lib/bootstrap/asterisks.css" rel="stylesheet">
     <link href="css/helper.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-      <link href="css/lib/dropzone/dropzone.css" rel="stylesheet">
-    <!-- <link href="dropzone/dropzone.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="dropzone/dropzone.css">
+        <link rel="stylesheet" href="dropzone/style.css">
 
 </head>
 
@@ -47,7 +47,19 @@ $employeeName = $_SESSION['employeeName'];
             </div>
 
             <div class="container-fluid">
-
+            <div class="row">
+            <div class="col-12">
+    <div class="card">
+        <div class="card-header">
+            <h3>Add Catlog Images</h3></div>
+        <div class="card-body">
+            <form action="admin/upload.php" class="dropzone" id="myAwesomeDropzone">
+             
+            </form>
+        </div>
+    </div>
+</div>
+</div>
                 <!-- Start Page Content -->
            <div class="row" id="displayimgall" style="display:block;">
              <div class="col-12">
@@ -60,7 +72,7 @@ $employeeName = $_SESSION['employeeName'];
 
                            foreach($ffs as $ff){
                                if($ff != '.' && $ff != '..'){ ?>
-                                     <img data-gallery-tag="Products" class="gallery-item" src="catlogimages/product/<?php echo $ff;?>"/>
+                                     <img data-gallery-tag="Products" class="gallery-item img-fluid img-thumbnail" height="100%" width="100%" src="catlogimages/product/<?php echo $ff;?>"/>
                                    <?php
                                }
                            };
@@ -73,7 +85,7 @@ $employeeName = $_SESSION['employeeName'];
 
                              foreach($ffs as $ff){
                                  if($ff != '.' && $ff != '..'){ ?>
-                                       <img data-gallery-tag="fabrics" class="gallery-item" src="catlogimages/fabrics/<?php echo $ff;?>"/>
+                                       <img data-gallery-tag="fabrics" class="gallery-item img-fluid  img-thumbnail" height="100%" width="100%" src="catlogimages/fabrics/<?php echo $ff;?>"/>
                                      <?php
                                  }
                              };
@@ -138,19 +150,16 @@ $employeeName = $_SESSION['employeeName'];
     <!--Custom JavaScript -->
     <script src="js/custom.min.js"></script>
     <script src="javascript/catlogscr.js"></script>
-    <!-- <script href="dropzone/dropzone.js"></script> -->
-    <script src="js/lib/dropzone/dropzone.js"></script>
-    <script src="js/lib/datatables/datatables.min.js"></script>
+    <script src="dropzone/dropzone.js"></script>
+    <!-- <script src="js/lib/dropzone/dropzone.js"></script>
+    <script src="js/lib/datatables/datatables.min.js"></script> -->
 
     <script src="mau_gallery/bootstrap.min.js"  crossorigin="anonymous"></script>
     <script src="mau_gallery/docs/src/maugallery.js"></script>
     <script src="mau_gallery/docs/assets/scripts.js"></script>
     <script src="js/lib/sweetalert/sweetalert.min.js"></script>
-
-
-
+<script src="js/catalog.js"></script>
 </body>
-
 </html>
 <?php }else{
 header('Location:index.php');

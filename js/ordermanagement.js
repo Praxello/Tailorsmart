@@ -293,6 +293,8 @@ function getOrdersOfCustomer() {
                 table = $('#customerOrdersDataTable').DataTable({
                     searching: true,
                     retrieve: true,
+                    scrollY: '50vh',
+                    scrollCollapse: true,
                     bPaginate: $('tbody tr').length > 10,
                     order: [],
                     columnDefs: [{ orderable: false, targets: [0, 7, 8, 9, 10] }],

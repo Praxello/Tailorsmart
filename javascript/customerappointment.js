@@ -10,13 +10,15 @@ const setSlot = new Set();
 getConfirmation();
 getMicellaneousData();
 getConfirmation1();
-function getConfirmation1(){
-  confirmationStatus1.set('0', 'Idle');
-  confirmationStatus1.set('1', 'Confirmed');
-  confirmationStatus1.set('2', 'Cancelled');
-  confirmationStatus1.set('3', 'Withdrawn by customer');
-  confirmationStatus1.set('5', 'None');
+
+function getConfirmation1() {
+    confirmationStatus1.set('0', 'Idle');
+    confirmationStatus1.set('1', 'Confirmed');
+    confirmationStatus1.set('2', 'Cancelled');
+    confirmationStatus1.set('3', 'Withdrawn by customer');
+    confirmationStatus1.set('5', 'None');
 }
+
 function getConfirmation() {
     confirmationStatus.set('0', 'Idle');
     confirmationStatus.set('1', 'Confirmed');
@@ -71,121 +73,115 @@ var table;
 
 
 function settabledata(styleData) {
-      // console.log(styleData);
-    var xhtml = '',ihtml = '',varhtml = '';
+    // console.log(styleData);
+    var xhtml = '<div class="scrollit">',
+        ihtml = '',
+        varhtml = '';
     var cid = $("#cid").val();
-    var selectslot = '',selectstatus = '',selectcity='';
+    var selectslot = '',
+        selectstatus = '',
+        selectcity = '';
     $('#appointmenttbl').dataTable().fnDestroy();
     $("#appointmenttbldata").empty();
 
-    for (let k of styleData.keys())
-    {
-      //  console.log(k);
+    for (let k of styleData.keys()) {
+        //  console.log(k);
         var AllData = styleData.get(k);
         setCity.add(AllData.city); // Set is add for filter City Search
         setSlot.add(AllData.slotTime); // Set is add for filter setSlot Search
 
-        if (EmployeeData.has(AllData.servingEmployeeId))
-        {
+        if (EmployeeData.has(AllData.servingEmployeeId)) {
             let EmpName = EmployeeData.get(AllData.servingEmployeeId);
             varhtml = "<td>" + EmpName.firstName + " " + EmpName.lastName + "</td>";
-        }
-        else
-        {
+        } else {
             varhtml = "<td></td>";
         }
-        if(cid=="1"){
-           if(AllData.appointmentStatus==="0")
-           {
-             let newdate;
-               // console.log(AllData.appointmentDate);
-              var m = moment(AllData.appointmentDate, 'YYYY-MM-DD');
-             let date1 = new Date(AllData.appointmentDate);
-             if(m.isValid())
-             {
+        if (cid == "1") {
+            if (AllData.appointmentStatus === "0") {
+                let newdate;
+                // console.log(AllData.appointmentDate);
+                var m = moment(AllData.appointmentDate, 'YYYY-MM-DD');
+                let date1 = new Date(AllData.appointmentDate);
+                if (m.isValid()) {
 
-                newdate =AllData.appointmentDate;
-             }
-             else{
-                newdate ="Please Select Appointment Date";
-             }
+                    newdate = AllData.appointmentDate;
+                } else {
+                    newdate = "Please Select Appointment Date";
+                }
 
 
-             let orderStatus = confirmationStatus.get(AllData.appointmentStatus);
-             let orderStatus1 = confirmationStatus1.get(AllData.appointmentStatus);
-             setAppStatus.add(orderStatus1); // For add filter Appointment Status
-             xhtml += "<tr>";
-             xhtml += "<td>" + AllData.firstName + " " + AllData.lastname + "</td>";
-             xhtml += "<td style='display:none;'>" + AllData.appointmentDate + "</td>";
-             xhtml += "<td>" + getDate(newdate) + "</td>";
-             xhtml += "<td>" + AllData.slotTime + "</td>";
-             xhtml += "<td>" + AllData.address + "</td>";
+                let orderStatus = confirmationStatus.get(AllData.appointmentStatus);
+                let orderStatus1 = confirmationStatus1.get(AllData.appointmentStatus);
+                setAppStatus.add(orderStatus1); // For add filter Appointment Status
+                xhtml += "<tr>";
+                xhtml += "<td>" + AllData.firstName + " " + AllData.lastname + "</td>";
+                xhtml += "<td style='display:none;'>" + AllData.appointmentDate + "</td>";
+                xhtml += "<td>" + getDate(newdate) + "</td>";
+                xhtml += "<td>" + AllData.slotTime + "</td>";
+                xhtml += "<td>" + AllData.address + "</td>";
 
-             xhtml += "<td>" + AllData.city + "</td>";
-             xhtml += "<td>" + AllData.mobile + "</td>";
-             xhtml += varhtml;
-             xhtml += "<td>" + orderStatus + "</td>";
-              xhtml += "<td style='display:none;'>" + AllData.appointmentId + "</td>";
-              xhtml += "<td>" + AllData.createdAT + "</td>";
-             xhtml += '<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editcustomerappointmentdata(' + k + ')"><i class="fa fa-edit"></i></button></div></td>';
-             xhtml += "</tr>";
-           }
-         }
-        else
-        {
-          let newdate;
+                xhtml += "<td>" + AllData.city + "</td>";
+                xhtml += "<td>" + AllData.mobile + "</td>";
+                xhtml += varhtml;
+                xhtml += "<td>" + orderStatus + "</td>";
+                xhtml += "<td style='display:none;'>" + AllData.appointmentId + "</td>";
+                xhtml += "<td>" + AllData.createdAT + "</td>";
+                xhtml += '<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editcustomerappointmentdata(' + k + ')"><i class="fa fa-edit"></i></button></div></td>';
+                xhtml += "</tr>";
+            }
+        } else {
+            let newdate;
             // console.log(AllData.appointmentDate);
-           var m = moment(AllData.appointmentDate, 'YYYY-MM-DD');
-          let date1 = new Date(AllData.appointmentDate);
-          if(m.isValid())
-          {
+            var m = moment(AllData.appointmentDate, 'YYYY-MM-DD');
+            let date1 = new Date(AllData.appointmentDate);
+            if (m.isValid()) {
 
-             newdate =AllData.appointmentDate;
-          }
-          else{
-             newdate ="Please Select Appointment Date";
-          }
+                newdate = AllData.appointmentDate;
+            } else {
+                newdate = "Please Select Appointment Date";
+            }
 
 
-          let orderStatus = confirmationStatus.get(AllData.appointmentStatus);
-          let orderStatus1 = confirmationStatus1.get(AllData.appointmentStatus);
-          setAppStatus.add(orderStatus1); // For add filter Appointment Status
-          xhtml += "<tr>";
-          xhtml += "<td>" + AllData.firstName + " " + AllData.lastname + "</td>";
-          xhtml += "<td style='display:none;'>" + AllData.appointmentDate + "</td>";
-          xhtml += "<td>" + getDate(newdate) + "</td>";
-          xhtml += "<td>" + AllData.slotTime + "</td>";
-          xhtml += "<td>" + AllData.address + "</td>";
-          xhtml += "<td>" + AllData.city + "</td>";
-          xhtml += "<td>" + AllData.mobile + "</td>";
-          xhtml += varhtml;
-          xhtml += "<td>" + orderStatus + "</td>";
-           xhtml += "<td style='display:none;'>" + AllData.appointmentId + "</td>";
-             xhtml += "<td>" + AllData.createdAT + "</td>";
-          xhtml += '<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editcustomerappointmentdata(' + k + ')"><i class="fa fa-edit"></i></button></div></td>';
-          xhtml += "</tr>";
+            let orderStatus = confirmationStatus.get(AllData.appointmentStatus);
+            let orderStatus1 = confirmationStatus1.get(AllData.appointmentStatus);
+            setAppStatus.add(orderStatus1); // For add filter Appointment Status
+            xhtml += "<tr>";
+            xhtml += "<td>" + AllData.firstName + " " + AllData.lastname + "</td>";
+            xhtml += "<td style='display:none;'>" + AllData.appointmentDate + "</td>";
+            xhtml += "<td>" + getDate(newdate) + "</td>";
+            xhtml += "<td>" + AllData.slotTime + "</td>";
+            xhtml += "<td>" + AllData.address + "</td>";
+            xhtml += "<td>" + AllData.city + "</td>";
+            xhtml += "<td>" + AllData.mobile + "</td>";
+            xhtml += varhtml;
+            xhtml += "<td>" + orderStatus + "</td>";
+            xhtml += "<td style='display:none;'>" + AllData.appointmentId + "</td>";
+            xhtml += "<td>" + AllData.createdAT + "</td>";
+            xhtml += '<td style=""><div class="btn-group" role="group" aria-label="Basic Example"><button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editcustomerappointmentdata(' + k + ')"><i class="fa fa-edit"></i></button></div></td>';
+            xhtml += "</tr>";
         }
+        xhtml += "</div>";
 
     }
-     // console.log(setCity);
+    // console.log(setCity);
 
-     selectcity += "<option value=''> Select City </option>";
-     for (let item of setCity) {
+    selectcity += "<option value=''> Select City </option>";
+    for (let item of setCity) {
 
-            selectcity += "<option value='" +item+ "'>" + item + "</option>";
-     }
-     $("#tblcity").html(selectcity);
-     selectslot += "<option value=''> Select Slot </option>";
-     for (let item of setSlot) {
+        selectcity += "<option value='" + item + "'>" + item + "</option>";
+    }
+    $("#tblcity").html(selectcity);
+    selectslot += "<option value=''> Select Slot </option>";
+    for (let item of setSlot) {
 
-            selectslot += "<option value='" +item + "'>" + item + "</option>";
-     }
-     $("#tblslot").html(selectslot);
-     selectstatus += "<option value=''>Select Status </option>";
-     for (let item of setAppStatus) {
+        selectslot += "<option value='" + item + "'>" + item + "</option>";
+    }
+    $("#tblslot").html(selectslot);
+    selectstatus += "<option value=''>Select Status </option>";
+    for (let item of setAppStatus) {
 
-            selectstatus += "<option value='" + item + "'>" +item + "</option>";
-     }
+        selectstatus += "<option value='" + item + "'>" + item + "</option>";
+    }
     $("#tblappointmentStatus").html(selectstatus);
     // console.log(xhtml);
     $("#appointmenttbldata").html(xhtml);
@@ -194,83 +190,87 @@ function settabledata(styleData) {
     //
     //   }
     // );
-  $('#appointmenttbl').DataTable({
-   initComplete: function() {
-    this.api().columns([1]).every(function() {
-      var column = this;
-      var select = $('<select><option value=""> Select Appointment Date </option></select>')
-        .appendTo($(column.header()).empty())
-        .on('change', function() {
-          var val = $.fn.dataTable.util.escapeRegex(
-            $(this).val()
-          );
-          column
-            .search(val ? '^' + val + '$' : '', true, false)
-            .draw();
-        });
+    $('#appointmenttbl').DataTable({
+        initComplete: function() {
+            this.api().columns([1]).every(function() {
+                var column = this;
+                var select = $('<select><option value=""> Select Appointment Date </option></select>')
+                    .appendTo($(column.header()).empty())
+                    .on('change', function() {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+                        column
+                            .search(val ? '^' + val + '$' : '', true, false)
+                            .draw();
+                    });
 
-      column.data().unique().sort().each(function(d, j) {
-        select.append('<option value="' + d + '">' + d + '</option>')
-      });
-    });
-    this.api().columns([3]).every(function() {
-      var column = this;
-      var select = $('<select><option value=""> Select Slot </option></select>')
-        .appendTo($(column.header()).empty())
-        .on('change', function() {
-          var val = $.fn.dataTable.util.escapeRegex(
-            $(this).val()
-          );
-          column
-            .search(val ? '^' + val + '$' : '', true, false)
-            .draw();
-        });
+                column.data().unique().sort().each(function(d, j) {
+                    select.append('<option value="' + d + '">' + d + '</option>')
+                });
+            });
+            this.api().columns([3]).every(function() {
+                var column = this;
+                var select = $('<select><option value=""> Select Slot </option></select>')
+                    .appendTo($(column.header()).empty())
+                    .on('change', function() {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+                        column
+                            .search(val ? '^' + val + '$' : '', true, false)
+                            .draw();
+                    });
 
-      column.data().unique().sort().each(function(d, j) {
-        select.append('<option value="' + d + '">' + d + '</option>')
-      });
-    });
-    this.api().columns([5]).every(function() {
-      var column = this;
-      var select = $('<select id="tblcity"><option value=""> Select City </option></select>')
-        .appendTo($(column.header()).empty())
-        .on('change', function() {
-          var val = $.fn.dataTable.util.escapeRegex(
-            $(this).val()
-          );
-          column
-            .search(val ? '^' + val + '$' : '', true, false)
-            .draw();
-        });
+                column.data().unique().sort().each(function(d, j) {
+                    select.append('<option value="' + d + '">' + d + '</option>')
+                });
+            });
+            this.api().columns([5]).every(function() {
+                var column = this;
+                var select = $('<select id="tblcity"><option value=""> Select City </option></select>')
+                    .appendTo($(column.header()).empty())
+                    .on('change', function() {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+                        column
+                            .search(val ? '^' + val + '$' : '', true, false)
+                            .draw();
+                    });
 
-      column.data().unique().sort().each(function(d, j) {
-        select.append('<option value="' + d + '">' + d + '</option>')
-      });
-    });
-    this.api().columns([8]).every(function() {
-      var column = this;
-      var select = $('<select><option value=""> Select Status </option></select>')
-        .appendTo($(column.header()).empty())
-        .on('change', function() {
-          var val = $.fn.dataTable.util.escapeRegex(
-            $(this).val()
-          );
-          column
-            .search(val ? '^' + val + '$' : '', true, false)
-            .draw();
-        });
+                column.data().unique().sort().each(function(d, j) {
+                    select.append('<option value="' + d + '">' + d + '</option>')
+                });
+            });
+            this.api().columns([8]).every(function() {
+                var column = this;
+                var select = $('<select><option value=""> Select Status </option></select>')
+                    .appendTo($(column.header()).empty())
+                    .on('change', function() {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+                        column
+                            .search(val ? '^' + val + '$' : '', true, false)
+                            .draw();
+                    });
 
-      column.data().unique().sort().each(function(d, j) {
-        select.append('<option value="' + d + '">' + d + '</option>')
-      });
+                column.data().unique().sort().each(function(d, j) {
+                    select.append('<option value="' + d + '">' + d + '</option>')
+                });
+            });
+        },
+        order: [
+            [1, 'desc']
+        ],
+        scrollY: '50vh',
+        scrollCollapse: true,
+        'pageLength': 10,
+        dom: 'Bfrtip',
+        buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
     });
-  },
-  "order":[[9,"desc"]],
-  'pageLength': 10,
-  dom: 'Bfrtip',
-  buttons: [ 'copy', 'csv', 'excel', 'pdf', 'print' ]
-});
-  }
+}
 
 // function getDate(date) {
 //     var output = '-';
@@ -291,8 +291,8 @@ function getDate(date) {
         var d = new Date(date);
         output = d.toDateString(); // outputs to "Thu May 28 2015"
         let outarr = output.split(" ");
-        let datestr = outarr[0]+","+outarr[2]+" "+outarr[1]+" "+outarr[3];
-        output=datestr;
+        let datestr = outarr[0] + "," + outarr[2] + " " + outarr[1] + " " + outarr[3];
+        output = datestr;
     }
     return output;
 }
@@ -304,7 +304,7 @@ function getcustomerappointmentdata() {
         url: api_url + "getappointments.php",
         dataType: "json",
         success: function(response) {
-          // console.log(response);
+            // console.log(response);
             var slotcount = 0;
             if (response["Slots"] != null) {
                 slotcount = response["Slots"].length;
@@ -344,7 +344,7 @@ function editcustomerappointmentdata(id) {
     $("#customerappointdetailtbl").show(); //  Show the content Customer Appointment Detail
     $("#appointdetailtbldata").empty();
     $("#appointmentdetailaddr").html(AllData.address + "," + AllData.city);
-    $("#customername").html(AllData.firstName + " " + AllData.lastname +"<strong><font color='red'> "+AllData.mobile+" </font></strong>");
+    $("#customername").html(AllData.firstName + " " + AllData.lastname + "<strong><font color='red'> " + AllData.mobile + " </font></strong>");
     $("#appointmentdate").html(getDate(AllData.appointmentDate));
     $("#slottime").html(AllData.slotTime);
     $("#setemployeeId").val(AllData.servingEmployeeId).trigger('change');
@@ -361,23 +361,27 @@ function editcustomerappointmentdata(id) {
         var selectfabriclen = 0;
         for (var i = 0; i < selectitemlen; i++) {
             if (Allitemdata[i].Product != null) {
-                if(Allitemdata[i].Fabrics != null){
-                   html += '<tr>';
-                   selectfabriclen = Allitemdata[i].Fabrics.length;
-                   html += '<td style="color: orange;font-weight: bolder;">' + Allitemdata[i].Product.productTitle + '</td>';
-                   html += '<td>' + Allitemdata[i].Fabrics[0].fabricTitle + ' <font color="green"><u>' + Allitemdata[i].Fabrics[0].colorName+'</u></font></td>';
-                   for (var j = 1; j < selectfabriclen; j++)
-                   {
-                     // console.log(Allitemdata[i].Fabrics[j]);
-                       html += '<tr>';
-                       html += '<td> </td>';
-                       html += '<td>' + Allitemdata[i].Fabrics[j].fabricTitle + ' <font color="green"><u> '+Allitemdata[i].Fabrics[j].colorName+'</u></font></td>';
-                       html += '</tr>';
-                   }
-                }
-                else {
+                if (Allitemdata[i].Fabrics != null) {
                     html += '<tr>';
-                    html += '<td style="color: orange;font-weight: bolder;">' + Allitemdata[i].Product.productTitle +'</td>';
+                    selectfabriclen = Allitemdata[i].Fabrics.length;
+                    html += '<td style="color: orange;font-weight: bolder;">' + Allitemdata[i].Product.productTitle + '</td>';
+                    html += '<td>' + Allitemdata[i].Fabrics[0].skuNo + '</td>';
+                    html += '<td><img class="img-fluid mb-10" src="mobileimages/fabric/300x300/' + Allitemdata[i].Fabrics[0].skuNo + '.jpg" alt="No Image Available"></img></td>';
+                    html += '<td>' + Allitemdata[i].Fabrics[0].fabricTitle + ' <font color="green"><u>' + Allitemdata[i].Fabrics[0].colorName + '</u></font></td>';
+                    for (var j = 1; j < selectfabriclen; j++) {
+                        // console.log(Allitemdata[i].Fabrics[j]);
+                        html += '<tr>';
+                        html += '<td></td>';
+                        html += '<td>' + Allitemdata[i].Fabrics[j].skuNo + '</td>';
+                        html += '<td><img class="img-fluid mb-10" src="mobileimages/fabric/300x300/' + Allitemdata[i].Fabrics[j].skuNo + '.jpg" alt="No Image Available"></img></td>';
+                        html += '<td>' + Allitemdata[i].Fabrics[j].fabricTitle + ' <font color="green"><u> ' + Allitemdata[i].Fabrics[j].colorName + '</u></font></td>';
+                        html += '</tr>';
+                    }
+                } else {
+                    html += '<tr>';
+                    html += '<td style="color: orange;font-weight: bolder;">' + Allitemdata[i].Product.productTitle + '</td>';
+                    html += '<td></td>';
+                    html += '<td></td>';
                     html += '<td></td>';
                     html += '</tr>';
                 }
@@ -399,57 +403,61 @@ function updateAppointmentDetails() {
     var appointmentId = $('#appointmentdetailid').val();
     var empid = $('#setemployeeId').val();
     var appdate = $('#updateappointmentdate').val();
-    if(appointmentId==""||empid==""||appdate==""){
-      swal("Missing Parameter");
-    }
-    else{
-      var obj = {
-          appointmentId: appointmentId,
-          slotId: $('#settimeslot').val(),
-          servingEmployeeId: $('#setemployeeId').val(),
-          appointmentDate: $('#updateappointmentdate').val(),
-          appointmentStatus: $('#appointmentStatus').val()
-      };
-      $.ajax({
-          url: api_url + 'updatecustomerappointment.php',
-          type: 'POST',
-          data: obj,
-          dataType: 'json',
-          beforeSend: function() {
-              $(".preloader").show();
-              // console.log("before");
-          },
-          success: function(response) {
-              if (response['Responsecode'] === 200) {
-                  swal(response['Message']);
-                  $("#customerappointdetailtbl").hide();
-                  $("#customerappointtbl").show();
-                  var AllData = styleData.get(appointmentId.toString());
-                  // console.log(AllData);
-                  obj.address = AllData.address;
-                  obj.city = AllData.city;
-                  obj.customerId = AllData.customerId;
-                  obj.email = AllData.email;
-                  obj.employeename = AllData.employeename;
-                  obj.fabricIds = AllData.fabricIds;
-                  obj.firstName = AllData.firstName;
-                  obj.lastname = AllData.lastname;
-                  obj.mobile = AllData.mobile;
-                  obj.productIds = AllData.productIds;
-                  obj.slotTime = AllData.slotTime;
-                  obj.createdAT =AllData.createdAT;
-                  var msg = "Dear "+AllData.firstName+" "+AllData.lastname+", your appointment is confirmed. "+AllData.employeename+" will visit your place";
-                  getpushnotification(AllData.customerId,msg);
-                  styleData.set(appointmentId.toString(), obj);
-                  settabledata(styleData);
-              } else {
-                  swal(response['Message']);
-              }
-          },
-          complete: function(response) {
-              $(".preloader").hide();
-          }
-      });
+    if (appointmentId == "" || empid == "" || appdate == "") {
+        swal("Missing Parameter");
+    } else {
+        var obj = {
+            appointmentId: appointmentId,
+            slotId: $('#settimeslot').val(),
+            servingEmployeeId: $('#setemployeeId').val(),
+            appointmentDate: $('#updateappointmentdate').val(),
+            appointmentStatus: $('#appointmentStatus').val()
+        };
+        $.ajax({
+            url: api_url + 'updatecustomerappointment.php',
+            type: 'POST',
+            data: obj,
+            dataType: 'json',
+            beforeSend: function() {
+                $(".preloader").show();
+                // console.log("before");
+            },
+            success: function(response) {
+                if (response['Responsecode'] === 200) {
+                    swal(response['Message']);
+                    $("#customerappointdetailtbl").hide();
+                    $("#customerappointtbl").show();
+                    var AllData = styleData.get(appointmentId.toString());
+                    // console.log(AllData);
+                    obj.address = AllData.address;
+                    obj.city = AllData.city;
+                    obj.customerId = AllData.customerId;
+                    obj.email = AllData.email;
+                    obj.employeename = AllData.employeename;
+                    obj.fabricIds = AllData.fabricIds;
+                    obj.firstName = AllData.firstName;
+                    obj.lastname = AllData.lastname;
+                    obj.mobile = AllData.mobile;
+                    obj.productIds = AllData.productIds;
+                    obj.slotTime = AllData.slotTime;
+                    obj.createdAT = AllData.createdAT;
+                    var msg = '';
+                    if (AllData.firstName != "" && AllData.lastname != "") {
+                        msg = "Dear " + AllData.firstName + " " + AllData.lastname + ", your appointment is confirmed. " + AllData.employeename + " will visit your place";
+                    } else {
+                        msg = "Dear User, your appointment is confirmed. " + AllData.employeename + " will visit your place";
+                    }
+                    getpushnotification(AllData.customerId, msg);
+                    styleData.set(appointmentId.toString(), obj);
+                    settabledata(styleData);
+                } else {
+                    swal(response['Message']);
+                }
+            },
+            complete: function(response) {
+                $(".preloader").hide();
+            }
+        });
     }
 
 }

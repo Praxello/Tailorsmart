@@ -28,6 +28,7 @@ if(isset($_REQUEST['cid']))
 
 </head>
 
+
 <body class="fix-header fix-sidebar">
     <!-- Preloader - style you can find in spinners.css -->
     <div class="preloader">
@@ -86,6 +87,7 @@ if(isset($_REQUEST['cid']))
                                             </tr>
                                         </thead>
                                         <tbody id="appointmenttbldata">
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -138,6 +140,8 @@ if(isset($_REQUEST['cid']))
                                             <tr>
                                                 <!-- <th>Id</th> -->
                                                 <th>Product Title</th>
+                                                <th>SKU</th>
+                                                <th>Brand</th>
                                                 <th>Fabrics Title</th>
 
                                             </tr>

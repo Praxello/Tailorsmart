@@ -171,6 +171,8 @@ function getOrdersOfCustomer(customerId) {
                 $('#customerOrdersDataTable').DataTable({
                     searching: true,
                     retrieve: true,
+                    scrollY: '50vh',
+                    scrollCollapse: true,
                     bPaginate: $('tbody tr').length > 10,
                     order: [],
                     columnDefs: [{ orderable: false, targets: [] }],
@@ -249,13 +251,14 @@ function showData(orderid, rowId) {
                 fabarrhtml = '';
             if (customerOrderDetails.orderItems[i].Fabrics != null) {
                 fablength += customerOrderDetails.orderItems[i].Fabrics.length;
-                fabarrhtml = "<td >";
+                fabarrhtml = "<td><table border='0'>";
                 for (var j = 0; j < fablength; j++) {
-                    fabarrhtml += (j + 1) + " " + customerOrderDetails.orderItems[i].Fabrics[j].fabricTitle + "-" + customerOrderDetails.orderItems[i].Fabrics[j].colorName;
-                    fabarrhtml += " -" + customerOrderDetails.orderItems[i].Fabrics[j].fabricPrice + "-" + customerOrderDetails.orderItems[i].Fabrics[j].skuNo;
-                    fabarrhtml += "</br >";
+                    fabarrhtml += '<tr><td><img class="img-fluid img-thumbnail mb-10" src="mobileimages/fabric/300x300/' + customerOrderDetails.orderItems[i].Fabrics[j].skuNo + '.jpg" alt="" height="30px" width="30px"></img></td>';
+                    fabarrhtml += "<td>" + customerOrderDetails.orderItems[i].Fabrics[j].fabricTitle + "</td><td>" + customerOrderDetails.orderItems[i].Fabrics[j].colorName;
+                    fabarrhtml += "</td><td>" + customerOrderDetails.orderItems[i].Fabrics[j].fabricPrice + "</td><td>" + customerOrderDetails.orderItems[i].Fabrics[j].skuNo;
+                    fabarrhtml += "</td></tr>";
                 }
-                fabarrhtml += "</td >";
+                fabarrhtml += "</table></td >";
             } else {
                 fabarrhtml = "<td></td>";
             }
