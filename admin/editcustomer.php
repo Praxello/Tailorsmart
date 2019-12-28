@@ -13,9 +13,9 @@ if (isset($_POST['customerId']) && isset($_POST['firstName']) && isset($_POST['l
 && isset($_POST['mobile'])
 && isset($_POST['landline'])&& isset($_POST['city']) && isset($_POST['state']) && isset($_POST['country'])&& isset($_POST['address'])
 && isset($_POST['isMale']) && isset($_POST['password']) && isset($_POST['latitude']) && isset($_POST['longitude'])) {
-
+	$empId = isset($_POST['employeeId']) ? $employeeId : "NULL";
 $sql="UPDATE customer_master SET firstName='$firstName',lastName='$lastName',email='$email',date_birth='$date_birth',
-mobile='$mobile',landline='$landline',city='$city',state='$state',country='$country',
+mobile='$mobile',landline='$landline',city='$city',state='$state',country='$country',employeeid = $empId,
 address='$address',isMale='$isMale',
 password='$password',latitude='$latitude',longitude='$longitude',landmark='$landmark',
 isActive='$isActive',issocial='$issocial' WHERE customerId='$customerId'";

@@ -406,13 +406,21 @@ function updateAppointmentDetails() {
     if (appointmentId == "" || empid == "" || appdate == "") {
         swal("Missing Parameter");
     } else {
+        var AllData = styleData.get(appointmentId.toString());
+        console.log(AllData);
+        var flag = 0;
+        if (AllData.appointmentDate != $('#updateappointmentdate').val()) {
+            flag = 1;
+        }
         var obj = {
             appointmentId: appointmentId,
             slotId: $('#settimeslot').val(),
             servingEmployeeId: $('#setemployeeId').val(),
             appointmentDate: $('#updateappointmentdate').val(),
-            appointmentStatus: $('#appointmentStatus').val()
+            appointmentStatus: $('#appointmentStatus').val(),
+            flag: flag
         };
+        console.log(obj);
         $.ajax({
             url: api_url + 'updatecustomerappointment.php',
             type: 'POST',
@@ -427,8 +435,7 @@ function updateAppointmentDetails() {
                     swal(response['Message']);
                     $("#customerappointdetailtbl").hide();
                     $("#customerappointtbl").show();
-                    var AllData = styleData.get(appointmentId.toString());
-                    // console.log(AllData);
+
                     obj.address = AllData.address;
                     obj.city = AllData.city;
                     obj.customerId = AllData.customerId;
@@ -442,12 +449,15 @@ function updateAppointmentDetails() {
                     obj.slotTime = AllData.slotTime;
                     obj.createdAT = AllData.createdAT;
                     var msg = '';
-                    if (AllData.firstName != "" && AllData.lastname != "") {
-                        msg = "Dear " + AllData.firstName + " " + AllData.lastname + ", your appointment is confirmed. " + AllData.employeename + " will visit your place";
-                    } else {
-                        msg = "Dear User, your appointment is confirmed. " + AllData.employeename + " will visit your place";
+                    if (AllData.employeename != "") {
+                        if (AllData.firstName != "" && AllData.lastname != "") {
+                            msg = "Dear " + AllData.firstName + " " + AllData.lastname + ", your appointment is confirmed. " + AllData.employeename + " will visit your place";
+                        } else {
+                            msg = "Dear User, your appointment is confirmed. " + AllData.employeename + " will visit your place";
+                        }
+                        getpushnotification(AllData.customerId, msg);
                     }
-                    getpushnotification(AllData.customerId, msg);
+
                     styleData.set(appointmentId.toString(), obj);
                     settabledata(styleData);
                 } else {

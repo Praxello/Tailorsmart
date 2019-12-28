@@ -112,7 +112,7 @@ function order_info1()
         $sql ="SELECT com.orderItemPrice,com.employeeid,comaster.customerId,comaster.purchaseDateTime,comaster.orderStatus,
         comaster.customerExpectedDate,comaster.FinalDeliveryDate,
         cm.firstName cfn, cm.lastName  cln,cm.email cemail,cm.city ccity,cm.state cstate,cm.address cadd,cm.country ccountry,cm.mobile cmobile,
-        em.firstName efn, em.lastName eln,em.mobile emobile,em.email eemail,pm.productTitle,pm.skuNo
+        em.firstName efn, em.lastName eln,em.mobile emobile,em.email eemail,pm.productTitle,pm.skuNo,com.orderId
         FROM customer_order_items_master com
         LEFT JOIN customer_order_master comaster ON com.orderId=comaster.orderId
         LEFT JOIN customer_master cm ON cm.customerId = comaster.customerId
@@ -144,6 +144,9 @@ function order_info1()
                  $person.='<tr colspan="2">';
                  $person.='<td >';
                  $person.='Product Name: '.$customerResults['productTitle'].'('.$customerResults['skuNo'].')';
+                 $person.='</td>';
+                 $person.='<td style="padding-left:10%;">';
+                 $person.='Order Id: '.$customerResults['orderId'];
                  $person.='</td>';
                  $person.='</tr>';
                  $person.='</tr>';

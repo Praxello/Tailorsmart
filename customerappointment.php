@@ -181,7 +181,7 @@ if(isset($_REQUEST['cid']))
                           <div class="col-sm-3">
                                 <div class="form-group required">
                             <label class="control-label">Slot Time</label>
-                                <select class="form-control"  id="settimeslot" style="width:100%;" disabled="true">
+                                <select class="form-control"  id="settimeslot" style="width:100%;">
 
                                 </select>
                               </div>

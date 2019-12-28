@@ -77,7 +77,9 @@ if(isset($_REQUEST['pid']))
                           </div>
                           </div>
                             <div class="card-body">
-
+                            <div class="spinner-border" role="status" id="loader" style="display: none;">
+  <span class="sr-only">Loading...</span>
+</div>
                                 <div class="table-responsive m-t-40">
                                     <table id="styletbl" class="display nowrap table table-hover  table-bordered">
                                         <thead>
@@ -282,6 +284,7 @@ if(isset($_REQUEST['pid']))
                                                                         <th>Image Icon</th>
                                                                         <th>Fabric</th>
                                                                         <th>Sku No</th>
+                                                                        <th>Price</th>
 
                                                                     </tr>
                                                                 </thead>

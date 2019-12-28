@@ -8,6 +8,7 @@ var ProductMeasurementData = new Map(); //from getmeasurementitems.php for show 
 var StichStyleData = new Map(); //from getstitchstyleitem.php for show active products category
 let confirmationStatus = new Map();
 var inactstyleData = new Map();
+var fabricMapData = new Map();
 getConfirmation();
 
 function getConfirmation() {
@@ -309,7 +310,7 @@ function settabledata(styleData) {
         retrieve: true,
         bPaginate: $('tbody tr').length > 10,
         order: [],
-        columnDefs: [{ orderable: false, targets: [0, 3, 4, 5, 6, 7, 8,9] }],
+        columnDefs: [{ orderable: false, targets: [0, 3, 4, 5, 6, 7, 8, 9] }],
         dom: 'Bfrtip',
         buttons: [],
         destroy: true
@@ -360,7 +361,6 @@ function imguplod(imgid) {
         fd.append('file', files);
         fd.append('imgname', imgid);
         fd.append('foldername', "product");
-        // console.log(fd);
         $.ajax({
             url: img_url,
             type: "POST",
@@ -369,15 +369,22 @@ function imguplod(imgid) {
             processData: false,
             data: fd,
             dataType: 'json',
+            beforeSend: function() {
+                $('#loader').show();
+                var output = document.getElementById('save' + imgid);
+                output.src = URL.createObjectURL(files);
+            },
+            complete: function() {
+                $('#loader').hide();
+            },
             success: function(response) {
-                if (response['Responsecode'] == 200) {
-                    swal(response['Message']);
+                if (response.Responsecode == 200) {
+                    swal(response.Message);
                     // getcustomersubstyles();
-                    var output = document.getElementById('save' + imgid);
-                    output.src = URL.createObjectURL(files);
+
 
                 } else {
-                    swal(response['Message']);
+                    swal(response.Message);
                 }
             }
         });
@@ -414,13 +421,13 @@ $('#reloadbtn').on('click', function(event) {
     settabledata(styleData);
     var productId = $("#productId").val();
     var table = $('#styletbl').DataTable();
-    var row = table.row(function ( idx, data, node ) {
-      return data[10] === productId;
-    } );
+    var row = table.row(function(idx, data, node) {
+        return data[10] === productId;
+    });
     if (row.length > 0) {
-      row.select()
-      .show()
-      .draw(false);
+        row.select()
+            .show()
+            .draw(false);
     }
 });
 
@@ -583,27 +590,26 @@ function removeProduct(id) {
                 styleData.delete(id.toString());
                 settabledata(styleData);
                 swal(response.Message);
-                let value =0;
+                let value = 0;
                 var table = $('#styletbl').DataTable();
-                var tottablen = table.column( 0 ).data().length;
-                let i =0;
-                var row = table.row(function ( idx, data, node ) {
+                var tottablen = table.column(0).data().length;
+                let i = 0;
+                var row = table.row(function(idx, data, node) {
                     i++;
-                  if(parseInt(data[10])<id){
-                    value =data[10];
-                    if(i===tottablen){
+                    if (parseInt(data[10]) < id) {
+                        value = data[10];
+                        if (i === tottablen) {
+                            return value;
+                        }
+                    } else {
+                        // console.log("value"+value);
                         return value;
                     }
-                  }
-                  else{
-                    // console.log("value"+value);
-                    return value;
-                  }
-                } );
+                });
                 if (row.length > 0) {
-                  row.select()
-                  .show()
-                  .draw(false);
+                    row.select()
+                        .show()
+                        .draw(false);
                 }
             } else {
                 // swal(response.Message);
@@ -666,19 +672,22 @@ function setfabrcmapping(temparray) {
     for (let k of FabricData.keys()) {
         let fabricName = FabricData.get(k);
         if (temparray.includes(fabricName.fabricId)) {
+            var fdata = fabricMapData.get(fabricName.fabricId);
             selfabricmap += '<tr id=' + fabricName.fabricId + '><td>';
             selfabricmap += '<lable><input id="check' + fabricName.fabricId + '"  type="checkbox" name="fabricmapcheck"  value="' + fabricName.fabricId + '" checked >';
             selfabricmap += '</lable></td>';
             selfabricmap += "<td> <img class='img-thumbnail' src='" + pic_url + "fabric/300x300/" + fabricName.skuNo + ".jpg' alt='No Image'></img></td>";
             selfabricmap += "<td>" + fabricName.fabricTitle + "</td>";
-            selfabricmap += "<td>" + fabricName.skuNo + "</td></tr>";
+            selfabricmap += "<td>" + fabricName.skuNo + "</td>";
+            selfabricmap += "<td><input type='text' name='fabricPrice' class='form-control form-control-sm' value=" + fdata.mappedFabricPrice + " onkeypress='return isNumberKey(event)'></td></tr>";
         } else {
             unselfabricmap += '<tr  id=' + fabricName.fabricId + '><td>';
             unselfabricmap += '<input id="check' + fabricName.fabricId + '"  type="checkbox" name="fabricmapcheck" value="' + fabricName.fabricId + '"  >';
             unselfabricmap += '</td>';
             unselfabricmap += "<td> <img class='img-thumbnail' src='" + pic_url + "fabric/300x300/" + fabricName.skuNo + ".jpg' alt='No Image' ></img></td>";
             unselfabricmap += "<td>" + fabricName.fabricTitle + "</td>";
-            unselfabricmap += "<td>" + fabricName.skuNo + "</td></tr>";
+            unselfabricmap += "<td>" + fabricName.skuNo + "</td>";
+            unselfabricmap += "<td><input type='text' name='fabricPrice' class='form-control form-control-sm'  onkeypress='return isNumberKey(event)'></td></tr>";
         }
     }
     if (id === 1) {
@@ -708,6 +717,7 @@ function fabricmapping() {
                     if (response['Data'][i].productId === productId) {
                         temparray.push(response['Data'][i].fabricId);
                     }
+                    fabricMapData.set(response['Data'][i].fabricId, response.Data[i]);
                 }
             }
             setfabrcmapping(temparray);
@@ -729,8 +739,8 @@ $('#measureunselectbtn').on('click', function(event) {
 });
 
 function setmeasuremapping(tempmeasurementarray) {
-  //  console.log(tempmeasurementarray);
-  // console.log(MeasurementData);
+    //  console.log(tempmeasurementarray);
+    // console.log(MeasurementData);
     $("#measurementmaptbldata").empty();
     var selmeasurement = '',
         unselmeasurement = '',
@@ -741,14 +751,14 @@ function setmeasuremapping(tempmeasurementarray) {
         let measureName = MeasurementData.get(k);
 
         if (tempmeasurementarray.includes(measureName.measurementId)) {
-           // console.log(ProductMeasurementData);
-          //
-          let productMName = ProductMeasurementData.get(measureName.measurementId);
-          // console.log(productMName.sequenceNumber);
+            // console.log(ProductMeasurementData);
+            //
+            let productMName = ProductMeasurementData.get(measureName.measurementId);
+            // console.log(productMName.sequenceNumber);
             selmeasurement += '<tr><td><label class="checkbox" >';
             selmeasurement += '<input id="check' + measureName.measurementId + '" type="checkbox"  name="measurementcheck" value="' + measureName.measurementId + '" checked>';
             selmeasurement += '</label></td>';
-            selmeasurement += "<td><input type='text' name='sequencenumber' class='form-control form-control-sm' value=" +productMName.sequenceNumber + " onkeypress='return isNumberKey(event)'></td>";
+            selmeasurement += "<td><input type='text' name='sequencenumber' class='form-control form-control-sm' value=" + productMName.sequenceNumber + " onkeypress='return isNumberKey(event)'></td>";
             selmeasurement += "<td style='text-align: center;' >" + measureName.itemTitle + "</td></tr>";
         } else {
             unselmeasurement += '<tr><td><label class="checkbox" >';
@@ -782,7 +792,7 @@ function measurementmapping() {
             // console.log("before");
         },
         success: function(response) {
-             // console.log(response);
+            // console.log(response);
             tempmeasurementarray = [];
             if (response['Data'] == null) {} else {
                 var count = response['Data'].length;
@@ -791,7 +801,7 @@ function measurementmapping() {
                         tempmeasurementarray.push(response['Data'][i].measurementId);
 
                     }
-                   ProductMeasurementData.set(response['Data'][i].measurementId, response.Data[i]);
+                    ProductMeasurementData.set(response['Data'][i].measurementId, response.Data[i]);
                 }
 
             }
@@ -907,17 +917,20 @@ $('#savefabric').on('click', function(event) {
     temparray = TableData;
     var productId = $("#productId").val();
     var fabricidarray = TableData.toString();
+    var fabricData = getFabricmap();
+    console.log(fabricData);
     id = 1;
-    var obj = {
+    var postdata = {
         productId: productId,
-        fabricId: fabricidarray
+        fabricId: fabricData
     };
+    postdata = JSON.stringify(postdata);
     $.ajax({
         url: api_url + 'createproductfabricmapping.php',
         type: 'POST',
         async: true,
         cache: false,
-        data: obj,
+        data: { postdata: postdata },
         dataType: 'json',
         beforeSend: function() {
             $(".preloader").show();
@@ -950,48 +963,47 @@ $('#savemeasurement').on('click', function(event) {
     });
     lengthtemparr = TableData.length;
     // console.log(lengthtemparr);
-    if(lengthtemparr>0)
-    {
-      tempmeasurementarray = TableData;
-      var productId = $("#productId").val();
-      var measurementidarray = TableData.toString();
-      mid = 1;
-      var load = getMeasure();
-      var postdata = {
-          productId: productId,
-          measurementId: load
-      };
-      postdata = JSON.stringify(postdata);
-      // console.log(postdata);
-      //end vikas
-      $.ajax({
-          url: api_url + 'createproductmeasurementmapping.php',
-          //url: api_url + 'demo1.php',
-          type: 'POST',
-          data: { postdata: postdata },
-          dataType: 'json',
-          beforeSend: function() {
-              $(".preloader").show();
-              // console.log("before");
-          },
-          success: function(response) {
-              if (response.Responsecode === 200) {
-                  swal(response.Message);
-                  // setmeasuremapping(TableData);
-                  measurementmapping();
-              } else {
-                  // swal(response.Message);
-                  swal("Please Retry Again");
-              }
-          },
-          complete: function(response) {
+    if (lengthtemparr > 0) {
+        tempmeasurementarray = TableData;
+        var productId = $("#productId").val();
+        var measurementidarray = TableData.toString();
+        mid = 1;
+        var load = getMeasure();
+        var postdata = {
+            productId: productId,
+            measurementId: load
+        };
+        postdata = JSON.stringify(postdata);
+        // console.log(postdata);
+        //end vikas
+        $.ajax({
+            url: api_url + 'createproductmeasurementmapping.php',
+            //url: api_url + 'demo1.php',
+            type: 'POST',
+            data: { postdata: postdata },
+            dataType: 'json',
+            beforeSend: function() {
+                $(".preloader").show();
+                // console.log("before");
+            },
+            success: function(response) {
+                if (response.Responsecode === 200) {
+                    swal(response.Message);
+                    // setmeasuremapping(TableData);
+                    measurementmapping();
+                } else {
+                    // swal(response.Message);
+                    swal("Please Retry Again");
+                }
+            },
+            complete: function(response) {
 
-              // console.log("after");
-              $(".preloader").hide();
-          }
-      });
-    }else{
-      swal("Please Select Checkbox");
+                // console.log("after");
+                $(".preloader").hide();
+            }
+        });
+    } else {
+        swal("Please Select Checkbox");
     }
 
 
@@ -1003,6 +1015,18 @@ function getMeasure() {
     $('input[name="measurementcheck"]:checked', tableControl).each(function(row, tr) {
         TableData[row] = {
             "measurmentId": $(this).val(),
+            "value": $(this).closest('tr').find($("input[type=text]")).val()
+        }
+    });
+    return TableData;
+}
+
+function getFabricmap() {
+    var TableData = new Array();
+    var tableControl = document.getElementById('fabricmaptbl');
+    $('input[name="fabricmapcheck"]:checked', tableControl).each(function(row, tr) {
+        TableData[row] = {
+            "fabricId": $(this).val(),
             "value": $(this).closest('tr').find($("input[type=text]")).val()
         }
     });

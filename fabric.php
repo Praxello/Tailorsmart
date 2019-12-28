@@ -144,7 +144,7 @@ if(isset($_REQUEST['fid']))
                       <div class="col-sm-4">
                         <div class="form-group required">
                           <label class="control-label">SKU No</label>
-                          <input type="text" class="form-control" id="skuno"  title="Enter SKU No" required/>
+                          <input type="text" class="form-control" id="skuno"  title="Enter SKU No" value="<?php echo rand(100,1000);?>" required/>
                         </div>
                       </div>
                       <div class="col-sm-4">
@@ -176,10 +176,10 @@ if(isset($_REQUEST['fid']))
                         </div>
                       </div>
                       <div class="col-sm-4">
-                        <div class="form-group required">
+                        <!-- <div class="form-group required">
                           <label class="control-label">Fabric Type</label>
                           <input type="text" class="form-control" id="fabrictype"  title="Enter Title" required/>
-                        </div>
+                        </div> -->
                       </div>
                       <div class="col-sm-4">
                         <div class="form-group required">
@@ -210,7 +210,7 @@ if(isset($_REQUEST['fid']))
                               <div style="padding-top:32px"></div>
                             <button class="btn btn-success" id="savebtncustomerstyle"  >Save</button>
                             <button class="btn btn-success" id="updatebtncustomerstyle"  style="display:none;">Update</button>
-                            <button class="btn btn-secondary" id="reloadbtn"  >Back</button>
+                            <button class="btn btn-secondary" id="reloadbtn">Back</button>
                           </div>
                         </div>
 

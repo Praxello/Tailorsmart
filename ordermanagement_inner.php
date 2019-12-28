@@ -214,12 +214,12 @@
                             </div>
                             <div class="col-sm-3">
                                 <div class="form-group">
-                                <label class="control-label">Change Expected Delivery Date </label>
+                                <label class="control-label">Expected Delivery Date </label>
                                 </div>
                             </div>
                             <div class="col-sm-3">
                                 <div class="form-group">
-                                <label class="control-label">Change Final Delivery Date</label>
+                                <label class="control-label">Final Delivery Date</label>
                                 </div>
                             </div>
                         </div>

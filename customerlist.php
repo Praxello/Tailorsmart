@@ -18,7 +18,6 @@ $employeeName = $_SESSION['employeeName'];
     <link href="css/lib/bootstrap/asterisks.css" rel="stylesheet">
     <link href="css/helper.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-    <link href="dropzone/dropzone.css" rel="stylesheet">
 
 </head>
 
@@ -83,7 +82,7 @@ $employeeName = $_SESSION['employeeName'];
 
                 <div class="row" id="customerdata" style="display:none;">
                               <input type="hidden" id="customerId" />
-                  <div class="col-sm-12" id="formcustomer" style="display:none;">
+                  <div class="col-sm-12" id="formcustomer">
                     <div class="card">
 
                       <div class="row">
@@ -169,6 +168,15 @@ $employeeName = $_SESSION['employeeName'];
                             <input type="text" class="form-control" id="cpassword"  title="Enter Password"/>
                           </div>
                         </div>
+                        <div class="col-sm-4">
+                       
+                          <div class="form-group">
+                          <select  class="form-control" id="refEmp" style="width:100%;">
+                              
+                            </select>
+                          
+                          </div>
+                        </div>
                       </div>
                         <div class="row">
                           <div class="col-sm-4">
@@ -247,7 +255,6 @@ $employeeName = $_SESSION['employeeName'];
     <!--Custom JavaScript -->
     <script src="js/custom.min.js"></script>
 
-    <link href="dropzone/dropzone.js" rel="stylesheet">
     <script src="js/lib/datatables/datatables.min.js"></script>
     <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
     <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>

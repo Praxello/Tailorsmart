@@ -137,7 +137,7 @@ if(!isset($_FILES["file"]["type"])){
     }
    else
    {
-       $response = array('Message' => "Image Uploaded Successfully", 'Responsecode' => 200);
+       $response = array('Message' => "Image Uploaded Successfully", 'Responsecode' => 402);
    }
   }
 

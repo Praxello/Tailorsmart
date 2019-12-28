@@ -55,6 +55,7 @@ $('.add-row').on('click', function(e) {
                 $(".preloader").show();
             },
             success: function(response) {
+                console.log(response);
                 var count = response.Data.length;
 
                 getOrdersOfCustomer(customerId_g);
@@ -94,8 +95,12 @@ $('.add-row').on('click', function(e) {
                     } else {
                         fabarrhtml = "<td></td>";
                     }
+                    var p = "<td>" + response.Data[i].productTitle + '-' + styleTitle + "</td>";
+                    if (response.Data[i].isMeasurementConformed == 1) {
+                        p = "<td style='color:green'>" + response.Data[i].productTitle + '-' + styleTitle + "</td>";
+                    }
                     markup += "<tr id=" + response.Data[i].orderItemId + ">";
-                    markup += "<td>" + response.Data[i].productTitle + '-' + styleTitle + "</td>";
+                    markup += p;
                     markup += fabarrhtml;
                     markup += "<td>" + response.Data[i].orderItemPrice + "</td>";
                     markup += "<td style='display:none'><input type='hidden' id='amt" + response.Data[i].orderItemId + "' value='" + response.Data[i].orderItemPrice + "'/>";
@@ -111,6 +116,7 @@ $('.add-row').on('click', function(e) {
                     markup += "<a class='btn btn-warning btn-sm' title='add Fabrics' data-toggle='tooltip' href='#' onclick='loadFabrics(\"" + response.Data[i].productId + "\",\"" + response.Data[i].orderItemId + "\",\"" + (i) + "\")'><i class='fa fa-gift'></i></a>";
                     markup += "<a  class='btn btn-danger btn-sm' title='Remove Item' data-toggle='tooltip' href='#' onclick='removeItem(\"" + response.Data[i].orderItemId + "\",\"" + response.Data[i].orderItemPrice + "\")'><i class='fa fa-trash'></i></a>";
                     markup += "<a class='btn btn-primary btn-sm' title='Download PDF' data-toggle='tooltip' href='#' onclick='loadPdf(" + response.Data[i].orderItemId + ")'><i class='fa fa-file-pdf-o'></i></a>";
+                    markup += "<a class='btn btn-success btn-sm' title='Set Delivery Date' data-toggle='tooltip' href='#' onclick='assignOrderDate(" + response.Data[i].orderItemId + ")'><i class='fa fa-tasks'></i></a>";
                     markup += "</td></div></tr>";
                 }
                 $("#productData").html(markup);
@@ -443,7 +449,7 @@ function loadFabrics(productId, orderItemId, rowId) {
                         createDropdownOptions += "<tr><td><img class='img-thumbnail' src='mobileimages/fabric/300x300/" + response['Data'][i].skuNo + ".jpg' alt='No Image Available'></img></td>";
                         createDropdownOptions += "<td>" + response['Data'][i].fabricTitle + "</td>";
                         createDropdownOptions += "<td>" + response['Data'][i].skuNo + "</td>";
-                        createDropdownOptions += "<td>" + response['Data'][i].fabricPrice + "</td>";
+                        createDropdownOptions += "<td>" + response['Data'][i].mappedFabricPrice + "</td>";
                         if (count_1 > 0) {
                             flag = 0;
                             for (var j = 0; j < count_1; j++) {
@@ -684,4 +690,9 @@ function loadcomment(orderItemId) {
 
 function loadPdf(orderItemId) {
     window.open(api_url + 'orderitempdf.php?orderitemid=' + orderItemId);
+}
+
+function assignOrderDate(orderItemId) {
+    $('#aOrderId').val(orderItemId);
+    $('#assignOrderItem').modal();
 }

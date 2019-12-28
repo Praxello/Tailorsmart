@@ -230,6 +230,7 @@ function showData(orderid, rowId) {
     customerOrderDetails = customerOrders[rowId];
     totalorderamount = 0;
     indexRow = rowId;
+    console.log(customerOrderDetails);
     if (customerOrderDetails.OrderDetails != null) {
         OrderDetailsOfCustomer = customerOrderDetails.OrderDetails;
     }
@@ -262,8 +263,11 @@ function showData(orderid, rowId) {
             } else {
                 fabarrhtml = "<td></td>";
             }
-
-            markup += "<tr id=" + customerOrderDetails.orderItems[i].OrderItem.orderItemId + "><td>" + customerOrderDetails.orderItems[i].OrderItem.productTitle + '-' + styleTitle + "</td>";
+            var p = "<td>" + customerOrderDetails.orderItems[i].OrderItem.productTitle + '-' + styleTitle + "</td>";
+            if (customerOrderDetails.orderItems[i].OrderItem.isMeasurementConformed == 1) {
+                p = "<td style='color:green;'>" + customerOrderDetails.orderItems[i].OrderItem.productTitle + '-' + styleTitle + "</td>";
+            }
+            markup += "<tr id=" + customerOrderDetails.orderItems[i].OrderItem.orderItemId + ">" + p;
             markup += fabarrhtml;
             markup += "<td>" + customerOrderDetails.orderItems[i].OrderItem.orderItemPrice + "</td>";
             markup += "<td style='display:none'><input type='hidden' id='amt" + customerOrderDetails.orderItems[i].OrderItem.orderItemId + "' value='" + customerOrderDetails.orderItems[i].OrderItem.orderItemPrice + "'/>";
@@ -282,6 +286,7 @@ function showData(orderid, rowId) {
             markup += "<a class='btn btn-warning btn-sm' title='add Fabrics' data-toggle='tooltip' href='#' onclick='loadFabrics(\"" + customerOrderDetails.orderItems[i].OrderItem.productId + "\",\"" + customerOrderDetails.orderItems[i].OrderItem.orderItemId + "\",\"" + (i) + "\")'><i class='fa fa-gift'></i></a>";
             markup += "<a class='btn btn-danger btn-sm' title='Remove Item' data-toggle='tooltip' href='#' onclick='removeItem(\"" + customerOrderDetails.orderItems[i].OrderItem.orderItemId + "\",\"" + customerOrderDetails.orderItems[i].OrderItem.orderItemPrice + "\")'><i class='fa fa-trash'></i></a>";
             markup += "<a class='btn btn-primary btn-sm' title='Download PDF' data-toggle='tooltip' href='#' onclick='loadPdf(" + customerOrderDetails.orderItems[i].OrderItem.orderItemId + ")'><i class='fa fa-file-pdf-o'></i></a>";
+            markup += "<a class='btn btn-success btn-sm' title='Set Delivery Date' data-toggle='tooltip' href='#' onclick='assignOrderDate(" + customerOrderDetails.orderItems[i].OrderItem.orderItemId + ")'><i class='fa fa-tasks'></i></a>";
             markup += "</td></div></tr>";
         }
         // console.log("totalorderamount"+totalorderamount);
