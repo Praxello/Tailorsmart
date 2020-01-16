@@ -478,7 +478,7 @@ function loadFabrics(productId, orderItemId, rowId) {
         complete: function(response) {
             $(".preloader").hide();
         }
-    })
+    });
 }
 getPaymentList();
 // var totalpayment =0;
@@ -556,7 +556,7 @@ function removePayment(paymentid, orderid) {
             alert(response.Message);
             getPaymentList();
         }
-    })
+    });
 }
 
 function updatePaymentFlag(paymentid) {
@@ -583,6 +583,7 @@ $('#loadfirstpage').on('click', function(e) {
 
 function displayOrderDetails(orderDetails) {
     totalorderamount = orderDetails.amount;
+    console.log(totalorderamount);
     $('#orderId').html(orderDetails.orderId);
     $('#Orderamount').html(orderDetails.amount);
     $('#orderStatus').html(statusMap.get(orderDetails.orderStatus));
@@ -695,4 +696,9 @@ function loadPdf(orderItemId) {
 function assignOrderDate(orderItemId) {
     $('#aOrderId').val(orderItemId);
     $('#assignOrderItem').modal();
+}
+
+function payTerms() {
+    getPaymentList();
+    $('#paymentLinkModal').modal();
 }

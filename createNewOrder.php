@@ -168,7 +168,7 @@
         <div id="paymentlink" class="tab-pane"><br>
             <div class="card">
                 <div class="form-group ">
-                    <button type="button" class="btn btn-secondary float-right" data-toggle="modal" data-target="#paymentLinkModal">Create Payment Link</button>
+                    <button type="button" class="btn btn-secondary float-right" onclick="payTerms()">Create Payment Link</button>
                 </div>
                 <div class="table-responsive m-t-40">
                     <input type="hidden" id="totalpayment" />

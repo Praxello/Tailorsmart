@@ -186,8 +186,8 @@ if(isset($_REQUEST['fid']))
                           <label class="control-label">Price Variable</label>
                           <select  class="form-control" id="fabricPricevariable" style="width:100%;" required>
                             <option value="">Select Status</option>
-                            <option value="0">Off</option>
-                            <option value="1">On</option>
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
                           </select>
                         </div>
                       </div>
