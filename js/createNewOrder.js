@@ -572,7 +572,7 @@ function updatePaymentFlag(paymentid) {
             alert(response.Message);
             getPaymentList();
         }
-    })
+    });
 }
 $('#loadfirstpage').on('click', function(e) {
     e.preventDefault();
@@ -583,7 +583,6 @@ $('#loadfirstpage').on('click', function(e) {
 
 function displayOrderDetails(orderDetails) {
     totalorderamount = orderDetails.amount;
-    console.log(totalorderamount);
     $('#orderId').html(orderDetails.orderId);
     $('#Orderamount').html(orderDetails.amount);
     $('#orderStatus').html(statusMap.get(orderDetails.orderStatus));

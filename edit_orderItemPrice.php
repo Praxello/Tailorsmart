@@ -60,6 +60,12 @@ $('#updatePrice').on('click', function(e) {
                 $('#productTable tr:nth-child(' + rowId + ') td:nth-child(3)').html(amount);
                 $('#amt' + updateDetails.orderItemId).val(amount);
                 getOrdersOfCustomer(customerId_g);
+                //vikas added on 21/01
+                customerOrderDetails = [];
+                customerOrderDetails = customerOrders[indexRow];
+                OrderDetailsOfCustomer = customerOrderDetails.OrderDetails;
+                displayOrderDetails(OrderDetailsOfCustomer);
+                //end
                 $('#customerOrdersBlock').hide();
             }
         })
