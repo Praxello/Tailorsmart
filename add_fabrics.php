@@ -8,7 +8,6 @@
                  <h4 class="modal-title">Order Fabrics</h4>
                  <div class='btn-group' role='group' aria-label='Basic example'>
                  <button type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" title="Add Fabric" id="adduserfabrics"><i class="fa fa-plus"></i></button>
-                 <button type="button" class="btn btn-success btn-sm" data-toggle="tooltip" title="Refresh" id="refreshFabrics"><i class="fa fa-refresh"></i></button>
                 </div>
                 </div>
              <!-- Modal body -->
@@ -48,6 +47,7 @@
          </div>
      </div>
  </div>
+ <?php include 'add_fabric_modal.php';?>
  <script>
 $("#myInput").on("keyup", function() {
     var value = $(this).val().toLowerCase();
@@ -143,34 +143,8 @@ function getMeasure() {
 }
 $('#adduserfabrics').on('click',function(e){
     e.preventDefault();
-    window.open('fabric.php', '_blank');
-});
-$('#refreshFabrics').on('click',function(e){
-    e.preventDefault();
-    $("#fabricsTable").empty();
-    $.ajax({
-        url: api_url + 'getfabrics.php',
-        type: 'GET',
-        dataType: 'json',
-        success: function(response) {
-            var createDropdownOptions = '';
-            if (response.Data != null) {
-                var count = response.Data.length;
-                for (var i = 0; i < count; i++) {
-                    
-                    createDropdownOptions += "<tr><td><img class='img-thumbnail' src='mobileimages/fabric/300x300/" + response['Data'][i].skuNo + ".jpg' alt='No Image Available'></img></td>";
-                    createDropdownOptions += "<td>" + response['Data'][i].fabricTitle + "</td>";
-                    createDropdownOptions += "<td>" + response['Data'][i].skuNo + "</td>";
-                    createDropdownOptions += "<td>" + response['Data'][i].fabricPrice + "</td>";
-                    createDropdownOptions += "<td><input type='checkbox' name='fabrics' value=" + response['Data'][i].fabricId + "></td>";
-                    createDropdownOptions += "</tr>";
-                }
-                $("#fabricsTable").html(createDropdownOptions);
-            } else {
-                alert('Add Fabrics First');
-            }
-        }
-    })
+    $('#FabricsModal').modal('hide');
+   $('#newFabric').modal('show');
 });
 function addPrice(updateDetails){
     $.ajax({

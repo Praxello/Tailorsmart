@@ -18,6 +18,7 @@ var ActiveProductsList = new Map(); //stored price here
 var TailorData = [];
 var assignSalesData = new Map();
 var totalorderamount = 0;
+var productId_fabric = null;
 getStatusMap();
 getConfirmation();
 

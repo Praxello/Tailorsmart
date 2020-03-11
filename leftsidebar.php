@@ -34,11 +34,11 @@
                                             <li><a class="  " href="customerstyles.php" aria-expanded="false" ><i
                                                         class="fa fa-male"></i><span class="" style="padding: 20px;">Category</span></a></li>
                                             <li><a class="  " href="customersubstyles.php" aria-expanded="false" ><i
-                                                        class="fa fa-female"></i><span class="" style="padding: 20px;">Sub category</span></a></li>
+                                                        class="fa fa-female"></i><span class="" style="padding: 20px;">Sub Category</span></a></li>
                                             <li><a class="  " href="masterproducts.php" aria-expanded="false"><i
-                                                            class="fa  fa-desktop "></i><span class="" style="padding: 20px;">Products combination</span></a></li>
+                                                            class="fa  fa-desktop "></i><span class="" style="padding: 20px;">Products Combination</span></a></li>
                                             <li><a class="  " href="managecategory.php" aria-expanded="false"><i
-                                                        class="fa fa-list-alt"></i><span class="" style="padding: 20px;">Sliding banner</span></a></li>
+                                                        class="fa fa-list-alt"></i><span class="" style="padding: 20px;">Sliding Banner</span></a></li>
                                             <li><a class=" " href="products.php" aria-expanded="false"><i class="fa fa-diamond"></i><span
                                                                     class="" style="padding: 20px;">Products</span></a></li>
                                             <li><a class="  " href="fabric.php" aria-expanded="false"><i class="fa fa-gift"></i><span
@@ -47,11 +47,11 @@
                                                         class="" style="padding: 20px;">Measurements</span></a></li>
 
                                             <li><a class="  " href="stitchstyle.php" aria-expanded="false"><i class="fa fa-tag"></i><span
-                                                        class="" style="padding: 20px;">Style category</span></a></li>
+                                                        class="" style="padding: 20px;">Style Category</span></a></li>
                                             <li><a class="  " href="stitchstyledetail.php" aria-expanded="false"><i
-                                                        class="fa fa-tags"></i><span class="" style="padding: 20px;">Style subcategory</span></a></li>
+                                                        class="fa fa-tags"></i><span class="" style="padding: 20px;">Style Subcategory</span></a></li>
                                             <li><a class="  " href="employeemaster.php" aria-expanded="false"><i
-                                                        class="fa fa-group"></i><span class="" style="padding: 20px;">Employee Master</span></a></li>
+                                                        class="fa fa-group"></i><span class="" style="padding: 20px;">Users</span></a></li>
                                             <li><a class="  " href="holidaymaster.php" aria-expanded="false"><i
                                                         class="fa fa-columns"></i><span class="" style="padding: 20px;">Holiday Master</span></a></li>
                                             <li><a class=" " href="slotmaster.php" aria-expanded="false"><i
@@ -70,11 +70,11 @@
                                             <li><a class="  " href="customerstyles.php" aria-expanded="false" ><i
                                                         class="fa fa-male"></i><span class="" style="padding: 20px;">Category</span></a></li>
                                             <li><a class="  " href="customersubstyles.php" aria-expanded="false" ><i
-                                                        class="fa fa-female"></i><span class="" style="padding: 20px;">Sub category</span></a></li>
+                                                        class="fa fa-female"></i><span class="" style="padding: 20px;">Sub Category</span></a></li>
                                             <li><a class="  " href="masterproducts.php" aria-expanded="false"><i
-                                                            class="fa  fa-desktop "></i><span class="" style="padding: 20px;">Products combination</span></a></li>
+                                                            class="fa  fa-desktop "></i><span class="" style="padding: 20px;">Products Combination</span></a></li>
                                             <li><a class="  " href="managecategory.php" aria-expanded="false"><i
-                                                        class="fa fa-list-alt"></i><span class="" style="padding: 20px;">Sliding banner</span></a></li>
+                                                        class="fa fa-list-alt"></i><span class="" style="padding: 20px;">Sliding Banner</span></a></li>
                                             <li><a class=" " href="products.php" aria-expanded="false"><i class="fa fa-diamond"></i><span
                                                                     class="" style="padding: 20px;">Products</span></a></li>
                                             <li><a class="  " href="fabric.php" aria-expanded="false"><i class="fa fa-gift"></i><span
@@ -83,11 +83,11 @@
                                                         class="" style="padding: 20px;">Measurements</span></a></li>
 
                                             <li><a class="  " href="stitchstyle.php" aria-expanded="false"><i class="fa fa-tag"></i><span
-                                                        class="" style="padding: 20px;">Style category</span></a></li>
+                                                        class="" style="padding: 20px;">Style Category</span></a></li>
                                             <li><a class="  " href="stitchstyledetail.php" aria-expanded="false"><i
-                                                        class="fa fa-tags"></i><span class="" style="padding: 20px;">Style subcategory</span></a></li>
+                                                        class="fa fa-tags"></i><span class="" style="padding: 20px;">Style Subcategory</span></a></li>
                                             <li><a class="  " href="employeemaster.php" aria-expanded="false"><i
-                                                        class="fa fa-group"></i><span class="" style="padding: 20px;">Employee Master</span></a></li>
+                                                        class="fa fa-group"></i><span class="" style="padding: 20px;">Users</span></a></li>
                                             <li><a class="  " href="holidaymaster.php" aria-expanded="false"><i
                                                         class="fa fa-columns"></i><span class="" style="padding: 20px;">Holiday Master</span></a></li>
                                             <li><a class=" " href="slotmaster.php" aria-expanded="false"><i
@@ -100,6 +100,11 @@
                 <?php
                 break;
                 case '3':?>
+                 <li><a href="customerlist.php" aria-expanded="false"><i
+                          class="fa fa-users"></i>
+                          <span class="hide-menu">Customer List</span>
+                    </a>
+              </li>
                 <li> <a class="has-arrow" href="#" aria-expanded="false"><i class="fa fa-shopping-cart"></i>
                 <span class="hide-menu">Orders</span></a>
                   <ul aria-expanded="false" class="collapse">
@@ -110,6 +115,11 @@
                 break;
                 case '4':
                 ?>
+                 <li><a href="customerlist.php" aria-expanded="false"><i
+                          class="fa fa-users"></i>
+                          <span class="hide-menu">Customer List</span>
+                    </a>
+              </li>
                 <li> <a class="has-arrow" href="#" aria-expanded="false"><i class="fa fa-shopping-cart"></i>
                 <span class="hide-menu">Orders</span></a>
                   <ul aria-expanded="false" class="collapse">

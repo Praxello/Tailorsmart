@@ -173,7 +173,11 @@ if(isset($_REQUEST['aid']))
     <script src="js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
     <!--Custom JavaScript -->
     <script src="js/custom.min.js"></script>
-
+<script>
+var data = {
+employeeId:<?php echo $_SESSION['employeeId'];?>
+};
+</script>
 
     <script src="js/lib/datatables/datatables.min.js"></script>
     <script src="date/datepicker.js"></script>

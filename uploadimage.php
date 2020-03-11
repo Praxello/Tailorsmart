@@ -42,7 +42,7 @@ if(!isset($_FILES["file"]["type"])){
     } else {
         $uploadOk = 0;
     }
-    if($imageFileType != "jpg" && $imageFileType != "jpeg"
+    if($imageFileType != "jpg" && $imageFileType != "jpeg" && $imageFileType != "png"
     && $imageFileType != "gif" ) {
 
         $response = array('Message' => "Sorry, only JPG, JPEG & GIF files are allowed.", 'Responsecode' => 402);

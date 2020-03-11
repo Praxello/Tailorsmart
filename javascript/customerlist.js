@@ -51,10 +51,13 @@ function settabledata(styleData) {
         html += '<div class="btn-group" role="group" aria-label="Basic Example">';
         html += '<button class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Edit Measurement" onclick="editMeasurement(' + (k) + ');">';
         html += '<i class="fa fa-balance-scale"></i></button>';
+
         html += '<button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editCustomers(' + (k) + ');">';
         html += '<i class="fa fa-edit"></i></button>';
-        html += '<button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="removeStyle(' + (k) + ');">';
-        html += '<i class="fa fa-trash"></i></button>';
+        if (data.role != 4 || data.role != 3) {
+            html += '<button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" onclick="removeStyle(' + (k) + ');">';
+            html += '<i class="fa fa-trash"></i></button>';
+        }
         html += '</div>';
         html += '</td>';
         html += '</tr>';

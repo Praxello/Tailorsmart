@@ -17,6 +17,7 @@ var OrderDetailsOfCustomer = []; //like orderId,expectedDeliveryDate,Amount
 var ActiveProductsList = new Map(); //stored price here
 var TailorData = [];
 var assignSalesData = new Map();
+var productId_fabric = null;
 getStatusMap();
 getConfirmation();
 
