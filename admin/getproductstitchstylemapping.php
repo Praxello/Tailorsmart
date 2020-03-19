@@ -7,7 +7,7 @@ header('Content-Type: application/json');
 	
 	 extract($_POST);
 	  
-		 			$academicQuery = mysqli_query($conn,"select * from product_catalog_style_master pcm inner join product_master pm on pcm.productid = pm.productid inner join stitch_style_template_master pim on pim.stitchStyleId = pcm.stitchStyleId");
+		 			$academicQuery = mysqli_query($conn,"select * from product_catalog_style_master pcm inner join product_master pm on pcm.productid = pm.productid inner join stitch_style_template_master pim on pim.stitchStyleId = pcm.stitchStyleId ORDER BY pim.stitchStyleTitle ASC");
 						if($academicQuery!=null)
 						{
 							$academicAffected=mysqli_num_rows($academicQuery);
@@ -18,7 +18,7 @@ header('Content-Type: application/json');
 										$selectedStitchStyleId = $academicResults['stitchStyleId'];
 										$stitchSubstyles = null;
 										//now add all stitchsubstyle objects in this
-									$query = mysqli_query($conn,"select * from stitch_style_details_template_master where stitchStyleId=$selectedStitchStyleId");
+									$query = mysqli_query($conn,"select * from stitch_style_details_template_master where stitchStyleId=$selectedStitchStyleId ORDER BY stitchSubStyleTitle ASC");
 									if($academicQuery!=null)
 									{
 										

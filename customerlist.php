@@ -109,7 +109,7 @@ $employeeName = $_SESSION['employeeName'];
                       <div class="row">
 
                         <div class="col-sm-4">
-                          <div class="form-group required">
+                          <div class="form-group">
                             <label class="control-label">Birth Date</label>
                             <input type="date" class="form-control" id="cdob"  title="Enter Birth Date"/>
                           </div>
@@ -155,7 +155,7 @@ $employeeName = $_SESSION['employeeName'];
                       </div>
                       <div class="row">
 
-                        <div class="col-sm-8">
+                        <div class="col-sm-4">
                           <div class="form-group required">
                             <label class="control-label">Address</label>
                             <input type="text" class="form-control" id="caddress"  title="Enter Address"/>
@@ -170,6 +170,14 @@ $employeeName = $_SESSION['employeeName'];
                         </div>
                         <div class="col-sm-4">
                        
+                       <div class="form-group">
+                       <label class="control-label">GST Number</label>
+                      <input type="text" name="GST" id="GST" class="form-control" title="Enter a GST Number">
+                       
+                       </div>
+                     </div>
+                        <div class="col-sm-4">
+                       
                           <div class="form-group">
                           <select  class="form-control" id="refEmp" style="width:100%;">
                               
@@ -177,6 +185,7 @@ $employeeName = $_SESSION['employeeName'];
                           
                           </div>
                         </div>
+                       
                       </div>
                         <div class="row">
                           <div class="col-sm-4">

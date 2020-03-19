@@ -97,14 +97,16 @@
         success: function(response) {
             if (response.Responsecode == 200) {
                 alert('New fabric added successfully');
+                $('#newFabric').modal('hide');
+            $('#fabricform').trigger('reset');
+            $('#userJpg').empty();
             } else {
                 alert(response.Message);
             }
         },
         complete: function(response) {
             $(".preloader").hide();
-            $('#newFabric').modal('hide');
-            $('#fabricform').trigger('reset');
+            $('#skuno').val(Math.floor((Math.random() * 1000) + 1));
             loadAddedFabrics(productId_fabric);
         }
        

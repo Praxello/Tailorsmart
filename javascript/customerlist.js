@@ -396,7 +396,7 @@ $('#savebtncustomerstyle').on('click', function(event) {
     var cpassword = $("#cpassword").val();
     var employeeId = $('#refEmp').val();
     if (cfname === "" || clname === "" || cemail === "" ||
-        cdob === "" || cmobile === "" || ccity === "" || cstate === "" || ccountry === "" || caddress === "" || cgender === "" || cpassword === "") {
+        cmobile === "" || ccity === "" || cstate === "" || ccountry === "" || caddress === "" || cgender === "" || cpassword === "") {
         swal("Parameter Missing");
     } else {
         var obj = {
@@ -439,7 +439,7 @@ $('#savebtncustomerstyle').on('click', function(event) {
                     settabledata(styleData);
                 } else {
                     // swal(response.Message);
-                    swal("Please Retry Again");
+                    swal(response.Message);
                 }
             },
             complete: function(response) {

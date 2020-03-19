@@ -8,7 +8,7 @@ header('Content-Type: application/json');
 	 extract($_POST);
 
 	        $records =null;
-		 			$academicQuery = mysqli_query($conn,"SELECT * FROM `customer_master` WHERE isActive=1");
+		 			$academicQuery = mysqli_query($conn,"SELECT * FROM `customer_master` WHERE isActive=1 ORDER BY customerId DESC");
 						if($academicQuery!=null)
 						{
 							$academicAffected=mysqli_num_rows($academicQuery);

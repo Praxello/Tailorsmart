@@ -10,10 +10,11 @@ extract($_POST);
 date_default_timezone_set("Asia/Kolkata");
 
 //`categoryId`, `fabricTitle`, `fabricBrand`, `fabricDetails`, `skuNo`, `fabricPrice`, `releaseDate`, `isPriceVariable`, `hexColor`, `colorName`, `fabricType`, `isActive`
-if (isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['date_birth']) && isset($_POST['mobile'])
+if (isset($_POST['firstName']) && isset($_POST['lastName'])  && isset($_POST['mobile'])
 && isset($_POST['landline'])&& isset($_POST['city']) && isset($_POST['state']) && isset($_POST['country'])&& isset($_POST['address'])
 && isset($_POST['isMale']) && isset($_POST['password']) && isset($_POST['latitude']) && isset($_POST['longitude'])) {
 	$empId = isset($_POST['employeeid']) ? $employeeid : "NULL";
+	$date_birth = isset($_POST['date_birth']) ? $_POST['date_birth']:'NULL';
 	// $tempDetails = mysqli_real_escape_string($conn,$fabricDetails);
 	// $tempTitle = mysqli_real_escape_string($conn,$fabricTitle);
 	// $tempBrand = mysqli_real_escape_string($conn,$fabricBrand);
@@ -28,7 +29,7 @@ VALUES ('$firstName', '$lastName', '$email', '$date_birth', '$mobile', '$landlin
 					}
 					else
 					{
-						$response=array("Message"=> mysqli_error($conn)." failed","Responsecode"=>500);
+						$response=array("Message"=> mysqli_error($conn)." Already Exists","Responsecode"=>500);
 					}
 }
 else
