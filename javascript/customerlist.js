@@ -154,7 +154,7 @@ function editCustomers(customerId) {
     $("#cemail").val(AllData.email);
     $("#cdob").val(AllData.date_birth);
     $("#cmobile").val(AllData.mobile);
-    // $("#clandline").val(AllData.landline);
+    $("#GST").val(AllData.GST);
     $("#ccity").val(AllData.city);
     $("#cstate").val(AllData.state);
     $("#ccountry").val(AllData.country);
@@ -395,6 +395,7 @@ $('#savebtncustomerstyle').on('click', function(event) {
     var cgender = $("#cgender").val();
     var cpassword = $("#cpassword").val();
     var employeeId = $('#refEmp').val();
+    var gst = document.getElementById('GST').value;
     if (cfname === "" || clname === "" || cemail === "" ||
         cmobile === "" || ccity === "" || cstate === "" || ccountry === "" || caddress === "" || cgender === "" || cpassword === "") {
         swal("Parameter Missing");
@@ -417,7 +418,8 @@ $('#savebtncustomerstyle').on('click', function(event) {
             landmark: '',
             isActive: '1',
             issocial: '1',
-            employeeId: employeeId
+            employeeId: employeeId,
+            gst: gst
         };
         $.ajax({
             url: api_url + 'createcustomer.php',
@@ -468,6 +470,7 @@ $('#updatebtncustomerstyle').on('click', function(event) {
     var cgender = $("#cgender").val();
     var cpassword = $("#cpassword").val();
     var employeeId = $('#refEmp').val();
+    var gst = document.getElementById('GST').value;
     if (cfname === "" || clname === "" || cemail === "" ||
         cdob === "" || cmobile === "" || ccity === "" || cstate === "" || ccountry === "" || caddress === "" || cgender === "" || cpassword === "") {
         swal("Parameter Missing");
@@ -491,7 +494,8 @@ $('#updatebtncustomerstyle').on('click', function(event) {
             landmark: '',
             isActive: '1',
             issocial: '1',
-            employeeId: employeeId
+            employeeId: employeeId,
+            gst: gst
         };
         $.ajax({
             url: api_url + 'editcustomer.php',

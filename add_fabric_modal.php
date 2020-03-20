@@ -52,7 +52,7 @@
                       <div class="col-md-4">
                         <div class="text-center">
                                            
-                                           <img alt="No image" class="img-fluid mb-20" width="90" height="75" id="userJpg" style="padding-block-end: 10px;">
+                                           <img src="" alt="No image" class="img-fluid mb-20" width="90" height="75" id="userJpg" style="padding-block-end: 10px;">
 
                                        <div class="row text-center justify-content-md-center">
                                           <div class="form-group">
@@ -97,9 +97,9 @@
         success: function(response) {
             if (response.Responsecode == 200) {
                 alert('New fabric added successfully');
+                $('#fabricform').trigger('reset');
                 $('#newFabric').modal('hide');
-            $('#fabricform').trigger('reset');
-            $('#userJpg').empty();
+                $('#userJpg').attr('src', '');
             } else {
                 alert(response.Message);
             }

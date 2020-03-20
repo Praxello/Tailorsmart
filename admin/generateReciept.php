@@ -15,7 +15,7 @@ function company_info($orderId)
 {
   $academicResults = null;
   include '../connection.php';
-  $sql = "SELECT com.orderId,com.amount,DATE_FORMAT(com.purchaseDateTime,'%d,%M %Y') invDate,cm.firstName,cm.lastName,cm.address,cm.mobile,cm.email,DATE_FORMAT(com.customerExpectedDate,'%d,%M %Y') expDate,cm.city,cm.state,cm.country 
+  $sql = "SELECT com.orderId,com.amount,DATE_FORMAT(com.purchaseDateTime,'%d,%M %Y') invDate,cm.firstName,cm.lastName,cm.address,cm.mobile,cm.email,DATE_FORMAT(com.customerExpectedDate,'%d,%M %Y') expDate,cm.city,cm.state,cm.country,COALESCE(cm.GST,'') GST
   FROM customer_order_master com LEFT JOIN customer_master cm ON com.customerId = cm.customerId
   WHERE com.orderId =  $orderId";
   $academicQuery = mysqli_query($conn,$sql);
@@ -159,6 +159,10 @@ $company .='
 <tr>
 <td style="height:20px;"><strong>Email:</strong></td>
 <td>'.$academicResults['email'].'</td>
+</tr>
+<tr>
+<td style="height:20px;"><strong>GST:</strong></td>
+<td>'.$academicResults['GST'].'</td>
 </tr>
 </table>
 
