@@ -149,6 +149,7 @@ if (isset($_SESSION['employeeId'])) {
         <!-- slimscrollbar scrollbar JavaScript -->
         <script src="js/jquery.slimscroll.js"></script>
         <!--Menu sidebar -->
+        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
         <script src="js/sidebarmenu.js"></script>
         <!--stickey kit -->
         <script src="js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>

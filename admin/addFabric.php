@@ -2,6 +2,8 @@
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 include "../connection.php";
+include_once("../thumbnailfunct.php");
+ini_set('memory_limit', '1024M');
 mysqli_set_charset($conn, 'utf8');
 $response = null;
 $records  = null;
@@ -9,6 +11,8 @@ extract($_POST);
 
 date_default_timezone_set("Asia/Kolkata");
 $dir = "../mobileimages/fabric/300x300/";
+$target_dir = "../mobileimages/fabric/";
+$upload300x300_dir = $target_dir.'300x300/';
 //`categoryId`, `fabricTitle`, `fabricBrand`, `fabricDetails`, `skuNo`, `fabricPrice`, `releaseDate`, `isPriceVariable`, `hexColor`, `colorName`, `fabricType`, `isActive`
 if (isset($_POST['productId']) && isset($_POST['fabricTitle']) && isset($_POST['fabricBrand']) && isset($_POST['fabricDetails']) && isset($_POST['skuNo']) && isset($_POST['fabricPrice']) ) {
     
@@ -32,9 +36,15 @@ if (isset($_POST['productId']) && isset($_POST['fabricTitle']) && isset($_POST['
         if (isset($_FILES["userPic"]["type"])) {
             $imgname    = $_FILES["userPic"]["name"];
             $sourcePath = $_FILES['userPic']['tmp_name']; // Storing source path of the file in a variable
-            $targetPath = $dir . $skuNo  . ".jpg"; // Target path where file is to be stored
-            move_uploaded_file($sourcePath, $targetPath);
-            $abc=2;
+            $targetPath = $target_dir . $skuNo  . ".jpg"; // Target path where file is to be stored
+            $newimagename = $skuNo  . ".jpg";
+            if(move_uploaded_file($sourcePath,$targetPath)){
+                if(createThumbnail($newimagename, 70, 70, $target_dir, $upload300x300_dir)){
+                    $abc=2;
+                  }
+            }else{
+                $abc=1;
+            }
            }else{
                $abc=1;
            }

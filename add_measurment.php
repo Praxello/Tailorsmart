@@ -41,6 +41,18 @@
      </div>
  </div>
  <script>
+       jQuery.validator.addMethod("dollarsscents", function (value, element) {
+        return this.optional(element) || /^\d{0,2}(\.\d{0,2})?$/i.test(value);
+    }, "You must include two decimal places");
+
+    $('#myform').validate({
+        rules: {
+            field1: {
+                required: true,
+                dollarsscents: true
+            }
+        }
+    });
 var TableData;
 var abc =0;
 $('#saveMeasurementsData').on('click', function(event) {
