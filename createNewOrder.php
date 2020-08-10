@@ -1,5 +1,5 @@
 <script src="js/createNewOrder.js"></script>
-
+<script src="js/getpushnotification.js"></script>
 <body>
     <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item">
@@ -7,6 +7,9 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" data-toggle="tab" href="#paymentlink"><i class="fa fa fa-rupee"></i>Payment Links</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#discountlink"><i class="fa fa fa-rupee"></i>Discount</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" data-toggle="tab" href="#OrderStatus"><i class="fa fa fa-rupee"></i>Order Status</a>
@@ -129,16 +132,18 @@
                                     <input type="text" class="form-control form-control-sm" name="OrderItemPrice" id="OrderItemPrice">
                                 </div>
                             </div>
+                            
+                            <div class="col-sm-3">
+                            <div class="form-group">
+                                    <input type="number" class="form-control form-control-sm" name="orderitemdiscount" id="orderitemdiscount" value="0">
+                                </div>
+                            </div>
                             <div class="col-sm-3">
                                 <div class="btn-group" role="group" aria-label="add example">
                                     <button type="button" class="add-row btn btn-success"><i class="fa  fa-plus"></i>Add
                                         Product</button>
                                     <button type="button" class="btn btn-primary" id="loadfirstpage"><i class="fa  fa-arrow-left"></i>Go Back</button></div>
                             </div>
-                            <div class="col-sm-3">
-
-                            </div>
-
                         </div>
                     </div>
                 </div>
@@ -153,6 +158,7 @@
                                 <th>Price</th>
                                 <th style="display:none">Alteration</th>
                                 <th>Alteration</th>
+                                <th>Total</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -260,6 +266,49 @@
                         <div class="col-sm-4">
 
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="discountlink" class="tab-pane">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="row">
+                    <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="control-label">Order Amount</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="control-label">Order Discount</label>
+                            </div>
+                        </div>
+                       
+                    </div>
+                    <div class="row">
+                    <div class="col-sm-3">
+                            <div class="form-group">
+                            <div class="form-group">
+                              <input type="text" id="oAmount" class="form-control form-control-sm" readonly>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                              <input type="number" id="orderDiscount" class="form-control form-control-sm">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                              <input type="text" id="ftotalorder" class="form-control form-control-sm" readonly>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <button type="button" class="btn btn-success" onclick="calDiscount()">Add Discount</button>
+                        </div>
+                      
+                      
                     </div>
                 </div>
             </div>

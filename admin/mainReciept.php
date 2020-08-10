@@ -204,8 +204,8 @@ function gst()
 {
   $gst = '';
  
-    $gst .=  '<td style="width:5%;border-top:1px solid black;text-align:center;border-bottom:1px solid black;border-right:1px solid black;"><strong>CGST(6%)</strong></td>
-  		<td style="width:5%;border-top:1px solid black;text-align:center;border-bottom:1px solid black;"><strong>SGST(6%)</strong></td>';
+    $gst .=  '<td style="width:5%;border-top:1px solid black;border-bottom:1px solid black;border-right:1px solid black;"><strong>CGST</strong></td>
+  		<td style="width:5%;border-top:1px solid black;border-bottom:1px solid black;"><strong>SGST</strong></td>';
 return $gst;
 }
 
@@ -214,7 +214,7 @@ function fetch_data($orderId)
   $output = '';
   $academicResults = null;
   include '../connection.php';
-  $sql = "SELECT coim.orderItemPrice,pm.productTitle,pm.productSubTitle,pm.skuNo,psm.styleTitle,coim.discount
+  $sql = "SELECT coim.orderItemPrice,pm.productTitle,pm.productSubTitle,pm.skuNo,psm.styleTitle
   FROM customer_order_items_master coim LEFT JOIN product_master pm ON pm.productId = coim.productId 
   LEFT JOIN product_parent_master ppm ON pm.parentId = ppm.parentId
   LEFT JOIN product_style_master psm ON psm.styleId = ppm.styleId
@@ -229,38 +229,27 @@ function fetch_data($orderId)
       $totalTax = 0;
       $finalAmt = 0;
       $i=1;
-      $discountAmt=0;
-      $discount=0;
      while($academicResults = mysqli_fetch_assoc($academicQuery)){
        if($academicResults['orderItemPrice']!=0){
-       if($academicResults['discount'] >0){
-        $discount = $academicResults['discount'];
-        $discountAmt = ($academicResults['orderItemPrice']/100)*($discount);
-        $discountedAmt = $academicResults['orderItemPrice']-$discountAmt;
-        $taxRate = ($discountedAmt*0.12);
+        $taxRate = ($academicResults['orderItemPrice']*12)/(100+12);
         $taxAmt =  $taxRate/2;
-        $rate = $academicResults['orderItemPrice'];
-       }else{
-        $taxRate = ($academicResults['orderItemPrice']*0.12);
-        $taxAmt =  $taxRate/2;
-        $discountedAmt = $academicResults['orderItemPrice'];
-        $rate = $academicResults['orderItemPrice'];
-       }
+        $rate = $academicResults['orderItemPrice'] - $taxRate;
        }else{
         $taxRate = 0;
         $taxAmt = 0;
         $rate = $academicResults['orderItemPrice'];
        }
-       $totalAmt = $totalAmt + $discountedAmt;
+       $totalAmt = $totalAmt + $rate;
        $totalTax = $totalTax + $taxAmt;
-       $finalAmt = ($discountedAmt+($taxAmt*2)) + $finalAmt;
+       $finalAmt = $academicResults['orderItemPrice'] + $finalAmt;
       $output .='
       <tr>
         <td style="width:5%;border:1px solid black;text-align:center;">'.$i.'</td>
-        <td style="width:30%;text-align:left; padding-left:10px;border-top:1px solid black;border-bottom:1px solid black;text-align:le;"><h3>'.$academicResults['styleTitle'].'-'.$academicResults['productTitle'].'</h3></td>
+        <td style="width:40%;text-align:left; padding-left:10px;border-top:1px solid black;border-bottom:1px solid black;text-align:le;"><h3>'.$academicResults['styleTitle'].'-'.$academicResults['productTitle'].'</h3></td>
         <td style="width:10%;border:1px solid black;text-align:center;">'.$academicResults['skuNo'].'</td>
         <td style="width:8%;border-top:1px solid black;border-bottom:1px solid black;text-align:center;">'.number_format($rate,2).'</td>
-        <td style="width:5%;border:1px solid black;text-align:center;">1</td><td style="width:10%;border:1px solid black;text-align:center;">'.$discountedAmt.'('. $discount.')</td>';
+        <td style="width:5%;border:1px solid black;text-align:center;">1</td>';
+  
          
             $output .='
           <td style="width:7%;border-top:1px solid black;border-bottom:1px solid black;border-right:1px solid black;text-align:center;">'.number_format($taxAmt,2).'</td>
@@ -268,7 +257,7 @@ function fetch_data($orderId)
         
        
         $output .='
-        <td style="width:10%;border:1px solid black;text-align:center;">'.number_format($discountedAmt+($taxAmt*2),2).'</td>
+        <td style="width:10%;border:1px solid black;text-align:center;">'.number_format($academicResults['orderItemPrice'],2).'</td>
     </tr>';
     $i++;
      }
@@ -357,7 +346,6 @@ function repeatcode(){
                   <td style="width:10%;border:1px solid black;text-align:center;"><strong>SKU</strong></td>
                   <td style="width:8%;border-top:1px solid black;border-bottom:1px solid black;text-align:center;"><strong>Rate</strong></td>
                   <td style="width:5%;border:1px solid black;text-align:center;"><strong>QTY</strong></td>
-                  <td style="width:10%;border:1px solid black;text-align:center;"><strong>Discount</strong></td>
                   '.gst().'
                   <td style="width:10%;color: #000000;border:1px solid black;text-align:center;"><strong>TOTAL</strong></td>
               </tr>

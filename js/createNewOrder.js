@@ -39,11 +39,17 @@ $('.add-row').on('click', function(e) {
     if (orderItemPrice == '') {
         orderItemPrice = 0;
     }
+    var numVal1 = orderItemPrice;
+    var d = document.getElementById("orderitemdiscount").value;
+    var numVal2 = Number(d) / 100;
+    var totalValue = numVal1 - (numVal1 * numVal2);
     e.preventDefault();
     if ($('#products').val() != null) {
         var createOrderData = {
             orderid: orderId,
             orderItemPrice: orderItemPrice,
+            discount:d,
+            totalValue:totalValue,
             productid: $('#products').val()
         };
         $.ajax({
@@ -108,6 +114,7 @@ $('.add-row').on('click', function(e) {
                     markup += "<td>";
                     markup += alter;
                     markup += "</td>";
+                    markup += "<td>"+totalValue+"</td>";
                     markup += "<td><div class='btn-group' role='group' aria-label='Basic example'>";
                     markup += "<a class='btn btn-dark btn-sm' title='Assign Sales' data-toggle='tooltip' onclick='loadAssignModel(\"" + response.Data[i].orderItemId + "\",\"" + response.Data[i].employeeid + "\")' href='#'><i class='fa fa-tasks'></i></a>";
                     markup += "<a class='btn btn-info btn-sm' title='Edit Price' data-toggle='tooltip' onclick='loadPriceModal(\"" + response.Data[i].orderItemId + "\",\"" + response.Data[i].productTitle + "\",\"" + (i + 1) + "\")' href='#'><i class='fa fa-inr'></i></a>";
@@ -584,6 +591,7 @@ $('#loadfirstpage').on('click', function(e) {
 
 function displayOrderDetails(orderDetails) {
     totalorderamount = orderDetails.amount;
+    $('#oAmount').val(totalorderamount);
     $('#orderId').html(orderDetails.orderId);
     $('#Orderamount').html(orderDetails.amount);
     $('#orderStatus').html(statusMap.get(orderDetails.orderStatus));
@@ -701,4 +709,34 @@ function assignOrderDate(orderItemId) {
 function payTerms() {
     getPaymentList();
     $('#paymentLinkModal').modal();
+}
+
+calDiscount = function() {
+    var numVal1 = Number(document.getElementById("oAmount").value);
+    var d = document.getElementById("orderDiscount").value;
+    var numVal2 = Number(d) / 100;
+    var totalValue = numVal1 - (numVal1 * numVal2)
+    totalorderamount = totalValue;
+    document.getElementById("ftotalorder").value = totalValue.toFixed(2);
+    console.log($('#ftotalorder').val());
+var orderStatusData = {
+orderId:orderId,
+discount:d
+};
+console.log(orderStatusData);
+    $.ajax({
+        url: api_url + 'updateorderdiscount.php',
+        type: 'POST',
+        data: orderStatusData,
+        dataType: 'json',
+        beforeSend: function() {
+            $(".preloader").show();
+        },
+        success: function(response) {
+           console.log(response);
+        },
+        complete: function(response) {
+            $(".preloader").hide();
+        }
+    });
 }

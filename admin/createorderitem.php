@@ -11,15 +11,15 @@ header('Content-Type: application/json');
 	 date_default_timezone_set("Asia/Kolkata");
 	 $currentDate=date('Y-m-d H:i:s'); //Returns IST	
 	
-	  if(isset($_POST['orderid']) && isset($_POST['productid']) && isset($_POST['orderItemPrice']))
+	  if(isset($_POST['orderid']) && isset($_POST['productid']) && isset($_POST['orderItemPrice']) && isset($_POST['totalValue']))
 	 {
-			
-			$query = mysqli_query($conn,"insert into customer_order_items_master(orderid,productid,orderItemPrice,creationDateTime) values ($orderid,$productid,$orderItemPrice,'$currentDate')");
+			$discount = isset($_POST['discount']) ? $_POST['discount']:'0';
+			$query = mysqli_query($conn,"insert into customer_order_items_master(orderid,productid,orderItemPrice,creationDateTime,discount) values ($orderid,$productid,$orderItemPrice,'$currentDate','$discount')");
 		
 			$rowsAffected=mysqli_affected_rows($conn);
 				if($rowsAffected==1)
 				{
-					$updateAmountQuery = mysqli_query($conn,"UPDATE customer_order_master SET amount = amount + $orderItemPrice WHERE orderId = $orderid");
+					$updateAmountQuery = mysqli_query($conn,"UPDATE customer_order_master SET amount = amount + $totalValue WHERE orderId = $orderid");
 					
 					$transactionQuery = mysqli_query($conn,"select * from  customer_order_items_master oi inner join product_master pm on oi.productid = pm.productid where oi.orderid=$orderid");
 					if($transactionQuery!=null)

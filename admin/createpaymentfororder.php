@@ -14,6 +14,8 @@ date_default_timezone_set("Asia/Kolkata");
 if (isset($_POST['orderid']) && isset($_POST['currencyCode']) && isset($_POST['type']) && isset($_POST['mode']) && isset($_POST['amount']) && isset($_POST['employeeid'])  ) {
 
 	$status = 0;
+	$taxRate = ($amount*0.12);
+	$amount = $amount+$taxRate;
 	if($mode == "Cash")
 	{
 		$status = 1;

@@ -58,6 +58,8 @@
                                                         class="fa fa-clock-o"></i><span class="" style="padding: 20px;">Slot Master</span></a></li>
                                             <li><a class=" " href="currencymaster.php" aria-expanded="false"><i
                                                           class="fa fa-money"></i><span class="" style="padding: 20px;">Currency Master</span></a></li>
+                                                          <li><a class=" " href="promomaster.php" aria-expanded="false"><i
+                                                          class="fa fa-money"></i><span class="" style="padding: 20px;">Promo Codes</span></a></li>
 
                                           </ul>
                           </li>
@@ -94,6 +96,8 @@
                                                         class="fa fa-clock-o"></i><span class="" style="padding: 20px;">Slot Master</span></a></li>
                                             <li><a class=" " href="currencymaster.php" aria-expanded="false"><i
                                                           class="fa fa-money"></i><span class="" style="padding: 20px;">Currency Master</span></a></li>
+                                                          <li><a class=" " href="promomaster.php" aria-expanded="false"><i
+                                                          class="fa fa-money"></i><span class="" style="padding: 20px;">Promo Codes</span></a></li>
 
                                           </ul>
                           </li>

@@ -273,12 +273,18 @@ function showData(orderid, rowId) {
             markup += "<td>" + customerOrderDetails.orderItems[i].OrderItem.orderItemPrice + "</td>";
             markup += "<td style='display:none'><input type='hidden' id='amt" + customerOrderDetails.orderItems[i].OrderItem.orderItemId + "' value='" + customerOrderDetails.orderItems[i].OrderItem.orderItemPrice + "'/>";
             // console.log(customerOrderDetails.orderItems[i].OrderItem.orderItemPrice);
-            totalorderamount += parseFloat(customerOrderDetails.orderItems[i].OrderItem.orderItemPrice);
+      
+            var numVal1 = Number(customerOrderDetails.orderItems[i].OrderItem.orderItemPrice);
+            var numVal2 = Number(customerOrderDetails.orderItems[i].OrderItem.discount) / 100;
+            var totalValue = numVal1 - (numVal1 * numVal2);
+            totalorderamount += totalValue;
+            console.log(totalorderamount);
             // markup += alter;
             markup += "</td>";
             markup += "<td>";
             markup += alter;
             markup += "</td>";
+            markup += "<td>"+totalValue+"</td>";
             markup += "<td><div class='btn-group' role='group' aria-label='Basic example'>";
             markup += "<a class='btn btn-dark btn-sm' title='Assign Sales' data-toggle='tooltip' onclick='loadAssignModel(\"" + customerOrderDetails.orderItems[i].OrderItem.orderItemId + "\",\"" + customerOrderDetails.orderItems[i].OrderItem.employeeid + "\")' href='#'><i class='fa fa-tasks'></i></a>";
             markup += "<a class='btn btn-info btn-sm' title='Edit Price' data-toggle='tooltip' onclick='loadPriceModal(\"" + customerOrderDetails.orderItems[i].OrderItem.orderItemId + "\",\"" + customerOrderDetails.orderItems[i].OrderItem.productTitle + "\",\"" + (i + 1) + "\")' href='#'><i class='fa fa-inr'></i></a>";
